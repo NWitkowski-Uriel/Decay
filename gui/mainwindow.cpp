@@ -1,8 +1,6 @@
-// gui/mainwindow.cpp
 #include "mainwindow.h"
 
 #include <QMessageBox>
-#include <QProcess>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGroupBox>
@@ -16,7 +14,7 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     setWindowTitle("Delta Analysis – GUI");
-    resize(900, 550);
+    resize(900, 600);
 
     centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
@@ -51,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     cbIncludeDecays = new QCheckBox("Include Delta decays");
     cbIncludeDecays->setChecked(true);
     connect(cbIncludeDecays, &QCheckBox::stateChanged, this, &MainWindow::onDecayCheckChanged);
-    rbDirac = new QRadioButton("Dirac (fixed mass)");
+    rbDirac = new QRadioButton("Dirac");
     rbBW = new QRadioButton("Breit‑Wigner");
     rbPS = new QRadioButton("Phase Shift");
     rbDirac->setChecked(true);
@@ -74,39 +72,62 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     buttonLayout->addWidget(testButton);
 
     tabWidget = new QTabWidget();
+    logOutput = new QPlainTextEdit();
+    logOutput->setReadOnly(true);
     testOutput = new QPlainTextEdit();
     testOutput->setReadOnly(true);
+    tabWidget->addTab(logOutput, "Logs");
     tabWidget->addTab(testOutput, "Decay tests");
-    tabWidget->setVisible(true);
+
+    statusLabel = new QLabel("Idle");
 
     mainLayout->addLayout(selectionLayout);
     mainLayout->addLayout(buttonLayout);
     mainLayout->addWidget(tabWidget);
+    mainLayout->addWidget(statusLabel);
+
+    process = new QProcess(this);
+    connect(process, &QProcess::readyReadStandardOutput, this, &MainWindow::onStdout);
+    connect(process, &QProcess::readyReadStandardError, this, &MainWindow::onStderr);
+    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+            this, &MainWindow::onProcessFinished);
+
+    currentStep = 0;
 }
 
 MainWindow::~MainWindow() {}
 
-void MainWindow::onDecayCheckChanged(int state) {
-    bool enable = (state == Qt::Checked);
-    rbDirac->setEnabled(enable);
-    rbBW->setEnabled(enable);
-    rbPS->setEnabled(enable);
+void MainWindow::onStdout() {
+    logOutput->appendPlainText(QString::fromLocal8Bit(process->readAllStandardOutput()));
 }
 
-void MainWindow::onRunTestsClicked() {
-    QString appPath = QCoreApplication::applicationDirPath();
-    QString exec = appPath + "/test_decay_multiplicities";
+void MainWindow::onStderr() {
+    logOutput->appendPlainText(QString::fromLocal8Bit(process->readAllStandardError()));
+}
 
-    if (!QFileInfo::exists(exec)) {
-        QMessageBox::critical(this, "Error", "test_decay_multiplicities not found");
+void MainWindow::onProcessFinished(int exitCode, QProcess::ExitStatus) {
+    if (exitCode != 0) {
+        statusLabel->setText("Error");
+        return;
+    }
+    startNextStep();
+}
+
+void MainWindow::startPipeline() {
+    currentStep = 0;
+    logOutput->clear();
+    startNextStep();
+}
+
+void MainWindow::startNextStep() {
+    if (currentStep >= steps.size()) {
+        statusLabel->setText("Done");
         return;
     }
 
-    QProcess proc;
-    proc.start(exec, QStringList());
-    proc.waitForFinished(-1);
-
-    testOutput->setPlainText(proc.readAllStandardOutput());
+    auto step = steps[currentStep++];
+    statusLabel->setText(step.description);
+    process->start(step.program, step.args);
 }
 
 void MainWindow::onComputeClicked() {
@@ -122,33 +143,33 @@ void MainWindow::onComputeClicked() {
         return;
     }
 
-    QString execPath = QCoreApplication::applicationDirPath();
+    QString appPath = QCoreApplication::applicationDirPath();
 
-    // 1. Compute spectra (ROOT file)
-    {
-        QProcess proc;
-        proc.start(execPath + "/compute_spectra",
-                   QStringList() << "--particles=" + particles.join(","));
-        proc.waitForFinished(-1);
+    steps.clear();
 
-        if (proc.exitCode() != 0) {
-            QMessageBox::critical(this, "Error", "compute_spectra failed");
-            return;
-        }
-    }
+    steps.append({appPath + "/compute_spectra",
+                  {"--particles=" + particles.join(",")},
+                  "Running compute_spectra"});
 
-    // 2. Export publication plots
     if (cbMt->isChecked() || cbRatio->isChecked()) {
-        QProcess proc;
-        proc.start(execPath + "/export_publication_plots",
-                   QStringList() << "--particles=" + particles.join(","));
-        proc.waitForFinished(-1);
-
-        if (proc.exitCode() != 0) {
-            QMessageBox::critical(this, "Error", "plot export failed");
-            return;
-        }
+        steps.append({appPath + "/export_publication_plots",
+                      {"--particles=" + particles.join(",")},
+                      "Generating plots"});
     }
 
-    QMessageBox::information(this, "Done", "Plots saved in output/");
+    startPipeline();
+}
+
+void MainWindow::onRunTestsClicked() {
+    QString exec = QCoreApplication::applicationDirPath() + "/test_decay_multiplicities";
+    steps.clear();
+    steps.append({exec, {}, "Running decay tests"});
+    startPipeline();
+}
+
+void MainWindow::onDecayCheckChanged(int state) {
+    bool enable = (state == Qt::Checked);
+    rbDirac->setEnabled(enable);
+    rbBW->setEnabled(enable);
+    rbPS->setEnabled(enable);
 }

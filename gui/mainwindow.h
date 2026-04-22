@@ -10,6 +10,15 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPlainTextEdit>
+#include <QLabel>
+#include <QProcess>
+#include <QList>
+
+struct ProcessStep {
+    QString program;
+    QStringList args;
+    QString description;
+};
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -22,6 +31,9 @@ private slots:
     void onComputeClicked();
     void onDecayCheckChanged(int state);
     void onRunTestsClicked();
+    void onProcessFinished(int exitCode, QProcess::ExitStatus status);
+    void onStdout();
+    void onStderr();
 
 private:
     QWidget *centralWidget;
@@ -50,10 +62,19 @@ private:
 
     QPushButton *computeButton;
     QPushButton *testButton;
-    QTabWidget *tabWidget;
-    QPlainTextEdit *testOutput;
 
+    QTabWidget *tabWidget;
+    QPlainTextEdit *logOutput;
+    QPlainTextEdit *testOutput;
+    QLabel *statusLabel;
+
+    QProcess *process;
+    QList<ProcessStep> steps;
+    int currentStep;
+
+    void startPipeline();
+    void startNextStep();
     void enableModelGroup(bool enable);
 };
 
-#endif // MAINWINDOW_H
+#endif
