@@ -9,6 +9,16 @@
 #include <QRadioButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QPlainTextEdit>
+#include <QLabel>
+#include <QProcess>
+#include <QList>
+
+struct ProcessStep {
+    QString program;
+    QStringList args;
+    QString description;
+};
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -20,12 +30,16 @@ public:
 private slots:
     void onComputeClicked();
     void onDecayCheckChanged(int state);
+    void onRunTestsClicked();
+    void onProcessFinished(int exitCode, QProcess::ExitStatus status);
+    void onStdout();
+    void onStderr();
 
 private:
-    // Widgets
     QWidget *centralWidget;
     QVBoxLayout *mainLayout;
     QHBoxLayout *selectionLayout;
+    QHBoxLayout *buttonLayout;
 
     QGroupBox *particleGroup;
     QGroupBox *distGroup;
@@ -41,15 +55,26 @@ private:
     QCheckBox *cbRapidity;
     QCheckBox *cbRatio;
 
-    QCheckBox *cbIncludeDecays;            // nowy checkbox – czy uwzględniać rozpady
+    QCheckBox *cbIncludeDecays;
     QRadioButton *rbDirac;
     QRadioButton *rbBW;
     QRadioButton *rbPS;
 
     QPushButton *computeButton;
-    QTabWidget *tabWidget;
+    QPushButton *testButton;
 
+    QTabWidget *tabWidget;
+    QPlainTextEdit *logOutput;
+    QPlainTextEdit *testOutput;
+    QLabel *statusLabel;
+
+    QProcess *process;
+    QList<ProcessStep> steps;
+    int currentStep;
+
+    void startPipeline();
+    void startNextStep();
     void enableModelGroup(bool enable);
 };
 
-#endif // MAINWINDOW_H
+#endif
