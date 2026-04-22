@@ -9,10 +9,11 @@
 #include <QRadioButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QPlainTextEdit>
+#include <QTextEdit>
 #include <QLabel>
 #include <QProcess>
 #include <QList>
+#include <QProgressBar>
 
 struct ProcessStep {
     QString program;
@@ -64,16 +65,20 @@ private:
     QPushButton *testButton;
 
     QTabWidget *tabWidget;
-    QPlainTextEdit *logOutput;
-    QPlainTextEdit *testOutput;
+    QTextEdit *logOutput;
+    QTextEdit *testOutput;
     QLabel *statusLabel;
+    QProgressBar *progressBar;
 
     QProcess *process;
     QList<ProcessStep> steps;
     int currentStep;
+    bool runningTests;
 
     void startPipeline();
     void startNextStep();
+    void appendLog(const QString& text, const QString& color, bool toTests = false);
+    void setUiBusy(bool busy);
     void enableModelGroup(bool enable);
 };
 
