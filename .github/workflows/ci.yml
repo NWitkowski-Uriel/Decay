@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          channels: conda-forge
+          channel-priority: strict
+          activate-environment: root-env
+          auto-activate-base: false
+
+      - name: Install ROOT and build tools
+        shell: bash -l {0}
+        run: |
+          set -euo pipefail
+          conda install -y root cmake make cxx-compiler qt-main
+          root-config --version
+
+      - name: Configure
+        shell: bash -l {0}
+        run: |
+          set -euo pipefail
+          cmake -S . -B build
+
+      - name: Build
+        shell: bash -l {0}
+        run: |
+          set -euo pipefail
+          cmake --build build -j
+
+      - name: Run decay multiplicity test
+        shell: bash -l {0}
+        run: |
+          set -euo pipefail
+          ./build/test_decay_multiplicities | tee test_output.txt
+          if grep -q "ERROR" test_output.txt; then
+            echo "Decay test failed"
+            exit 1
+          fi
