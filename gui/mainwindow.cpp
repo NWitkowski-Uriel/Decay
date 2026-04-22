@@ -16,46 +16,44 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     setWindowTitle("Delta Analysis – GUI");
-    resize(800, 450);
+    resize(900, 550);
 
     centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
     mainLayout = new QVBoxLayout(centralWidget);
     selectionLayout = new QHBoxLayout();
+    buttonLayout = new QHBoxLayout();
 
-    // --- Grupa cząstek ---
     particleGroup = new QGroupBox("Particles");
     QVBoxLayout *partLayout = new QVBoxLayout(particleGroup);
-    cbProton   = new QCheckBox("Proton");
-    cbNeutron  = new QCheckBox("Neutron");
-    cbPiPlus   = new QCheckBox("#pi^{+}");
-    cbPiMinus  = new QCheckBox("#pi^{-}");
-    cbPiZero   = new QCheckBox("#pi^{0}");
+    cbProton = new QCheckBox("Proton");
+    cbNeutron = new QCheckBox("Neutron");
+    cbPiPlus = new QCheckBox("#pi^{+}");
+    cbPiMinus = new QCheckBox("#pi^{-}");
+    cbPiZero = new QCheckBox("#pi^{0}");
     partLayout->addWidget(cbProton);
     partLayout->addWidget(cbNeutron);
     partLayout->addWidget(cbPiPlus);
     partLayout->addWidget(cbPiMinus);
     partLayout->addWidget(cbPiZero);
 
-    // --- Grupa typów rozkładów ---
     distGroup = new QGroupBox("Distribution type");
     QVBoxLayout *distLayout = new QVBoxLayout(distGroup);
-    cbMt       = new QCheckBox("Transverse mass (m_t)");
+    cbMt = new QCheckBox("Transverse mass (m_t)");
     cbRapidity = new QCheckBox("Rapidity (y)");
-    cbRatio    = new QCheckBox("Total/Primordial ratio");
+    cbRatio = new QCheckBox("Total/Primordial ratio");
     distLayout->addWidget(cbMt);
     distLayout->addWidget(cbRapidity);
     distLayout->addWidget(cbRatio);
 
-    // --- Grupa modeli (rozpady Δ) ---
     modelGroup = new QGroupBox("Delta decay model");
     QVBoxLayout *modelLayout = new QVBoxLayout(modelGroup);
     cbIncludeDecays = new QCheckBox("Include Delta decays");
     cbIncludeDecays->setChecked(true);
     connect(cbIncludeDecays, &QCheckBox::stateChanged, this, &MainWindow::onDecayCheckChanged);
     rbDirac = new QRadioButton("Dirac (fixed mass)");
-    rbBW    = new QRadioButton("Breit‑Wigner (Γ=120 MeV)");
-    rbPS    = new QRadioButton("Phase Shift");
+    rbBW = new QRadioButton("Breit‑Wigner");
+    rbPS = new QRadioButton("Phase Shift");
     rbDirac->setChecked(true);
     modelLayout->addWidget(cbIncludeDecays);
     modelLayout->addWidget(rbDirac);
@@ -65,16 +63,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     selectionLayout->addWidget(particleGroup);
     selectionLayout->addWidget(distGroup);
     selectionLayout->addWidget(modelGroup);
-    selectionLayout->addStretch();
 
     computeButton = new QPushButton("Compute & Plot");
+    testButton = new QPushButton("Run decay tests");
+
     connect(computeButton, &QPushButton::clicked, this, &MainWindow::onComputeClicked);
+    connect(testButton, &QPushButton::clicked, this, &MainWindow::onRunTestsClicked);
+
+    buttonLayout->addWidget(computeButton);
+    buttonLayout->addWidget(testButton);
 
     tabWidget = new QTabWidget();
-    tabWidget->setVisible(false);
+    testOutput = new QPlainTextEdit();
+    testOutput->setReadOnly(true);
+    tabWidget->addTab(testOutput, "Decay tests");
+    tabWidget->setVisible(true);
 
     mainLayout->addLayout(selectionLayout);
-    mainLayout->addWidget(computeButton);
+    mainLayout->addLayout(buttonLayout);
     mainLayout->addWidget(tabWidget);
 }
 
@@ -87,165 +93,62 @@ void MainWindow::onDecayCheckChanged(int state) {
     rbPS->setEnabled(enable);
 }
 
+void MainWindow::onRunTestsClicked() {
+    QString appPath = QCoreApplication::applicationDirPath();
+    QString exec = appPath + "/test_decay_multiplicities";
+
+    if (!QFileInfo::exists(exec)) {
+        QMessageBox::critical(this, "Error", "test_decay_multiplicities not found");
+        return;
+    }
+
+    QProcess proc;
+    proc.start(exec);
+    proc.waitForFinished(-1);
+
+    testOutput->setPlainText(proc.readAllStandardOutput());
+}
+
 void MainWindow::onComputeClicked() {
-    // Zbierz wybory
     QStringList particles;
-    if (cbProton->isChecked())   particles << "proton";
-    if (cbNeutron->isChecked())  particles << "neutron";
-    if (cbPiPlus->isChecked())   particles << "piplus";
-    if (cbPiMinus->isChecked())  particles << "piminus";
-    if (cbPiZero->isChecked())   particles << "pi0";
+    if (cbProton->isChecked()) particles << "proton";
+    if (cbNeutron->isChecked()) particles << "neutron";
+    if (cbPiPlus->isChecked()) particles << "piplus";
+    if (cbPiMinus->isChecked()) particles << "piminus";
+    if (cbPiZero->isChecked()) particles << "pi0";
 
     QStringList distributions;
-    if (cbMt->isChecked())       distributions << "mt";
+    if (cbMt->isChecked()) distributions << "mt";
     if (cbRapidity->isChecked()) distributions << "rapidity";
-    if (cbRatio->isChecked())    distributions << "ratio";
-
-    QString model;
-    if (!cbIncludeDecays->isChecked()) {
-        model = "primordial";
-    } else {
-        if (rbDirac->isChecked()) model = "dirac";
-        else if (rbBW->isChecked()) model = "bw";
-        else model = "ps";
-    }
 
     if (particles.isEmpty() || distributions.isEmpty()) {
-        QMessageBox::warning(this, "No selection",
-                             "Please select at least one particle and one distribution type.");
+        QMessageBox::warning(this, "Selection", "Select particle and distribution");
         return;
     }
 
-    // Utwórz katalog wyjściowy
-    QDir dir;
-    if (!dir.exists("output")) {
-        if (!dir.mkdir("output")) {
-            QMessageBox::critical(this, "Error", "Cannot create output directory.");
-            return;
-        }
-    }
+    QDir().mkpath("output");
 
     QString appPath = QCoreApplication::applicationDirPath();
-    QString computePrimordial = appPath + "/compute_primordial";
-    QString computeDeltaDecays = appPath + "/compute_delta_decays";
-    QString computeTotal = appPath + "/compute_total";
-    QString plotMt = appPath + "/plot_mt";
-    QString plotRapidity = appPath + "/plot_rapidity";
 
-    // Sprawdź, czy pliki wykonywalne istnieją
-    if (!QFileInfo::exists(computePrimordial)) {
-        QMessageBox::critical(this, "Error", "compute_primordial not found in " + appPath);
-        return;
-    }
-    if (cbIncludeDecays->isChecked() && !QFileInfo::exists(computeDeltaDecays)) {
-        QMessageBox::critical(this, "Error", "compute_delta_decays not found in " + appPath);
-        return;
-    }
-    if (!QFileInfo::exists(computeTotal)) {
-        QMessageBox::critical(this, "Error", "compute_total not found in " + appPath);
-        return;
-    }
-    if ((distributions.contains("mt") || distributions.contains("rapidity")) && !QFileInfo::exists(plotMt)) {
-        QMessageBox::critical(this, "Error", "plot_mt not found in " + appPath);
-        return;
-    }
-    if ((distributions.contains("rapidity") || distributions.contains("ratio")) && !QFileInfo::exists(plotRapidity)) {
-        QMessageBox::critical(this, "Error", "plot_rapidity not found in " + appPath);
-        return;
-    }
+    auto run = [&](QString exe, QStringList args = {}) {
+        QProcess p;
+        p.start(exe, args);
+        p.waitForFinished(-1);
+        return p.exitCode() == 0;
+    };
 
-    // -----------------------------------------------------------------
-    // 1. Uruchom compute_primordial (bez timeoutu)
-    // -----------------------------------------------------------------
-    QProcess p1;
-    p1.start(computePrimordial, QStringList());
-    if (!p1.waitForStarted()) {
-        QMessageBox::critical(this, "Error", "Could not start compute_primordial: " + p1.errorString());
-        return;
-    }
-    // Czekaj w nieskończoność, aż proces się zakończy
-    if (!p1.waitForFinished()) {
-        QMessageBox::critical(this, "Error", "compute_primordial did not finish.");
-        return;
-    }
-    if (p1.exitCode() != 0) {
-        QMessageBox::critical(this, "Error",
-                              "compute_primordial failed.\n" + p1.readAllStandardError());
-        return;
-    }
-
-    // Sprawdź, czy plik wynikowy został utworzony
-    if (!QFile::exists("primordial.root")) {
-        QMessageBox::critical(this, "Error", "compute_primordial did not create primordial.root");
-        return;
-    }
-
-    // -----------------------------------------------------------------
-    // 2. Uruchom compute_delta_decays (tylko jeśli włączone rozpady)
-    // -----------------------------------------------------------------
+    if (!run(appPath + "/compute_primordial")) return;
     if (cbIncludeDecays->isChecked()) {
-        QStringList deltaArgs;
-        deltaArgs << "--particles=" + particles.join(",");
-        deltaArgs << "--model=" + model;
-
-        QProcess p2;
-        p2.start(computeDeltaDecays, deltaArgs);
-        if (!p2.waitForStarted()) {
-            QMessageBox::critical(this, "Error", "Could not start compute_delta_decays: " + p2.errorString());
-            return;
-        }
-        if (!p2.waitForFinished()) {
-            QMessageBox::critical(this, "Error", "compute_delta_decays did not finish.");
-            return;
-        }
-        if (p2.exitCode() != 0) {
-            QMessageBox::critical(this, "Error",
-                                  "compute_delta_decays failed.\n" + p2.readAllStandardError());
-            return;
-        }
-        // Sprawdź, czy plik wynikowy istnieje (jeśli nie, to znaczy, że nie było żadnych rozpadów – ale to normalne)
+        if (!run(appPath + "/compute_delta_decays", {"--particles=" + particles.join(",")})) return;
     }
-
-    // -----------------------------------------------------------------
-    // 3. Uruchom compute_total
-    // -----------------------------------------------------------------
-    QProcess p3;
-    p3.start(computeTotal, QStringList());
-    if (!p3.waitForStarted()) {
-        QMessageBox::critical(this, "Error", "Could not start compute_total: " + p3.errorString());
-        return;
-    }
-    if (!p3.waitForFinished()) {
-        QMessageBox::critical(this, "Error", "compute_total did not finish.");
-        return;
-    }
-    if (p3.exitCode() != 0) {
-        QMessageBox::critical(this, "Error",
-                              "compute_total failed.\n" + p3.readAllStandardError());
-        return;
-    }
-    if (!QFile::exists("total.root")) {
-        QMessageBox::critical(this, "Error", "compute_total did not create total.root");
-        return;
-    }
-
-    // -----------------------------------------------------------------
-    // 4. Uruchom programy rysujące (bez oczekiwania)
-    // -----------------------------------------------------------------
-    QStringList plotArgs;
-    plotArgs << "--distributions=" + distributions.join(",");
-    plotArgs << "--particles=" + particles.join(",");
+    if (!run(appPath + "/compute_total")) return;
 
     if (distributions.contains("mt")) {
-        QProcess::startDetached(plotMt, plotArgs);
+        run(appPath + "/plot_mt", {"--particles=" + particles.join(",")});
     }
     if (distributions.contains("rapidity")) {
-        QProcess::startDetached(plotRapidity, plotArgs);
+        run(appPath + "/plot_rapidity", {"--particles=" + particles.join(",")});
     }
 
-    QMessageBox::information(this, "Done",
-                             "Calculations finished.\n"
-                             "Results are in the 'output' folder:\n"
-                             " - Data: output/total.root\n"
-                             " - Plots: PDF/PNG files");
+    QMessageBox::information(this, "Done", "Plots saved in output/");
 }
