@@ -7,6 +7,7 @@
 #include <TAxis.h>
 #include <TStyle.h>
 #include <iostream>
+#include <filesystem>
 
 void DrawComparisonPlot(
     const std::string& filename,
