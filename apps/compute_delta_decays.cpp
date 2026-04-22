@@ -13,6 +13,7 @@
 
 #include "Constants.h"
 #include "DecayFunctions.h"
+#include "RadialGrid.h"
 
 struct Args {
     std::set<std::string> particles;
@@ -55,6 +56,9 @@ bool needModel(const std::string& m) {
 
 int main(int argc, char* argv[]) {
     parse(argc, argv);
+
+    RadialGrid::instance().setNumPoints(200);
+
     const int n_mt = 1000;
     const double mt_min = 0.0, mt_max = 3000.0;
     const int n_y = 101;
