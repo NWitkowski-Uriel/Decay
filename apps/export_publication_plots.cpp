@@ -9,6 +9,7 @@
 #include <tuple>
 #include <vector>
 
+#include "TColor.h"
 #include "Constants.h"
 #include "DecayFunctions.h"
 #include "Plotting.h"
