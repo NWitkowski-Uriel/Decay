@@ -9,6 +9,7 @@
 #include <QRadioButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QPlainTextEdit>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -20,12 +21,13 @@ public:
 private slots:
     void onComputeClicked();
     void onDecayCheckChanged(int state);
+    void onRunTestsClicked();
 
 private:
-    // Widgets
     QWidget *centralWidget;
     QVBoxLayout *mainLayout;
     QHBoxLayout *selectionLayout;
+    QHBoxLayout *buttonLayout;
 
     QGroupBox *particleGroup;
     QGroupBox *distGroup;
@@ -41,13 +43,15 @@ private:
     QCheckBox *cbRapidity;
     QCheckBox *cbRatio;
 
-    QCheckBox *cbIncludeDecays;            // nowy checkbox – czy uwzględniać rozpady
+    QCheckBox *cbIncludeDecays;
     QRadioButton *rbDirac;
     QRadioButton *rbBW;
     QRadioButton *rbPS;
 
     QPushButton *computeButton;
+    QPushButton *testButton;
     QTabWidget *tabWidget;
+    QPlainTextEdit *testOutput;
 
     void enableModelGroup(bool enable);
 };
