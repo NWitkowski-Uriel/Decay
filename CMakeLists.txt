@@ -42,6 +42,12 @@ target_link_libraries(compute_yields_refactored DeltaLib)
 add_executable(compare_models apps/compare_models.cpp)
 target_link_libraries(compare_models DeltaLib)
 
+add_executable(export_publication_plots apps/export_publication_plots.cpp)
+target_link_libraries(export_publication_plots DeltaLib)
+
+add_executable(test_decay_multiplicities apps/test_decay_multiplicities.cpp)
+target_link_libraries(test_decay_multiplicities DeltaLib)
+
 # GUI
 add_executable(gui_analysis
     gui/main.cpp
