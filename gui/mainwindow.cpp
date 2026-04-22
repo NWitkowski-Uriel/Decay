@@ -103,7 +103,7 @@ void MainWindow::onRunTestsClicked() {
     }
 
     QProcess proc;
-    proc.start(exec);
+    proc.start(exec, QStringList());
     proc.waitForFinished(-1);
 
     testOutput->setPlainText(proc.readAllStandardOutput());
