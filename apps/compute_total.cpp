@@ -37,6 +37,7 @@ int main() {
     std::vector<std::string> particles = {"proton", "neutron", "piplus", "piminus", "pi0"};
     double total_proton_prim = 0.0;
     double total_proton_dirac = 0.0;
+    double total_proton_ps = 0.0;
 
     for (const auto& p : particles) {
         // ----- mt histogram -----
@@ -51,10 +52,11 @@ int main() {
         h_total_prim_mt->Write();
 
         // Sprawdź, czy są wkłady z rozpadów
-        TH1D *h_dirac_mt = nullptr, *h_bw_mt = nullptr;
+        TH1D *h_dirac_mt = nullptr, *h_bw_mt = nullptr, *h_ps_mt = nullptr;
         if (has_delta) {
             h_dirac_mt = (TH1D*)f_delta.Get(("h_delta_dirac_" + p + "_mt").c_str());
             h_bw_mt    = (TH1D*)f_delta.Get(("h_delta_bw_" + p + "_mt").c_str());
+            h_ps_mt    = (TH1D*)f_delta.Get(("h_delta_ps_" + p + "_mt").c_str());
         }
 
         // Twórz total_dirac tylko jeśli istnieją dane Dirac i nie są puste
@@ -71,6 +73,14 @@ int main() {
             h_total_bw_mt->Add(h_bw_mt);
             h_total_bw_mt->Write();
             delete h_total_bw_mt;
+        }
+
+        // Podobnie dla PS
+        if (h_ps_mt && hasNonZeroContent(h_ps_mt)) {
+            TH1D *h_total_ps_mt = (TH1D*)h_prim_mt->Clone(("h_total_ps_" + p + "_mt").c_str());
+            h_total_ps_mt->Add(h_ps_mt);
+            h_total_ps_mt->Write();
+            delete h_total_ps_mt;
         }
 
         delete h_total_prim_mt;
@@ -102,6 +112,18 @@ int main() {
                 h_total_bw_y->Write();
                 delete h_total_bw_y;
             }
+
+            TH1D *h_ps_y = (TH1D*)f_delta.Get(("h_delta_ps_" + p + "_y").c_str());
+            if (h_ps_y && hasNonZeroContent(h_ps_y)) {
+                TH1D *h_total_ps_y = (TH1D*)h_prim_y->Clone(("h_total_ps_" + p + "_y").c_str());
+                h_total_ps_y->Add(h_ps_y);
+                h_total_ps_y->Write();
+                if (p == "proton") {
+                    for (int i = 1; i <= h_ps_y->GetNbinsX(); ++i)
+                        total_proton_ps += h_ps_y->GetBinContent(i) * h_ps_y->GetBinWidth(i);
+                }
+                delete h_total_ps_y;
+            }
         }
 
         // Całkowity yield protonu (pierwotny)
@@ -114,10 +136,13 @@ int main() {
     }
 
     double total_proton_total_dirac = total_proton_prim + total_proton_dirac;
-    double scale_factor = (total_proton_total_dirac > 0) ? N_proton_exp / total_proton_total_dirac : 1.0;
+    double total_proton_total_ps = total_proton_prim + total_proton_ps;
+    double norm_reference = (total_proton_total_dirac > 0.0) ? total_proton_total_dirac : total_proton_total_ps;
+    double scale_factor = (norm_reference > 0) ? N_proton_exp / norm_reference : 1.0;
 
     std::cout << "Total proton (primordial): " << total_proton_prim << "\n";
     std::cout << "Total proton (Dirac decays): " << total_proton_dirac << "\n";
+    std::cout << "Total proton (PS decays): " << total_proton_ps << "\n";
     std::cout << "Scale factor = " << scale_factor << "\n";
 
     TParameter<double> *p_scale = new TParameter<double>("scale_factor", scale_factor);

@@ -53,6 +53,34 @@ double BreitWigner(double m, double m0, double Gamma, double m_min, double m_max
     return it->second * BreitWignerRaw(m, m0, Gamma);
 }
 
+
+
+static double PhaseShiftRaw(double m, double m0, double Gamma) {
+    const double half_gamma = 0.5 * Gamma;
+    const double x = (m - m0) / half_gamma;
+    return (1.0 / M_PI) * std::atan(x) + 0.5;
+}
+
+double PhaseShiftWeight(double m, double m0, double Gamma, double m_min, double m_max) {
+    if (m < m_min || m > m_max) return 0.0;
+    static std::map<std::pair<double,double>, double> norm_cache;
+    auto key = std::make_pair(m_min, m_max);
+    auto it = norm_cache.find(key);
+    if (it == norm_cache.end()) {
+        auto integrand = [&](double mm) {
+            const double half_gamma = 0.5 * Gamma;
+            const double x = (mm - m0) / half_gamma;
+            return 1.0 / (M_PI * half_gamma * (1.0 + x*x));
+        };
+        double I = Integrate1D_high(integrand, m_min, m_max);
+        norm_cache[key] = (I > 0.0) ? (1.0 / I) : 1.0;
+        return norm_cache[key] * integrand(m);
+    }
+    const double half_gamma = 0.5 * Gamma;
+    const double x = (m - m0) / half_gamma;
+    const double raw = 1.0 / (M_PI * half_gamma * (1.0 + x*x));
+    return it->second * raw;
+}
 // ============================================
 // Numerical integration – reduced versions
 // ============================================

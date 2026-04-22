@@ -26,7 +26,7 @@
 struct Selection {
     std::set<std::string> particles;   // "proton","neutron","piplus","piminus","pi0"
     std::set<std::string> dists;       // "mt","rapidity","ratio"
-    std::string model;                 // "dirac","bw","both"
+    std::string model;                 // "dirac","bw","ps","all" ("both" kept for compatibility)
     std::string output;                // nazwa pliku wynikowego
 } sel;
 
@@ -72,7 +72,8 @@ void parseArguments(int argc, char* argv[]) {
     if (sel.dists.empty()) {
         sel.dists = {"mt","rapidity","ratio"};
     }
-    if (sel.model.empty()) sel.model = "both";
+    if (sel.model.empty()) sel.model = "all";
+    if (sel.model == "both") sel.model = "all";
     if (sel.output.empty()) sel.output = "output/yields.root";
 }
 
@@ -88,7 +89,7 @@ bool needParticle(const std::string& p) {
 }
 
 bool needModel(const std::string& m) {
-    if (sel.model == "both") return true;
+    if (sel.model == "all" || sel.model == "both") return true;
     return sel.model == m;
 }
 
@@ -144,10 +145,10 @@ int main(int argc, char* argv[]) {
 
     // Struktury do przechowywania wyników (wektory)
     struct MtData {
-        std::vector<double> prim, dirac, bw, total_dirac, total_bw;
+        std::vector<double> prim, dirac, bw, ps, total_dirac, total_bw, total_ps;
     };
     struct YData {
-        std::vector<double> prim, dirac, bw, total_dirac, total_bw;
+        std::vector<double> prim, dirac, bw, ps, total_dirac, total_bw, total_ps;
     };
     std::map<std::string, MtData> mt_data;
     std::map<std::string, YData> y_data;
@@ -155,6 +156,7 @@ int main(int argc, char* argv[]) {
     // Wektory dla delt (potrzebne do rapidity)
     std::vector<double> dndy_Dpp_Dirac, dndy_Dp_Dirac, dndy_D0_Dirac, dndy_Dm_Dirac;
     std::vector<double> dndy_Dpp_BW, dndy_Dp_BW, dndy_D0_BW, dndy_Dm_BW;
+    std::vector<double> dndy_Dpp_PS, dndy_Dp_PS, dndy_D0_PS, dndy_Dm_PS;
     if (need("rapidity")) {
         dndy_Dpp_Dirac.resize(npoints_y_half);
         dndy_Dp_Dirac.resize(npoints_y_half);
@@ -164,6 +166,10 @@ int main(int argc, char* argv[]) {
         dndy_Dp_BW.resize(npoints_y_half);
         dndy_D0_BW.resize(npoints_y_half);
         dndy_Dm_BW.resize(npoints_y_half);
+        dndy_Dpp_PS.resize(npoints_y_half);
+        dndy_Dp_PS.resize(npoints_y_half);
+        dndy_D0_PS.resize(npoints_y_half);
+        dndy_Dm_PS.resize(npoints_y_half);
     }
 
     // Inicjalizacja wektorów dla wybranych cząstek
@@ -172,15 +178,19 @@ int main(int argc, char* argv[]) {
             mt_data[p].prim.resize(npoints_mt, 0.0);
             mt_data[p].dirac.resize(npoints_mt, 0.0);
             mt_data[p].bw.resize(npoints_mt, 0.0);
+            mt_data[p].ps.resize(npoints_mt, 0.0);
             mt_data[p].total_dirac.resize(npoints_mt, 0.0);
             mt_data[p].total_bw.resize(npoints_mt, 0.0);
+            mt_data[p].total_ps.resize(npoints_mt, 0.0);
         }
         if (need("rapidity")) {
             y_data[p].prim.resize(npoints_y_half, 0.0);
             y_data[p].dirac.resize(npoints_y_half, 0.0);
             y_data[p].bw.resize(npoints_y_half, 0.0);
+            y_data[p].ps.resize(npoints_y_half, 0.0);
             y_data[p].total_dirac.resize(npoints_y_half, 0.0);
             y_data[p].total_bw.resize(npoints_y_half, 0.0);
+            y_data[p].total_ps.resize(npoints_y_half, 0.0);
         }
     }
 
@@ -210,6 +220,11 @@ int main(int argc, char* argv[]) {
                     mt_data["proton"].bw[i] = bw;
                     mt_data["proton"].total_bw[i] = prim + bw;
                 }
+                if (needModel("ps")) {
+                    double ps = dN_dmt_proton_from_Delta_PS(mt, 0.0);
+                    mt_data["proton"].ps[i] = ps;
+                    mt_data["proton"].total_ps[i] = prim + ps;
+                }
             }
             if (needParticle("neutron") && mt > mn) {
                 double prim = dN_dmt_primordial(mt, 0.0, mu_n, mn, g_neutron);
@@ -223,6 +238,11 @@ int main(int argc, char* argv[]) {
                     double bw = dN_dmt_neutron_from_Delta_BW(mt, 0.0);
                     mt_data["neutron"].bw[i] = bw;
                     mt_data["neutron"].total_bw[i] = prim + bw;
+                }
+                if (needModel("ps")) {
+                    double ps = dN_dmt_neutron_from_Delta_PS(mt, 0.0);
+                    mt_data["neutron"].ps[i] = ps;
+                    mt_data["neutron"].total_ps[i] = prim + ps;
                 }
             }
             if (needParticle("piplus") && mt > mpi) {
@@ -238,6 +258,11 @@ int main(int argc, char* argv[]) {
                     mt_data["piplus"].bw[i] = bw;
                     mt_data["piplus"].total_bw[i] = prim + bw;
                 }
+                if (needModel("ps")) {
+                    double ps = dN_dmt_piplus_from_Delta_PS(mt, 0.0);
+                    mt_data["piplus"].ps[i] = ps;
+                    mt_data["piplus"].total_ps[i] = prim + ps;
+                }
             }
             if (needParticle("piminus") && mt > mpi) {
                 double prim = dN_dmt_primordial(mt, 0.0, mu_piminus, mpi, g_pion);
@@ -252,6 +277,11 @@ int main(int argc, char* argv[]) {
                     mt_data["piminus"].bw[i] = bw;
                     mt_data["piminus"].total_bw[i] = prim + bw;
                 }
+                if (needModel("ps")) {
+                    double ps = dN_dmt_piminus_from_Delta_PS(mt, 0.0);
+                    mt_data["piminus"].ps[i] = ps;
+                    mt_data["piminus"].total_ps[i] = prim + ps;
+                }
             }
             if (needParticle("pi0") && mt > mpi0) {
                 double prim = dN_dmt_primordial(mt, 0.0, mu_pi0, mpi0, g_pion);
@@ -265,6 +295,11 @@ int main(int argc, char* argv[]) {
                     double bw = dN_dmt_pi0_from_Delta_BW(mt, 0.0);
                     mt_data["pi0"].bw[i] = bw;
                     mt_data["pi0"].total_bw[i] = prim + bw;
+                }
+                if (needModel("ps")) {
+                    double ps = dN_dmt_pi0_from_Delta_PS(mt, 0.0);
+                    mt_data["pi0"].ps[i] = ps;
+                    mt_data["pi0"].total_ps[i] = prim + ps;
                 }
             }
         }
@@ -294,6 +329,12 @@ int main(int argc, char* argv[]) {
                 dndy_Dp_BW[i]  = dN_dy_Delta_BW(y, mu_Dp,  g_Delta);
                 dndy_D0_BW[i]  = dN_dy_Delta_BW(y, mu_D0,  g_Delta);
                 dndy_Dm_BW[i]  = dN_dy_Delta_BW(y, mu_Dm,  g_Delta);
+            }
+            if (needModel("ps")) {
+                dndy_Dpp_PS[i] = dN_dy_Delta_PS(y, mu_Dpp, g_Delta);
+                dndy_Dp_PS[i]  = dN_dy_Delta_PS(y, mu_Dp,  g_Delta);
+                dndy_D0_PS[i]  = dN_dy_Delta_PS(y, mu_D0,  g_Delta);
+                dndy_Dm_PS[i]  = dN_dy_Delta_PS(y, mu_Dm,  g_Delta);
             }
 
             for (const auto& p : sel.particles) {
@@ -325,6 +366,16 @@ int main(int argc, char* argv[]) {
                     y_data[p].bw[i] = bw;
                     y_data[p].total_bw[i] = prim + bw;
                 }
+                if (needModel("ps")) {
+                    double ps = 0.0;
+                    if (p == "proton")   ps = dndy_Dpp_PS[i] + (2.0/3.0)*dndy_Dp_PS[i] + (1.0/3.0)*dndy_D0_PS[i];
+                    if (p == "neutron")  ps = (1.0/3.0)*dndy_Dp_PS[i] + (2.0/3.0)*dndy_D0_PS[i] + dndy_Dm_PS[i];
+                    if (p == "piplus")   ps = dndy_Dpp_PS[i] + (1.0/3.0)*dndy_Dp_PS[i];
+                    if (p == "piminus")  ps = (1.0/3.0)*dndy_D0_PS[i] + dndy_Dm_PS[i];
+                    if (p == "pi0")      ps = (2.0/3.0)*dndy_Dp_PS[i] + (2.0/3.0)*dndy_D0_PS[i];
+                    y_data[p].ps[i] = ps;
+                    y_data[p].total_ps[i] = prim + ps;
+                }
             }
         }
     }
@@ -332,7 +383,7 @@ int main(int argc, char* argv[]) {
     // -------------------------------------------------------------------------
     // Obliczenia całkowitych yieldów protonu (dla skalowania)
     // -------------------------------------------------------------------------
-    double total_proton_prim = 0.0, total_proton_dirac = 0.0, total_proton_bw = 0.0;
+    double total_proton_prim = 0.0, total_proton_dirac = 0.0, total_proton_bw = 0.0, total_proton_ps = 0.0;
     if (need("rapidity") && needParticle("proton")) {
         double dy_full = (y_max_half * 2) / (npoints_y_full - 1);
         for (int i = 0; i < npoints_y_half; ++i) {
@@ -340,15 +391,19 @@ int main(int argc, char* argv[]) {
             total_proton_prim += weight * y_data["proton"].prim[i] * dy_full;
             if (needModel("dirac")) total_proton_dirac += weight * y_data["proton"].dirac[i] * dy_full;
             if (needModel("bw"))    total_proton_bw += weight * y_data["proton"].bw[i] * dy_full;
+            if (needModel("ps"))    total_proton_ps += weight * y_data["proton"].ps[i] * dy_full;
         }
         total_proton_prim = 2 * total_proton_prim - (y_data["proton"].prim[0] * dy_full) / 2;
         if (needModel("dirac")) total_proton_dirac = 2 * total_proton_dirac - (y_data["proton"].dirac[0] * dy_full) / 2;
         if (needModel("bw"))    total_proton_bw = 2 * total_proton_bw - (y_data["proton"].bw[0] * dy_full) / 2;
+        if (needModel("ps"))    total_proton_ps = 2 * total_proton_ps - (y_data["proton"].ps[0] * dy_full) / 2;
     }
 
     double total_proton_total_dirac = total_proton_prim + total_proton_dirac;
     double total_proton_total_bw    = total_proton_prim + total_proton_bw;
-    double scale_factor = (total_proton_total_dirac > 0) ? N_proton_exp / total_proton_total_dirac : 1.0;
+    double total_proton_total_ps    = total_proton_prim + total_proton_ps;
+    double norm_reference = total_proton_total_dirac > 0 ? total_proton_total_dirac : (total_proton_total_bw > 0 ? total_proton_total_bw : total_proton_total_ps);
+    double scale_factor = (norm_reference > 0) ? N_proton_exp / norm_reference : 1.0;
 
     // -------------------------------------------------------------------------
     // Zapis do pliku ROOT – poprawiony sposób
@@ -382,6 +437,10 @@ int main(int argc, char* argv[]) {
                 mt_tree->Branch("proton_bw", &mt_data["proton"].bw[0]);
                 mt_tree->Branch("proton_total_bw", &mt_data["proton"].total_bw[0]);
             }
+            if (needModel("ps")) {
+                mt_tree->Branch("proton_ps", &mt_data["proton"].ps[0]);
+                mt_tree->Branch("proton_total_ps", &mt_data["proton"].total_ps[0]);
+            }
         }
         if (needParticle("neutron")) {
             mt_tree->Branch("neutron_prim", &mt_data["neutron"].prim[0]);
@@ -392,6 +451,10 @@ int main(int argc, char* argv[]) {
             if (needModel("bw")) {
                 mt_tree->Branch("neutron_bw", &mt_data["neutron"].bw[0]);
                 mt_tree->Branch("neutron_total_bw", &mt_data["neutron"].total_bw[0]);
+            }
+            if (needModel("ps")) {
+                mt_tree->Branch("neutron_ps", &mt_data["neutron"].ps[0]);
+                mt_tree->Branch("neutron_total_ps", &mt_data["neutron"].total_ps[0]);
             }
         }
         if (needParticle("piplus")) {
@@ -404,6 +467,10 @@ int main(int argc, char* argv[]) {
                 mt_tree->Branch("piplus_bw", &mt_data["piplus"].bw[0]);
                 mt_tree->Branch("piplus_total_bw", &mt_data["piplus"].total_bw[0]);
             }
+            if (needModel("ps")) {
+                mt_tree->Branch("piplus_ps", &mt_data["piplus"].ps[0]);
+                mt_tree->Branch("piplus_total_ps", &mt_data["piplus"].total_ps[0]);
+            }
         }
         if (needParticle("piminus")) {
             mt_tree->Branch("piminus_prim", &mt_data["piminus"].prim[0]);
@@ -415,6 +482,10 @@ int main(int argc, char* argv[]) {
                 mt_tree->Branch("piminus_bw", &mt_data["piminus"].bw[0]);
                 mt_tree->Branch("piminus_total_bw", &mt_data["piminus"].total_bw[0]);
             }
+            if (needModel("ps")) {
+                mt_tree->Branch("piminus_ps", &mt_data["piminus"].ps[0]);
+                mt_tree->Branch("piminus_total_ps", &mt_data["piminus"].total_ps[0]);
+            }
         }
         if (needParticle("pi0")) {
             mt_tree->Branch("pi0_prim", &mt_data["pi0"].prim[0]);
@@ -425,6 +496,10 @@ int main(int argc, char* argv[]) {
             if (needModel("bw")) {
                 mt_tree->Branch("pi0_bw", &mt_data["pi0"].bw[0]);
                 mt_tree->Branch("pi0_total_bw", &mt_data["pi0"].total_bw[0]);
+            }
+            if (needModel("ps")) {
+                mt_tree->Branch("pi0_ps", &mt_data["pi0"].ps[0]);
+                mt_tree->Branch("pi0_total_ps", &mt_data["pi0"].total_ps[0]);
             }
         }
 
@@ -458,6 +533,10 @@ int main(int argc, char* argv[]) {
                 y_tree->Branch("proton_bw", &y_data["proton"].bw[0]);
                 y_tree->Branch("proton_total_bw", &y_data["proton"].total_bw[0]);
             }
+            if (needModel("ps")) {
+                y_tree->Branch("proton_ps", &y_data["proton"].ps[0]);
+                y_tree->Branch("proton_total_ps", &y_data["proton"].total_ps[0]);
+            }
         }
         if (needParticle("neutron")) {
             y_tree->Branch("neutron_prim", &y_data["neutron"].prim[0]);
@@ -468,6 +547,10 @@ int main(int argc, char* argv[]) {
             if (needModel("bw")) {
                 y_tree->Branch("neutron_bw", &y_data["neutron"].bw[0]);
                 y_tree->Branch("neutron_total_bw", &y_data["neutron"].total_bw[0]);
+            }
+            if (needModel("ps")) {
+                y_tree->Branch("neutron_ps", &y_data["neutron"].ps[0]);
+                y_tree->Branch("neutron_total_ps", &y_data["neutron"].total_ps[0]);
             }
         }
         if (needParticle("piplus")) {
@@ -480,6 +563,10 @@ int main(int argc, char* argv[]) {
                 y_tree->Branch("piplus_bw", &y_data["piplus"].bw[0]);
                 y_tree->Branch("piplus_total_bw", &y_data["piplus"].total_bw[0]);
             }
+            if (needModel("ps")) {
+                y_tree->Branch("piplus_ps", &y_data["piplus"].ps[0]);
+                y_tree->Branch("piplus_total_ps", &y_data["piplus"].total_ps[0]);
+            }
         }
         if (needParticle("piminus")) {
             y_tree->Branch("piminus_prim", &y_data["piminus"].prim[0]);
@@ -491,6 +578,10 @@ int main(int argc, char* argv[]) {
                 y_tree->Branch("piminus_bw", &y_data["piminus"].bw[0]);
                 y_tree->Branch("piminus_total_bw", &y_data["piminus"].total_bw[0]);
             }
+            if (needModel("ps")) {
+                y_tree->Branch("piminus_ps", &y_data["piminus"].ps[0]);
+                y_tree->Branch("piminus_total_ps", &y_data["piminus"].total_ps[0]);
+            }
         }
         if (needParticle("pi0")) {
             y_tree->Branch("pi0_prim", &y_data["pi0"].prim[0]);
@@ -501,6 +592,10 @@ int main(int argc, char* argv[]) {
             if (needModel("bw")) {
                 y_tree->Branch("pi0_bw", &y_data["pi0"].bw[0]);
                 y_tree->Branch("pi0_total_bw", &y_data["pi0"].total_bw[0]);
+            }
+            if (needModel("ps")) {
+                y_tree->Branch("pi0_ps", &y_data["pi0"].ps[0]);
+                y_tree->Branch("pi0_total_ps", &y_data["pi0"].total_ps[0]);
             }
         }
 

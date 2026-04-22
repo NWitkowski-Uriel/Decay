@@ -55,10 +55,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     connect(cbIncludeDecays, &QCheckBox::stateChanged, this, &MainWindow::onDecayCheckChanged);
     rbDirac = new QRadioButton("Dirac (fixed mass)");
     rbBW    = new QRadioButton("Breit‑Wigner (Γ=120 MeV)");
+    rbPS    = new QRadioButton("Phase Shift");
     rbDirac->setChecked(true);
     modelLayout->addWidget(cbIncludeDecays);
     modelLayout->addWidget(rbDirac);
     modelLayout->addWidget(rbBW);
+    modelLayout->addWidget(rbPS);
 
     selectionLayout->addWidget(particleGroup);
     selectionLayout->addWidget(distGroup);
@@ -82,6 +84,7 @@ void MainWindow::onDecayCheckChanged(int state) {
     bool enable = (state == Qt::Checked);
     rbDirac->setEnabled(enable);
     rbBW->setEnabled(enable);
+    rbPS->setEnabled(enable);
 }
 
 void MainWindow::onComputeClicked() {
@@ -102,7 +105,9 @@ void MainWindow::onComputeClicked() {
     if (!cbIncludeDecays->isChecked()) {
         model = "primordial";
     } else {
-        model = rbDirac->isChecked() ? "dirac" : "bw";
+        if (rbDirac->isChecked()) model = "dirac";
+        else if (rbBW->isChecked()) model = "bw";
+        else model = "ps";
     }
 
     if (particles.isEmpty() || distributions.isEmpty()) {

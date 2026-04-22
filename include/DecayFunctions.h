@@ -22,22 +22,27 @@ double dN_dmt_proton_from_Delta_Dirac(double mt, double y);
  * Integrates over resonance mass with proper kinematic thresholds.
  */
 double dN_dmt_proton_from_Delta_BW(double mt, double y);
+double dN_dmt_proton_from_Delta_PS(double mt, double y);
 
 // ---------- Neutrons ----------
 double dN_dmt_neutron_from_Delta_Dirac(double mt, double y);
 double dN_dmt_neutron_from_Delta_BW(double mt, double y);
+double dN_dmt_neutron_from_Delta_PS(double mt, double y);
 
 // ---------- Positive pions ----------
 double dN_dmt_piplus_from_Delta_Dirac(double mt, double y);
 double dN_dmt_piplus_from_Delta_BW(double mt, double y);
+double dN_dmt_piplus_from_Delta_PS(double mt, double y);
 
 // ---------- Negative pions ----------
 double dN_dmt_piminus_from_Delta_Dirac(double mt, double y);
 double dN_dmt_piminus_from_Delta_BW(double mt, double y);
+double dN_dmt_piminus_from_Delta_PS(double mt, double y);
 
 // ---------- Neutral pions ----------
 double dN_dmt_pi0_from_Delta_Dirac(double mt, double y);
 double dN_dmt_pi0_from_Delta_BW(double mt, double y);
+double dN_dmt_pi0_from_Delta_PS(double mt, double y);
 
 // ============================================
 // Rapidity distributions from Delta decays
@@ -46,21 +51,26 @@ double dN_dmt_pi0_from_Delta_BW(double mt, double y);
 // Protons
 double dN_dy_proton_from_Delta_Dirac(double y);
 double dN_dy_proton_from_Delta_BW(double y);
+double dN_dy_proton_from_Delta_PS(double y);
 
 // Neutrons
 double dN_dy_neutron_from_Delta_Dirac(double y);
 double dN_dy_neutron_from_Delta_BW(double y);
+double dN_dy_neutron_from_Delta_PS(double y);
 
 // Positive pions
 double dN_dy_piplus_from_Delta_Dirac(double y);
 double dN_dy_piplus_from_Delta_BW(double y);
+double dN_dy_piplus_from_Delta_PS(double y);
 
 // Negative pions
 double dN_dy_piminus_from_Delta_Dirac(double y);
 double dN_dy_piminus_from_Delta_BW(double y);
+double dN_dy_piminus_from_Delta_PS(double y);
 
 // Neutral pions
 double dN_dy_pi0_from_Delta_Dirac(double y);
 double dN_dy_pi0_from_Delta_BW(double y);
+double dN_dy_pi0_from_Delta_PS(double y);
 
 #endif // DECAYFUNCTIONS_H

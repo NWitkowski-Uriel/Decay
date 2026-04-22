@@ -54,6 +54,7 @@ double kp(double q, double Mr, double M1, double M2);
  * @return       Value of the normalized distribution at m
  */
 double BreitWigner(double m, double m0, double Gamma, double m_min, double m_max);
+double PhaseShiftWeight(double m, double m0, double Gamma, double m_min, double m_max);
 
 // ============================================
 // Numerical integration routines
