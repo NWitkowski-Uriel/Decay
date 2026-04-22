@@ -1,6 +1,6 @@
 // src/MathUtils.cpp
 #include "MathUtils.h"
-#include <algorithm>
+#include "Constants.h"
 #include <cmath>
 #include <map>
 #include <tuple>
@@ -9,93 +9,85 @@ namespace {
 
 constexpr double kPi = 3.14159265358979323846;
 
-struct SpectralCacheKey {
-    double m0;
-    double gamma0;
-    double mMin;
-    double mMax;
+struct CacheKey {
+    double m_min;
+    double m_max;
     double m1;
     double m2;
 
-    bool operator<(const SpectralCacheKey& other) const {
-        return std::tie(m0, gamma0, mMin, mMax, m1, m2) <
-               std::tie(other.m0, other.gamma0, other.mMin, other.mMax, other.m1, other.m2);
+    bool operator<(const CacheKey& other) const {
+        return std::tie(m_min, m_max, m1, m2) < std::tie(other.m_min, other.m_max, other.m1, other.m2);
     }
 };
 
-double safe_pstar(double m, double m1, double m2) {
-    return PStar(m, m1, m2);
+double PStarPrime(double M, double m1, double m2) {
+    const double ps = PStar(M, m1, m2);
+    if (ps <= 0.0 || M <= 0.0) return 0.0;
+    const double num = M*M*M*M - std::pow(m1*m1 - m2*m2, 2);
+    return num / (4.0 * M*M*M * ps);
 }
 
-double gamma_delta_running(double m, double m0, double gamma0, double m1, double m2) {
-    if (m <= 0.0) return 0.0;
-    const double p = safe_pstar(m, m1, m2);
-    const double p0 = safe_pstar(m0, m1, m2);
-    if (p <= 0.0 || p0 <= 0.0) return 0.0;
-
-    const double ratio = p / p0;
-    return gamma0 * (m0 / m) * ratio * ratio * ratio;
+double bw_raw(double M) {
+    return 1.0 / ((M - mD_central) * (M - mD_central) + 0.25 * Gamma_Delta * Gamma_Delta);
 }
 
-double breit_wigner_raw(double m, double m0, double gamma0, double m1, double m2) {
-    const double gamma_m = gamma_delta_running(m, m0, gamma0, m1, m2);
-    if (gamma_m <= 0.0) return 0.0;
+double PiPS(double M, double m1, double m2) {
+    const double ps = PStar(M, m1, m2);
+    return c1PS * ps * ps + c2PS * ps * ps * ps * ps;
+}
 
-    const double dm2 = m * m - m0 * m0;
-    const double denom = dm2 * dm2 + (m0 * gamma_m) * (m0 * gamma_m);
+double deltaArgPS(double M, double m1, double m2) {
+    const double ps = PStar(M, m1, m2);
+    if (ps <= 0.0 || M <= 0.0 || std::abs(M*M - mD_central*mD_central) < 1e-12) return 0.0;
+    return -(2.0 * alpha0PS * ps * ps * ps) /
+           (3.0 * M * (M*M - mD_central*mD_central) * (1.0 + PiPS(M, m1, m2)));
+}
+
+double deltaPS(double M, double m1, double m2) {
+    return std::atan(deltaArgPS(M, m1, m2));
+}
+
+double dDeltaPS(double M, double m1, double m2) {
+    const double ps = PStar(M, m1, m2);
+    if (ps <= 0.0 || M <= m1 + m2 || M <= 0.0) return 0.0;
+
+    const double dps = PStarPrime(M, m1, m2);
+    const double y = deltaArgPS(M, m1, m2);
+    const double denom = 1.0 + y * y;
     if (denom <= 0.0) return 0.0;
 
-    const double value = (2.0 * m * m0 * gamma_m) / (kPi * denom);
-    return std::isfinite(value) && value > 0.0 ? value : 0.0;
+    const double pi_ps = PiPS(M, m1, m2);
+    const double dPi = dps * (2.0 * c1PS * ps + 4.0 * c2PS * ps * ps * ps);
+    const double bracket = (3.0 * dps / ps)
+        - (1.0 / M)
+        - (2.0 * M / (M*M - mD_central*mD_central))
+        - (dPi / (1.0 + pi_ps));
+
+    return y * bracket / denom;
 }
 
-double phase_shift_delta(double m, double m0, double gamma0, double m1, double m2) {
-    const double gamma_m = gamma_delta_running(m, m0, gamma0, m1, m2);
-    if (gamma_m <= 0.0) return 0.0;
-
-    const double real_part = m0 * m0 - m * m;
-    const double imag_part = m0 * gamma_m;
-    double delta = std::atan2(imag_part, real_part);
-    if (delta < 0.0) delta += kPi;
-    return delta;
+double BPS(double M, double m1, double m2) {
+    return 2.0 * dDeltaPS(M, m1, m2);
 }
 
-double phase_shift_density_raw(double m, double m0, double gamma0, double mMin, double mMax,
-                               double m1, double m2) {
-    if (m < mMin || m > mMax) return 0.0;
-    const double h = std::max(1e-3, 1e-4 * (mMax - mMin));
-    const double ml = std::max(mMin, m - h);
-    const double mr = std::min(mMax, m + h);
-    if (mr <= ml) return 0.0;
-
-    const double dl = phase_shift_delta(ml, m0, gamma0, m1, m2);
-    const double dr = phase_shift_delta(mr, m0, gamma0, m1, m2);
-    const double rho = (dr - dl) / (kPi * (mr - ml));
-    return std::isfinite(rho) && rho > 0.0 ? rho : 0.0;
-}
-
-double normalized_weight(double m,
-                         const SpectralCacheKey& key,
-                         const std::function<double(double)>& raw) {
-    if (m < key.mMin || m > key.mMax) return 0.0;
-
-    static std::map<SpectralCacheKey, double> normCache;
-    auto it = normCache.find(key);
-    if (it == normCache.end()) {
-        const double integral = Integrate1D_high(raw, key.mMin, key.mMax);
-        const double norm = (integral > 0.0 && std::isfinite(integral)) ? 1.0 / integral : 1.0;
-        it = normCache.emplace(key, norm).first;
+double normalized_from_cache(double x, const CacheKey& key, const std::function<double(double)>& raw) {
+    if (x < key.m_min || x > key.m_max) return 0.0;
+    static std::map<CacheKey, double> cache;
+    auto it = cache.find(key);
+    if (it == cache.end()) {
+        const double I = Integrate1D_high(raw, key.m_min, key.m_max);
+        const double norm = (I > 0.0 && std::isfinite(I)) ? 1.0 / I : 1.0;
+        it = cache.emplace(key, norm).first;
     }
-
-    const double value = it->second * raw(m);
-    return std::isfinite(value) && value > 0.0 ? value : 0.0;
+    const double value = it->second * raw(x);
+    return (std::isfinite(value) && value > 0.0) ? value : 0.0;
 }
 
 } // namespace
 
 double PStar(double Mr, double M1, double M2) {
-    const double term1 = Mr * Mr - (M1 + M2) * (M1 + M2);
-    const double term2 = Mr * Mr - (M1 - M2) * (M1 - M2);
+    const double term1 = Mr*Mr - (M1 + M2)*(M1 + M2);
+    const double term2 = Mr*Mr - (M1 - M2)*(M1 - M2);
     if (term1 <= 0.0 || term2 <= 0.0 || Mr <= 0.0) return 0.0;
     return std::sqrt(term1 * term2) / (2.0 * Mr);
 }
@@ -103,57 +95,55 @@ double PStar(double Mr, double M1, double M2) {
 double km(double q, double Mr, double M1, double M2) {
     const double pstar = PStar(Mr, M1, M2);
     if (pstar <= 1e-12) return 0.0;
-    const double Estar = std::sqrt(M1 * M1 + pstar * pstar);
-    const double Eq = std::sqrt(M1 * M1 + q * q);
-    return Mr * std::fabs(Estar * q - pstar * Eq) / (M1 * M1);
+    const double Estar = std::sqrt(M1*M1 + pstar*pstar);
+    const double Eq    = std::sqrt(M1*M1 + q*q);
+    return Mr * std::fabs(Estar*q - pstar*Eq) / (M1*M1);
 }
 
 double kp(double q, double Mr, double M1, double M2) {
     const double pstar = PStar(Mr, M1, M2);
     if (pstar <= 1e-12) return 0.0;
-    const double Estar = std::sqrt(M1 * M1 + pstar * pstar);
-    const double Eq = std::sqrt(M1 * M1 + q * q);
-    return Mr * std::fabs(Estar * q + pstar * Eq) / (M1 * M1);
+    const double Estar = std::sqrt(M1*M1 + pstar*pstar);
+    const double Eq    = std::sqrt(M1*M1 + q*q);
+    return Mr * std::fabs(Estar*q + pstar*Eq) / (M1*M1);
 }
 
-double BreitWigner(double m, double m0, double Gamma, double m_min, double m_max,
+double BreitWigner(double M, double m0, double Gamma, double m_min, double m_max,
                    double m1, double m2) {
-    SpectralCacheKey key{m0, Gamma, m_min, m_max, m1, m2};
-    auto raw = [&](double mm) { return breit_wigner_raw(mm, m0, Gamma, m1, m2); };
-    return normalized_weight(m, key, raw);
+    (void)m0;
+    (void)Gamma;
+    CacheKey key{m_min, m_max, m1, m2};
+    auto raw = [&](double x) { return bw_raw(x); };
+    return normalized_from_cache(M, key, raw);
 }
 
-double PhaseShiftWeight(double m, double m0, double Gamma, double m_min, double m_max,
+double PhaseShiftWeight(double M, double m0, double Gamma, double m_min, double m_max,
                         double m1, double m2) {
-    SpectralCacheKey key{m0, Gamma, m_min, m_max, m1, m2};
-    auto raw = [&](double mm) { return phase_shift_density_raw(mm, m0, Gamma, m_min, m_max, m1, m2); };
-    return normalized_weight(m, key, raw);
+    (void)m0;
+    (void)Gamma;
+    CacheKey key{m_min, m_max, m1, m2};
+    auto raw = [&](double x) { return BPS(x, m1, m2); };
+    return normalized_from_cache(M, key, raw);
 }
 
 double Integrate1D_high(const std::function<double(double)>& func, double a, double b) {
     if (!(b > a)) return 0.0;
-    int n = 4000;
-    if (n % 2 != 0) ++n;
+    const int n = 4000;
     const double h = (b - a) / n;
-
-    double sum = func(a) + func(b);
-    for (int i = 1; i < n; ++i) {
-        const double x = a + i * h;
-        sum += (i % 2 == 0 ? 2.0 : 4.0) * func(x);
-    }
-    return sum * h / 3.0;
+    double sum = 0.5 * (func(a) + func(b));
+    for (int i = 1; i < n; ++i) sum += func(a + i * h);
+    return sum * h;
 }
 
 double Integrate2D_high(const std::function<double(double,double)>& func,
                         double x_min, double x_max,
                         double y_min, double y_max) {
     if (!(x_max > x_min) || !(y_max > y_min)) return 0.0;
-    const int nx = 240;
-    const int ny = 240;
+    const int nx = 160;
+    const int ny = 160;
     const double dx = (x_max - x_min) / nx;
     const double dy = (y_max - y_min) / ny;
     double sum = 0.0;
-
     for (int i = 0; i < nx; ++i) {
         const double x = x_min + (i + 0.5) * dx;
         for (int j = 0; j < ny; ++j) {
