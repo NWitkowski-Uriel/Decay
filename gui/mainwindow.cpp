@@ -117,37 +117,37 @@ void MainWindow::onComputeClicked() {
     if (cbPiMinus->isChecked()) particles << "piminus";
     if (cbPiZero->isChecked()) particles << "pi0";
 
-    QStringList distributions;
-    if (cbMt->isChecked()) distributions << "mt";
-    if (cbRapidity->isChecked()) distributions << "rapidity";
-
-    if (particles.isEmpty() || distributions.isEmpty()) {
-        QMessageBox::warning(this, "Selection", "Select particle and distribution");
+    if (particles.isEmpty()) {
+        QMessageBox::warning(this, "Selection", "Select particles");
         return;
     }
 
-    QDir().mkpath("output");
+    QString execPath = QCoreApplication::applicationDirPath();
 
-    QString appPath = QCoreApplication::applicationDirPath();
+    // 1. Compute spectra (ROOT file)
+    {
+        QProcess proc;
+        proc.start(execPath + "/compute_spectra",
+                   QStringList() << "--particles=" + particles.join(","));
+        proc.waitForFinished(-1);
 
-    auto run = [&](QString exe, QStringList args = {}) {
-        QProcess p;
-        p.start(exe, args);
-        p.waitForFinished(-1);
-        return p.exitCode() == 0;
-    };
-
-    if (!run(appPath + "/compute_primordial")) return;
-    if (cbIncludeDecays->isChecked()) {
-        if (!run(appPath + "/compute_delta_decays", {"--particles=" + particles.join(",")})) return;
+        if (proc.exitCode() != 0) {
+            QMessageBox::critical(this, "Error", "compute_spectra failed");
+            return;
+        }
     }
-    if (!run(appPath + "/compute_total")) return;
 
-    if (distributions.contains("mt")) {
-        run(appPath + "/plot_mt", {"--particles=" + particles.join(",")});
-    }
-    if (distributions.contains("rapidity")) {
-        run(appPath + "/plot_rapidity", {"--particles=" + particles.join(",")});
+    // 2. Export publication plots
+    if (cbMt->isChecked() || cbRatio->isChecked()) {
+        QProcess proc;
+        proc.start(execPath + "/export_publication_plots",
+                   QStringList() << "--particles=" + particles.join(","));
+        proc.waitForFinished(-1);
+
+        if (proc.exitCode() != 0) {
+            QMessageBox::critical(this, "Error", "plot export failed");
+            return;
+        }
     }
 
     QMessageBox::information(this, "Done", "Plots saved in output/");
