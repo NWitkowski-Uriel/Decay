@@ -64,18 +64,9 @@ bool hasNonZeroContent(TH1* h) {
 }
 
 // Poprawiona funkcja ładująca dane – pomija BOM UTF-8
-
-std::string resolveDataPath(const std::string& filename) {
-    namespace fs = std::filesystem;
-    if (fs::exists(filename)) return filename;
-    std::string inData = "data/" + filename;
-    if (fs::exists(inData)) return inData;
-    return filename;
-}
-
 std::vector<std::pair<double,double>> LoadData(const std::string& filename) {
     std::vector<std::pair<double,double>> data;
-    std::ifstream file(resolveDataPath(filename), std::ios::binary);
+    std::ifstream file(filename, std::ios::binary);
     if (!file.is_open()) {
         std::cerr << "Warning: cannot open " << filename << std::endl;
         return data;
@@ -132,7 +123,6 @@ int main(int argc, char* argv[]) {
         TH1D *h_prim = (TH1D*)infile->Get(("h_total_prim_" + p.name + "_mt").c_str());
         TH1D *h_dirac = (TH1D*)infile->Get(("h_total_dirac_" + p.name + "_mt").c_str());
         TH1D *h_bw = (TH1D*)infile->Get(("h_total_bw_" + p.name + "_mt").c_str());
-        TH1D *h_ps = (TH1D*)infile->Get(("h_total_ps_" + p.name + "_mt").c_str());
 
         if (!h_prim) {
             std::cerr << "Warning: no mt histogram for " << p.name << std::endl;
@@ -141,9 +131,8 @@ int main(int argc, char* argv[]) {
 
         bool has_dirac = (h_dirac && hasNonZeroContent(h_dirac));
         bool has_bw    = (h_bw && hasNonZeroContent(h_bw));
-        bool has_ps    = (h_ps && hasNonZeroContent(h_ps));
 
-        std::vector<double> x, prim, dirac, total_dirac, bw, total_bw, ps, total_ps;
+        std::vector<double> x, prim, dirac, total_dirac, bw, total_bw;
         int nbins = h_prim->GetNbinsX();
         for (int i = 1; i <= nbins; ++i) {
             double xval = h_prim->GetBinCenter(i);
@@ -160,11 +149,6 @@ int main(int argc, char* argv[]) {
                     bw.push_back(b);
                     total_bw.push_back((h_prim->GetBinContent(i) + h_bw->GetBinContent(i)) * scale_factor);
                 }
-                if (has_ps) {
-                    double v = h_ps->GetBinContent(i) * scale_factor;
-                    ps.push_back(v);
-                    total_ps.push_back((h_prim->GetBinContent(i) + h_ps->GetBinContent(i)) * scale_factor);
-                }
             }
         }
         if (x.empty()) continue;
@@ -178,10 +162,6 @@ int main(int argc, char* argv[]) {
         if (has_bw) {
             series.emplace_back(&x, &bw, kBlue, 2, "From #Delta (BW)");
             series.emplace_back(&x, &total_bw, kMagenta, 1, "Total (BW)");
-        }
-        if (has_ps) {
-            series.emplace_back(&x, &ps, kOrange + 7, 2, "From #Delta (Phase Shift)");
-            series.emplace_back(&x, &total_ps, kCyan + 2, 1, "Total (Phase Shift)");
         }
 
         // Dane eksperymentalne
@@ -208,8 +188,8 @@ int main(int argc, char* argv[]) {
                            "1/m_{t}^{2} dN/(dm_{t} dy) [MeV^{-3}]",
                            series, exp, true, 0, 1000.0, 1e-12, 1e-4);
 
-        if (need("ratio") && (has_dirac || has_bw || has_ps)) {
-            std::vector<double> ratio_dirac, ratio_bw, ratio_ps;
+        if (need("ratio") && (has_dirac || has_bw)) {
+            std::vector<double> ratio_dirac, ratio_bw;
             if (has_dirac) {
                 for (size_t i = 0; i < x.size(); ++i) {
                     if (prim[i] > 0)
@@ -226,31 +206,14 @@ int main(int argc, char* argv[]) {
                         ratio_bw.push_back(0.0);
                 }
             }
-            if (has_ps) {
-                for (size_t i = 0; i < x.size(); ++i) {
-                    if (prim[i] > 0)
-                        ratio_ps.push_back(total_ps[i] / prim[i]);
-                    else
-                        ratio_ps.push_back(0.0);
-                }
-            }
-            if (!ratio_dirac.empty() || !ratio_bw.empty() || !ratio_ps.empty()) {
+            if (!ratio_dirac.empty() || !ratio_bw.empty()) {
                 std::vector<std::tuple<std::vector<double>*, std::vector<double>*, int, int, std::string>> ratio_series;
-                std::vector<double> ratio_all;
-                if (!ratio_dirac.empty()) {
+                if (!ratio_dirac.empty())
                     ratio_series.emplace_back(&x, &ratio_dirac, kRed, 1, "Dirac");
-                    ratio_all.insert(ratio_all.end(), ratio_dirac.begin(), ratio_dirac.end());
-                }
-                if (!ratio_bw.empty()) {
+                if (!ratio_bw.empty())
                     ratio_series.emplace_back(&x, &ratio_bw, kBlue, 1, "Breit‑Wigner");
-                    ratio_all.insert(ratio_all.end(), ratio_bw.begin(), ratio_bw.end());
-                }
-                if (!ratio_ps.empty()) {
-                    ratio_series.emplace_back(&x, &ratio_ps, kOrange + 7, 1, "Phase Shift");
-                    ratio_all.insert(ratio_all.end(), ratio_ps.begin(), ratio_ps.end());
-                }
-                double ymin = 0.9 * *std::min_element(ratio_all.begin(), ratio_all.end());
-                double ymax = 1.1 * *std::max_element(ratio_all.begin(), ratio_all.end());
+                double ymin = 0.9 * *std::min_element(ratio_dirac.begin(), ratio_dirac.end());
+                double ymax = 1.1 * *std::max_element(ratio_dirac.begin(), ratio_dirac.end());
                 DrawComparisonPlot(filename + "_ratio",
                                    p.title + " (total/primordial ratio)",
                                    p.xlabel, "total / primordial",

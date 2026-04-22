@@ -44,7 +44,6 @@ private:
     QCheckBox *cbIncludeDecays;            // nowy checkbox – czy uwzględniać rozpady
     QRadioButton *rbDirac;
     QRadioButton *rbBW;
-    QRadioButton *rbPS;
 
     QPushButton *computeButton;
     QTabWidget *tabWidget;

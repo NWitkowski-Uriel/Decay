@@ -13,7 +13,6 @@
 #include <QDir>
 #include <QCoreApplication>
 #include <QFileInfo>
-#include <QFile>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     setWindowTitle("Delta Analysis – GUI");
@@ -56,12 +55,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     connect(cbIncludeDecays, &QCheckBox::stateChanged, this, &MainWindow::onDecayCheckChanged);
     rbDirac = new QRadioButton("Dirac (fixed mass)");
     rbBW    = new QRadioButton("Breit‑Wigner (Γ=120 MeV)");
-    rbPS    = new QRadioButton("Phase Shift");
     rbDirac->setChecked(true);
     modelLayout->addWidget(cbIncludeDecays);
     modelLayout->addWidget(rbDirac);
     modelLayout->addWidget(rbBW);
-    modelLayout->addWidget(rbPS);
 
     selectionLayout->addWidget(particleGroup);
     selectionLayout->addWidget(distGroup);
@@ -85,7 +82,6 @@ void MainWindow::onDecayCheckChanged(int state) {
     bool enable = (state == Qt::Checked);
     rbDirac->setEnabled(enable);
     rbBW->setEnabled(enable);
-    rbPS->setEnabled(enable);
 }
 
 void MainWindow::onComputeClicked() {
@@ -106,7 +102,7 @@ void MainWindow::onComputeClicked() {
     if (!cbIncludeDecays->isChecked()) {
         model = "primordial";
     } else {
-        model = rbDirac->isChecked() ? "dirac" : (rbBW->isChecked() ? "bw" : "ps");
+        model = rbDirac->isChecked() ? "dirac" : "bw";
     }
 
     if (particles.isEmpty() || distributions.isEmpty()) {
@@ -144,7 +140,7 @@ void MainWindow::onComputeClicked() {
         QMessageBox::critical(this, "Error", "compute_total not found in " + appPath);
         return;
     }
-    if (distributions.contains("mt") && !QFileInfo::exists(plotMt)) {
+    if ((distributions.contains("mt") || distributions.contains("rapidity")) && !QFileInfo::exists(plotMt)) {
         QMessageBox::critical(this, "Error", "plot_mt not found in " + appPath);
         return;
     }
@@ -238,7 +234,7 @@ void MainWindow::onComputeClicked() {
     if (distributions.contains("mt")) {
         QProcess::startDetached(plotMt, plotArgs);
     }
-    if (distributions.contains("rapidity") || distributions.contains("ratio")) {
+    if (distributions.contains("rapidity")) {
         QProcess::startDetached(plotRapidity, plotArgs);
     }
 
