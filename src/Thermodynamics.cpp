@@ -25,7 +25,7 @@ double dN_dmt_primordial(double mt, double y, double mu, double M, double g) {
         double boltz = std::exp(-arg_exp) * sinh_over_x(x);
         integral += r2[i] * boltz;
     }
-    integral *= dr;   // midpoint rule
+    integral *= dr;
 
     double result = (g * std::exp(mu / T) * std::cosh(y) / (M_PI * pT)) * integral;
     return result > 0.0 ? result : 0.0;
@@ -39,7 +39,6 @@ double dN_dy_primordial_full(double y, double mu, double M, double g) {
     const auto& sinh_hr = grid.sinh();
     const auto& r2 = grid.r2();
 
-    // Integrate over mt (1D) for each radial point, then sum
     double total = 0.0;
     for (int i = 0; i < n_r; ++i) {
         auto integrand_mt = [&](double mt) {
@@ -55,17 +54,16 @@ double dN_dy_primordial_full(double y, double mu, double M, double g) {
         double mt_min = M;
         double mt_max = M + 5000.0;
         double integral_mt = Integrate1D_high(integrand_mt, mt_min, mt_max);
-        total += integral_mt * dr;   // dr from radial grid
+        total += integral_mt * dr;
     }
     return total > 0.0 ? total : 0.0;
 }
 
-// Delta with BW – similar pattern (unchanged except radial integration already fixed above)
 double dN_dmt_Delta_BW(double mt, double y, double mu, double g) {
     if (mt <= mD_BW_min) return 0.0;
     auto integrand = [&](double m) {
         if (mt <= m) return 0.0;
-        double bw = BreitWigner(m, mD_central, Gamma_Delta, mD_BW_min, mD_BW_max);
+        double bw = BreitWigner(m, mD_central, Gamma_Delta, mD_BW_min, mD_BW_max, mp, mpi);
         double dnd = dN_dmt_primordial(mt, y, mu, m, g);
         return bw * dnd;
     };
@@ -85,7 +83,7 @@ double dN_dy_Delta_BW(double y, double mu, double g) {
             return dNdmt_dy * mt * mt;
         };
         double res = Integrate2D_high(integrand_mt_r, m, m + 5000.0, 0.0, R);
-        double bw = BreitWigner(m, mD_central, Gamma_Delta, mD_BW_min, mD_BW_max);
+        double bw = BreitWigner(m, mD_central, Gamma_Delta, mD_BW_min, mD_BW_max, mp, mpi);
         return bw * res;
     };
     return Integrate1D_high(integrand_m, mD_BW_min, mD_BW_max);
@@ -95,7 +93,7 @@ double dN_dmt_Delta_PS(double mt, double y, double mu, double g) {
     if (mt <= mD_BW_min) return 0.0;
     auto integrand = [&](double m) {
         if (mt <= m) return 0.0;
-        const double ps = PhaseShiftWeight(m, mD_central, Gamma_Delta, mD_BW_min, mD_BW_max);
+        const double ps = PhaseShiftWeight(m, mD_central, Gamma_Delta, mD_BW_min, mD_BW_max, mp, mpi);
         const double dnd = dN_dmt_primordial(mt, y, mu, m, g);
         return ps * dnd;
     };
@@ -115,7 +113,7 @@ double dN_dy_Delta_PS(double y, double mu, double g) {
             return dNdmt_dy * mt * mt;
         };
         double res = Integrate2D_high(integrand_mt_r, m, m + 5000.0, 0.0, R);
-        const double ps = PhaseShiftWeight(m, mD_central, Gamma_Delta, mD_BW_min, mD_BW_max);
+        const double ps = PhaseShiftWeight(m, mD_central, Gamma_Delta, mD_BW_min, mD_BW_max, mp, mpi);
         return ps * res;
     };
     return Integrate1D_high(integrand_m, mD_BW_min, mD_BW_max);
