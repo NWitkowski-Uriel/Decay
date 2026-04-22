@@ -14,7 +14,7 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     setWindowTitle("Delta Analysis – GUI");
-    resize(900, 600);
+    resize(900, 650);
 
     centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
@@ -72,18 +72,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     buttonLayout->addWidget(testButton);
 
     tabWidget = new QTabWidget();
-    logOutput = new QPlainTextEdit();
+    logOutput = new QTextEdit();
     logOutput->setReadOnly(true);
-    testOutput = new QPlainTextEdit();
+    testOutput = new QTextEdit();
     testOutput->setReadOnly(true);
     tabWidget->addTab(logOutput, "Logs");
     tabWidget->addTab(testOutput, "Decay tests");
 
     statusLabel = new QLabel("Idle");
+    progressBar = new QProgressBar();
+    progressBar->setMinimum(0);
+    progressBar->setValue(0);
 
     mainLayout->addLayout(selectionLayout);
     mainLayout->addLayout(buttonLayout);
     mainLayout->addWidget(tabWidget);
+    mainLayout->addWidget(progressBar);
     mainLayout->addWidget(statusLabel);
 
     process = new QProcess(this);
@@ -93,44 +97,67 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
             this, &MainWindow::onProcessFinished);
 
     currentStep = 0;
+    runningTests = false;
 }
 
-MainWindow::~MainWindow() {}
+void MainWindow::appendLog(const QString& text, const QString& color, bool toTests) {
+    QString html = "<span style='color:" + color + "'>" + text.toHtmlEscaped() + "</span>";
+    if (toTests)
+        testOutput->append(html);
+    else
+        logOutput->append(html);
+}
+
+void MainWindow::setUiBusy(bool busy) {
+    computeButton->setEnabled(!busy);
+    testButton->setEnabled(!busy);
+}
 
 void MainWindow::onStdout() {
-    logOutput->appendPlainText(QString::fromLocal8Bit(process->readAllStandardOutput()));
+    appendLog(QString::fromLocal8Bit(process->readAllStandardOutput()), "black", runningTests);
 }
 
 void MainWindow::onStderr() {
-    logOutput->appendPlainText(QString::fromLocal8Bit(process->readAllStandardError()));
+    appendLog(QString::fromLocal8Bit(process->readAllStandardError()), "red", runningTests);
 }
 
 void MainWindow::onProcessFinished(int exitCode, QProcess::ExitStatus) {
+    progressBar->setValue(currentStep);
+
     if (exitCode != 0) {
         statusLabel->setText("Error");
+        setUiBusy(false);
         return;
     }
+
     startNextStep();
 }
 
 void MainWindow::startPipeline() {
     currentStep = 0;
+    progressBar->setMaximum(steps.size());
+    progressBar->setValue(0);
     logOutput->clear();
+    setUiBusy(true);
     startNextStep();
 }
 
 void MainWindow::startNextStep() {
     if (currentStep >= steps.size()) {
         statusLabel->setText("Done");
+        setUiBusy(false);
         return;
     }
 
     auto step = steps[currentStep++];
     statusLabel->setText(step.description);
+    appendLog("\n=== " + step.description + " ===", "blue", runningTests);
     process->start(step.program, step.args);
 }
 
 void MainWindow::onComputeClicked() {
+    runningTests = false;
+
     QStringList particles;
     if (cbProton->isChecked()) particles << "proton";
     if (cbNeutron->isChecked()) particles << "neutron";
@@ -161,6 +188,8 @@ void MainWindow::onComputeClicked() {
 }
 
 void MainWindow::onRunTestsClicked() {
+    runningTests = true;
+
     QString exec = QCoreApplication::applicationDirPath() + "/test_decay_multiplicities";
     steps.clear();
     steps.append({exec, {}, "Running decay tests"});
