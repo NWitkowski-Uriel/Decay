@@ -32,7 +32,7 @@ add_library(DeltaLib STATIC ${LIB_SOURCES})
 target_link_libraries(DeltaLib ${ROOT_LIBRARIES} OpenMP::OpenMP_CXX)
 target_compile_options(DeltaLib PRIVATE -O3 -march=native -ffast-math)
 
-# New architecture apps
+# Apps
 add_executable(compute_spectra apps/compute_spectra.cpp)
 target_link_libraries(compute_spectra DeltaLib)
 
@@ -47,6 +47,9 @@ target_link_libraries(export_publication_plots DeltaLib)
 
 add_executable(test_decay_multiplicities apps/test_decay_multiplicities.cpp)
 target_link_libraries(test_decay_multiplicities DeltaLib)
+
+add_executable(benchmark_performance apps/benchmark_performance.cpp)
+target_link_libraries(benchmark_performance DeltaLib)
 
 # GUI
 add_executable(gui_analysis
