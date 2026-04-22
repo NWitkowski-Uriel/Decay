@@ -20,6 +20,10 @@ void DrawComparisonPlot(
     double x_min, double x_max,
     double y_min, double y_max)
 {
+    std::filesystem::path p(filename);
+    if (p.has_parent_path()) {
+        std::filesystem::create_directories(p.parent_path());
+    }
     // Check if there is any valid series data
     bool has_series = false;
     for (const auto& s : series) {
