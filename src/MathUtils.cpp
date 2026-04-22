@@ -4,10 +4,9 @@
 #include <cmath>
 #include <map>
 #include <tuple>
+#include <vector>
 
 namespace {
-
-constexpr double kPi = 3.14159265358979323846;
 
 struct CacheKey {
     double m_min;
@@ -19,6 +18,18 @@ struct CacheKey {
         return std::tie(m_min, m_max, m1, m2) < std::tie(other.m_min, other.m_max, other.m1, other.m2);
     }
 };
+
+struct SpectralTable {
+    double x_min = 0.0;
+    double x_max = 0.0;
+    double dx = 0.0;
+    std::vector<double> y;
+};
+
+constexpr int kSpectralTableSize = 2048;
+
+static std::map<CacheKey, SpectralTable> bw_tables;
+static std::map<CacheKey, SpectralTable> ps_tables;
 
 double PStarPrime(double M, double m1, double m2) {
     const double ps = PStar(M, m1, m2);
@@ -43,17 +54,14 @@ double deltaArgPS(double M, double m1, double m2) {
            (3.0 * M * (M*M - mD_central*mD_central) * (1.0 + PiPS(M, m1, m2)));
 }
 
-double deltaPS(double M, double m1, double m2) {
-    return std::atan(deltaArgPS(M, m1, m2));
-}
-
 double dDeltaPS(double M, double m1, double m2) {
     const double ps = PStar(M, m1, m2);
     if (ps <= 0.0 || M <= m1 + m2 || M <= 0.0) return 0.0;
 
     const double dps = PStarPrime(M, m1, m2);
-    const double y = deltaArgPS(M, m1, m2);
-    const double denom = 1.0 + y * y;
+    const double y = std::atan(deltaArgPS(M, m1, m2));
+    const double arg = deltaArgPS(M, m1, m2);
+    const double denom = 1.0 + arg * arg;
     if (denom <= 0.0) return 0.0;
 
     const double pi_ps = PiPS(M, m1, m2);
@@ -63,23 +71,67 @@ double dDeltaPS(double M, double m1, double m2) {
         - (2.0 * M / (M*M - mD_central*mD_central))
         - (dPi / (1.0 + pi_ps));
 
-    return y * bracket / denom;
+    (void)y;
+    return arg * bracket / denom;
 }
 
 double BPS(double M, double m1, double m2) {
     return 2.0 * dDeltaPS(M, m1, m2);
 }
 
-double normalized_from_cache(double x, const CacheKey& key, const std::function<double(double)>& raw) {
-    if (x < key.m_min || x > key.m_max) return 0.0;
-    static std::map<CacheKey, double> cache;
-    auto it = cache.find(key);
-    if (it == cache.end()) {
-        const double I = Integrate1D_high(raw, key.m_min, key.m_max);
-        const double norm = (I > 0.0 && std::isfinite(I)) ? 1.0 / I : 1.0;
-        it = cache.emplace(key, norm).first;
+SpectralTable build_table(const CacheKey& key, const std::function<double(double)>& raw) {
+    SpectralTable table;
+    table.x_min = key.m_min;
+    table.x_max = key.m_max;
+    table.dx = (key.m_max - key.m_min) / (kSpectralTableSize - 1);
+    table.y.resize(kSpectralTableSize, 0.0);
+
+    for (int i = 0; i < kSpectralTableSize; ++i) {
+        const double x = table.x_min + i * table.dx;
+        const double v = raw(x);
+        table.y[i] = (std::isfinite(v) && v > 0.0) ? v : 0.0;
     }
-    const double value = it->second * raw(x);
+
+    auto interp = [&](double x) {
+        if (x < table.x_min || x > table.x_max) return 0.0;
+        double pos = (x - table.x_min) / table.dx;
+        int i = static_cast<int>(pos);
+        if (i < 0) return table.y.front();
+        if (i >= kSpectralTableSize - 1) return table.y.back();
+        double t = pos - i;
+        return (1.0 - t) * table.y[i] + t * table.y[i + 1];
+    };
+
+    const double integral = Integrate1D_high(interp, key.m_min, key.m_max);
+    const double norm = (integral > 0.0 && std::isfinite(integral)) ? 1.0 / integral : 1.0;
+    for (double& v : table.y) v *= norm;
+    return table;
+}
+
+const SpectralTable& get_bw_table(const CacheKey& key) {
+    auto it = bw_tables.find(key);
+    if (it == bw_tables.end()) {
+        it = bw_tables.emplace(key, build_table(key, [](double x) { return bw_raw(x); })).first;
+    }
+    return it->second;
+}
+
+const SpectralTable& get_ps_table(const CacheKey& key) {
+    auto it = ps_tables.find(key);
+    if (it == ps_tables.end()) {
+        it = ps_tables.emplace(key, build_table(key, [&](double x) { return BPS(x, key.m1, key.m2); })).first;
+    }
+    return it->second;
+}
+
+double eval_table(double x, const SpectralTable& table) {
+    if (x < table.x_min || x > table.x_max) return 0.0;
+    const double pos = (x - table.x_min) / table.dx;
+    const int i = static_cast<int>(pos);
+    if (i < 0) return table.y.front();
+    if (i >= static_cast<int>(table.y.size()) - 1) return table.y.back();
+    const double t = pos - i;
+    const double value = (1.0 - t) * table.y[i] + t * table.y[i + 1];
     return (std::isfinite(value) && value > 0.0) ? value : 0.0;
 }
 
@@ -112,18 +164,16 @@ double BreitWigner(double M, double m0, double Gamma, double m_min, double m_max
                    double m1, double m2) {
     (void)m0;
     (void)Gamma;
-    CacheKey key{m_min, m_max, m1, m2};
-    auto raw = [&](double x) { return bw_raw(x); };
-    return normalized_from_cache(M, key, raw);
+    const CacheKey key{m_min, m_max, m1, m2};
+    return eval_table(M, get_bw_table(key));
 }
 
 double PhaseShiftWeight(double M, double m0, double Gamma, double m_min, double m_max,
                         double m1, double m2) {
     (void)m0;
     (void)Gamma;
-    CacheKey key{m_min, m_max, m1, m2};
-    auto raw = [&](double x) { return BPS(x, m1, m2); };
-    return normalized_from_cache(M, key, raw);
+    const CacheKey key{m_min, m_max, m1, m2};
+    return eval_table(M, get_ps_table(key));
 }
 
 double Integrate1D_high(const std::function<double(double)>& func, double a, double b) {
