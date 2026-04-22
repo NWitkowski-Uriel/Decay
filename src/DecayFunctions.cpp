@@ -5,7 +5,6 @@
 #include "RadialGrid.h"
 #include <cmath>
 
-// Helper for Dirac channel (using radial grid)
 static double channel_Dirac(double mt, double y,
                             double mu_D, double M_baryon, double M_meson,
                             double branching, double stat_factor)
@@ -31,7 +30,6 @@ static double channel_Dirac(double mt, double y,
     const auto& sinh_hr = grid.sinh();
     const auto& r2 = grid.r2();
 
-    // Integrate over k for each r, then sum over r
     double integral = 0.0;
     for (int i = 0; i < n_r; ++i) {
         auto integrand_k = [&](double k) {
@@ -47,9 +45,6 @@ static double channel_Dirac(double mt, double y,
     return branching * stat_factor * factor * common * integral;
 }
 
-
-
-// Helper for PS channel (using radial grid)
 static double channel_PS(double mt, double y,
                          double mu_D, double M_baryon, double M_meson,
                          double branching, double stat_factor)
@@ -90,14 +85,13 @@ static double channel_PS(double mt, double y,
             integral_rk += integral_k * dr;
         }
 
-        double ps = PhaseShiftWeight(m, mD_central, Gamma_Delta, thresh, mD_BW_max);
+        double ps = PhaseShiftWeight(m, mD_central, Gamma_Delta, thresh, mD_BW_max, M_baryon, M_meson);
         return ps * branching * stat_factor * factor * common * integral_rk;
     };
 
     return Integrate1D_high(integrand_m, thresh, mD_BW_max);
 }
 
-// Helper for BW channel (using radial grid)
 static double channel_BW(double mt, double y,
                          double mu_D, double M_baryon, double M_meson,
                          double branching, double stat_factor)
@@ -125,7 +119,6 @@ static double channel_BW(double mt, double y,
         double common = 1.0 / (mt * std::cosh(y) *
                         std::sqrt(mt*mt * std::cosh(y)*std::cosh(y) - M_baryon*M_baryon));
 
-        // Radial loop + k integration
         double integral_rk = 0.0;
         for (int i = 0; i < n_r; ++i) {
             auto integrand_k = [&](double k) {
@@ -139,7 +132,7 @@ static double channel_BW(double mt, double y,
             integral_rk += integral_k * dr;
         }
 
-        double bw = BreitWigner(m, mD_central, Gamma_Delta, thresh, mD_BW_max);
+        double bw = BreitWigner(m, mD_central, Gamma_Delta, thresh, mD_BW_max, M_baryon, M_meson);
         return bw * branching * stat_factor * factor * common * integral_rk;
     };
 
@@ -151,14 +144,11 @@ static double channel_BW(double mt, double y,
 // ==========================================================================
 double dN_dmt_proton_from_Delta_Dirac(double mt, double y) {
     if (mt <= mp) return 0.0;
-    double stat = g_Delta / g_proton;   // 4/2 = 2
+    double stat = g_Delta / g_proton;
 
     double res = 0.0;
-    // Δ⁺⁺ → p + π⁺ (branching 1)
     res += channel_Dirac(mt, y, mu_Dpp, mp, mpi, 1.0, stat);
-    // Δ⁺ → p + π⁰ (branching 2/3)
     res += channel_Dirac(mt, y, mu_Dp,  mp, mpi0, 2.0/3.0, stat);
-    // Δ⁰ → p + π⁻ (branching 1/3)
     res += channel_Dirac(mt, y, mu_D0,  mp, mpi,  1.0/3.0, stat);
     return res > 0.0 ? res : 0.0;
 }
@@ -173,6 +163,7 @@ double dN_dmt_proton_from_Delta_BW(double mt, double y) {
     res += channel_BW(mt, y, mu_D0,  mp, mpi,   1.0/3.0, stat);
     return res > 0.0 ? res : 0.0;
 }
+
 double dN_dmt_proton_from_Delta_PS(double mt, double y) {
     if (mt <= mp) return 0.0;
     double stat = g_Delta / g_proton;
@@ -184,20 +175,16 @@ double dN_dmt_proton_from_Delta_PS(double mt, double y) {
     return res > 0.0 ? res : 0.0;
 }
 
-
 // ==========================================================================
 // Neutrons – transverse mass spectra
 // ==========================================================================
 double dN_dmt_neutron_from_Delta_Dirac(double mt, double y) {
     if (mt <= mn) return 0.0;
-    double stat = g_Delta / g_neutron;   // 4/2 = 2
+    double stat = g_Delta / g_neutron;
 
     double res = 0.0;
-    // Δ⁺ → n + π⁺ (branching 1/3)
     res += channel_Dirac(mt, y, mu_Dp,  mn, mpi,   1.0/3.0, stat);
-    // Δ⁰ → n + π⁰ (branching 2/3)
     res += channel_Dirac(mt, y, mu_D0,  mn, mpi0,  2.0/3.0, stat);
-    // Δ⁻ → n + π⁻ (branching 1)
     res += channel_Dirac(mt, y, mu_Dm,  mn, mpi,   1.0,     stat);
     return res > 0.0 ? res : 0.0;
 }
@@ -212,6 +199,7 @@ double dN_dmt_neutron_from_Delta_BW(double mt, double y) {
     res += channel_BW(mt, y, mu_Dm,  mn, mpi,   1.0,     stat);
     return res > 0.0 ? res : 0.0;
 }
+
 double dN_dmt_neutron_from_Delta_PS(double mt, double y) {
     if (mt <= mn) return 0.0;
     double stat = g_Delta / g_neutron;
@@ -223,18 +211,15 @@ double dN_dmt_neutron_from_Delta_PS(double mt, double y) {
     return res > 0.0 ? res : 0.0;
 }
 
-
 // ==========================================================================
 // Positive pions – transverse mass spectra
 // ==========================================================================
 double dN_dmt_piplus_from_Delta_Dirac(double mt, double y) {
     if (mt <= mpi) return 0.0;
-    double stat = g_Delta / g_pion;      // 4/1 = 4
+    double stat = g_Delta / g_pion;
 
     double res = 0.0;
-    // Δ⁺⁺ → p + π⁺ (branching 1)
     res += channel_Dirac(mt, y, mu_Dpp, mp, mpi,   1.0, stat);
-    // Δ⁺ → n + π⁺ (branching 1/3)
     res += channel_Dirac(mt, y, mu_Dp,  mn, mpi,   1.0/3.0, stat);
     return res > 0.0 ? res : 0.0;
 }
@@ -248,6 +233,7 @@ double dN_dmt_piplus_from_Delta_BW(double mt, double y) {
     res += channel_BW(mt, y, mu_Dp,  mn, mpi,   1.0/3.0, stat);
     return res > 0.0 ? res : 0.0;
 }
+
 double dN_dmt_piplus_from_Delta_PS(double mt, double y) {
     if (mt <= mpi) return 0.0;
     double stat = g_Delta / g_pion;
@@ -258,7 +244,6 @@ double dN_dmt_piplus_from_Delta_PS(double mt, double y) {
     return res > 0.0 ? res : 0.0;
 }
 
-
 // ==========================================================================
 // Negative pions – transverse mass spectra
 // ==========================================================================
@@ -267,9 +252,7 @@ double dN_dmt_piminus_from_Delta_Dirac(double mt, double y) {
     double stat = g_Delta / g_pion;
 
     double res = 0.0;
-    // Δ⁰ → p + π⁻ (branching 1/3)
     res += channel_Dirac(mt, y, mu_D0,  mp, mpi,   1.0/3.0, stat);
-    // Δ⁻ → n + π⁻ (branching 1)
     res += channel_Dirac(mt, y, mu_Dm,  mn, mpi,   1.0,     stat);
     return res > 0.0 ? res : 0.0;
 }
@@ -283,6 +266,7 @@ double dN_dmt_piminus_from_Delta_BW(double mt, double y) {
     res += channel_BW(mt, y, mu_Dm,  mn, mpi,   1.0,     stat);
     return res > 0.0 ? res : 0.0;
 }
+
 double dN_dmt_piminus_from_Delta_PS(double mt, double y) {
     if (mt <= mpi) return 0.0;
     double stat = g_Delta / g_pion;
@@ -293,7 +277,6 @@ double dN_dmt_piminus_from_Delta_PS(double mt, double y) {
     return res > 0.0 ? res : 0.0;
 }
 
-
 // ==========================================================================
 // Neutral pions – transverse mass spectra
 // ==========================================================================
@@ -302,9 +285,7 @@ double dN_dmt_pi0_from_Delta_Dirac(double mt, double y) {
     double stat = g_Delta / g_pion;
 
     double res = 0.0;
-    // Δ⁺ → p + π⁰ (branching 2/3)
     res += channel_Dirac(mt, y, mu_Dp,  mp, mpi0,  2.0/3.0, stat);
-    // Δ⁰ → n + π⁰ (branching 2/3)
     res += channel_Dirac(mt, y, mu_D0,  mn, mpi0,  2.0/3.0, stat);
     return res > 0.0 ? res : 0.0;
 }
@@ -318,6 +299,7 @@ double dN_dmt_pi0_from_Delta_BW(double mt, double y) {
     res += channel_BW(mt, y, mu_D0,  mn, mpi0,  2.0/3.0, stat);
     return res > 0.0 ? res : 0.0;
 }
+
 double dN_dmt_pi0_from_Delta_PS(double mt, double y) {
     if (mt <= mpi0) return 0.0;
     double stat = g_Delta / g_pion;
@@ -327,7 +309,6 @@ double dN_dmt_pi0_from_Delta_PS(double mt, double y) {
     res += channel_PS(mt, y, mu_D0,  mn, mpi0,  2.0/3.0, stat);
     return res > 0.0 ? res : 0.0;
 }
-
 
 // ==========================================================================
 // Rapidity distributions from Delta decays
@@ -347,6 +328,7 @@ double dN_dy_proton_from_Delta_BW(double y) {
     };
     return Integrate1D_high(integrand, mp, mp + 5000.0);
 }
+
 double dN_dy_proton_from_Delta_PS(double y) {
     auto integrand = [&](double mt) {
         if (mt <= mp) return 0.0;
@@ -354,7 +336,6 @@ double dN_dy_proton_from_Delta_PS(double y) {
     };
     return Integrate1D_high(integrand, mp, mp + 5000.0);
 }
-
 
 double dN_dy_neutron_from_Delta_Dirac(double y) {
     auto integrand = [&](double mt) {
@@ -371,6 +352,7 @@ double dN_dy_neutron_from_Delta_BW(double y) {
     };
     return Integrate1D_high(integrand, mn, mn + 5000.0);
 }
+
 double dN_dy_neutron_from_Delta_PS(double y) {
     auto integrand = [&](double mt) {
         if (mt <= mn) return 0.0;
@@ -378,7 +360,6 @@ double dN_dy_neutron_from_Delta_PS(double y) {
     };
     return Integrate1D_high(integrand, mn, mn + 5000.0);
 }
-
 
 double dN_dy_piplus_from_Delta_Dirac(double y) {
     auto integrand = [&](double mt) {
@@ -395,6 +376,7 @@ double dN_dy_piplus_from_Delta_BW(double y) {
     };
     return Integrate1D_high(integrand, mpi, mpi + 5000.0);
 }
+
 double dN_dy_piplus_from_Delta_PS(double y) {
     auto integrand = [&](double mt) {
         if (mt <= mpi) return 0.0;
@@ -402,7 +384,6 @@ double dN_dy_piplus_from_Delta_PS(double y) {
     };
     return Integrate1D_high(integrand, mpi, mpi + 5000.0);
 }
-
 
 double dN_dy_piminus_from_Delta_Dirac(double y) {
     auto integrand = [&](double mt) {
@@ -419,6 +400,7 @@ double dN_dy_piminus_from_Delta_BW(double y) {
     };
     return Integrate1D_high(integrand, mpi, mpi + 5000.0);
 }
+
 double dN_dy_piminus_from_Delta_PS(double y) {
     auto integrand = [&](double mt) {
         if (mt <= mpi) return 0.0;
@@ -426,7 +408,6 @@ double dN_dy_piminus_from_Delta_PS(double y) {
     };
     return Integrate1D_high(integrand, mpi, mpi + 5000.0);
 }
-
 
 double dN_dy_pi0_from_Delta_Dirac(double y) {
     auto integrand = [&](double mt) {
