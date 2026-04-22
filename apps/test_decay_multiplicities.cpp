@@ -19,14 +19,13 @@ struct TestResult {
 };
 
 double integrate_y(const std::function<double(double)>& f, double y_max = 4.0, int n = 400) {
-    const double dy = 2.0 * y_max / n;
-    double sum = 0.0;
-    for (int i = 0; i <= n; ++i) {
-        const double y = -y_max + i * dy;
-        const double w = (i == 0 || i == n) ? 0.5 : 1.0;
-        sum += w * f(y);
+    const double dy = y_max / n;
+    double sum = 0.5 * f(0.0) + 0.5 * f(y_max);
+    for (int i = 1; i < n; ++i) {
+        const double y = i * dy;
+        sum += f(y);
     }
-    return sum * dy;
+    return 2.0 * sum * dy;
 }
 
 std::string status(double value, double expected) {
