@@ -1,0 +1,3821 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[    145723,       3813]
+NotebookOptionsPosition[    143365,       3773]
+NotebookOutlinePosition[    143796,       3790]
+CellTagsIndexPosition[    143753,       3787]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"DISTRIBUTIONS", " ", "--"}], " ", "DUAL", " ", "MASS", " ", 
+    "VERSION"}], "                           ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Required", " ", "order", " ", "in", " ", "the", " ", "same", " ", 
+     RowBox[{"kernel", ":", "\n", "      ", 
+      RowBox[{
+       RowBox[{
+       "Get", "[", \
+"\"\<Intro_DualMass_VacuumFitted_Cugnon_v6_OriginalDirectKernels.wl\>\"", 
+        "]"}], "\n", "      ", 
+       RowBox[{
+       "Get", "[", "\"\<PairFit_DualMass_MeVFit_RegisterFitted.wl\>\"", "]"}],
+        "\n", "      ", 
+       RowBox[{
+       "Get", "[", \
+"\"\<Distributions_DualMass_VacuumFitted_Cugnon_v5_OriginalDirectKernels.wl\>\
+\"", "]"}], "\n", "\n", "   ", "This", " ", "notebook", " ", "does", " ", 
+       "NOT", " ", "use", " ", "setAnalysisMode", " ", "or", " ", "any", " ", 
+       "hidden", " ", "global", " ", 
+       RowBox[{"mode", ".", "\n", "   ", "Vacuum"}], " ", "and", " ", 
+       "Fitted", " ", "spectra", " ", "are", " ", "computed", " ", "side", " ",
+        "by", " ", "side", " ", "by", " ", "calling", " ", "explicit", "\n", 
+       "   ", "functions", " ", "from", " ", "Intro"}], ":", "\n", "\n", 
+      "      ", "Vacuum", ":", "  ", "rhoBW"}]}], ",", " ", "rhoCugnon", ",", 
+    " ", "rhoPhaseShift", ",", "\n", "               ", "dmtPBW", ",", " ", 
+    "dmtPCugnon", ",", " ", "dmtPPS", ",", " ", 
+    RowBox[{"...", "\n", "\n", "      ", 
+     RowBox[{"Fitted", ":", "  ", "rhoBWFitted"}]}], ",", " ", 
+    "rhoCugnonFitted", ",", " ", "rhoPhaseShiftFitted", ",", "\n", 
+    "               ", "dmtPBWFitted", ",", " ", "dmtPCugnonFitted", ",", " ",
+     "dmtPPSFitted", ",", " ", 
+    RowBox[{
+     RowBox[{
+     "...", "\n", "\n", "   ", "The", " ", "structure", " ", "intentionally", 
+      " ", "stays", " ", "close", " ", "to", " ", "the", " ", "old", " ", 
+      "no"}], "-", 
+     RowBox[{"fit", " ", 
+      RowBox[{"Distributions", ":", "\n", "   ", 
+       RowBox[{
+       "explicit", " ", "named", " ", "tables", " ", "are", " ", 
+        "produced"}]}]}]}], ",", " ", 
+    RowBox[{"then", " ", "copied", " ", "into", " ", "suffixed", " ", 
+     RowBox[{"Vacuum", "/", "Fitted"}], "\n", "   ", "variables", " ", "for", 
+     " ", "later", " ", "plotting", " ", 
+     RowBox[{"notebooks", ".", "\n", "\n", "   ", 
+      RowBox[{"Units", ":", " ", 
+       RowBox[{
+        RowBox[{"all", " ", "main"}], "-", 
+        RowBox[{"analysis", " ", "quantities", " ", "are", " ", "in", " ", 
+         RowBox[{"MeV", ".", "  ", "No"}], " ", "post"}], "-", 
+        RowBox[{"hoc", " ", 
+         RowBox[{"GeV", "/", "MeV"}], "\n", "   ", "rescaling", " ", "is", " ",
+          "applied", " ", 
+         RowBox[{"here", "."}]}]}]}]}]}]}], 
+   "                                           ", "*)"}], "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{
+  "(*", " ", "PRECHECKS", 
+   "                                                     ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Length", "[", 
+        RowBox[{"DownValues", "[", "dmtPGeneric", "]"}], "]"}], " ", "==", 
+       " ", "0"}], ",", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Print", "[", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<ERROR: Intro has not been run. Run \
+Intro_DualMass_VacuumFitted_Cugnon_v6_OriginalDirectKernels.wl first.\>\"", ",",
+           " ", "Red"}], "]"}], "]"}], ";", "\n", "  ", 
+       RowBox[{"Abort", "[", "]"}], ";"}]}], "\n", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Length", "[", 
+        RowBox[{"DownValues", "[", "registerFittedMassParameters", "]"}], 
+        "]"}], " ", "==", " ", "0"}], ",", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Print", "[", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<ERROR: Intro does not define \
+registerFittedMassParameters. Use the dual-mass Intro.\>\"", ",", " ", 
+          "Red"}], "]"}], "]"}], ";", "\n", "  ", 
+       RowBox[{"Abort", "[", "]"}], ";"}]}], "\n", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"!", 
+       RowBox[{"ValueQ", "[", "fittedMassParameters", "]"}]}], ",", "\n", 
+      "  ", 
+      RowBox[{
+       RowBox[{"Print", "[", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<ERROR: PairFit has not registered fittedMassParameters. \
+Run PairFit_DualMass_MeVFit_RegisterFitted.wl before Distributions.\>\"", ",",
+           " ", "Red"}], "]"}], "]"}], ";", "\n", "  ", 
+       RowBox[{"Abort", "[", "]"}], ";"}]}], "\n", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"!", 
+       RowBox[{"ValueQ", "[", "protonCorrectionAcceptanceFactor", "]"}]}], ",",
+       "\n", "  ", 
+      RowBox[{
+       RowBox[{"protonCorrectionAcceptanceFactor", " ", "=", " ", 
+        RowBox[{"77.6", "/", 
+         RowBox[{"(", 
+          RowBox[{"77.6", " ", "+", " ", "46.5"}], ")"}]}]}], ";"}]}], "\n", 
+     "]"}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[389]:=",ExpressionUUID->"fa4479ff-74d7-8541-91e3-ecc5d2d01ee9"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"LOCAL", " ", "HELPERS"}], 
+   "                                                 ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "\n", "  ", 
+     RowBox[{
+     "distFiniteQ", ",", " ", "distSci", ",", " ", "distMakeGrid", ",", " ", 
+      "distGrid", ",", " ", "distTable", ",", "\n", "  ", "tableAdd", ",", 
+      " ", "dataStats", ",", " ", "takeRows", ",", " ", 
+      "correctionFunctionMt", ",", "\n", "  ", "correctionFunctionY", ",", 
+      " ", "correctedFunctionMt", ",", " ", "correctedFunctionY", ",", "\n", 
+      "  ", "deltaTypeForMode", ",", " ", "massTypeLabel"}], "\n", "]"}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"distFiniteQ", "[", "x_", "]"}], " ", ":=", " ", 
+     RowBox[{
+      RowBox[{"NumericQ", "[", "x", "]"}], " ", "&&", " ", 
+      RowBox[{"FreeQ", "[", 
+       RowBox[{
+        RowBox[{"N", "[", "x", "]"}], ",", " ", 
+        RowBox[{
+        "Indeterminate", " ", "|", " ", "ComplexInfinity", " ", "|", " ", 
+         RowBox[{"DirectedInfinity", "[", "_", "]"}]}]}], "]"}]}]}], ";"}], 
+   "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"distSci", "[", 
+      RowBox[{"x_", "?", "NumericQ"}], "]"}], " ", ":=", " ", 
+     RowBox[{"ScientificForm", "[", 
+      RowBox[{
+       RowBox[{"N", "[", "x", "]"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"9", ",", " ", "4"}], "}"}], ",", " ", 
+       RowBox[{"NumberFormat", " ", "->", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"Row", "[", 
+           RowBox[{"{", 
+            RowBox[{"#1", ",", " ", "\"\<e\>\"", ",", " ", "#3"}], "}"}], 
+           "]"}], " ", "&"}], ")"}]}]}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"distSci", "[", "x_", "]"}], " ", ":=", " ", "x"}], ";"}], "\n", 
+   "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"distMakeGrid", "[", "rows_", "]"}], " ", ":=", " ", 
+     RowBox[{"Grid", "[", 
+      RowBox[{
+       RowBox[{"rows", " ", "/.", " ", 
+        RowBox[{
+         RowBox[{"x_", "?", "NumericQ"}], " ", ":>", " ", 
+         RowBox[{"distSci", "[", "x", "]"}]}]}], ",", " ", 
+       RowBox[{"Frame", " ", "->", " ", "All"}], ",", " ", 
+       RowBox[{"Background", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"None", ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"LightGray", ",", " ", "None"}], "}"}]}], "}"}]}]}], 
+      "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"distGrid", "[", 
+      RowBox[{"min_", ",", " ", "max_", ",", " ", "step_"}], "]"}], " ", ":=",
+      " ", 
+     RowBox[{"N", " ", "@", " ", 
+      RowBox[{"Range", "[", 
+       RowBox[{"min", ",", " ", "max", ",", " ", "step"}], "]"}]}]}], ";"}], 
+   "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"distTable", "[", 
+      RowBox[{"expr_", ",", " ", "iter__"}], "]"}], " ", ":=", " ", 
+     RowBox[{"Table", "[", 
+      RowBox[{"expr", ",", " ", "iter"}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"takeRows", "[", 
+      RowBox[{"data_", ",", " ", 
+       RowBox[{"n_", ":", "4"}]}], "]"}], " ", ":=", " ", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ListQ", "[", "data", "]"}], " ", "&&", " ", 
+        RowBox[{
+         RowBox[{"Length", "[", "data", "]"}], " ", ">", " ", "0"}]}], ",", 
+       " ", 
+       RowBox[{"Take", "[", 
+        RowBox[{"data", ",", " ", 
+         RowBox[{"UpTo", "[", "n", "]"}]}], "]"}], ",", " ", 
+       RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"tableAdd", "[", 
+      RowBox[{"a_List", ",", " ", "b_List"}], "]"}], " ", ":=", " ", 
+     RowBox[{"MapThread", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"#1", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+          RowBox[{
+           RowBox[{"#1", "[", 
+            RowBox[{"[", "2", "]"}], "]"}], " ", "+", " ", 
+           RowBox[{"#2", "[", 
+            RowBox[{"[", "2", "]"}], "]"}]}]}], "}"}], " ", "&"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"a", ",", " ", "b"}], "}"}]}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"massTypeLabel", "[", "type_String", "]"}], " ", ":=", " ", 
+     RowBox[{"Switch", "[", 
+      RowBox[{
+      "type", ",", "\n", "  ", "\"\<Dirac\>\"", ",", " ", "\"\<Dirac\>\"", ",",
+        "\n", "  ", 
+       RowBox[{"\"\<BreitWigner\>\"", " ", "|", 
+        " ", "\"\<BreitWignerFitted\>\""}], ",", " ", "\"\<BreitWigner\>\"", ",",
+        "\n", "  ", 
+       RowBox[{"\"\<Cugnon\>\"", " ", "|", " ", "\"\<CugnonFitted\>\""}], ",",
+        " ", "\"\<Cugnon\>\"", ",", "\n", "  ", 
+       RowBox[{"\"\<PhaseShift\>\"", " ", "|", 
+        " ", "\"\<PhaseShiftFitted\>\""}], ",", " ", "\"\<PhaseShift\>\"", ",",
+        "\n", "  ", "_", ",", " ", "type"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"deltaTypeForMode", "[", 
+      RowBox[{"mode_String", ",", " ", "label_String"}], "]"}], " ", ":=", 
+     " ", 
+     RowBox[{"Switch", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"mode", ",", " ", "label"}], "}"}], ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"_", ",", " ", "\"\<Dirac\>\""}], "}"}], ",", 
+       " ", "\"\<Dirac\>\"", ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\""}], "}"}], ",",
+        " ", "\"\<BreitWigner\>\"", ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\""}], "}"}], ",", 
+       " ", "\"\<Cugnon\>\"", ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}], ",",
+        " ", "\"\<PhaseShift\>\"", ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BreitWigner\>\""}], "}"}], ",",
+        " ", "\"\<BreitWignerFitted\>\"", ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\""}], "}"}], ",", 
+       " ", "\"\<CugnonFitted\>\"", ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}], ",",
+        " ", "\"\<PhaseShiftFitted\>\"", ",", "\n", "  ", "_", ",", " ", 
+       "label"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"dataStats", "[", "data_List", "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"num", ",", " ", "xs", ",", " ", "ys"}], "}"}], ",", "\n", 
+       "  ", 
+       RowBox[{
+        RowBox[{"num", " ", "=", " ", 
+         RowBox[{"Select", "[", 
+          RowBox[{"data", ",", " ", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"ListQ", "[", "#", "]"}], " ", "&&", " ", 
+             RowBox[{
+              RowBox[{"Length", "[", "#", "]"}], " ", ">=", " ", "2"}], " ", "&&",
+              " ", 
+             RowBox[{"distFiniteQ", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "1", "]"}], "]"}], "]"}], " ", "&&", " ", 
+             RowBox[{"distFiniteQ", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "]"}]}], " ", "&"}]}], "]"}]}],
+         ";", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Length", "[", "num", "]"}], " ", "==", " ", "0"}], ",", 
+          "\n", "    ", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", " ", 
+            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}], ",", " ", 
+            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}], ",", " ", 
+            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}], ",", " ", 
+            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}]}], "}"}], ",", 
+          "\n", "    ", 
+          RowBox[{
+           RowBox[{"xs", " ", "=", " ", 
+            RowBox[{"num", "[", 
+             RowBox[{"[", 
+              RowBox[{"All", ",", " ", "1"}], "]"}], "]"}]}], ";", "\n", 
+           "    ", 
+           RowBox[{"ys", " ", "=", " ", 
+            RowBox[{"num", "[", 
+             RowBox[{"[", 
+              RowBox[{"All", ",", " ", "2"}], "]"}], "]"}]}], ";", "\n", 
+           "    ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Length", "[", "num", "]"}], ",", " ", 
+             RowBox[{"Min", "[", "xs", "]"}], ",", " ", 
+             RowBox[{"Max", "[", "xs", "]"}], ",", " ", 
+             RowBox[{"Min", "[", "ys", "]"}], ",", " ", 
+             RowBox[{"Max", "[", "ys", "]"}]}], "}"}]}]}], "\n", "  ", 
+         "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Default", " ", "grids", " ", "match", " ", 
+     RowBox[{"Intro", " ", "/", " ", "old"}], " ", 
+     RowBox[{"notebooks", "."}]}], " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"mtGrid", " ", "=", " ", 
+     RowBox[{"distGrid", "[", 
+      RowBox[{"0.1", ",", " ", 
+       RowBox[{"distributionMtMax", " ", "-", " ", "9.9"}], ",", " ", 
+       "tableStepMt"}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"yGrid", " ", "=", " ", 
+     RowBox[{"distGrid", "[", 
+      RowBox[{
+       RowBox[{"-", "distributionYMax"}], ",", " ", "distributionYMax", ",", 
+       " ", "tableStepY"}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"!", 
+       RowBox[{"ValueQ", "[", "distributionComputeRapidity", "]"}]}], ",", 
+      " ", 
+      RowBox[{
+       RowBox[{"distributionComputeRapidity", " ", "=", " ", "True"}], 
+       ";"}]}], "]"}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[393]:=",ExpressionUUID->"216541e0-1ded-8f41-b935-f03043808a1d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"FUNCTION", " ", "DISPATCH", " ", "TABLES"}], 
+   "                                      ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"These", " ", "dispatchers", " ", "are", " ", "deliberately", " ", 
+    RowBox[{"explicit", ".", "  ", "They"}], " ", "avoid", " ", "global", " ",
+     "active", "\n", "   ", "modes", " ", "and", " ", "make", " ", "it", " ", 
+    "clear", " ", "which", " ", 
+    RowBox[{"vacuum", "/", "fitted"}], " ", "function", " ", "is", " ", 
+    RowBox[{"called", "."}]}], "          ", "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dmtP"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dmtP"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dmtPBW"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dmtPBWFitted"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dmtPCugnon"}], ";"}], 
+   "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dmtPCugnonFitted"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dmtPPS"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dmtPPSFitted"}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dmtPip"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dmtPip"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dmtPipBW"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dmtPipBWFitted"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dmtPipCugnon"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dmtPipCugnonFitted"}],
+     ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dmtPipPS"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dmtPipPSFitted"}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dmtPim"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dmtPim"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dmtPimBW"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dmtPimBWFitted"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dmtPimCugnon"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dmtPimCugnonFitted"}],
+     ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dmtPimPS"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionMt", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dmtPimPSFitted"}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dyP"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dyP"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dyPBW"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dyPBWFitted"}], ";"}],
+    "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dyPCugnon"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dyPCugnonFitted"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dyPPS"}], ";"}], "\n",
+    
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dyPPSFitted"}], ";"}],
+    "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dyPip"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dyPip"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dyPipBW"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dyPipBWFitted"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dyPipCugnon"}], ";"}],
+    "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dyPipCugnonFitted"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dyPipPS"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionPlus\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dyPipPSFitted"}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dyPim"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dyPim"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dyPimBW"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dyPimBWFitted"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dyPimCugnon"}], ";"}],
+    "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dyPimCugnonFitted"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Vacuum\>\""}], "]"}], " ", ":=", " ", "dyPimPS"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionFunctionY", "[", 
+      RowBox[{"\"\<PionMinus\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Fitted\>\""}], "]"}], " ", ":=", " ", "dyPimPSFitted"}], 
+    ";"}]}]}]], "Input",
+ CellLabel->
+  "In[408]:=",ExpressionUUID->"1aef974f-94dc-984d-8c0e-d7ade0278b68"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"PRIMORDIAL", " ", "TABLES"}], 
+   "                                             ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "buildPrimordialTables", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"buildPrimordialTables", "[", "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"mt", ",", " ", "y"}], "}"}], ",", "\n", "  ", 
+       RowBox[{"<|", "\n", "    ", 
+        RowBox[{
+         RowBox[{"\"\<Mt\>\"", " ", "->", " ", 
+          RowBox[{"<|", "\n", "      ", 
+           RowBox[{
+            RowBox[{"\"\<Proton\>\"", " ", "->", " ", 
+             RowBox[{"distTable", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"mt", ",", " ", 
+                 RowBox[{"protonCorrectionAcceptanceFactor", "*", 
+                  RowBox[{"PrimordialProtonSpectrumPointGeneric", "[", 
+                   RowBox[{"mp", " ", "+", " ", "mt"}], "]"}]}]}], "}"}], ",",
+                " ", 
+               RowBox[{"{", 
+                RowBox[{"mt", ",", " ", "mtGrid"}], "}"}]}], "]"}]}], ",", 
+            "\n", "      ", 
+            RowBox[{"\"\<PionPlus\>\"", " ", "->", " ", 
+             RowBox[{"distTable", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"mt", ",", " ", 
+                 RowBox[{"PrimordialPionpSpectrumPointGeneric", "[", 
+                  RowBox[{"mpi", " ", "+", " ", "mt"}], "]"}]}], "}"}], ",", 
+               " ", 
+               RowBox[{"{", 
+                RowBox[{"mt", ",", " ", "mtGrid"}], "}"}]}], "]"}]}], ",", 
+            "\n", "      ", 
+            RowBox[{"\"\<PionMinus\>\"", " ", "->", " ", 
+             RowBox[{"distTable", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"mt", ",", " ", 
+                 RowBox[{"PrimordialPionmSpectrumPointGeneric", "[", 
+                  RowBox[{"mpi", " ", "+", " ", "mt"}], "]"}]}], "}"}], ",", 
+               " ", 
+               RowBox[{"{", 
+                RowBox[{"mt", ",", " ", "mtGrid"}], "}"}]}], "]"}]}]}], "\n", 
+           "    ", "|>"}]}], ",", "\n", "    ", 
+         RowBox[{"\"\<Y\>\"", " ", "->", " ", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"TrueQ", "[", "distributionComputeRapidity", "]"}], ",", 
+            "\n", "      ", 
+            RowBox[{"<|", "\n", "        ", 
+             RowBox[{
+              RowBox[{"\"\<Proton\>\"", " ", "->", " ", 
+               RowBox[{"distTable", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"y", ",", " ", 
+                   RowBox[{"protonCorrectionAcceptanceFactor", "*", 
+                    RowBox[{
+                    "PrimordialProtonRapidityPointGeneric", "[", "y", 
+                    "]"}]}]}], "}"}], ",", " ", 
+                 RowBox[{"{", 
+                  RowBox[{"y", ",", " ", "yGrid"}], "}"}]}], "]"}]}], ",", 
+              "\n", "        ", 
+              RowBox[{"\"\<PionPlus\>\"", " ", "->", " ", 
+               RowBox[{"distTable", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"y", ",", " ", 
+                   RowBox[{
+                   "PrimordialPionpRapidityPointGeneric", "[", "y", "]"}]}], 
+                  "}"}], ",", " ", 
+                 RowBox[{"{", 
+                  RowBox[{"y", ",", " ", "yGrid"}], "}"}]}], "]"}]}], ",", 
+              "\n", "        ", 
+              RowBox[{"\"\<PionMinus\>\"", " ", "->", " ", 
+               RowBox[{"distTable", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"y", ",", " ", 
+                   RowBox[{
+                   "PrimordialPionmRapidityPointGeneric", "[", "y", "]"}]}], 
+                  "}"}], ",", " ", 
+                 RowBox[{"{", 
+                  RowBox[{"y", ",", " ", "yGrid"}], "}"}]}], "]"}]}]}], "\n", 
+             "      ", "|>"}], ",", "\n", "      ", 
+            RowBox[{"<|", "|>"}]}], "\n", "    ", "]"}]}]}], "\n", "  ", 
+        "|>"}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"PrimordialTables", " ", "=", " ", 
+     RowBox[{"buildPrimordialTables", "[", "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[456]:=",ExpressionUUID->"917aad60-933d-a049-8f4c-44150c4e0b95"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"DELTA", " ", "PARENT", " ", "TABLES"}], 
+   "                                           ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", 
+     RowBox[{
+     "buildDeltaMtForType", ",", " ", "buildDeltaYForType", ",", " ", 
+      "buildDeltaTablesForMode"}], "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"buildDeltaMtForType", "[", "type_String", "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "x", "}"}], ",", "\n", "  ", 
+       RowBox[{"<|", "\n", "    ", 
+        RowBox[{
+         RowBox[{"\"\<Dpp\>\"", " ", "->", " ", 
+          RowBox[{"distTable", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"x", ",", " ", 
+              RowBox[{"deltaSpectrumPointGeneric", "[", 
+               RowBox[{"type", ",", " ", 
+                RowBox[{"mD", " ", "+", " ", "x"}], ",", " ", "\[Mu]Dpp", ",",
+                 " ", "mp", ",", " ", "mpi"}], "]"}]}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", " ", "mtGrid"}], "}"}]}], "]"}]}], ",", "\n", 
+         "    ", 
+         RowBox[{"\"\<Dp\>\"", " ", "->", " ", 
+          RowBox[{"distTable", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"x", ",", " ", 
+              RowBox[{"deltaSpectrumPointGeneric", "[", 
+               RowBox[{"type", ",", " ", 
+                RowBox[{"mD", " ", "+", " ", "x"}], ",", " ", "\[Mu]Dp", ",", 
+                " ", "mp", ",", " ", "mpi0"}], "]"}]}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", " ", "mtGrid"}], "}"}]}], "]"}]}], ",", "\n", 
+         "    ", 
+         RowBox[{"\"\<D0\>\"", " ", "->", " ", 
+          RowBox[{"distTable", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"x", ",", " ", 
+              RowBox[{"deltaSpectrumPointGeneric", "[", 
+               RowBox[{"type", ",", " ", 
+                RowBox[{"mD", " ", "+", " ", "x"}], ",", " ", "\[Mu]D0", ",", 
+                " ", "mn", ",", " ", "mpi0"}], "]"}]}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", " ", "mtGrid"}], "}"}]}], "]"}]}], ",", "\n", 
+         "    ", 
+         RowBox[{"\"\<Dm\>\"", " ", "->", " ", 
+          RowBox[{"distTable", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"x", ",", " ", 
+              RowBox[{"deltaSpectrumPointGeneric", "[", 
+               RowBox[{"type", ",", " ", 
+                RowBox[{"mD", " ", "+", " ", "x"}], ",", " ", "\[Mu]Dm", ",", 
+                " ", "mn", ",", " ", "mpi"}], "]"}]}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", " ", "mtGrid"}], "}"}]}], "]"}]}]}], "\n", 
+        "  ", "|>"}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"buildDeltaYForType", "[", "type_String", "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "y", "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"!", 
+           RowBox[{"TrueQ", "[", "distributionComputeRapidity", "]"}]}], ",", 
+          " ", 
+          RowBox[{"Return", "[", 
+           RowBox[{"<|", "|>"}], "]"}]}], "]"}], ";", "\n", "  ", 
+        RowBox[{"<|", "\n", "    ", 
+         RowBox[{
+          RowBox[{"\"\<Dpp\>\"", " ", "->", " ", 
+           RowBox[{"distTable", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", 
+               RowBox[{"deltaRapidityPointGeneric", "[", 
+                RowBox[{
+                "type", ",", " ", "y", ",", " ", "\[Mu]Dpp", ",", " ", "mp", ",",
+                  " ", "mpi"}], "]"}]}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", "yGrid"}], "}"}]}], "]"}]}], ",", "\n", 
+          "    ", 
+          RowBox[{"\"\<Dp\>\"", " ", "->", " ", 
+           RowBox[{"distTable", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", 
+               RowBox[{"deltaRapidityPointGeneric", "[", 
+                RowBox[{
+                "type", ",", " ", "y", ",", " ", "\[Mu]Dp", ",", " ", "mp", ",",
+                  " ", "mpi0"}], "]"}]}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", "yGrid"}], "}"}]}], "]"}]}], ",", "\n", 
+          "    ", 
+          RowBox[{"\"\<D0\>\"", " ", "->", " ", 
+           RowBox[{"distTable", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", 
+               RowBox[{"deltaRapidityPointGeneric", "[", 
+                RowBox[{
+                "type", ",", " ", "y", ",", " ", "\[Mu]D0", ",", " ", "mn", ",",
+                  " ", "mpi0"}], "]"}]}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", "yGrid"}], "}"}]}], "]"}]}], ",", "\n", 
+          "    ", 
+          RowBox[{"\"\<Dm\>\"", " ", "->", " ", 
+           RowBox[{"distTable", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", 
+               RowBox[{"deltaRapidityPointGeneric", "[", 
+                RowBox[{
+                "type", ",", " ", "y", ",", " ", "\[Mu]Dm", ",", " ", "mn", ",",
+                  " ", "mpi"}], "]"}]}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", "yGrid"}], "}"}]}], "]"}]}]}], "\n", 
+         "  ", "|>"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ClearAll", "[", "sumTables", "]"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"sumTables", "[", "tables__List", "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"ls", " ", "=", " ", 
+         RowBox[{"{", "tables", "}"}]}], "}"}], ",", "\n", "  ", 
+       RowBox[{"MapThread", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"#1", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+            RowBox[{"Total", "[", 
+             RowBox[{
+              RowBox[{"{", "##", "}"}], "[", 
+              RowBox[{"[", 
+               RowBox[{"All", ",", " ", "2"}], "]"}], "]"}], "]"}]}], "}"}], 
+          " ", "&"}], ",", " ", "ls"}], "]"}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"buildDeltaTablesForMode", "[", "mode_String", "]"}], " ", ":=", 
+     " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "labels", ",", " ", "typeFor", ",", " ", "mtAssoc", ",", " ", 
+         "yAssoc"}], "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"labels", " ", "=", " ", 
+         RowBox[{"{", 
+          
+          RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+           " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}]}], ";",
+         "\n", "  ", 
+        RowBox[{
+         RowBox[{"typeFor", "[", "label_", "]"}], " ", ":=", " ", 
+         RowBox[{"deltaTypeForMode", "[", 
+          RowBox[{"mode", ",", " ", "label"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"mtAssoc", " ", "=", " ", 
+         RowBox[{"Association", " ", "@", " ", 
+          RowBox[{"Table", "[", "\n", "     ", 
+           RowBox[{
+            RowBox[{"With", "[", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"block", " ", "=", " ", 
+                RowBox[{"buildDeltaMtForType", "[", 
+                 RowBox[{"typeFor", "[", "label", "]"}], "]"}]}], "}"}], ",", 
+              "\n", "       ", 
+              RowBox[{"label", " ", "->", " ", 
+               RowBox[{"Join", "[", 
+                RowBox[{"block", ",", " ", 
+                 RowBox[{"<|", 
+                  RowBox[{"\"\<Total\>\"", " ", "->", " ", 
+                   RowBox[{"sumTables", "[", 
+                    RowBox[{
+                    RowBox[{"block", "[", "\"\<Dpp\>\"", "]"}], ",", " ", 
+                    RowBox[{"block", "[", "\"\<Dp\>\"", "]"}], ",", " ", 
+                    RowBox[{"block", "[", "\"\<D0\>\"", "]"}], ",", " ", 
+                    RowBox[{"block", "[", "\"\<Dm\>\"", "]"}]}], "]"}]}], 
+                  "|>"}]}], "]"}]}]}], "\n", "     ", "]"}], ",", "\n", 
+            "     ", 
+            RowBox[{"{", 
+             RowBox[{"label", ",", " ", "labels"}], "}"}]}], "\n", "  ", 
+           "]"}]}]}], ";", "\n", "  ", 
+        RowBox[{"yAssoc", " ", "=", " ", 
+         RowBox[{"Association", " ", "@", " ", 
+          RowBox[{"Table", "[", "\n", "     ", 
+           RowBox[{
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"TrueQ", "[", "distributionComputeRapidity", "]"}], ",",
+               "\n", "       ", 
+              RowBox[{"With", "[", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"block", " ", "=", " ", 
+                  RowBox[{"buildDeltaYForType", "[", 
+                   RowBox[{"typeFor", "[", "label", "]"}], "]"}]}], "}"}], ",",
+                 "\n", "         ", 
+                RowBox[{"label", " ", "->", " ", 
+                 RowBox[{"Join", "[", 
+                  RowBox[{"block", ",", " ", 
+                   RowBox[{"<|", 
+                    RowBox[{"\"\<Total\>\"", " ", "->", " ", 
+                    RowBox[{"sumTables", "[", 
+                    RowBox[{
+                    RowBox[{"block", "[", "\"\<Dpp\>\"", "]"}], ",", " ", 
+                    RowBox[{"block", "[", "\"\<Dp\>\"", "]"}], ",", " ", 
+                    RowBox[{"block", "[", "\"\<D0\>\"", "]"}], ",", " ", 
+                    RowBox[{"block", "[", "\"\<Dm\>\"", "]"}]}], "]"}]}], 
+                    "|>"}]}], "]"}]}]}], "\n", "       ", "]"}], ",", "\n", 
+              "       ", 
+              RowBox[{"label", " ", "->", " ", 
+               RowBox[{"<|", "|>"}]}]}], "\n", "     ", "]"}], ",", "\n", 
+            "     ", 
+            RowBox[{"{", 
+             RowBox[{"label", ",", " ", "labels"}], "}"}]}], "\n", "  ", 
+           "]"}]}]}], ";", "\n", "  ", 
+        RowBox[{"<|", 
+         RowBox[{
+          RowBox[{"\"\<Mt\>\"", " ", "->", " ", "mtAssoc"}], ",", " ", 
+          RowBox[{"\"\<Y\>\"", " ", "->", " ", "yAssoc"}]}], "|>"}]}]}], "\n",
+       "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[459]:=",ExpressionUUID->"bdbbdc30-c7b6-784a-aade-b7d43db66465"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"CORRECTION", " ", "TABLES"}], 
+   "                                             ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", 
+     RowBox[{
+     "buildCorrectionMtFor", ",", " ", "buildCorrectionYFor", ",", " ", 
+      "buildCorrectionTablesForMode"}], "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"buildCorrectionMtFor", "[", 
+      RowBox[{"mode_String", ",", " ", "label_String"}], "]"}], " ", ":=", 
+     " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"x", ",", " ", "fP", ",", " ", "fPip", ",", " ", "fPim"}], 
+        "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"fP", " ", "=", " ", 
+         RowBox[{"correctionFunctionMt", "[", 
+          RowBox[{"\"\<Proton\>\"", ",", " ", "label", ",", " ", "mode"}], 
+          "]"}]}], ";", "\n", "  ", 
+        RowBox[{"fPip", " ", "=", " ", 
+         RowBox[{"correctionFunctionMt", "[", 
+          RowBox[{"\"\<PionPlus\>\"", ",", " ", "label", ",", " ", "mode"}], 
+          "]"}]}], ";", "\n", "  ", 
+        RowBox[{"fPim", " ", "=", " ", 
+         RowBox[{"correctionFunctionMt", "[", 
+          RowBox[{"\"\<PionMinus\>\"", ",", " ", "label", ",", " ", "mode"}], 
+          "]"}]}], ";", "\n", "  ", 
+        RowBox[{"<|", "\n", "    ", 
+         RowBox[{
+          RowBox[{"\"\<Proton\>\"", " ", "->", " ", 
+           RowBox[{"distTable", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"x", ",", " ", 
+               RowBox[{"fP", "[", 
+                RowBox[{
+                 RowBox[{"mp", " ", "+", " ", "x"}], ",", " ", "0."}], 
+                "]"}]}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", " ", "mtGrid"}], "}"}]}], "]"}]}], ",", "\n", 
+          "    ", 
+          RowBox[{"\"\<PionPlus\>\"", " ", "->", " ", 
+           RowBox[{"distTable", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"x", ",", " ", 
+               RowBox[{"fPip", "[", 
+                RowBox[{
+                 RowBox[{"mpi", " ", "+", " ", "x"}], ",", " ", "0."}], 
+                "]"}]}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", " ", "mtGrid"}], "}"}]}], "]"}]}], ",", "\n", 
+          "    ", 
+          RowBox[{"\"\<PionMinus\>\"", " ", "->", " ", 
+           RowBox[{"distTable", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"x", ",", " ", 
+               RowBox[{"fPim", "[", 
+                RowBox[{
+                 RowBox[{"mpi", " ", "+", " ", "x"}], ",", " ", "0."}], 
+                "]"}]}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", " ", "mtGrid"}], "}"}]}], "]"}]}]}], "\n", 
+         "  ", "|>"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"buildCorrectionYFor", "[", 
+      RowBox[{"mode_String", ",", " ", "label_String"}], "]"}], " ", ":=", 
+     " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"y", ",", " ", "fP", ",", " ", "fPip", ",", " ", "fPim"}], 
+        "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"!", 
+           RowBox[{"TrueQ", "[", "distributionComputeRapidity", "]"}]}], ",", 
+          " ", 
+          RowBox[{"Return", "[", 
+           RowBox[{"<|", "|>"}], "]"}]}], "]"}], ";", "\n", "  ", 
+        RowBox[{"fP", " ", "=", " ", 
+         RowBox[{"correctionFunctionY", "[", 
+          RowBox[{"\"\<Proton\>\"", ",", " ", "label", ",", " ", "mode"}], 
+          "]"}]}], ";", "\n", "  ", 
+        RowBox[{"fPip", " ", "=", " ", 
+         RowBox[{"correctionFunctionY", "[", 
+          RowBox[{"\"\<PionPlus\>\"", ",", " ", "label", ",", " ", "mode"}], 
+          "]"}]}], ";", "\n", "  ", 
+        RowBox[{"fPim", " ", "=", " ", 
+         RowBox[{"correctionFunctionY", "[", 
+          RowBox[{"\"\<PionMinus\>\"", ",", " ", "label", ",", " ", "mode"}], 
+          "]"}]}], ";", "\n", "  ", 
+        RowBox[{"<|", "\n", "    ", 
+         RowBox[{
+          RowBox[{"\"\<Proton\>\"", " ", "->", " ", 
+           RowBox[{"distTable", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", 
+               RowBox[{"fP", "[", "y", "]"}]}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", "yGrid"}], "}"}]}], "]"}]}], ",", "\n", 
+          "    ", 
+          RowBox[{"\"\<PionPlus\>\"", " ", "->", " ", 
+           RowBox[{"distTable", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", 
+               RowBox[{"fPip", "[", "y", "]"}]}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", "yGrid"}], "}"}]}], "]"}]}], ",", "\n", 
+          "    ", 
+          RowBox[{"\"\<PionMinus\>\"", " ", "->", " ", 
+           RowBox[{"distTable", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", 
+               RowBox[{"fPim", "[", "y", "]"}]}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"y", ",", " ", "yGrid"}], "}"}]}], "]"}]}]}], "\n", 
+         "  ", "|>"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"buildCorrectionTablesForMode", "[", "mode_String", "]"}], " ", ":=",
+      " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"labels", " ", "=", " ", 
+         RowBox[{"{", 
+          
+          RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+           " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}]}], 
+        "}"}], ",", "\n", "  ", 
+       RowBox[{"<|", "\n", "    ", 
+        RowBox[{
+         RowBox[{"\"\<Mt\>\"", " ", "->", " ", 
+          RowBox[{"Association", " ", "@", " ", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"label", " ", "->", " ", 
+              RowBox[{"buildCorrectionMtFor", "[", 
+               RowBox[{"mode", ",", " ", "label"}], "]"}]}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"label", ",", " ", "labels"}], "}"}]}], "]"}]}]}], ",", 
+         "\n", "    ", 
+         RowBox[{"\"\<Y\>\"", " ", "->", " ", 
+          RowBox[{"Association", " ", "@", " ", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"label", " ", "->", " ", 
+              RowBox[{"buildCorrectionYFor", "[", 
+               RowBox[{"mode", ",", " ", "label"}], "]"}]}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"label", ",", " ", "labels"}], "}"}]}], "]"}]}]}]}], 
+        "\n", "  ", "|>"}]}], "\n", "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[465]:=",ExpressionUUID->"87295301-f217-2f40-97b7-719beaec35f3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"CORRECTED", " ", "TOTAL", " ", "TABLES"}], 
+   "                                        ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "buildCorrectedTablesForMode", "]"}], ";"}], 
+   "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"buildCorrectedTablesForMode", "[", 
+      RowBox[{"mode_String", ",", " ", "corrections_Association"}], "]"}], 
+     " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"labels", ",", " ", "correctedMt", ",", " ", "correctedY"}], 
+        "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"labels", " ", "=", " ", 
+         RowBox[{"{", 
+          
+          RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+           " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}]}], ";",
+         "\n", "  ", 
+        RowBox[{"correctedMt", " ", "=", " ", 
+         RowBox[{"Association", " ", "@", " ", 
+          RowBox[{"Table", "[", "\n", "    ", 
+           RowBox[{
+            RowBox[{"label", " ", "->", " ", 
+             RowBox[{"<|", "\n", "      ", 
+              RowBox[{
+               RowBox[{"\"\<Proton\>\"", " ", "->", " ", 
+                RowBox[{"tableAdd", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"PrimordialTables", "[", "\"\<Mt\>\"", "]"}], 
+                   "[", "\"\<Proton\>\"", "]"}], ",", " ", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"corrections", "[", "\"\<Mt\>\"", "]"}], "[", 
+                    "label", "]"}], "[", "\"\<Proton\>\"", "]"}]}], "]"}]}], ",",
+                "\n", "      ", 
+               RowBox[{"\"\<PionPlus\>\"", " ", "->", " ", 
+                RowBox[{"tableAdd", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"PrimordialTables", "[", "\"\<Mt\>\"", "]"}], 
+                   "[", "\"\<PionPlus\>\"", "]"}], ",", " ", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"corrections", "[", "\"\<Mt\>\"", "]"}], "[", 
+                    "label", "]"}], "[", "\"\<PionPlus\>\"", "]"}]}], "]"}]}],
+                ",", "\n", "      ", 
+               RowBox[{"\"\<PionMinus\>\"", " ", "->", " ", 
+                RowBox[{"tableAdd", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"PrimordialTables", "[", "\"\<Mt\>\"", "]"}], 
+                   "[", "\"\<PionMinus\>\"", "]"}], ",", " ", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"corrections", "[", "\"\<Mt\>\"", "]"}], "[", 
+                    "label", "]"}], "[", "\"\<PionMinus\>\"", "]"}]}], 
+                 "]"}]}]}], "\n", "    ", "|>"}]}], ",", "\n", "    ", 
+            RowBox[{"{", 
+             RowBox[{"label", ",", " ", "labels"}], "}"}]}], "\n", "  ", 
+           "]"}]}]}], ";", "\n", "  ", 
+        RowBox[{"correctedY", " ", "=", " ", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"TrueQ", "[", "distributionComputeRapidity", "]"}], ",", 
+           "\n", "    ", 
+           RowBox[{"Association", " ", "@", " ", 
+            RowBox[{"Table", "[", "\n", "      ", 
+             RowBox[{
+              RowBox[{"label", " ", "->", " ", 
+               RowBox[{"<|", "\n", "        ", 
+                RowBox[{
+                 RowBox[{"\"\<Proton\>\"", " ", "->", " ", 
+                  RowBox[{"tableAdd", "[", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"PrimordialTables", "[", "\"\<Y\>\"", "]"}], 
+                    "[", "\"\<Proton\>\"", "]"}], ",", " ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"corrections", "[", "\"\<Y\>\"", "]"}], "[", 
+                    "label", "]"}], "[", "\"\<Proton\>\"", "]"}]}], "]"}]}], ",",
+                  "\n", "        ", 
+                 RowBox[{"\"\<PionPlus\>\"", " ", "->", " ", 
+                  RowBox[{"tableAdd", "[", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"PrimordialTables", "[", "\"\<Y\>\"", "]"}], 
+                    "[", "\"\<PionPlus\>\"", "]"}], ",", " ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"corrections", "[", "\"\<Y\>\"", "]"}], "[", 
+                    "label", "]"}], "[", "\"\<PionPlus\>\"", "]"}]}], "]"}]}],
+                  ",", "\n", "        ", 
+                 RowBox[{"\"\<PionMinus\>\"", " ", "->", " ", 
+                  RowBox[{"tableAdd", "[", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"PrimordialTables", "[", "\"\<Y\>\"", "]"}], 
+                    "[", "\"\<PionMinus\>\"", "]"}], ",", " ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"corrections", "[", "\"\<Y\>\"", "]"}], "[", 
+                    "label", "]"}], "[", "\"\<PionMinus\>\"", "]"}]}], 
+                   "]"}]}]}], "\n", "      ", "|>"}]}], ",", "\n", "      ", 
+              RowBox[{"{", 
+               RowBox[{"label", ",", " ", "labels"}], "}"}]}], "\n", "    ", 
+             "]"}]}], ",", "\n", "    ", 
+           RowBox[{"<|", "|>"}]}], "\n", "  ", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"<|", 
+         RowBox[{
+          RowBox[{"\"\<Mt\>\"", " ", "->", " ", "correctedMt"}], ",", " ", 
+          RowBox[{"\"\<Y\>\"", " ", "->", " ", "correctedY"}]}], "|>"}]}]}], 
+      "\n", "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[469]:=",ExpressionUUID->"9abda640-8aac-3645-8548-3b7820fa0b2e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"MODE", " ", "BLOCK", " ", "BUILDER"}], 
+   "                                            ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "buildDistributionModeBlock", "]"}], ";"}], "\n",
+    "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"buildDistributionModeBlock", "[", "mode_String", "]"}], " ", ":=",
+      " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"delta", ",", " ", "corr", ",", " ", "corrTot"}], "}"}], ",", 
+       "\n", "  ", 
+       RowBox[{
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<========== Building Distributions mode: \>\"", ",", " ",
+           "mode", ",", " ", "\"\< ==========\>\""}], "]"}], ";", "\n", "  ", 
+        RowBox[{"delta", " ", "=", " ", 
+         RowBox[{"buildDeltaTablesForMode", "[", "mode", "]"}]}], ";", "\n", 
+        "  ", 
+        RowBox[{"corr", " ", "=", " ", 
+         RowBox[{"buildCorrectionTablesForMode", "[", "mode", "]"}]}], ";", 
+        "\n", "  ", 
+        RowBox[{"corrTot", " ", "=", " ", 
+         RowBox[{"buildCorrectedTablesForMode", "[", 
+          RowBox[{"mode", ",", " ", "corr"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"<|", "\n", "    ", 
+         RowBox[{
+          RowBox[{"\"\<Mode\>\"", " ", "->", " ", "mode"}], ",", "\n", "    ", 
+          RowBox[{"\"\<PrimordialMt\>\"", " ", "->", " ", 
+           RowBox[{"PrimordialTables", "[", "\"\<Mt\>\"", "]"}]}], ",", "\n", 
+          "    ", 
+          RowBox[{"\"\<PrimordialY\>\"", " ", "->", " ", 
+           RowBox[{"PrimordialTables", "[", "\"\<Y\>\"", "]"}]}], ",", "\n", 
+          "    ", 
+          RowBox[{"\"\<DeltaMt\>\"", " ", "->", " ", 
+           RowBox[{"delta", "[", "\"\<Mt\>\"", "]"}]}], ",", "\n", "    ", 
+          RowBox[{"\"\<DeltaY\>\"", " ", "->", " ", 
+           RowBox[{"delta", "[", "\"\<Y\>\"", "]"}]}], ",", "\n", "    ", 
+          RowBox[{"\"\<CorrectionMt\>\"", " ", "->", " ", 
+           RowBox[{"corr", "[", "\"\<Mt\>\"", "]"}]}], ",", "\n", "    ", 
+          RowBox[{"\"\<CorrectionY\>\"", " ", "->", " ", 
+           RowBox[{"corr", "[", "\"\<Y\>\"", "]"}]}], ",", "\n", "    ", 
+          RowBox[{"\"\<CorrectedMt\>\"", " ", "->", " ", 
+           RowBox[{"corrTot", "[", "\"\<Mt\>\"", "]"}]}], ",", "\n", "    ", 
+          RowBox[{"\"\<CorrectedY\>\"", " ", "->", " ", 
+           RowBox[{"corrTot", "[", "\"\<Y\>\"", "]"}]}]}], "\n", "  ", 
+         "|>"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"AllDistributionTablesByMode", " ", "=", " ", 
+     RowBox[{"<|", "\n", "  ", 
+      RowBox[{
+       RowBox[{"\"\<Vacuum\>\"", " ", "->", " ", 
+        RowBox[{"buildDistributionModeBlock", "[", "\"\<Vacuum\>\"", "]"}]}], 
+       ",", "\n", "  ", 
+       RowBox[{"\"\<Fitted\>\"", " ", "->", " ", 
+        RowBox[{
+        "buildDistributionModeBlock", "[", "\"\<Fitted\>\"", "]"}]}]}], "\n", 
+      "|>"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[471]:=",ExpressionUUID->"c40e66b8-9ffd-e740-8b50-ba26c4d4aa64"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"========== Building Distributions mode: \"\>", 
+   "\[InvisibleSpace]", "\<\"Vacuum\"\>", 
+   "\[InvisibleSpace]", "\<\" ==========\"\>"}],
+  SequenceForm[
+  "========== Building Distributions mode: ", "Vacuum", " =========="],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.9881733088885574`*^9, 3.9881840450485916`*^9},
+ CellLabel->
+  "During evaluation of \
+In[471]:=",ExpressionUUID->"9a308c47-c290-e244-9eca-3eafdcf47180"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"========== Building Distributions mode: \"\>", 
+   "\[InvisibleSpace]", "\<\"Fitted\"\>", 
+   "\[InvisibleSpace]", "\<\" ==========\"\>"}],
+  SequenceForm[
+  "========== Building Distributions mode: ", "Fitted", " =========="],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.9881733088885574`*^9, 3.988188020222004*^9},
+ CellLabel->
+  "During evaluation of \
+In[471]:=",ExpressionUUID->"5983d629-f625-9245-bd21-7bd2d97dbdf8"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"BACKWARD", "-", 
+    RowBox[{"COMPATIBLE", " ", "ALIASES"}]}], 
+   "                                   ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "Vacuum", " ", "aliases", " ", "keep", " ", "the", " ", "old", " ", 
+     "no"}], "-", 
+    RowBox[{"fit", " ", 
+     RowBox[{"names", "."}]}]}], " ", "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ProtonPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+       "[", "\"\<PrimordialMt\>\"", "]"}], "[", "\"\<Proton\>\"", "]"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+       "[", "\"\<PrimordialMt\>\"", "]"}], "[", "\"\<PionPlus\>\"", "]"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+       "[", "\"\<PrimordialMt\>\"", "]"}], "[", "\"\<PionMinus\>\"", "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ProtonYPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+       "[", "\"\<PrimordialY\>\"", "]"}], "[", "\"\<Proton\>\"", "]"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPYPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+       "[", "\"\<PrimordialY\>\"", "]"}], "[", "\"\<PionPlus\>\"", "]"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMYPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+       "[", "\"\<PrimordialY\>\"", "]"}], "[", "\"\<PionMinus\>\"", "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"DeltaPPPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<DeltaMt\>\"", "]"}], "[", "\"\<Dirac\>\"", "]"}], 
+      "[", "\"\<Dpp\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"DeltaPPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<DeltaMt\>\"", "]"}], "[", "\"\<Dirac\>\"", "]"}], 
+      "[", "\"\<Dp\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Delta0PlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<DeltaMt\>\"", "]"}], "[", "\"\<Dirac\>\"", "]"}], 
+      "[", "\"\<D0\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"DeltaMPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<DeltaMt\>\"", "]"}], "[", "\"\<Dirac\>\"", "]"}], 
+      "[", "\"\<Dm\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"DeltaTotPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<DeltaMt\>\"", "]"}], "[", "\"\<Dirac\>\"", "]"}], 
+      "[", "\"\<Total\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"DeltaPPBWPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<DeltaMt\>\"", "]"}], "[", "\"\<BreitWigner\>\"", "]"}], 
+      "[", "\"\<Dpp\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"DeltaPPCugnonPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<DeltaMt\>\"", "]"}], "[", "\"\<Cugnon\>\"", "]"}], 
+      "[", "\"\<Dpp\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"DeltaPPPSPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<DeltaMt\>\"", "]"}], "[", "\"\<PhaseShift\>\"", "]"}], 
+      "[", "\"\<Dpp\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"DeltaTotBWPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<DeltaMt\>\"", "]"}], "[", "\"\<BreitWigner\>\"", "]"}], 
+      "[", "\"\<Total\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"DeltaTotCugnonPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<DeltaMt\>\"", "]"}], "[", "\"\<Cugnon\>\"", "]"}], 
+      "[", "\"\<Total\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"DeltaTotPSPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<DeltaMt\>\"", "]"}], "[", "\"\<PhaseShift\>\"", "]"}], 
+      "[", "\"\<Total\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<Dirac\>\"", "]"}], 
+      "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrBWPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<BreitWigner\>\"", "]"}],
+       "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrCugnonPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<Cugnon\>\"", "]"}], 
+      "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrPSPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<PhaseShift\>\"", "]"}], 
+      "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<Dirac\>\"", "]"}], 
+      "[", "\"\<PionPlus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrBWPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<BreitWigner\>\"", "]"}],
+       "[", "\"\<PionPlus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrCugnonPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<Cugnon\>\"", "]"}], 
+      "[", "\"\<PionPlus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrPSPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<PhaseShift\>\"", "]"}], 
+      "[", "\"\<PionPlus\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<Dirac\>\"", "]"}], 
+      "[", "\"\<PionMinus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrBWPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<BreitWigner\>\"", "]"}],
+       "[", "\"\<PionMinus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrCugnonPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<Cugnon\>\"", "]"}], 
+      "[", "\"\<PionMinus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrPSPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<PhaseShift\>\"", "]"}], 
+      "[", "\"\<PionMinus\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<Dirac\>\"", "]"}], 
+      "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectedBWPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<BreitWigner\>\"", "]"}], 
+      "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectedCugnonPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<Cugnon\>\"", "]"}], 
+      "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectedPSPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<PhaseShift\>\"", "]"}], 
+      "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrectedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<Dirac\>\"", "]"}], 
+      "[", "\"\<PionPlus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrectedBWPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<BreitWigner\>\"", "]"}], 
+      "[", "\"\<PionPlus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrectedCugnonPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<Cugnon\>\"", "]"}], 
+      "[", "\"\<PionPlus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrectedPSPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<PhaseShift\>\"", "]"}], 
+      "[", "\"\<PionPlus\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrectedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<Dirac\>\"", "]"}], 
+      "[", "\"\<PionMinus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrectedBWPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<BreitWigner\>\"", "]"}], 
+      "[", "\"\<PionMinus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrectedCugnonPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<Cugnon\>\"", "]"}], 
+      "[", "\"\<PionMinus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrectedPSPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<PhaseShift\>\"", "]"}], 
+      "[", "\"\<PionMinus\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Fitted", " ", 
+     RowBox[{"aliases", "."}]}], " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrBWFittedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<BreitWigner\>\"", "]"}],
+       "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrCugnonFittedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<Cugnon\>\"", "]"}], 
+      "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrPSFittedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<PhaseShift\>\"", "]"}], 
+      "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectedBWFittedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<BreitWigner\>\"", "]"}], 
+      "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectedCugnonFittedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<Cugnon\>\"", "]"}], 
+      "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectedPSFittedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}], 
+        "[", "\"\<CorrectedMt\>\"", "]"}], "[", "\"\<PhaseShift\>\"", "]"}], 
+      "[", "\"\<Proton\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrBWFittedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<BreitWigner\>\"", "]"}],
+       "[", "\"\<PionPlus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrCugnonFittedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<Cugnon\>\"", "]"}], 
+      "[", "\"\<PionPlus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrPSFittedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<PhaseShift\>\"", "]"}], 
+      "[", "\"\<PionPlus\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrBWFittedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<BreitWigner\>\"", "]"}],
+       "[", "\"\<PionMinus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrCugnonFittedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<Cugnon\>\"", "]"}], 
+      "[", "\"\<PionMinus\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrPSFittedPlotData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}], 
+        "[", "\"\<CorrectionMt\>\"", "]"}], "[", "\"\<PhaseShift\>\"", "]"}], 
+      "[", "\"\<PionMinus\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Mode", "-", 
+     RowBox[{
+     "suffixed", " ", "copies", " ", "for", " ", "explicit", " ", 
+      "downstream", " ", 
+      RowBox[{"access", "."}]}]}], " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"Do", "[", "\n", "  ", 
+     RowBox[{
+      RowBox[{"With", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"mode", " ", "=", " ", "mm"}], ",", " ", 
+          RowBox[{"block", " ", "=", " ", 
+           RowBox[{"AllDistributionTablesByMode", "[", "mm", "]"}]}]}], "}"}],
+         ",", "\n", "    ", 
+        RowBox[{
+         RowBox[{"ToExpression", "[", 
+          
+          RowBox[{"\"\<ProtonPlotData\>\"", " ", "<>", " ", "mode", " ", "<>",
+            " ", "\"\< = block[\\\"PrimordialMt\\\"][\\\"Proton\\\"]\>\""}], 
+          "]"}], ";", "\n", "    ", 
+         RowBox[{"ToExpression", "[", 
+          
+          RowBox[{"\"\<PionPPlotData\>\"", " ", "<>", " ", "mode", " ", "<>", 
+           " ", "\"\< = block[\\\"PrimordialMt\\\"][\\\"PionPlus\\\"]\>\""}], 
+          "]"}], ";", "\n", "    ", 
+         RowBox[{"ToExpression", "[", 
+          
+          RowBox[{"\"\<PionMPlotData\>\"", " ", "<>", " ", "mode", " ", "<>", 
+           " ", "\"\< = block[\\\"PrimordialMt\\\"][\\\"PionMinus\\\"]\>\""}],
+           "]"}], ";", "\n", "    ", 
+         RowBox[{"ToExpression", "[", 
+          
+          RowBox[{"\"\<ProtonCorrBWPlotData\>\"", " ", "<>", " ", "mode", " ",
+            "<>", " ", "\"\< = \
+block[\\\"CorrectionMt\\\"][\\\"BreitWigner\\\"][\\\"Proton\\\"]\>\""}], 
+          "]"}], ";", "\n", "    ", 
+         RowBox[{"ToExpression", "[", 
+          
+          RowBox[{"\"\<ProtonCorrCugnonPlotData\>\"", " ", "<>", " ", "mode", 
+           " ", "<>", 
+           " ", "\"\< = \
+block[\\\"CorrectionMt\\\"][\\\"Cugnon\\\"][\\\"Proton\\\"]\>\""}], "]"}], ";",
+          "\n", "    ", 
+         RowBox[{"ToExpression", "[", 
+          
+          RowBox[{"\"\<ProtonCorrPSPlotData\>\"", " ", "<>", " ", "mode", " ",
+            "<>", " ", "\"\< = \
+block[\\\"CorrectionMt\\\"][\\\"PhaseShift\\\"][\\\"Proton\\\"]\>\""}], "]"}],
+          ";", "\n", "    ", 
+         RowBox[{"ToExpression", "[", 
+          
+          RowBox[{"\"\<ProtonCorrectedBWPlotData\>\"", " ", "<>", " ", "mode",
+            " ", "<>", 
+           " ", "\"\< = \
+block[\\\"CorrectedMt\\\"][\\\"BreitWigner\\\"][\\\"Proton\\\"]\>\""}], "]"}],
+          ";", "\n", "    ", 
+         RowBox[{"ToExpression", "[", 
+          
+          RowBox[{"\"\<ProtonCorrectedCugnonPlotData\>\"", " ", "<>", " ", 
+           "mode", " ", "<>", 
+           " ", "\"\< = block[\\\"CorrectedMt\\\"][\\\"Cugnon\\\"][\\\"Proton\
+\\\"]\>\""}], "]"}], ";", "\n", "    ", 
+         RowBox[{"ToExpression", "[", 
+          
+          RowBox[{"\"\<ProtonCorrectedPSPlotData\>\"", " ", "<>", " ", "mode",
+            " ", "<>", 
+           " ", "\"\< = \
+block[\\\"CorrectedMt\\\"][\\\"PhaseShift\\\"][\\\"Proton\\\"]\>\""}], "]"}], 
+         ";"}]}], "\n", "  ", "]"}], ",", "\n", "  ", 
+      RowBox[{"{", 
+       RowBox[{"mm", ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Fitted\>\""}], "}"}]}], 
+       "}"}]}], "\n", "]"}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[474]:=",ExpressionUUID->"548349a7-33b2-c143-ace6-7d5c58e1df5f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "EXPORT", " ", "TABLES", " ", "FOR", " ", "LATER", " ", "NOTEBOOKS"}], 
+   "                             ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Quiet", " ", "@", " ", 
+     RowBox[{"Export", "[", 
+      RowBox[{"\"\<AllDistributionTablesByMode.wl\>\"", ",", " ", 
+       "AllDistributionTablesByMode"}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Quiet", " ", "@", " ", 
+     RowBox[{"Export", "[", 
+      RowBox[{"\"\<AllDistributionTables_Vacuum.wl\>\"", ",", " ", 
+       RowBox[{"AllDistributionTablesByMode", "[", "\"\<Vacuum\>\"", "]"}]}], 
+      "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Quiet", " ", "@", " ", 
+     RowBox[{"Export", "[", 
+      RowBox[{"\"\<AllDistributionTables_Fitted.wl\>\"", ",", " ", 
+       RowBox[{"AllDistributionTablesByMode", "[", "\"\<Fitted\>\"", "]"}]}], 
+      "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[528]:=",ExpressionUUID->"2c68b828-f599-1a42-b33d-fd4f727f963e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"DISPLAY", " ", "DIAGNOSTICS"}], 
+   "                                           ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", 
+     RowBox[{"statsRowsForMode", ",", " ", "statsRowFor"}], "]"}], ";"}], 
+   "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"statsRowFor", "[", 
+      RowBox[{
+      "mode_", ",", " ", "massLabel_", ",", " ", "component_", ",", " ", 
+       "object_", ",", " ", "data_"}], "]"}], " ", ":=", " ", 
+     RowBox[{"Join", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "mode", ",", " ", "massLabel", ",", " ", "component", ",", " ", 
+         "object"}], "}"}], ",", " ", 
+       RowBox[{"dataStats", "[", "data", "]"}]}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"statsRowsForMode", "[", "mode_", "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"block", " ", "=", " ", 
+         RowBox[{"AllDistributionTablesByMode", "[", "mode", "]"}]}], "}"}], ",",
+        "\n", "  ", 
+       RowBox[{"Join", "[", "\n", "    ", 
+        RowBox[{
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"statsRowFor", "[", 
+            RowBox[{
+            "mode", ",", " ", "label", ",", " ", "\"\<DeltaMt\>\"", ",", 
+             " ", "\"\<Total\>\"", ",", " ", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"block", "[", "\"\<DeltaMt\>\"", "]"}], "[", "label", 
+               "]"}], "[", "\"\<Total\>\"", "]"}]}], "]"}], ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"label", ",", " ", 
+             RowBox[{"{", 
+              
+              RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+               " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], 
+              "}"}]}], "}"}]}], "]"}], ",", "\n", "    ", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"statsRowFor", "[", 
+            RowBox[{
+            "mode", ",", " ", "label", ",", " ", "\"\<CorrectionMt\>\"", ",", 
+             " ", "\"\<Proton\>\"", ",", " ", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"block", "[", "\"\<CorrectionMt\>\"", "]"}], "[", 
+               "label", "]"}], "[", "\"\<Proton\>\"", "]"}]}], "]"}], ",", 
+           " ", 
+           RowBox[{"{", 
+            RowBox[{"label", ",", " ", 
+             RowBox[{"{", 
+              
+              RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+               " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], 
+              "}"}]}], "}"}]}], "]"}], ",", "\n", "    ", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"statsRowFor", "[", 
+            RowBox[{
+            "mode", ",", " ", "label", ",", " ", "\"\<CorrectedMt\>\"", ",", 
+             " ", "\"\<Proton\>\"", ",", " ", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"block", "[", "\"\<CorrectedMt\>\"", "]"}], "[", 
+               "label", "]"}], "[", "\"\<Proton\>\"", "]"}]}], "]"}], ",", 
+           " ", 
+           RowBox[{"{", 
+            RowBox[{"label", ",", " ", 
+             RowBox[{"{", 
+              
+              RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+               " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], 
+              "}"}]}], "}"}]}], "]"}]}], "\n", "  ", "]"}]}], "\n", "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"DistributionRunSummaryTable", " ", "=", " ", 
+     RowBox[{"distMakeGrid", "[", "\n", "  ", 
+      RowBox[{"{", "\n", "    ", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<Quantity\>\"", ",", " ", "\"\<Value\>\""}], "}"}], ",", 
+        "\n", "    ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Computed modes\>\"", ",", " ", 
+          RowBox[{"Keys", "[", "AllDistributionTablesByMode", "]"}]}], "}"}], 
+        ",", "\n", "    ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<mT grid [MeV]\>\"", ",", " ", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"First", "[", "mtGrid", "]"}], ",", " ", 
+            RowBox[{"Last", "[", "mtGrid", "]"}], ",", " ", "tableStepMt"}], 
+           "}"}]}], "}"}], ",", "\n", "    ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<y grid\>\"", ",", " ", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"First", "[", "yGrid", "]"}], ",", " ", 
+            RowBox[{"Last", "[", "yGrid", "]"}], ",", " ", "tableStepY"}], 
+           "}"}]}], "}"}], ",", "\n", "    ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Rapidity tables computed\>\"", ",", " ", 
+          "distributionComputeRapidity"}], "}"}], ",", "\n", "    ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Proton acceptance factor\>\"", ",", " ", 
+          "protonCorrectionAcceptanceFactor"}], "}"}], ",", "\n", "    ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Correction tables use acceptance\>\"", ",", " ", 
+          "False"}], "}"}], ",", "\n", "    ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Vacuum/Fitted implementation\>\"", ",", 
+          " ", "\"\<explicit functions, no active mode\>\""}], "}"}]}], "\n", 
+       "  ", "}"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"DistributionPreviewTable", " ", "=", " ", 
+     RowBox[{"distMakeGrid", "[", "\n", "  ", 
+      RowBox[{"Join", "[", "\n", "    ", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"{", 
+          
+          RowBox[{"\"\<Table\>\"", ",", " ", "\"\<x or y\>\"", ",", 
+           " ", "\"\<value\>\""}], "}"}], "}"}], ",", "\n", "    ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"\"\<p primordial mt\>\"", ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "}"}], " ", "&"}], " ", "/@", 
+          " ", 
+          RowBox[{"takeRows", "[", 
+           RowBox[{"ProtonPlotData", ",", " ", "4"}], "]"}]}], ")"}], ",", 
+        "\n", "    ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"\"\<pi+ primordial mt\>\"", ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "}"}], " ", "&"}], " ", "/@", 
+          " ", 
+          RowBox[{"takeRows", "[", 
+           RowBox[{"PionPPlotData", ",", " ", "4"}], "]"}]}], ")"}], ",", 
+        "\n", "    ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"\"\<p BW correction mt Vacuum\>\"", ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "}"}], " ", "&"}], " ", "/@", 
+          " ", 
+          RowBox[{"takeRows", "[", 
+           RowBox[{"ProtonCorrBWPlotDataVacuum", ",", " ", "4"}], "]"}]}], 
+         ")"}], ",", "\n", "    ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"\"\<p BW correction mt Fitted\>\"", ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "}"}], " ", "&"}], " ", "/@", 
+          " ", 
+          RowBox[{"takeRows", "[", 
+           RowBox[{"ProtonCorrBWPlotDataFitted", ",", " ", "4"}], "]"}]}], 
+         ")"}], ",", "\n", "    ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"\"\<p Cugnon correction mt Vacuum\>\"", ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "}"}], " ", "&"}], " ", "/@", 
+          " ", 
+          RowBox[{"takeRows", "[", 
+           RowBox[{"ProtonCorrCugnonPlotDataVacuum", ",", " ", "4"}], "]"}]}],
+          ")"}], ",", "\n", "    ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"\"\<p Cugnon correction mt Fitted\>\"", ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "}"}], " ", "&"}], " ", "/@", 
+          " ", 
+          RowBox[{"takeRows", "[", 
+           RowBox[{"ProtonCorrCugnonPlotDataFitted", ",", " ", "4"}], "]"}]}],
+          ")"}], ",", "\n", "    ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"\"\<p PS correction mt Vacuum\>\"", ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "}"}], " ", "&"}], " ", "/@", 
+          " ", 
+          RowBox[{"takeRows", "[", 
+           RowBox[{"ProtonCorrPSPlotDataVacuum", ",", " ", "4"}], "]"}]}], 
+         ")"}], ",", "\n", "    ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"\"\<p PS correction mt Fitted\>\"", ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "}"}], " ", "&"}], " ", "/@", 
+          " ", 
+          RowBox[{"takeRows", "[", 
+           RowBox[{"ProtonCorrPSPlotDataFitted", ",", " ", "4"}], "]"}]}], 
+         ")"}]}], "\n", "  ", "]"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"DistributionStatsTable", " ", "=", " ", 
+     RowBox[{"distMakeGrid", "[", "\n", "  ", 
+      RowBox[{"Prepend", "[", "\n", "    ", 
+       RowBox[{
+        RowBox[{"Join", "[", 
+         RowBox[{
+          RowBox[{"statsRowsForMode", "[", "\"\<Vacuum\>\"", "]"}], ",", " ", 
+          RowBox[{"statsRowsForMode", "[", "\"\<Fitted\>\"", "]"}]}], "]"}], ",",
+         "\n", "    ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Mode\>\"", ",", " ", "\"\<Mass distribution\>\"", ",", 
+          " ", "\"\<Component\>\"", ",", " ", "\"\<Object\>\"", ",", 
+          " ", "\"\<N\>\"", ",", " ", "\"\<xMin\>\"", ",", " ", "\"\<xMax\>\"",
+           ",", " ", "\"\<yMin\>\"", ",", " ", "\"\<yMax\>\""}], "}"}]}], 
+       "\n", "  ", "]"}], "\n", "]"}]}], ";"}], "\[IndentingNewLine]", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "Quick", " ", "plot", " ", "intentionally", " ", "moved", " ", "to", " ", 
+     "plotting", " ", 
+     RowBox[{"notebooks", ".", "\n", "   ", "This"}], " ", "Distributions", " ",
+      "notebook", " ", "only", " ", "creates", " ", "numerical", " ", 
+     RowBox[{"tables", "."}]}], " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "\"\<Distribution run summary:\>\"", "]"}], ";"}], "\n",
+    "DistributionRunSummaryTable", "\n", "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "\"\<Distribution preview table:\>\"", "]"}], ";"}],
+    "\n", "DistributionPreviewTable", "\n", "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "\"\<Distribution statistics:\>\"", "]"}], ";"}], "\n",
+    "DistributionStatsTable", "\n", "\n", 
+   RowBox[{
+    RowBox[{
+    "Print", "[", "\"\<Distributions finished: explicit Vacuum and Fitted \
+mass distributions computed in one file.\>\"", "]"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.9881733512070217`*^9, 3.988173351574024*^9}},
+ CellLabel->
+  "In[531]:=",ExpressionUUID->"8d524d3c-312e-d947-a454-5563dce3ccc5"],
+
+Cell[BoxData["\<\"Distribution run summary:\"\>"], "Print",
+ CellChangeTimes->{3.98817957156905*^9, 3.9881916884728775`*^9},
+ CellLabel->
+  "During evaluation of \
+In[531]:=",ExpressionUUID->"dee8881a-9e81-b142-98fb-72d807548a6f"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Quantity\"\>", "\<\"Value\"\>"},
+    {"\<\"Computed modes\"\>", 
+     RowBox[{"{", 
+      RowBox[{"\<\"Vacuum\"\>", ",", "\<\"Fitted\"\>"}], "}"}]},
+    {"\<\"mT grid [MeV]\"\>", 
+     RowBox[{"{", 
+      RowBox[{
+       TagBox[
+        InterpretationBox[
+         StyleBox[
+          TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+           "RowDefault"],
+          ShowStringCharacters->False],
+         0.1,
+         Editable->False],
+        ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], ",", 
+       TagBox[
+        InterpretationBox[
+         StyleBox[
+          TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+           "RowDefault"],
+          ShowStringCharacters->False],
+         990.1,
+         Editable->False],
+        ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], ",", 
+       TagBox[
+        InterpretationBox[
+         StyleBox[
+          TemplateBox[{"\"1.\"", "\"e\"", "\"1\""},
+           "RowDefault"],
+          ShowStringCharacters->False],
+         10.,
+         Editable->False],
+        ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]}],
+       "}"}]},
+    {"\<\"y grid\"\>", 
+     RowBox[{"{", 
+      RowBox[{
+       TagBox[
+        InterpretationBox[
+         StyleBox[
+          TemplateBox[{"\"-2.\"", "\"e\"", "\"\""},
+           "RowDefault"],
+          ShowStringCharacters->False],
+         -2.,
+         Editable->False],
+        ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], ",", 
+       TagBox[
+        InterpretationBox[
+         StyleBox[
+          TemplateBox[{"\"2.\"", "\"e\"", "\"\""},
+           "RowDefault"],
+          ShowStringCharacters->False],
+         2.,
+         Editable->False],
+        ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], ",", 
+       TagBox[
+        InterpretationBox[
+         StyleBox[
+          TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+           "RowDefault"],
+          ShowStringCharacters->False],
+         0.1,
+         Editable->False],
+        ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]}],
+       "}"}]},
+    {"\<\"Rapidity tables computed\"\>", "True"},
+    {"\<\"Proton acceptance factor\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"6.253\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.6253021756647865,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Correction tables use acceptance\"\>", "False"},
+    {"\<\"Vacuum/Fitted implementation\"\>", "\<\"explicit functions, no \
+active mode\"\>"}
+   },
+   AutoDelete->False,
+   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{3.9881795715710487`*^9, 3.988191688476879*^9},
+ CellLabel->
+  "Out[538]=",ExpressionUUID->"d14d5257-aa7d-5545-b1e0-0ef984852816"],
+
+Cell[BoxData["\<\"Distribution preview table:\"\>"], "Print",
+ CellChangeTimes->{3.98817957156905*^9, 3.988191688478878*^9},
+ CellLabel->
+  "During evaluation of \
+In[531]:=",ExpressionUUID->"33ab450c-6e89-a84f-8909-7a3e55443689"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Table\"\>", "\<\"x or y\"\>", "\<\"value\"\>"},
+    {"\<\"p primordial mt\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.6345\"", "\"e\"", "\"-7\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.634503223329909*^-7,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"p primordial mt\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.01\"", "\"e\"", "\"1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       10.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.527\"", "\"e\"", "\"-7\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.527027901310809*^-7,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"p primordial mt\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"2.01\"", "\"e\"", "\"1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       20.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.4122\"", "\"e\"", "\"-7\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.412235483694647*^-7,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"p primordial mt\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.01\"", "\"e\"", "\"1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       30.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.2916\"", "\"e\"", "\"-7\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.291612854161754*^-7,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"pi+ primordial mt\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.8059\"", "\"e\"", "\"-6\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.8059161688765058`*^-6,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"pi+ primordial mt\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.01\"", "\"e\"", "\"1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       10.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.515\"", "\"e\"", "\"-6\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.5149894175836615`*^-6,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"pi+ primordial mt\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"2.01\"", "\"e\"", "\"1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       20.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.2739\"", "\"e\"", "\"-6\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.2739112758802573`*^-6,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"pi+ primordial mt\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.01\"", "\"e\"", "\"1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       30.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.0736\"", "\"e\"", "\"-6\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.0735750107686644`*^-6,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]}
+   },
+   AutoDelete->False,
+   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{3.9881795715710487`*^9, 3.9881916884818783`*^9},
+ CellLabel->
+  "Out[540]=",ExpressionUUID->"7383f25c-5be4-7e4b-ba24-e687a0afb25e"],
+
+Cell[BoxData["\<\"Distribution statistics:\"\>"], "Print",
+ CellChangeTimes->{3.98817957156905*^9, 3.9881916884848785`*^9},
+ CellLabel->
+  "During evaluation of \
+In[531]:=",ExpressionUUID->"b8723def-9e42-f048-a713-7aeaf54a09e3"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Mode\"\>", "\<\"Mass distribution\"\>", "\<\"Component\"\>", \
+"\<\"Object\"\>", "\<\"N\"\>", "\<\"xMin\"\>", "\<\"xMax\"\>", \
+"\<\"yMin\"\>", "\<\"yMax\"\>"},
+    {"\<\"Vacuum\"\>", "\<\"Dirac\"\>", "\<\"DeltaMt\"\>", "\<\"Total\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.146\"", "\"e\"", "\"-11\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.146029012138821*^-11,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.0385\"", "\"e\"", "\"-8\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.0384717989565606`*^-8,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Vacuum\"\>", "\<\"BreitWigner\"\>", "\<\"DeltaMt\"\>", "\<\"Total\"\
+\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.2226\"", "\"e\"", "\"-11\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.2225583624648201`*^-11,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.6674\"", "\"e\"", "\"-8\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.6674264338364628`*^-8,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Vacuum\"\>", "\<\"Cugnon\"\>", "\<\"DeltaMt\"\>", "\<\"Total\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.998\"", "\"e\"", "\"-12\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       9.998004275672703*^-12,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.2801\"", "\"e\"", "\"-9\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       9.28006714468985*^-9,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Vacuum\"\>", "\<\"PhaseShift\"\>", "\<\"DeltaMt\"\>", \
+"\<\"Total\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.2828\"", "\"e\"", "\"-11\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.2827603777094386`*^-11,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.8818\"", "\"e\"", "\"-8\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.8818443260963826`*^-8,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Vacuum\"\>", "\<\"Dirac\"\>", "\<\"CorrectionMt\"\>", "\<\"Proton\"\
+\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.7595\"", "\"e\"", "\"-12\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.7595131841604306`*^-12,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"4.359\"", "\"e\"", "\"-9\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       4.358994427115862*^-9,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Vacuum\"\>", "\<\"BreitWigner\"\>", "\<\"CorrectionMt\"\>", \
+"\<\"Proton\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"2.2522\"", "\"e\"", "\"-12\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       2.252188111164561*^-12,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"8.4587\"", "\"e\"", "\"-9\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       8.458694875494935*^-9,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Vacuum\"\>", "\<\"Cugnon\"\>", "\<\"CorrectionMt\"\>", \
+"\<\"Proton\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.6103\"", "\"e\"", "\"-12\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.610341310147425*^-12,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"4.7616\"", "\"e\"", "\"-9\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       4.761647823226529*^-9,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Vacuum\"\>", "\<\"PhaseShift\"\>", "\<\"CorrectionMt\"\>", \
+"\<\"Proton\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"2.3815\"", "\"e\"", "\"-12\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       2.3815460640413463`*^-12,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"8.859\"", "\"e\"", "\"-9\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       8.859005889491375*^-9,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Vacuum\"\>", "\<\"Dirac\"\>", "\<\"CorrectedMt\"\>", \
+"\<\"Proton\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.123\"", "\"e\"", "\"-10\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.1230185113792376`*^-10,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.6781\"", "\"e\"", "\"-7\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.6780931676010674`*^-7,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Vacuum\"\>", "\<\"BreitWigner\"\>", "\<\"CorrectedMt\"\>", \
+"\<\"Proton\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.1279\"", "\"e\"", "\"-10\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.127945260649279*^-10,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.7191\"", "\"e\"", "\"-7\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.719090172084858*^-7,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Vacuum\"\>", "\<\"Cugnon\"\>", "\<\"CorrectedMt\"\>", "\<\"Proton\"\
+\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.1215\"", "\"e\"", "\"-10\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.1215267926391076`*^-10,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.6821\"", "\"e\"", "\"-7\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.682119701562174*^-7,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Vacuum\"\>", "\<\"PhaseShift\"\>", "\<\"CorrectedMt\"\>", \
+"\<\"Proton\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.1292\"", "\"e\"", "\"-10\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.1292388401780468`*^-10,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.7231\"", "\"e\"", "\"-7\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.7230932822248223`*^-7,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Fitted\"\>", "\<\"Dirac\"\>", "\<\"DeltaMt\"\>", "\<\"Total\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.146\"", "\"e\"", "\"-11\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.146029012138821*^-11,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.0385\"", "\"e\"", "\"-8\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.0384717989565606`*^-8,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Fitted\"\>", "\<\"BreitWigner\"\>", "\<\"DeltaMt\"\>", "\<\"Total\"\
+\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.7513\"", "\"e\"", "\"-11\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.7513417009380976`*^-11,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.9924\"", "\"e\"", "\"-8\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.992392415863034*^-8,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Fitted\"\>", "\<\"Cugnon\"\>", "\<\"DeltaMt\"\>", "\<\"Total\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.6964\"", "\"e\"", "\"-11\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.6964159883534394`*^-11,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.596\"", "\"e\"", "\"-8\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.5960095106506247`*^-8,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Fitted\"\>", "\<\"PhaseShift\"\>", "\<\"DeltaMt\"\>", \
+"\<\"Total\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.7139\"", "\"e\"", "\"-11\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.7138518825836802`*^-11,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.7217\"", "\"e\"", "\"-8\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.721684513351472*^-8,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Fitted\"\>", "\<\"Dirac\"\>", "\<\"CorrectionMt\"\>", "\<\"Proton\"\
+\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.7595\"", "\"e\"", "\"-12\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.7595131841604306`*^-12,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"4.359\"", "\"e\"", "\"-9\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       4.358994427115862*^-9,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Fitted\"\>", "\<\"BreitWigner\"\>", "\<\"CorrectionMt\"\>", \
+"\<\"Proton\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.9105\"", "\"e\"", "\"-12\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.91045611236555*^-12,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.8621\"", "\"e\"", "\"-8\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.8620674607581697`*^-8,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Fitted\"\>", "\<\"Cugnon\"\>", "\<\"CorrectionMt\"\>", \
+"\<\"Proton\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.699\"", "\"e\"", "\"-12\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.69898160776507*^-12,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.6944\"", "\"e\"", "\"-8\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.6944361245517078`*^-8,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Fitted\"\>", "\<\"PhaseShift\"\>", "\<\"CorrectionMt\"\>", \
+"\<\"Proton\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.7646\"", "\"e\"", "\"-12\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.764555280369779*^-12,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.7474\"", "\"e\"", "\"-8\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.747414512663926*^-8,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Fitted\"\>", "\<\"Dirac\"\>", "\<\"CorrectedMt\"\>", \
+"\<\"Proton\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.123\"", "\"e\"", "\"-10\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.1230185113792376`*^-10,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.6781\"", "\"e\"", "\"-7\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.6780931676010674`*^-7,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Fitted\"\>", "\<\"BreitWigner\"\>", "\<\"CorrectedMt\"\>", \
+"\<\"Proton\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.1445\"", "\"e\"", "\"-10\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.1445279406612889`*^-10,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.8207\"", "\"e\"", "\"-7\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.820709969405726*^-7,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Fitted\"\>", "\<\"Cugnon\"\>", "\<\"CorrectedMt\"\>", "\<\"Proton\"\
+\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.1424\"", "\"e\"", "\"-10\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.1424131956152841`*^-10,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.8039\"", "\"e\"", "\"-7\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.8039468357850797`*^-7,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
+    {"\<\"Fitted\"\>", "\<\"PhaseShift\"\>", "\<\"CorrectedMt\"\>", \
+"\<\"Proton\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       100.,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.\"", "\"e\"", "\"-1\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       0.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"9.901\"", "\"e\"", "\"2\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       990.1,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"1.1431\"", "\"e\"", "\"-10\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       1.1430689323413311`*^-10,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        TemplateBox[{"\"3.8092\"", "\"e\"", "\"-7\""},
+         "RowDefault"],
+        ShowStringCharacters->False],
+       3.8092446745963015`*^-7,
+       Editable->False],
+      ScientificForm[#, {9, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]}
+   },
+   AutoDelete->False,
+   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{3.9881795715710487`*^9, 3.988191688495907*^9},
+ CellLabel->
+  "Out[542]=",ExpressionUUID->"46dfef91-a270-554c-a07d-31aeb2facbd4"],
+
+Cell[BoxData["\<\"Distributions finished: explicit Vacuum and Fitted mass \
+distributions computed in one file.\"\>"], "Print",
+ CellChangeTimes->{3.98817957156905*^9, 3.988191688502905*^9},
+ CellLabel->
+  "During evaluation of \
+In[531]:=",ExpressionUUID->"481b7222-318e-2c40-a1f4-a7979a60dcb1"]
+}, Open  ]]
+},
+WindowSize->{1280, 732},
+WindowMargins->{{-5.5, Automatic}, {Automatic, -5.5}},
+Magnification:>1. Inherited,
+FrontEndVersion->"14.3 for Microsoft Windows (64-bit) (July 8, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"ac663197-41cb-3f4e-8de0-6b952c499e01"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[554, 20, 5972, 138, 1085, "Input",ExpressionUUID->"fa4479ff-74d7-8541-91e3-ecc5d2d01ee9"],
+Cell[6529, 160, 10035, 251, 1463, "Input",ExpressionUUID->"216541e0-1ded-8f41-b935-f03043808a1d"],
+Cell[16567, 413, 11899, 288, 1131, "Input",ExpressionUUID->"1aef974f-94dc-984d-8c0e-d7ade0278b68"],
+Cell[28469, 703, 4797, 111, 552, "Input",ExpressionUUID->"917aad60-933d-a049-8f4c-44150c4e0b95"],
+Cell[33269, 816, 10751, 252, 1223, "Input",ExpressionUUID->"bdbbdc30-c7b6-784a-aade-b7d43db66465"],
+Cell[44023, 1070, 7215, 177, 808, "Input",ExpressionUUID->"87295301-f217-2f40-97b7-719beaec35f3"],
+Cell[51241, 1249, 6043, 133, 661, "Input",ExpressionUUID->"9abda640-8aac-3645-8548-3b7820fa0b2e"],
+Cell[CellGroupData[{
+Cell[57309, 1386, 3463, 75, 609, "Input",ExpressionUUID->"c40e66b8-9ffd-e740-8b50-ba26c4d4aa64"],
+Cell[CellGroupData[{
+Cell[60797, 1465, 480, 11, 22, "Print",ExpressionUUID->"9a308c47-c290-e244-9eca-3eafdcf47180"],
+Cell[61280, 1478, 478, 11, 22, "Print",ExpressionUUID->"5983d629-f625-9245-bd21-7bd2d97dbdf8"]
+}, Open  ]]
+}, Open  ]],
+Cell[61785, 1493, 20814, 523, 1881, "Input",ExpressionUUID->"548349a7-33b2-c143-ace6-7d5c58e1df5f"],
+Cell[82602, 2018, 1428, 35, 210, "Input",ExpressionUUID->"2c68b828-f599-1a42-b33d-fd4f727f963e"],
+Cell[CellGroupData[{
+Cell[84055, 2057, 12044, 289, 1480, "Input",ExpressionUUID->"8d524d3c-312e-d947-a454-5563dce3ccc5"],
+Cell[96102, 2348, 230, 4, 22, "Print",ExpressionUUID->"dee8881a-9e81-b142-98fb-72d807548a6f"],
+Cell[96335, 2354, 3128, 91, 161, "Output",ExpressionUUID->"d14d5257-aa7d-5545-b1e0-0ef984852816"],
+Cell[99466, 2447, 230, 4, 22, "Print",ExpressionUUID->"33ab450c-6e89-a84f-8909-7a3e55443689"],
+Cell[99699, 2453, 5479, 164, 178, "Output",ExpressionUUID->"7383f25c-5be4-7e4b-ba24-e687a0afb25e"],
+Cell[105181, 2619, 229, 4, 22, "Print",ExpressionUUID->"b8723def-9e42-f048-a713-7aeaf54a09e3"],
+Cell[105413, 2625, 37637, 1138, 465, "Output",ExpressionUUID->"46dfef91-a270-554c-a07d-31aeb2facbd4"],
+Cell[143053, 3765, 296, 5, 22, "Print",ExpressionUUID->"481b7222-318e-2c40-a1f4-a7979a60dcb1"]
+}, Open  ]]
+}
+]
+*)
+

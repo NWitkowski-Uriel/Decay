@@ -1,0 +1,3708 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[    161985,       3700]
+NotebookOptionsPosition[    145244,       3509]
+NotebookOutlinePosition[    145646,       3525]
+CellTagsIndexPosition[    145603,       3522]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"CORRECTION", " ", 
+    RowBox[{"PLOTS", " ", "--"}], " ", "DUAL", " ", "MASS", " ", "VERSION"}], 
+   "                         ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Required", " ", "order", " ", "in", " ", "the", " ", "same", " ", 
+     RowBox[{"kernel", ":", "\n", "      ", 
+      RowBox[{
+       RowBox[{
+       "Get", "[", \
+"\"\<Intro_DualMass_VacuumFitted_Cugnon_v6_OriginalDirectKernels.wl\>\"", 
+        "]"}], "\n", "      ", 
+       RowBox[{
+       "Get", "[", "\"\<PairFit_DualMass_MeVFit_RegisterFitted.wl\>\"", "]"}],
+        "\n", "      ", 
+       RowBox[{
+       "Get", "[", \
+"\"\<Distributions_DualMass_VacuumFitted_Cugnon_v5_OriginalDirectKernels.wl\>\
+\"", "]"}], "\n", "      ", 
+       RowBox[{
+       "Get", "[", "\"\<YieldTest_DualMass_VacuumFitted_Cugnon_v3.wl\>\"", 
+        "]"}], "\n", "      ", 
+       RowBox[{
+       "Get", "[", \
+"\"\<PrimordialPlots_DualMass_VacuumFitted_Cugnon_v2_LinearRapidity.wl\>\"", 
+        "]"}], "\n", "      ", 
+       RowBox[{
+       "Get", "[", "\"\<CorrectionPlots_DualMass_VacuumFitted_Cugnon.wl\>\"", 
+        "]"}], "\n", "\n", "   ", "This", " ", "notebook", " ", "does", " ", 
+       "not", " ", "recompute", " ", 
+       RowBox[{"spectra", ".", "  ", "It"}], " ", "only", " ", "plots", " ", 
+       "correction", "\n", "   ", "tables", " ", "created", " ", "by", " ", 
+       RowBox[{"Distributions", ".", "\n", "\n", "   ", "Axis"}], " ", 
+       "convention", " ", "follows", " ", "the", " ", "original", " ", 
+       "Correction", " ", "Plots", " ", "notebook"}], ":", "\n", "      ", 
+      RowBox[{
+       RowBox[{"-", " ", "mT"}], " ", 
+       RowBox[{"spectra", ":", " ", "ListLogPlot"}]}]}]}], ",", " ", 
+    RowBox[{"logarithmic", " ", "vertical", " ", 
+     RowBox[{"scale", ".", "\n", "      ", 
+      RowBox[{"-", " ", "rapidity"}]}], " ", 
+     RowBox[{"spectra", ":", " ", "ListPlot"}]}], ",", " ", 
+    RowBox[{"linear", " ", 
+     RowBox[{"axes", ".", "\n", "      ", 
+      RowBox[{"-", " ", "mT"}]}], " ", "horizontal", " ", 
+     RowBox[{"axis", ":", " ", 
+      RowBox[{"m_t", " ", "-", " ", 
+       RowBox[{"m_", 
+        RowBox[{
+         RowBox[{"0", " ", "[", "MeV", "]"}], ".", "\n", "      ", 
+         RowBox[{"-", " ", "rapidity"}]}], " ", "horizontal", " ", "axis"}]}],
+       ":", " ", 
+      RowBox[{"y", "."}]}]}]}], "                                  ", "*)"}], 
+  "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{
+  "(*", " ", "PRECHECKS", 
+   "                                                     ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"!", 
+       RowBox[{"ValueQ", "[", "AllDistributionTablesByMode", "]"}]}], ",", 
+      "\n", "  ", 
+      RowBox[{
+       RowBox[{"Print", "[", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<ERROR: AllDistributionTablesByMode is not defined. Run \
+Distributions first.\>\"", ",", " ", "Red"}], "]"}], "]"}], ";", "\n", "  ", 
+       RowBox[{"Abort", "[", "]"}], ";"}]}], "\n", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"!", 
+        RowBox[{"KeyExistsQ", "[", 
+         RowBox[{"AllDistributionTablesByMode", ",", " ", "\"\<Vacuum\>\""}], 
+         "]"}]}], " ", "||", " ", 
+       RowBox[{"!", 
+        RowBox[{"KeyExistsQ", "[", 
+         RowBox[{"AllDistributionTablesByMode", ",", " ", "\"\<Fitted\>\""}], 
+         "]"}]}]}], ",", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Print", "[", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<ERROR: Distributions must contain both Vacuum and \
+Fitted modes.\>\"", ",", " ", "Red"}], "]"}], "]"}], ";", "\n", "  ", 
+       RowBox[{"Abort", "[", "]"}], ";"}]}], "\n", "]"}], ";"}], 
+   "\n"}]}]], "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"26510b60-b428-644c-919f-fdd8e3ca9dfd"],
+
+Cell[BoxData[
+ StyleBox["\<\"ERROR: AllDistributionTablesByMode is not defined. Run \
+Distributions first.\"\>",
+  StripOnInput->False,
+  LineColor->RGBColor[1, 0, 0],
+  FrontFaceColor->RGBColor[1, 0, 0],
+  BackFaceColor->RGBColor[1, 0, 0],
+  GraphicsColor->RGBColor[1, 0, 0],
+  FontColor->RGBColor[1, 0, 0]]], "Print",
+ CellChangeTimes->{3.988249557811035*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"179a196e-98c9-9143-80cc-e13baeacea12"],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.9882495579080353`*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"dd75d58d-286e-5640-9868-539438973ddc"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "KeyExistsQ", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\"}]\\) \
+is not a valid Association or a list of rules.\"", 2, 2, 1, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249557952036*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"1dad3926-0c95-9b43-a9db-afb70e406ba1"],
+
+Cell[BoxData[
+ StyleBox["\<\"ERROR: Distributions must contain both Vacuum and Fitted \
+modes.\"\>",
+  StripOnInput->False,
+  LineColor->RGBColor[1, 0, 0],
+  FrontFaceColor->RGBColor[1, 0, 0],
+  BackFaceColor->RGBColor[1, 0, 0],
+  GraphicsColor->RGBColor[1, 0, 0],
+  FontColor->RGBColor[1, 0, 0]]], "Print",
+ CellChangeTimes->{3.988249557961035*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"6036c0ed-c9c0-6f4e-aad1-b114b18b12ce"],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.988249557962036*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"6f1f29da-a3dc-a34e-bd69-6786d15650d0"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"STYLE", " ", "AND", " ", "LABEL", " ", "DEFINITIONS"}], 
+   "                                   ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "\n", "  ", 
+     RowBox[{
+     "correctionParticleStyles", ",", " ", "correctionParticleLegends", ",", 
+      "\n", "  ", "correctionMtFrameLabel", ",", " ", "correctionYFrameLabel",
+       ",", "\n", "  ", "correctionMassLabels", ",", " ", "correctionModes", ",",
+       "\n", "  ", "correctionMtData", ",", " ", "correctionYData", ",", "\n",
+       "  ", "correctionAllMtPlot", ",", " ", "correctionAllYPlot", ",", "\n",
+       "  ", "correctionSingleMtPlot", ",", " ", "correctionSingleYPlot", ",",
+       "\n", "  ", "correctionVacuumFittedMtPlot", ",", " ", 
+      "correctionVacuumFittedYPlot", ",", "\n", "  ", 
+      "correctionPlotSummaryRows", ",", " ", "correctionPlotStats", ",", " ", 
+      "correctionMakeGrid", ",", "\n", "  ", "exportCorrectionPlots"}], "\n", 
+     "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"correctionModes", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Fitted\>\""}], "}"}]}], ";"}], 
+   "\n", 
+   RowBox[{
+    RowBox[{"correctionMassLabels", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{
+     "Same", " ", "particle", " ", "order", " ", "and", " ", "colors", " ", 
+      "as", " ", "in", " ", "the", " ", "original", " ", "all"}], "-", 
+     RowBox[{"corrections", " ", 
+      RowBox[{"plots", "."}]}]}], " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"correctionParticleStyles", " ", "=", " ", 
+     RowBox[{"{", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"Red", ",", " ", "Dashed"}], "}"}], ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"Blue", ",", " ", "Dashed"}], "}"}], ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Darker", "[", "Green", "]"}], ",", " ", "Dashed"}], "}"}]}],
+       "\n", "}"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionParticleLegends", "[", "massLabel_String", "]"}], " ",
+      ":=", " ", 
+     RowBox[{"{", "\n", "  ", 
+      RowBox[{
+       RowBox[{"\"\<p correction \>\"", " ", "<>", " ", "massLabel"}], ",", 
+       "\n", "  ", 
+       RowBox[{"\"\<\\!\\(\\*SuperscriptBox[\\(\[Pi]\\), \\(+\\)]\\) \
+correction \>\"", " ", "<>", " ", "massLabel"}], ",", "\n", "  ", 
+       RowBox[{"\"\<\\!\\(\\*SuperscriptBox[\\(\[Pi]\\), \\(-\\)]\\) \
+correction \>\"", " ", "<>", " ", "massLabel"}]}], "\n", "}"}]}], ";"}], "\n",
+    "\n", 
+   RowBox[{
+    RowBox[{"correctionMtFrameLabel", " ", "=", " ", 
+     RowBox[{"{", "\n", "  ", 
+      RowBox[{"\"\<\\!\\(\\*SubscriptBox[\\(m\\), \\(t\\)]\\) - \
+\\!\\(\\*SubscriptBox[\\(m\\), \\(0\\)]\\) [MeV]\>\"", ",", "\n", 
+       "  ", "\"\<\\!\\(\\*FractionBox[\\(1\\), \
+SubscriptBox[SuperscriptBox[\\(m\\), \\(2\\)], \
+\\(t\\)]]\\)\\!\\(\\*FractionBox[\\(dN\\), \\(\\*SubscriptBox[\\(dm\\), \
+\\(t\\)] dy\\)]\\)\\!\\(\\*SubscriptBox[\\(|\\), \\(y = 0\\)]\\) \
+[\\!\\(\\*SuperscriptBox[\\(MeV\\), \\(-3\\)]\\)]\>\""}], "\n", "}"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"correctionYFrameLabel", " ", "=", " ", 
+     RowBox[{"{", "\n", "  ", 
+      RowBox[{"\"\<y\>\"", ",", "\n", 
+       "  ", "\"\<\\!\\(\\*FractionBox[\\(dN\\), \\(dy\\)]\\)\>\""}], "\n", 
+      "}"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionMakeGrid", "[", "rows_", "]"}], " ", ":=", " ", 
+     RowBox[{"Grid", "[", 
+      RowBox[{"rows", ",", " ", 
+       RowBox[{"Frame", " ", "->", " ", "All"}], ",", " ", 
+       RowBox[{"Background", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"None", ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"LightGray", ",", " ", "None"}], "}"}]}], "}"}]}]}], 
+      "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->"In[3]:=",ExpressionUUID->"ce1ef2c8-f0d6-dd46-be36-e5d697cfbe2a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"DATA", " ", "ACCESSORS"}], 
+   "                                                ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionMtData", "[", 
+      RowBox[{
+      "mode_String", ",", " ", "massLabel_String", ",", " ", 
+       "particle_String"}], "]"}], " ", ":=", "\n", "  ", 
+     RowBox[{"Lookup", "[", "\n", "    ", 
+      RowBox[{
+       RowBox[{"Lookup", "[", "\n", "      ", 
+        RowBox[{
+         RowBox[{"Lookup", "[", "\n", "        ", 
+          RowBox[{
+           RowBox[{"AllDistributionTablesByMode", "[", "mode", "]"}], ",", 
+           "\n", "        ", "\"\<CorrectionMt\>\"", ",", "\n", "        ", 
+           RowBox[{"<|", "|>"}]}], "\n", "      ", "]"}], ",", "\n", "      ",
+          "massLabel", ",", "\n", "      ", 
+         RowBox[{"<|", "|>"}]}], "\n", "    ", "]"}], ",", "\n", "    ", 
+       "particle", ",", "\n", "    ", 
+       RowBox[{"{", "}"}]}], "\n", "  ", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionYData", "[", 
+      RowBox[{
+      "mode_String", ",", " ", "massLabel_String", ",", " ", 
+       "particle_String"}], "]"}], " ", ":=", "\n", "  ", 
+     RowBox[{"Lookup", "[", "\n", "    ", 
+      RowBox[{
+       RowBox[{"Lookup", "[", "\n", "      ", 
+        RowBox[{
+         RowBox[{"Lookup", "[", "\n", "        ", 
+          RowBox[{
+           RowBox[{"AllDistributionTablesByMode", "[", "mode", "]"}], ",", 
+           "\n", "        ", "\"\<CorrectionY\>\"", ",", "\n", "        ", 
+           RowBox[{"<|", "|>"}]}], "\n", "      ", "]"}], ",", "\n", "      ",
+          "massLabel", ",", "\n", "      ", 
+         RowBox[{"<|", "|>"}]}], "\n", "    ", "]"}], ",", "\n", "    ", 
+       "particle", ",", "\n", "    ", 
+       RowBox[{"{", "}"}]}], "\n", "  ", "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->"In[11]:=",ExpressionUUID->"40a30929-b22e-1a47-b194-b6bcaf59ae11"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"BASIC", " ", "PLOTS"}], 
+   "                                                   ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionAllMtPlot", "[", 
+      RowBox[{"mode_String", ",", " ", "massLabel_String"}], "]"}], " ", ":=",
+      " ", 
+     RowBox[{"ListLogPlot", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", "\n", "    ", 
+        RowBox[{
+         RowBox[{"correctionMtData", "[", 
+          RowBox[{"mode", ",", " ", "massLabel", ",", " ", "\"\<Proton\>\""}],
+           "]"}], ",", "\n", "    ", 
+         RowBox[{"correctionMtData", "[", 
+          RowBox[{
+          "mode", ",", " ", "massLabel", ",", " ", "\"\<PionPlus\>\""}], 
+          "]"}], ",", "\n", "    ", 
+         RowBox[{"correctionMtData", "[", 
+          RowBox[{
+          "mode", ",", " ", "massLabel", ",", " ", "\"\<PionMinus\>\""}], 
+          "]"}]}], "\n", "  ", "}"}], ",", "\n", "  ", 
+       RowBox[{"PlotStyle", " ", "->", " ", "correctionParticleStyles"}], ",",
+        "\n", "  ", 
+       RowBox[{"Joined", " ", "->", " ", "True"}], ",", "\n", "  ", 
+       RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "  ", 
+       RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "  ", 
+       RowBox[{"FrameLabel", " ", "->", " ", "correctionMtFrameLabel"}], ",", 
+       "\n", "  ", 
+       RowBox[{"PlotLegends", " ", "->", " ", 
+        RowBox[{"correctionParticleLegends", "[", "massLabel", "]"}]}], ",", 
+       "\n", "  ", 
+       RowBox[{"PlotLabel", " ", "->", " ", 
+        RowBox[{"\"\<Resonance decay corrections to particle distributions \>\
+\"", " ", "<>", " ", "massLabel", " ", "<>", " ", "\"\< (\>\"", " ", "<>", 
+         " ", "mode", " ", "<>", " ", "\"\<)\>\""}]}], ",", "\n", "  ", 
+       RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "  ", 
+       RowBox[{"FrameStyle", " ", "->", " ", "Thick"}], ",", "\n", "  ", 
+       RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "]"}]}], ";"}],
+    "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionAllYPlot", "[", 
+      RowBox[{"mode_String", ",", " ", "massLabel_String"}], "]"}], " ", ":=",
+      " ", 
+     RowBox[{"ListPlot", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", "\n", "    ", 
+        RowBox[{
+         RowBox[{"correctionYData", "[", 
+          RowBox[{"mode", ",", " ", "massLabel", ",", " ", "\"\<Proton\>\""}],
+           "]"}], ",", "\n", "    ", 
+         RowBox[{"correctionYData", "[", 
+          RowBox[{
+          "mode", ",", " ", "massLabel", ",", " ", "\"\<PionPlus\>\""}], 
+          "]"}], ",", "\n", "    ", 
+         RowBox[{"correctionYData", "[", 
+          RowBox[{
+          "mode", ",", " ", "massLabel", ",", " ", "\"\<PionMinus\>\""}], 
+          "]"}]}], "\n", "  ", "}"}], ",", "\n", "  ", 
+       RowBox[{"PlotStyle", " ", "->", " ", "correctionParticleStyles"}], ",",
+        "\n", "  ", 
+       RowBox[{"Joined", " ", "->", " ", "True"}], ",", "\n", "  ", 
+       RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "  ", 
+       RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "  ", 
+       RowBox[{"FrameLabel", " ", "->", " ", "correctionYFrameLabel"}], ",", 
+       "\n", "  ", 
+       RowBox[{"PlotLegends", " ", "->", " ", 
+        RowBox[{"correctionParticleLegends", "[", "massLabel", "]"}]}], ",", 
+       "\n", "  ", 
+       RowBox[{"PlotLabel", " ", "->", " ", 
+        RowBox[{"\"\<Resonance decay corrections to rapidity distributions \>\
+\"", " ", "<>", " ", "massLabel", " ", "<>", " ", "\"\< (\>\"", " ", "<>", 
+         " ", "mode", " ", "<>", " ", "\"\<)\>\""}]}], ",", "\n", "  ", 
+       RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "  ", 
+       RowBox[{"FrameStyle", " ", "->", " ", "Thick"}], ",", "\n", "  ", 
+       RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "]"}]}], ";"}],
+    "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{
+      "mode_String", ",", " ", "massLabel_String", ",", " ", 
+       "particle_String", ",", " ", "style_", ",", " ", "legend_String"}], 
+      "]"}], " ", ":=", " ", 
+     RowBox[{"ListLogPlot", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"correctionMtData", "[", 
+         RowBox[{"mode", ",", " ", "massLabel", ",", " ", "particle"}], "]"}],
+         "}"}], ",", "\n", "  ", 
+       RowBox[{"PlotStyle", " ", "->", " ", 
+        RowBox[{"{", "style", "}"}]}], ",", "\n", "  ", 
+       RowBox[{"Joined", " ", "->", " ", "True"}], ",", "\n", "  ", 
+       RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "  ", 
+       RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "  ", 
+       RowBox[{"FrameLabel", " ", "->", " ", "correctionMtFrameLabel"}], ",", 
+       "\n", "  ", 
+       RowBox[{"PlotLegends", " ", "->", " ", 
+        RowBox[{"{", "legend", "}"}]}], ",", "\n", "  ", 
+       RowBox[{"PlotLabel", " ", "->", " ", 
+        RowBox[{
+        "legend", " ", "<>", " ", "\"\< (\>\"", " ", "<>", " ", "massLabel", 
+         " ", "<>", " ", "\"\<, \>\"", " ", "<>", " ", "mode", " ", "<>", 
+         " ", "\"\<)\>\""}]}], ",", "\n", "  ", 
+       RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "  ", 
+       RowBox[{"FrameStyle", " ", "->", " ", "Thick"}], ",", "\n", "  ", 
+       RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "]"}]}], ";"}],
+    "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionSingleYPlot", "[", 
+      RowBox[{
+      "mode_String", ",", " ", "massLabel_String", ",", " ", 
+       "particle_String", ",", " ", "style_", ",", " ", "legend_String"}], 
+      "]"}], " ", ":=", " ", 
+     RowBox[{"ListPlot", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"correctionYData", "[", 
+         RowBox[{"mode", ",", " ", "massLabel", ",", " ", "particle"}], "]"}],
+         "}"}], ",", "\n", "  ", 
+       RowBox[{"PlotStyle", " ", "->", " ", 
+        RowBox[{"{", "style", "}"}]}], ",", "\n", "  ", 
+       RowBox[{"Joined", " ", "->", " ", "True"}], ",", "\n", "  ", 
+       RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "  ", 
+       RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "  ", 
+       RowBox[{"FrameLabel", " ", "->", " ", "correctionYFrameLabel"}], ",", 
+       "\n", "  ", 
+       RowBox[{"PlotLegends", " ", "->", " ", 
+        RowBox[{"{", "legend", "}"}]}], ",", "\n", "  ", 
+       RowBox[{"PlotLabel", " ", "->", " ", 
+        RowBox[{
+        "legend", " ", "<>", " ", "\"\< rapidity (\>\"", " ", "<>", " ", 
+         "massLabel", " ", "<>", " ", "\"\<, \>\"", " ", "<>", " ", "mode", 
+         " ", "<>", " ", "\"\<)\>\""}]}], ",", "\n", "  ", 
+       RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "  ", 
+       RowBox[{"FrameStyle", " ", "->", " ", "Thick"}], ",", "\n", "  ", 
+       RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "]"}]}], ";"}],
+    "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{"Vacuum", "/", "Fitted"}], " ", "comparison", " ", "for", " ", 
+     "a", " ", "given", " ", "particle", " ", "and", " ", "mass", " ", 
+     RowBox[{"model", "."}]}], " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionVacuumFittedMtPlot", "[", 
+      RowBox[{
+      "massLabel_String", ",", " ", "particle_String", ",", " ", 
+       "legendBase_String"}], "]"}], " ", ":=", " ", 
+     RowBox[{"ListLogPlot", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", "\n", "    ", 
+        RowBox[{
+         RowBox[{"correctionMtData", "[", 
+          
+          RowBox[{"\"\<Vacuum\>\"", ",", " ", "massLabel", ",", " ", 
+           "particle"}], "]"}], ",", "\n", "    ", 
+         RowBox[{"correctionMtData", "[", 
+          
+          RowBox[{"\"\<Fitted\>\"", ",", " ", "massLabel", ",", " ", 
+           "particle"}], "]"}]}], "\n", "  ", "}"}], ",", "\n", "  ", 
+       RowBox[{"PlotStyle", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"Black", ",", " ", "Dashed"}], "}"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"Black", ",", " ", "Thick"}], "}"}]}], "}"}]}], ",", "\n", 
+       "  ", 
+       RowBox[{"Joined", " ", "->", " ", "True"}], ",", "\n", "  ", 
+       RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "  ", 
+       RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "  ", 
+       RowBox[{"FrameLabel", " ", "->", " ", "correctionMtFrameLabel"}], ",", 
+       "\n", "  ", 
+       RowBox[{"PlotLegends", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"legendBase", " ", "<>", " ", "\"\< Vacuum\>\""}], ",", " ", 
+          RowBox[{"legendBase", " ", "<>", " ", "\"\< Fitted\>\""}]}], 
+         "}"}]}], ",", "\n", "  ", 
+       RowBox[{"PlotLabel", " ", "->", " ", 
+        RowBox[{
+        "legendBase", " ", "<>", " ", "\"\< correction: Vacuum vs Fitted \>\"",
+          " ", "<>", " ", "massLabel"}]}], ",", "\n", "  ", 
+       RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "  ", 
+       RowBox[{"FrameStyle", " ", "->", " ", "Thick"}], ",", "\n", "  ", 
+       RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "]"}]}], ";"}],
+    "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionVacuumFittedYPlot", "[", 
+      RowBox[{
+      "massLabel_String", ",", " ", "particle_String", ",", " ", 
+       "legendBase_String"}], "]"}], " ", ":=", " ", 
+     RowBox[{"ListPlot", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", "\n", "    ", 
+        RowBox[{
+         RowBox[{"correctionYData", "[", 
+          
+          RowBox[{"\"\<Vacuum\>\"", ",", " ", "massLabel", ",", " ", 
+           "particle"}], "]"}], ",", "\n", "    ", 
+         RowBox[{"correctionYData", "[", 
+          
+          RowBox[{"\"\<Fitted\>\"", ",", " ", "massLabel", ",", " ", 
+           "particle"}], "]"}]}], "\n", "  ", "}"}], ",", "\n", "  ", 
+       RowBox[{"PlotStyle", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"Black", ",", " ", "Dashed"}], "}"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"Black", ",", " ", "Thick"}], "}"}]}], "}"}]}], ",", "\n", 
+       "  ", 
+       RowBox[{"Joined", " ", "->", " ", "True"}], ",", "\n", "  ", 
+       RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "  ", 
+       RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "  ", 
+       RowBox[{"FrameLabel", " ", "->", " ", "correctionYFrameLabel"}], ",", 
+       "\n", "  ", 
+       RowBox[{"PlotLegends", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"legendBase", " ", "<>", " ", "\"\< Vacuum\>\""}], ",", " ", 
+          RowBox[{"legendBase", " ", "<>", " ", "\"\< Fitted\>\""}]}], 
+         "}"}]}], ",", "\n", "  ", 
+       RowBox[{"PlotLabel", " ", "->", " ", 
+        RowBox[{
+        "legendBase", " ", "<>", 
+         " ", "\"\< rapidity correction: Vacuum vs Fitted \>\"", " ", "<>", 
+         " ", "massLabel"}]}], ",", "\n", "  ", 
+       RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "  ", 
+       RowBox[{"FrameStyle", " ", "->", " ", "Thick"}], ",", "\n", "  ", 
+       RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "]"}]}], ";"}],
+    "\n"}]}]], "Input",
+ CellLabel->"In[13]:=",ExpressionUUID->"be208522-2090-0e44-8442-a38b4a79fc43"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"MAIN", " ", 
+    RowBox[{"PLOTS", ":", " ", "VACUUM"}]}], 
+   "                                            ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"AllCorrectionsMtPlot", " ", "=", " ", 
+     RowBox[{"correctionAllMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"AllCorrectionsYPlot", " ", "=", " ", 
+     RowBox[{"correctionAllYPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\""}], "]"}]}], ";"}], 
+   "\n", "\n", 
+   RowBox[{
+    RowBox[{"AllCorrectionsMtBWPlot", " ", "=", " ", 
+     RowBox[{"correctionAllMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\""}], "]"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"AllCorrectionsYBWPlot", " ", "=", " ", 
+     RowBox[{"correctionAllYPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\""}], "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"AllCorrectionsMtCugnonPlot", " ", "=", " ", 
+     RowBox[{"correctionAllMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\""}], "]"}]}], ";"}], 
+   "\n", 
+   RowBox[{
+    RowBox[{"AllCorrectionsYCugnonPlot", " ", "=", " ", 
+     RowBox[{"correctionAllYPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\""}], "]"}]}], ";"}], 
+   "\n", "\n", 
+   RowBox[{
+    RowBox[{"AllCorrectionsMtPSPlot", " ", "=", " ", 
+     RowBox[{"correctionAllMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\""}], "]"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"AllCorrectionsYPSPlot", " ", "=", " ", 
+     RowBox[{"correctionAllYPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\""}], "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"CorrectionProton", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<Proton\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"Red", ",", " ", "Dashed"}], "}"}], ",", 
+       " ", "\"\<p correction\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"CorrectionProtonBW", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Proton\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"Red", ",", " ", "Dashed"}], "}"}], ",", 
+       " ", "\"\<p correction BW\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"CorrectionProtonCugnon", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Proton\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"Red", ",", " ", "Dashed"}], "}"}], ",", 
+       " ", "\"\<p correction Cugnon\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"CorrectionProtonPS", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Proton\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"Red", ",", " ", "Dashed"}], "}"}], ",", 
+       " ", "\"\<p correction PS\>\""}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"CorrectionPionP", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<PionPlus\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"Blue", ",", " ", "Dashed"}], "}"}], ",", 
+       " ", "\"\<\\!\\(\\*SuperscriptBox[\\(\[Pi]\\), \\(+\\)]\\) \
+correction\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"CorrectionPionPBW", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<PionPlus\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"Blue", ",", " ", "Dashed"}], "}"}], ",", 
+       " ", "\"\<\\!\\(\\*SuperscriptBox[\\(\[Pi]\\), \\(+\\)]\\) correction \
+BW\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"CorrectionPionPCugnon", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<PionPlus\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"Blue", ",", " ", "Dashed"}], "}"}], ",", 
+       " ", "\"\<\\!\\(\\*SuperscriptBox[\\(\[Pi]\\), \\(+\\)]\\) correction \
+Cugnon\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"CorrectionPionPPS", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<PionPlus\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"Blue", ",", " ", "Dashed"}], "}"}], ",", 
+       " ", "\"\<\\!\\(\\*SuperscriptBox[\\(\[Pi]\\), \\(+\\)]\\) correction \
+PS\>\""}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"CorrectionPionM", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+       " ", "\"\<PionMinus\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Darker", "[", "Green", "]"}], ",", " ", "Dashed"}], "}"}], ",",
+        " ", "\"\<\\!\\(\\*SuperscriptBox[\\(\[Pi]\\), \\(-\\)]\\) correction\
+\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"CorrectionPionMBW", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<PionMinus\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Darker", "[", "Green", "]"}], ",", " ", "Dashed"}], "}"}], ",",
+        " ", "\"\<\\!\\(\\*SuperscriptBox[\\(\[Pi]\\), \\(-\\)]\\) correction \
+BW\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"CorrectionPionMCugnon", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<PionMinus\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Darker", "[", "Green", "]"}], ",", " ", "Dashed"}], "}"}], ",",
+        " ", "\"\<\\!\\(\\*SuperscriptBox[\\(\[Pi]\\), \\(-\\)]\\) correction \
+Cugnon\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"CorrectionPionMPS", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<PionMinus\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Darker", "[", "Green", "]"}], ",", " ", "Dashed"}], "}"}], ",",
+        " ", "\"\<\\!\\(\\*SuperscriptBox[\\(\[Pi]\\), \\(-\\)]\\) correction \
+PS\>\""}], "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->"In[19]:=",ExpressionUUID->"a475e586-1484-d44a-89f6-0cb4521c5b93"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 19, 2, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496082448025`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"c78737fd-fb5a-314d-a33e-299c40329ef9"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 19, 3, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249608250803*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"939e160b-7ec5-174a-9aca-7e56e1aef6f6"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"Dirac\\\\\\\"\\\
+\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \\\"]\\\
+\"}]\\) is not a valid Association or a list of rules.\"", 2, 19, 4, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249608253805*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"84890c10-96ad-5f44-b7e6-a72937f24224"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 19, 5, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249608255804*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"9c383150-e202-da4e-acad-5dc4732d0fbf"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 20, 6, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496086890182`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"e7aeca84-93fd-6c48-adf6-7f1fda19684e"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 20, 7, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496086920185`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"a45b92a6-33fc-ae4e-8da0-5d993be254b5"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"Dirac\\\\\\\"\\\
+\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \\\"]\\\
+\"}]\\) is not a valid Association or a list of rules.\"", 2, 20, 8, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.98824960869602*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"dfb6df15-befc-3941-99cc-8d3d5ebe09de"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 20, 9, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496086990204`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"b2bfc74e-7aa3-564d-9156-c5571d6bc438"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 21, 10, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496087510204`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"81058e7a-80a6-1c41-953e-ba16efc85240"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 21, 11, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.98824960875502*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"152c4423-c3c3-804b-a5dd-1ef9bdf87718"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"BreitWigner\\\\\
+\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \
+\\\"]\\\"}]\\) is not a valid Association or a list of rules.\"", 2, 21, 12, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496087580185`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"2accb61f-b411-754b-ab8a-8572992297c4"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 21, 13, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.98824960876202*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"a5c42433-fe55-d446-8eee-90f1d3b68628"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 22, 14, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496088215256`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"c68aea2b-6473-8149-96d7-7255625d99e5"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 22, 15, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249608824526*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"159a54c9-3a0e-af47-8c98-8188d54ba9ce"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"BreitWigner\\\\\
+\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \
+\\\"]\\\"}]\\) is not a valid Association or a list of rules.\"", 2, 22, 16, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496088285294`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"f5c500e6-5478-484e-91e6-e44772390b1f"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 22, 17, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496088315277`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"96b66bcc-c282-804b-b0b6-492162ce8fb8"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 23, 18, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249608862528*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"85cbbd0b-988d-ce43-bb4e-6db3fecb5856"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 23, 19, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249608867529*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"1fb3d6f0-9cfc-7f43-b8bb-9623935cad23"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"Cugnon\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\
+\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list of \
+rules.\"", 2, 23, 20, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496088715305`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"00291656-d137-ed4e-8ee7-a2ffac636c15"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 23, 21, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496088735294`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"07b7619a-e2b7-bd48-a763-25b4f2bb8dda"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 24, 22, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249608907528*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"8a5e5c83-c5f6-2449-b813-5f109ec1967f"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 24, 23, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496089115295`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"353a76c5-0bec-a74c-81e2-103c72cfac58"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"Cugnon\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\
+\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list of \
+rules.\"", 2, 24, 24, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.98824960891453*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"f9c7b9be-cc60-9143-b580-c5224f25daba"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 24, 25, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249608917528*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"4c42fb13-9e9e-b042-8464-da534f63d25b"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 25, 26, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496089635277`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"e7ca02ec-3ee7-b841-9e01-889df620e20f"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 25, 27, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.98824960896653*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"658454f5-1f65-5447-9168-dc2bb2ea58db"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"PhaseShift\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 25, 28, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496089705315`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"7b8f78a2-61d2-6d46-a3c4-b129a137e9ec"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 25, 29, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496089745274`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"3ffa69e8-fe94-014b-8f46-3499de1c1795"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 26, 30, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249608992529*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"b19061ea-9f30-d241-8f5b-079a942277c4"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 26, 31, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496089965305`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"5fe8c1e1-2523-f849-a76f-67ee427527e5"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"PhaseShift\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 26, 32, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249608999527*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"1a1e2c67-5f40-f340-b1ba-b057b59c7627"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 26, 33, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609002529*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"0a67f223-c67c-5d45-bd98-801a63e1ca73"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 27, 34, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.98824960902153*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"b0dae735-cc3d-ba45-82e6-0157235f26f1"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 27, 35, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496090265274`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"30dd97ed-46e9-7d4c-bd36-9903db9c2391"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"Dirac\\\\\\\"\\\
+\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \\\"]\\\
+\"}]\\) is not a valid Association or a list of rules.\"", 2, 27, 36, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496090295296`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"64c1ced2-aa7e-1e43-89ff-c060a3a50d63"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 27, 37, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.98824960903253*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"4196f25c-ab8b-1c42-ab62-6234eec43454"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 28, 38, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609065529*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"ffb11f54-393c-b640-b146-dfeb6ae790fb"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 28, 39, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496090695305`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"1871372c-4008-194b-af67-b82a2d9b9def"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"BreitWigner\\\\\
+\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \
+\\\"]\\\"}]\\) is not a valid Association or a list of rules.\"", 2, 28, 40, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496090725327`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"f0db86e9-b29b-2a48-bb74-b57a9c252049"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 28, 41, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609075535*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"d650be48-c2f6-d541-bc5c-cf2e11b35cb3"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 29, 42, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609111046*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"38699d54-d216-4d47-942f-42b9f5b64887"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 29, 43, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496091150455`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"94b1395c-31f1-374d-9777-5031b7901108"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"Cugnon\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\
+\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list of \
+rules.\"", 2, 29, 44, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496091190434`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"cdfc5d94-1315-1940-95b8-d5a954281b12"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 29, 45, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496091220455`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"287c29b0-25bb-884d-92cd-702806140116"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 30, 46, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609180044*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"e9192964-8e8e-e747-84a7-33f98dac451c"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 30, 47, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609184044*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"75268773-e041-9743-b633-1be00b28c12b"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"PhaseShift\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 30, 48, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609187044*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"9331d364-82db-aa45-acd3-4ef1b1348486"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 30, 49, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609191044*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"5cae2d52-7e30-f949-bc45-86ed82ce5f19"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 31, 50, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496092070446`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"f75ad9cc-6e86-f646-a698-189ede6ab8fc"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 31, 51, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496092110424`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"818516a8-887e-4c49-b92b-d9fbcd159842"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"Dirac\\\\\\\"\\\
+\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \\\"]\\\
+\"}]\\) is not a valid Association or a list of rules.\"", 2, 31, 52, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496092140427`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"dc329b97-519f-164f-9236-a1e34183f752"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 31, 53, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496092170467`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"e8a90712-4b12-cb48-8a79-5bc66c90d739"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 32, 54, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496092750435`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"dc9a57c7-1f3e-754e-9331-9ae6321f6d33"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 32, 55, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609279045*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"efec1589-7f65-0947-a715-2d49ffaac3af"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"BreitWigner\\\\\
+\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \
+\\\"]\\\"}]\\) is not a valid Association or a list of rules.\"", 2, 32, 56, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609283045*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"4c4c3d77-049f-8847-95a0-ee325bab9880"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 32, 57, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609286043*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"d004f5a1-16f4-7045-8511-5d7f45964934"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 33, 58, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496093030453`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"8289b06f-0c2e-fc47-a8d7-d0d97cf6e2b2"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 33, 59, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609307045*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"cf32a29c-38ef-7a49-a9ab-bb30f6212c1c"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"Cugnon\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\
+\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list of \
+rules.\"", 2, 33, 60, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496093110447`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"78810e2e-9774-b347-ba0a-ccd5b15d1536"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 33, 61, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609314045*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"3b92ca00-c17d-6b4e-8927-581cb1049ebe"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 34, 62, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609350046*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"0f21328c-440a-4d4a-830a-5eee5786dc82"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 34, 63, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609354044*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"b899acc9-995e-3543-9797-1084250c0d0d"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"PhaseShift\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 34, 64, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496093580437`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"c791b09e-acf3-0c40-a60f-34f36c8b30ca"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 34, 65, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609361044*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"65b37569-bfca-1a4e-98d0-3a75379554ca"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 35, 66, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609396044*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"9af962cc-17f4-bc4a-b637-4e1504bfe5b7"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 35, 67, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609401043*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"42ec9bc4-180c-9147-b557-1e3efa40cb3e"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"Dirac\\\\\\\"\\\
+\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \\\"]\\\
+\"}]\\) is not a valid Association or a list of rules.\"", 2, 35, 68, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496094050426`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"5cffa2e0-140a-1645-b2e4-5aaaf58a6fc2"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 35, 69, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609408045*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"3401c09a-8dec-9045-92e6-afe49c429fec"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 36, 70, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609425045*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"b19757a0-0666-2942-85cc-42eb626fa8aa"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 36, 71, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496094300423`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"8b30aaaa-1530-d249-884f-813734de62ec"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"BreitWigner\\\\\
+\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \
+\\\"]\\\"}]\\) is not a valid Association or a list of rules.\"", 2, 36, 72, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496094330444`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"9adbd11d-055c-c944-a530-f79108dc4dda"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 36, 73, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496094360447`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"e6f78fce-1645-fd46-9446-38185ec3286f"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 37, 74, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496094540443`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"1d118107-3016-1841-9dd0-f82e80675592"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 37, 75, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496094590454`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"2191b5bd-ecd1-f141-8af4-acacddfc6234"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"Cugnon\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\
+\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list of \
+rules.\"", 2, 37, 76, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609463043*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"2b3a1026-65c8-604e-a5a0-a42a8ffe7864"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 37, 77, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496094660454`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"4a576a69-9046-6248-9228-05b2eba2ea35"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 38, 78, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609500046*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"b0c574c7-2ed3-6b4a-a9ad-78f1aa821751"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 38, 79, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496095040474`*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"cb7bba19-1737-8146-b023-97cd34da959b"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"PhaseShift\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 38, 80, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609507042*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"1c1f5e88-640a-4441-9247-e53ac8cf8640"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 38, 81, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249609510044*^9},
+ CellLabel->
+  "During evaluation of \
+In[19]:=",ExpressionUUID->"e96b98af-3233-5742-a368-e153d9d45d91"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"MAIN", " ", 
+    RowBox[{"PLOTS", ":", " ", "FITTED"}]}], 
+   "                                            ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"AllCorrectionsMtBWFittedPlot", " ", "=", " ", 
+     RowBox[{"correctionAllMtPlot", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BreitWigner\>\""}], "]"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"AllCorrectionsYBWFittedPlot", " ", "=", " ", 
+     RowBox[{"correctionAllYPlot", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BreitWigner\>\""}], "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"AllCorrectionsMtCugnonFittedPlot", " ", "=", " ", 
+     RowBox[{"correctionAllMtPlot", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\""}], "]"}]}], ";"}], 
+   "\n", 
+   RowBox[{
+    RowBox[{"AllCorrectionsYCugnonFittedPlot", " ", "=", " ", 
+     RowBox[{"correctionAllYPlot", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\""}], "]"}]}], ";"}], 
+   "\n", "\n", 
+   RowBox[{
+    RowBox[{"AllCorrectionsMtPSFittedPlot", " ", "=", " ", 
+     RowBox[{"correctionAllMtPlot", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\""}], "]"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"AllCorrectionsYPSFittedPlot", " ", "=", " ", 
+     RowBox[{"correctionAllYPlot", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\""}], "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"CorrectionProtonBWFitted", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Proton\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"Red", ",", " ", "Dashed"}], "}"}], ",", 
+       " ", "\"\<p correction BW Fitted\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"CorrectionProtonCugnonFitted", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+       " ", "\"\<Proton\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"Red", ",", " ", "Dashed"}], "}"}], ",", 
+       " ", "\"\<p correction Cugnon Fitted\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"CorrectionProtonPSFitted", " ", "=", " ", 
+     RowBox[{"correctionSingleMtPlot", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+       " ", "\"\<Proton\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"Red", ",", " ", "Dashed"}], "}"}], ",", 
+       " ", "\"\<p correction PS Fitted\>\""}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Vacuum", "/", "Fitted"}], " ", "comparison", " ", "plots"}], ",",
+      " ", 
+     RowBox[{
+      RowBox[{"useful", " ", "for", " ", "fitted", " ", "mass"}], "-", 
+      RowBox[{"model", " ", 
+       RowBox[{"checks", "."}]}]}]}], " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectionVacuumFittedBWMtPlot", " ", "=", " ", 
+     RowBox[{"correctionVacuumFittedMtPlot", "[", 
+      RowBox[{"\"\<BreitWigner\>\"", ",", " ", "\"\<Proton\>\"", ",", 
+       " ", "\"\<p BW\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectionVacuumFittedCugnonMtPlot", " ", "=", " ", 
+     RowBox[{"correctionVacuumFittedMtPlot", "[", 
+      RowBox[{"\"\<Cugnon\>\"", ",", " ", "\"\<Proton\>\"", ",", 
+       " ", "\"\<p Cugnon\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectionVacuumFittedPSMtPlot", " ", "=", " ", 
+     RowBox[{"correctionVacuumFittedMtPlot", "[", 
+      RowBox[{"\"\<PhaseShift\>\"", ",", " ", "\"\<Proton\>\"", ",", 
+       " ", "\"\<p PS\>\""}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectionVacuumFittedBWYPlot", " ", "=", " ", 
+     RowBox[{"correctionVacuumFittedYPlot", "[", 
+      RowBox[{"\"\<BreitWigner\>\"", ",", " ", "\"\<Proton\>\"", ",", 
+       " ", "\"\<p BW\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectionVacuumFittedCugnonYPlot", " ", "=", " ", 
+     RowBox[{"correctionVacuumFittedYPlot", "[", 
+      RowBox[{"\"\<Cugnon\>\"", ",", " ", "\"\<Proton\>\"", ",", 
+       " ", "\"\<p Cugnon\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectionVacuumFittedPSYPlot", " ", "=", " ", 
+     RowBox[{"correctionVacuumFittedYPlot", "[", 
+      RowBox[{"\"\<PhaseShift\>\"", ",", " ", "\"\<Proton\>\"", ",", 
+       " ", "\"\<p PS\>\""}], "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->"In[39]:=",ExpressionUUID->"ad65987d-344c-ab4f-9a0e-bf5b8a6c84db"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 39, 82, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496215905743`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"c71fb94b-2636-e946-b67f-326efbcdc5a3"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 39, 83, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621595083*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"e73df0dd-6756-724e-a618-44a864714a42"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"BreitWigner\\\\\
+\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \
+\\\"]\\\"}]\\) is not a valid Association or a list of rules.\"", 2, 39, 84, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621597084*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"2888c332-f257-c347-90bf-221dd509d63f"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 39, 85, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496216000824`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"fd8111c8-9ed1-0f43-832a-b951ca68f98d"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 40, 86, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621646593*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"2fcdb507-724f-9947-85a7-fab74dce7aeb"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 40, 87, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496216495934`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"a57085d1-e503-e140-8cda-075645cedf5f"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"BreitWigner\\\\\
+\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \
+\\\"]\\\"}]\\) is not a valid Association or a list of rules.\"", 2, 40, 88, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621653593*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"d3cce237-b492-624e-9cce-671df98d4413"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 40, 89, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496216565933`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"2060aaeb-3d1f-ef4b-a8f1-37e5e6f6dd8c"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 41, 90, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496216895943`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"db30e4ed-8bd1-2147-8592-4100912ff50c"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 41, 91, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496216925926`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"86c53c79-2b89-ec42-b561-d2f2aa3f5344"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"Cugnon\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\
+\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list of \
+rules.\"", 2, 41, 92, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621696594*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"de544960-7c2b-f549-aeab-0e936f023e1c"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 41, 93, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496216995945`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"5dd70315-9256-e54f-a092-5c83568f3745"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 42, 94, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496217325935`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"b89652bf-7238-0c48-befc-f0ceb305d36a"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 42, 95, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496217365932`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"d1e3036b-0ae3-c848-9d41-5bf61f03bf31"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"Cugnon\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\
+\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list of \
+rules.\"", 2, 42, 96, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621740593*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"cdd5fe41-616c-b742-bea2-02524b97589a"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 42, 97, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621743593*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"b85993b8-daee-a443-8cb1-c8d6c4b1549b"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 43, 98, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621773594*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"c6e4f244-f16b-fd43-9257-462d5ff8a1b0"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 43, 99, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621778593*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"e3952888-6c77-b14e-ad7a-9c67b96204a0"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"PhaseShift\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 43, 100, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496217815914`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"816abfb1-763e-ec4b-8132-063411916c18"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 43, 101, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621785593*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"de62390d-9419-ec41-8f71-a214371e099c"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 44, 102, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621802593*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"8070050b-7fba-8a4a-a05a-30b0c3d3c115"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 44, 103, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496218075943`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"b12be87b-3f0e-c04f-89bc-0247ff673709"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"PhaseShift\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 44, 104, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496218105927`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"364edcd7-c987-144a-a96b-45c290be4271"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 44, 105, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496218145943`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"3a1ea21d-916e-d84d-84bd-3c6d5db55ef6"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 45, 106, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496218505936`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"f9d8f0c6-0037-2444-84de-e9d47377e7fe"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 45, 107, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496218575935`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"84d46c37-38a2-b447-a01e-a827f53f80f6"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"BreitWigner\\\\\
+\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \
+\\\"]\\\"}]\\) is not a valid Association or a list of rules.\"", 2, 45, 108, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621860592*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"84324e8f-0a79-684b-873b-87860f7dfff4"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 45, 109, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496218645935`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"98ad7542-e8ec-b946-9108-8d2d6b26a190"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 46, 110, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621896593*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"fcfef5ee-ec8e-134f-9d90-ca825cfe08c5"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 46, 111, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621901596*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"7e3249be-f338-0447-98d8-f7da6f6eeea5"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"Cugnon\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\
+\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list of \
+rules.\"", 2, 46, 112, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621905594*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"f9c2e55b-f11b-5f46-8698-b5535b516248"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 46, 113, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621908594*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"28d2cb9d-6ca1-444f-b69a-75a2e9ce27dd"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 47, 114, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621924593*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"74f8b4c7-6ca6-1549-922a-0d635654cdb9"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 47, 115, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621929594*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"363ec816-cad2-8947-95b5-4f711608d631"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Fitted\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"PhaseShift\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 47, 116, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496219325943`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"9f456b7e-1b9c-1945-9733-5bf09c560035"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 47, 117, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496219355984`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"51e57cc0-8017-9c49-8278-994b35ad3a20"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 48, 118, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621967594*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"d6ac5b37-49a6-064f-90dd-fffa5feff7bb"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 48, 119, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621971594*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"e2724623-ea1c-764f-a1c4-9abba148165f"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"BreitWigner\\\\\
+\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \
+\\\"]\\\"}]\\) is not a valid Association or a list of rules.\"", 2, 48, 120, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496219755955`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"0bc8b412-7e6d-fe4f-935b-cc84478394e5"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 48, 121, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249621978592*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"fb5338f9-18ad-0145-a371-b7fd62e9e554"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 49, 122, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249622009594*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"46abf53f-4393-8e4a-be2f-83e2a460f838"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 49, 123, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249622014593*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"da671ccf-0503-2849-9d3b-0986462ca5b3"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"Cugnon\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\
+\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list of \
+rules.\"", 2, 49, 124, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249622018593*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"3bfe8073-da9e-8046-92c7-a67cc74feac1"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 49, 125, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249622021593*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"237f92ce-fec8-3940-a1e1-4650dc4d74a3"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 50, 126, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496220555935`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"14b410cc-787b-0e4f-831c-62f5e7059fc0"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 50, 127, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496220606003`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"857ddded-7880-8440-ba40-b1bf5b1658e5"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"PhaseShift\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 50, 128, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496220645943`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"6f20b989-56ff-ec4c-8d8c-3329cb19f78a"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 50, 129, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496220675926`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"987b5035-4143-7145-abbb-e5b9ef794033"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 51, 130, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249622100113*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"ebef35e9-c274-9c45-9c23-d497a8f715c1"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 51, 131, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496221061115`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"59eed20b-f68b-cb48-8b24-21c970f466de"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"BreitWigner\\\\\
+\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \
+\\\"]\\\"}]\\) is not a valid Association or a list of rules.\"", 2, 51, 132, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249622109112*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"2ce96d3f-92ed-4248-a99a-c09236be2875"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 51, 133, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496221131134`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"eb71415f-b0c5-4147-a98c-432c3056292c"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 52, 134, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249622150112*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"b39e3f6a-39db-2c4f-9380-c3fcd64b6274"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 52, 135, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496221551113`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"3f2954c6-ae34-0849-98be-061bf5838922"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"Cugnon\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\
+\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list of \
+rules.\"", 2, 52, 136, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496221581116`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"2a956727-959f-304f-8c02-f2a7edb1310f"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 52, 137, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249622161112*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"fbd1fb05-dd8d-c442-9da8-f3f5a5d2fb77"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 53, 138, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249622194113*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"f0e82729-140f-d047-bfce-4b976944c385"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 53, 139, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496222001114`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"e4fbdb41-447f-3442-becb-b1e65280e28a"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionY\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"PhaseShift\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 53, 140, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496222031116`*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"344ad5d9-7710-a445-9461-d8080e3a9273"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 53, 141, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249622206112*^9},
+ CellLabel->
+  "During evaluation of \
+In[39]:=",ExpressionUUID->"2bb8ef91-c304-3c4a-a817-dbfcba1baec2"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"SUMMARY", " ", "TABLE"}], 
+   "                                                 ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionPlotStats", "[", "data_", "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"d", ",", " ", "x", ",", " ", "y"}], "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"d", " ", "=", " ", 
+         RowBox[{"Select", "[", 
+          RowBox[{"data", ",", " ", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"ListQ", "[", "#", "]"}], " ", "&&", " ", 
+             RowBox[{
+              RowBox[{"Length", "[", "#", "]"}], " ", ">=", " ", "2"}], " ", "&&",
+              " ", 
+             RowBox[{"NumericQ", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "1", "]"}], "]"}], "]"}], " ", "&&", " ", 
+             RowBox[{"NumericQ", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "]"}]}], " ", "&"}]}], "]"}]}],
+         ";", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Length", "[", "d", "]"}], " ", "==", " ", "0"}], ",", 
+          "\n", "    ", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", " ", 
+            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}], ",", " ", 
+            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}], ",", " ", 
+            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}], ",", " ", 
+            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}]}], "}"}], ",", 
+          "\n", "    ", 
+          RowBox[{
+           RowBox[{"x", " ", "=", " ", 
+            RowBox[{"d", "[", 
+             RowBox[{"[", 
+              RowBox[{"All", ",", " ", "1"}], "]"}], "]"}]}], ";", " ", 
+           RowBox[{"y", " ", "=", " ", 
+            RowBox[{"d", "[", 
+             RowBox[{"[", 
+              RowBox[{"All", ",", " ", "2"}], "]"}], "]"}]}], ";", "\n", 
+           "    ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Length", "[", "d", "]"}], ",", " ", 
+             RowBox[{"Min", "[", "x", "]"}], ",", " ", 
+             RowBox[{"Max", "[", "x", "]"}], ",", " ", 
+             RowBox[{"Min", "[", "y", "]"}], ",", " ", 
+             RowBox[{"Max", "[", "y", "]"}]}], "}"}]}]}], "\n", "  ", 
+         "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"correctionPlotSummaryRows", " ", "=", " ", 
+     RowBox[{"Flatten", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Table", "[", "\n", "    ", 
+        RowBox[{
+         RowBox[{"{", "\n", "      ", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+            "mode", ",", " ", "mass", ",", " ", "\"\<Mt\>\"", ",", 
+             " ", "\"\<Proton\>\"", ",", " ", 
+             RowBox[{"Sequence", " ", "@@", " ", 
+              RowBox[{"correctionPlotStats", "[", 
+               RowBox[{"correctionMtData", "[", 
+                RowBox[{
+                "mode", ",", " ", "mass", ",", " ", "\"\<Proton\>\""}], "]"}],
+                "]"}]}]}], "}"}], ",", "\n", "      ", 
+           RowBox[{"{", 
+            RowBox[{
+            "mode", ",", " ", "mass", ",", " ", "\"\<Y\>\"", ",", 
+             " ", "\"\<Proton\>\"", ",", " ", 
+             RowBox[{"Sequence", " ", "@@", " ", 
+              RowBox[{"correctionPlotStats", "[", 
+               RowBox[{"correctionYData", "[", 
+                RowBox[{
+                "mode", ",", " ", "mass", ",", " ", "\"\<Proton\>\""}], "]"}],
+                "]"}]}]}], "}"}]}], "\n", "    ", "}"}], ",", "\n", "    ", 
+         RowBox[{"{", 
+          RowBox[{"mode", ",", " ", "correctionModes"}], "}"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"mass", ",", " ", "correctionMassLabels"}], "}"}]}], "\n", 
+        "  ", "]"}], ",", "\n", "  ", "2"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"correctionPlotSummaryTable", " ", "=", " ", 
+     RowBox[{"correctionMakeGrid", "[", "\n", "  ", 
+      RowBox[{"Prepend", "[", "\n", "    ", 
+       RowBox[{"correctionPlotSummaryRows", ",", "\n", "    ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Mode\>\"", ",", " ", "\"\<Mass distribution\>\"", ",", 
+          " ", "\"\<Variable\>\"", ",", " ", "\"\<Particle\>\"", ",", 
+          " ", "\"\<N\>\"", ",", " ", "\"\<xMin\>\"", ",", " ", "\"\<xMax\>\"",
+           ",", " ", "\"\<yMin\>\"", ",", " ", "\"\<yMax\>\""}], "}"}]}], 
+       "\n", "  ", "]"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "\"\<Correction plot summary:\>\"", "]"}], ";"}], "\n",
+    "correctionPlotSummaryTable", "\n"}]}]], "Input",
+ CellLabel->"In[54]:=",ExpressionUUID->"62abdff2-21ae-ba4e-b443-6771ce7df63b"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\", \
+\\\"[\\\", \\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}]\\) is not a valid \
+Association or a list of rules.\"", 2, 55, 142, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496322592583`*^9},
+ CellLabel->
+  "During evaluation of \
+In[54]:=",ExpressionUUID->"c8df34a9-ef6c-9646-998f-9d54cae39c27"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or a list \
+of rules.\"", 2, 55, 143, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496322662563`*^9},
+ CellLabel->
+  "During evaluation of \
+In[54]:=",ExpressionUUID->"3b630905-a291-dd4a-9699-8fb18722aabc"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "invrl", 
+   "\"The argument \\!\\(\\*RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"Lookup\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"AllDistributionTablesByMode\\\", \\\"[\\\", \
+\\\"\\\\\\\"Vacuum\\\\\\\"\\\", \\\"]\\\"}], \\\",\\\", \
+\\\"\\\\\\\"CorrectionMt\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"Association\\\", \
+\\\"[\\\", \\\"]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"\\\\\\\"Dirac\\\\\\\"\\\
+\", \\\",\\\", RowBox[{\\\"Association\\\", \\\"[\\\", \\\"]\\\"}]}], \\\"]\\\
+\"}]\\) is not a valid Association or a list of rules.\"", 2, 55, 144, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249632268255*^9},
+ CellLabel->
+  "During evaluation of \
+In[54]:=",ExpressionUUID->"7bc0611b-727b-f841-87e9-5d2b112ac9fc"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"invrl\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 55, 145, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496322712574`*^9},
+ CellLabel->
+  "During evaluation of \
+In[54]:=",ExpressionUUID->"f5ac9164-c43b-b94d-b0f4-8bd766c4f06e"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "argb", 
+   "\"\\!\\(\\*RowBox[{\\\"Lookup\\\"}]\\) called with \\!\\(\\*RowBox[{\\\"0\
+\\\"}]\\) arguments; between \\!\\(\\*RowBox[{\\\"2\\\"}]\\) and \
+\\!\\(\\*RowBox[{\\\"4\\\"}]\\) arguments are expected.\"", 2, 55, 146, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249632280258*^9},
+ CellLabel->
+  "During evaluation of \
+In[54]:=",ExpressionUUID->"35e2baf2-c516-794a-a311-1a21925dcaab"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "argb", 
+   "\"\\!\\(\\*RowBox[{\\\"Lookup\\\"}]\\) called with \\!\\(\\*RowBox[{\\\"0\
+\\\"}]\\) arguments; between \\!\\(\\*RowBox[{\\\"2\\\"}]\\) and \
+\\!\\(\\*RowBox[{\\\"4\\\"}]\\) arguments are expected.\"", 2, 55, 147, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496322913303`*^9},
+ CellLabel->
+  "During evaluation of \
+In[54]:=",ExpressionUUID->"fe5b3e7e-6659-c44e-a84b-fdb8344dbfde"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Lookup", "argb", 
+   "\"\\!\\(\\*RowBox[{\\\"Lookup\\\"}]\\) called with \\!\\(\\*RowBox[{\\\"0\
+\\\"}]\\) arguments; between \\!\\(\\*RowBox[{\\\"2\\\"}]\\) and \
+\\!\\(\\*RowBox[{\\\"4\\\"}]\\) arguments are expected.\"", 2, 55, 148, 
+   23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.9882496322953167`*^9},
+ CellLabel->
+  "During evaluation of \
+In[54]:=",ExpressionUUID->"7aae6603-167e-184b-8564-dbd35a137c91"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Lookup\\\", \\\"::\\\", \
+\\\"argb\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 55, 149, 23940777322724031183, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{3.988249632298319*^9},
+ CellLabel->
+  "During evaluation of \
+In[54]:=",ExpressionUUID->"b89d9106-c948-f94c-baf8-925ca6c3bc85"],
+
+Cell[BoxData["\<\"Correction plot summary:\"\>"], "Print",
+ CellChangeTimes->{3.988249632300316*^9},
+ CellLabel->
+  "During evaluation of \
+In[54]:=",ExpressionUUID->"f96fdedc-2ec8-8a45-bcea-243cca50fef0"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Mode\"\>", "\<\"Mass distribution\"\>", "\<\"Variable\"\>", \
+"\<\"Particle\"\>", "\<\"N\"\>", "\<\"xMin\"\>", "\<\"xMax\"\>", \
+"\<\"yMin\"\>", "\<\"yMax\"\>"},
+    {"\<\"Vacuum\"\>", "\<\"Dirac\"\>", "\<\"Mt\"\>", "\<\"Proton\"\>", "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Vacuum\"\>", "\<\"Dirac\"\>", "\<\"Y\"\>", "\<\"Proton\"\>", "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Vacuum\"\>", "\<\"BreitWigner\"\>", "\<\"Mt\"\>", "\<\"Proton\"\>", 
+     "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Vacuum\"\>", "\<\"BreitWigner\"\>", "\<\"Y\"\>", "\<\"Proton\"\>", 
+     "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Vacuum\"\>", "\<\"Cugnon\"\>", "\<\"Mt\"\>", "\<\"Proton\"\>", "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Vacuum\"\>", "\<\"Cugnon\"\>", "\<\"Y\"\>", "\<\"Proton\"\>", "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Vacuum\"\>", "\<\"PhaseShift\"\>", "\<\"Mt\"\>", "\<\"Proton\"\>", 
+     "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Vacuum\"\>", "\<\"PhaseShift\"\>", "\<\"Y\"\>", "\<\"Proton\"\>", 
+     "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Fitted\"\>", "\<\"Dirac\"\>", "\<\"Mt\"\>", "\<\"Proton\"\>", "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Fitted\"\>", "\<\"Dirac\"\>", "\<\"Y\"\>", "\<\"Proton\"\>", "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Fitted\"\>", "\<\"BreitWigner\"\>", "\<\"Mt\"\>", "\<\"Proton\"\>", 
+     "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Fitted\"\>", "\<\"BreitWigner\"\>", "\<\"Y\"\>", "\<\"Proton\"\>", 
+     "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Fitted\"\>", "\<\"Cugnon\"\>", "\<\"Mt\"\>", "\<\"Proton\"\>", "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Fitted\"\>", "\<\"Cugnon\"\>", "\<\"Y\"\>", "\<\"Proton\"\>", "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Fitted\"\>", "\<\"PhaseShift\"\>", "\<\"Mt\"\>", "\<\"Proton\"\>", 
+     "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]},
+    {"\<\"Fitted\"\>", "\<\"PhaseShift\"\>", "\<\"Y\"\>", "\<\"Proton\"\>", 
+     "0", 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}], 
+     RowBox[{"Missing", "[", "\<\"NoData\"\>", "]"}]}
+   },
+   AutoDelete->False,
+   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{3.9882496323023167`*^9},
+ CellLabel->"Out[58]=",ExpressionUUID->"38fb5cf1-841c-9d4e-ac6b-bc041f3d42c9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{
+  "(*", " ", "EXPORT", 
+   "                                                        ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"correctionExportPlots", " ", "=", " ", 
+     RowBox[{"<|", "\n", "  ", 
+      RowBox[{
+       RowBox[{"\"\<AllCorrectionsMt_Dirac_Vacuum.png\>\"", " ", "->", " ", 
+        "AllCorrectionsMtPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsY_Dirac_Vacuum.png\>\"", " ", "->", " ", 
+        "AllCorrectionsYPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsMt_BW_Vacuum.png\>\"", " ", "->", " ", 
+        "AllCorrectionsMtBWPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsY_BW_Vacuum.png\>\"", " ", "->", " ", 
+        "AllCorrectionsYBWPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsMt_Cugnon_Vacuum.png\>\"", " ", "->", " ", 
+        "AllCorrectionsMtCugnonPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsY_Cugnon_Vacuum.png\>\"", " ", "->", " ", 
+        "AllCorrectionsYCugnonPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsMt_PS_Vacuum.png\>\"", " ", "->", " ", 
+        "AllCorrectionsMtPSPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsY_PS_Vacuum.png\>\"", " ", "->", " ", 
+        "AllCorrectionsYPSPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsMt_BW_Fitted.png\>\"", " ", "->", " ", 
+        "AllCorrectionsMtBWFittedPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsY_BW_Fitted.png\>\"", " ", "->", " ", 
+        "AllCorrectionsYBWFittedPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsMt_Cugnon_Fitted.png\>\"", " ", "->", " ", 
+        "AllCorrectionsMtCugnonFittedPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsY_Cugnon_Fitted.png\>\"", " ", "->", " ", 
+        "AllCorrectionsYCugnonFittedPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsMt_PS_Fitted.png\>\"", " ", "->", " ", 
+        "AllCorrectionsMtPSFittedPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<AllCorrectionsY_PS_Fitted.png\>\"", " ", "->", " ", 
+        "AllCorrectionsYPSFittedPlot"}], ",", "\n", "  ", 
+       RowBox[{"\"\<CorrectionProton_Dirac_Vacuum.png\>\"", " ", "->", " ", 
+        "CorrectionProton"}], ",", "\n", "  ", 
+       RowBox[{"\"\<CorrectionProton_BW_Vacuum.png\>\"", " ", "->", " ", 
+        "CorrectionProtonBW"}], ",", "\n", "  ", 
+       RowBox[{"\"\<CorrectionProton_Cugnon_Vacuum.png\>\"", " ", "->", " ", 
+        "CorrectionProtonCugnon"}], ",", "\n", "  ", 
+       RowBox[{"\"\<CorrectionProton_PS_Vacuum.png\>\"", " ", "->", " ", 
+        "CorrectionProtonPS"}], ",", "\n", "  ", 
+       RowBox[{"\"\<CorrectionProton_BW_Fitted.png\>\"", " ", "->", " ", 
+        "CorrectionProtonBWFitted"}], ",", "\n", "  ", 
+       RowBox[{"\"\<CorrectionProton_Cugnon_Fitted.png\>\"", " ", "->", " ", 
+        "CorrectionProtonCugnonFitted"}], ",", "\n", "  ", 
+       RowBox[{"\"\<CorrectionProton_PS_Fitted.png\>\"", " ", "->", " ", 
+        "CorrectionProtonPSFitted"}]}], "\n", "|>"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"exportCorrectionPlots", "[", 
+      RowBox[{"dir_String", ":", "\"\<CorrectionPlotsExport\>\""}], "]"}], 
+     " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"!", 
+           RowBox[{"DirectoryQ", "[", "dir", "]"}]}], ",", " ", 
+          RowBox[{"CreateDirectory", "[", "dir", "]"}]}], "]"}], ";", "\n", 
+        "  ", 
+        RowBox[{"KeyValueMap", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Export", "[", 
+            RowBox[{
+             RowBox[{"FileNameJoin", "[", 
+              RowBox[{"{", 
+               RowBox[{"dir", ",", " ", "#1"}], "}"}], "]"}], ",", " ", 
+             "#2"}], "]"}], " ", "&"}], ",", " ", "correctionExportPlots"}], 
+         "]"}], ";", "\n", "  ", "dir"}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+    "Print", "[", "\"\<Correction plots finished.  Use \
+exportCorrectionPlots[] to export PNG files.\>\"", "]"}], ";"}], 
+   "\n"}]}]], "Input",
+ CellLabel->
+  "In[156]:=",ExpressionUUID->"aaaa6f02-a02d-2f43-893b-2dceb4bfa357"],
+
+Cell[BoxData["\<\"Correction plots finished.  Use exportCorrectionPlots[] to \
+export PNG files.\"\>"], "Print",
+ CellChangeTimes->{3.9882496439334984`*^9, 3.988249875708683*^9},
+ CellLabel->
+  "During evaluation of \
+In[156]:=",ExpressionUUID->"1925c3c1-e690-da41-b738-29015fbc7b7c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"AUTOMATIC", " ", "EXPORT"}], 
+   "                                              ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"correctionExportDirectory", " ", "=", " ", 
+     RowBox[{"exportCorrectionPlots", "[", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Correction plots exported to: \>\"", ",", " ", 
+      "correctionExportDirectory"}], "]"}], ";"}]}]}]], "Input",
+ CellLabel->
+  "In[159]:=",ExpressionUUID->"1e1ade99-017a-d24f-88cb-3d9fb9ad591a"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Correction plots exported to: \"\>", 
+   "\[InvisibleSpace]", "\<\"CorrectionPlotsExport\"\>"}],
+  SequenceForm["Correction plots exported to: ", "CorrectionPlotsExport"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.9882496575150375`*^9, 3.9882498793784103`*^9},
+ CellLabel->
+  "During evaluation of \
+In[159]:=",ExpressionUUID->"e88a9569-daf7-7c47-b2db-277344f3b29d"]
+}, Open  ]]
+},
+WindowSize->{1280, 732},
+WindowMargins->{{-5.5, Automatic}, {Automatic, -5.5}},
+FrontEndVersion->"14.3 for Microsoft Windows (64-bit) (July 8, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"7ff3bfb6-7d46-b049-9d6d-b10578677343"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 4700, 112, 753, "Input",ExpressionUUID->"26510b60-b428-644c-919f-fdd8e3ca9dfd"],
+Cell[5279, 136, 465, 12, 22, "Print",ExpressionUUID->"179a196e-98c9-9143-80cc-e13baeacea12"],
+Cell[5747, 150, 157, 2, 32, "Output",ExpressionUUID->"dd75d58d-286e-5640-9868-539438973ddc"],
+Cell[5907, 154, 429, 11, 26, "Message",ExpressionUUID->"1dad3926-0c95-9b43-a9db-afb70e406ba1"],
+Cell[6339, 167, 453, 12, 22, "Print",ExpressionUUID->"6036c0ed-c9c0-6f4e-aad1-b114b18b12ce"],
+Cell[6795, 181, 155, 2, 32, "Output",ExpressionUUID->"6f1f29da-a3dc-a34e-bd69-6786d15650d0"]
+}, Open  ]],
+Cell[6965, 186, 4534, 102, 982, "Input",ExpressionUUID->"ce1ef2c8-f0d6-dd46-be36-e5d697cfbe2a"],
+Cell[11502, 290, 2376, 54, 786, "Input",ExpressionUUID->"40a30929-b22e-1a47-b194-b6bcaf59ae11"],
+Cell[13881, 346, 11673, 250, 3044, "Input",ExpressionUUID->"be208522-2090-0e44-8442-a38b4a79fc43"],
+Cell[CellGroupData[{
+Cell[25579, 600, 7224, 164, 813, "Input",ExpressionUUID->"a475e586-1484-d44a-89f6-0cb4521c5b93"],
+Cell[32806, 766, 481, 11, 26, "Message",ExpressionUUID->"c78737fd-fb5a-314d-a33e-299c40329ef9"],
+Cell[33290, 779, 656, 14, 26, "Message",ExpressionUUID->"939e160b-7ec5-174a-9aca-7e56e1aef6f6"],
+Cell[33949, 795, 828, 17, 26, "Message",ExpressionUUID->"84890c10-96ad-5f44-b7e6-a72937f24224"],
+Cell[34780, 814, 464, 11, 26, "Message",ExpressionUUID->"9c383150-e202-da4e-acad-5dc4732d0fbf"],
+Cell[35247, 827, 481, 11, 26, "Message",ExpressionUUID->"e7aeca84-93fd-6c48-adf6-7f1fda19684e"],
+Cell[35731, 840, 657, 14, 26, "Message",ExpressionUUID->"a45b92a6-33fc-ae4e-8da0-5d993be254b5"],
+Cell[36391, 856, 826, 17, 26, "Message",ExpressionUUID->"dfb6df15-befc-3941-99cc-8d3d5ebe09de"],
+Cell[37220, 875, 466, 11, 26, "Message",ExpressionUUID->"b2bfc74e-7aa3-564d-9156-c5571d6bc438"],
+Cell[37689, 888, 482, 11, 26, "Message",ExpressionUUID->"81058e7a-80a6-1c41-953e-ba16efc85240"],
+Cell[38174, 901, 656, 14, 26, "Message",ExpressionUUID->"152c4423-c3c3-804b-a5dd-1ef9bdf87718"],
+Cell[38833, 917, 837, 17, 26, "Message",ExpressionUUID->"2accb61f-b411-754b-ab8a-8572992297c4"],
+Cell[39673, 936, 464, 11, 26, "Message",ExpressionUUID->"a5c42433-fe55-d446-8eee-90f1d3b68628"],
+Cell[40140, 949, 482, 11, 26, "Message",ExpressionUUID->"c68aea2b-6473-8149-96d7-7255625d99e5"],
+Cell[40625, 962, 656, 14, 26, "Message",ExpressionUUID->"159a54c9-3a0e-af47-8c98-8188d54ba9ce"],
+Cell[41284, 978, 836, 17, 26, "Message",ExpressionUUID->"f5c500e6-5478-484e-91e6-e44772390b1f"],
+Cell[42123, 997, 467, 11, 26, "Message",ExpressionUUID->"96b66bcc-c282-804b-b0b6-492162ce8fb8"],
+Cell[42593, 1010, 480, 11, 26, "Message",ExpressionUUID->"85cbbd0b-988d-ce43-bb4e-6db3fecb5856"],
+Cell[43076, 1023, 657, 14, 26, "Message",ExpressionUUID->"1fb3d6f0-9cfc-7f43-b8bb-9623935cad23"],
+Cell[43736, 1039, 830, 17, 26, "Message",ExpressionUUID->"00291656-d137-ed4e-8ee7-a2ffac636c15"],
+Cell[44569, 1058, 467, 11, 26, "Message",ExpressionUUID->"07b7619a-e2b7-bd48-a763-25b4f2bb8dda"],
+Cell[45039, 1071, 480, 11, 26, "Message",ExpressionUUID->"8a5e5c83-c5f6-2449-b813-5f109ec1967f"],
+Cell[45522, 1084, 658, 14, 26, "Message",ExpressionUUID->"353a76c5-0bec-a74c-81e2-103c72cfac58"],
+Cell[46183, 1100, 826, 17, 26, "Message",ExpressionUUID->"f9c7b9be-cc60-9143-b580-c5224f25daba"],
+Cell[47012, 1119, 465, 11, 26, "Message",ExpressionUUID->"4c42fb13-9e9e-b042-8464-da534f63d25b"],
+Cell[47480, 1132, 482, 11, 26, "Message",ExpressionUUID->"e7ca02ec-3ee7-b841-9e01-889df620e20f"],
+Cell[47965, 1145, 656, 14, 26, "Message",ExpressionUUID->"658454f5-1f65-5447-9168-dc2bb2ea58db"],
+Cell[48624, 1161, 834, 17, 26, "Message",ExpressionUUID->"7b8f78a2-61d2-6d46-a3c4-b129a137e9ec"],
+Cell[49461, 1180, 467, 11, 26, "Message",ExpressionUUID->"3ffa69e8-fe94-014b-8f46-3499de1c1795"],
+Cell[49931, 1193, 480, 11, 26, "Message",ExpressionUUID->"b19061ea-9f30-d241-8f5b-079a942277c4"],
+Cell[50414, 1206, 658, 14, 26, "Message",ExpressionUUID->"5fe8c1e1-2523-f849-a76f-67ee427527e5"],
+Cell[51075, 1222, 831, 17, 26, "Message",ExpressionUUID->"1a1e2c67-5f40-f340-b1ba-b057b59c7627"],
+Cell[51909, 1241, 465, 11, 26, "Message",ExpressionUUID->"0a67f223-c67c-5d45-bd98-801a63e1ca73"],
+Cell[52377, 1254, 479, 11, 26, "Message",ExpressionUUID->"b0dae735-cc3d-ba45-82e6-0157235f26f1"],
+Cell[52859, 1267, 659, 14, 26, "Message",ExpressionUUID->"30dd97ed-46e9-7d4c-bd36-9903db9c2391"],
+Cell[53521, 1283, 831, 17, 26, "Message",ExpressionUUID->"64c1ced2-aa7e-1e43-89ff-c060a3a50d63"],
+Cell[54355, 1302, 464, 11, 26, "Message",ExpressionUUID->"4196f25c-ab8b-1c42-ab62-6234eec43454"],
+Cell[54822, 1315, 480, 11, 26, "Message",ExpressionUUID->"ffb11f54-393c-b640-b146-dfeb6ae790fb"],
+Cell[55305, 1328, 659, 14, 26, "Message",ExpressionUUID->"1871372c-4008-194b-af67-b82a2d9b9def"],
+Cell[55967, 1344, 837, 17, 26, "Message",ExpressionUUID->"f0db86e9-b29b-2a48-bb74-b57a9c252049"],
+Cell[56807, 1363, 465, 11, 26, "Message",ExpressionUUID->"d650be48-c2f6-d541-bc5c-cf2e11b35cb3"],
+Cell[57275, 1376, 480, 11, 26, "Message",ExpressionUUID->"38699d54-d216-4d47-942f-42b9f5b64887"],
+Cell[57758, 1389, 659, 14, 26, "Message",ExpressionUUID->"94b1395c-31f1-374d-9777-5031b7901108"],
+Cell[58420, 1405, 830, 17, 26, "Message",ExpressionUUID->"cdfc5d94-1315-1940-95b8-d5a954281b12"],
+Cell[59253, 1424, 467, 11, 26, "Message",ExpressionUUID->"287c29b0-25bb-884d-92cd-702806140116"],
+Cell[59723, 1437, 480, 11, 26, "Message",ExpressionUUID->"e9192964-8e8e-e747-84a7-33f98dac451c"],
+Cell[60206, 1450, 657, 14, 26, "Message",ExpressionUUID->"75268773-e041-9743-b633-1be00b28c12b"],
+Cell[60866, 1466, 832, 17, 26, "Message",ExpressionUUID->"9331d364-82db-aa45-acd3-4ef1b1348486"],
+Cell[61701, 1485, 465, 11, 26, "Message",ExpressionUUID->"5cae2d52-7e30-f949-bc45-86ed82ce5f19"],
+Cell[62169, 1498, 482, 11, 26, "Message",ExpressionUUID->"f75ad9cc-6e86-f646-a698-189ede6ab8fc"],
+Cell[62654, 1511, 659, 14, 26, "Message",ExpressionUUID->"818516a8-887e-4c49-b92b-d9fbcd159842"],
+Cell[63316, 1527, 831, 17, 26, "Message",ExpressionUUID->"dc329b97-519f-164f-9236-a1e34183f752"],
+Cell[64150, 1546, 467, 11, 26, "Message",ExpressionUUID->"e8a90712-4b12-cb48-8a79-5bc66c90d739"],
+Cell[64620, 1559, 482, 11, 26, "Message",ExpressionUUID->"dc9a57c7-1f3e-754e-9331-9ae6321f6d33"],
+Cell[65105, 1572, 657, 14, 26, "Message",ExpressionUUID->"efec1589-7f65-0947-a715-2d49ffaac3af"],
+Cell[65765, 1588, 835, 17, 26, "Message",ExpressionUUID->"4c4c3d77-049f-8847-95a0-ee325bab9880"],
+Cell[66603, 1607, 465, 11, 26, "Message",ExpressionUUID->"d004f5a1-16f4-7045-8511-5d7f45964934"],
+Cell[67071, 1620, 482, 11, 26, "Message",ExpressionUUID->"8289b06f-0c2e-fc47-a8d7-d0d97cf6e2b2"],
+Cell[67556, 1633, 657, 14, 26, "Message",ExpressionUUID->"cf32a29c-38ef-7a49-a9ab-bb30f6212c1c"],
+Cell[68216, 1649, 830, 17, 26, "Message",ExpressionUUID->"78810e2e-9774-b347-ba0a-ccd5b15d1536"],
+Cell[69049, 1668, 465, 11, 26, "Message",ExpressionUUID->"3b92ca00-c17d-6b4e-8927-581cb1049ebe"],
+Cell[69517, 1681, 480, 11, 26, "Message",ExpressionUUID->"0f21328c-440a-4d4a-830a-5eee5786dc82"],
+Cell[70000, 1694, 657, 14, 26, "Message",ExpressionUUID->"b899acc9-995e-3543-9797-1084250c0d0d"],
+Cell[70660, 1710, 834, 17, 26, "Message",ExpressionUUID->"c791b09e-acf3-0c40-a60f-34f36c8b30ca"],
+Cell[71497, 1729, 465, 11, 26, "Message",ExpressionUUID->"65b37569-bfca-1a4e-98d0-3a75379554ca"],
+Cell[71965, 1742, 480, 11, 26, "Message",ExpressionUUID->"9af962cc-17f4-bc4a-b637-4e1504bfe5b7"],
+Cell[72448, 1755, 657, 14, 26, "Message",ExpressionUUID->"42ec9bc4-180c-9147-b557-1e3efa40cb3e"],
+Cell[73108, 1771, 831, 17, 26, "Message",ExpressionUUID->"5cffa2e0-140a-1645-b2e4-5aaaf58a6fc2"],
+Cell[73942, 1790, 465, 11, 26, "Message",ExpressionUUID->"3401c09a-8dec-9045-92e6-afe49c429fec"],
+Cell[74410, 1803, 480, 11, 26, "Message",ExpressionUUID->"b19757a0-0666-2942-85cc-42eb626fa8aa"],
+Cell[74893, 1816, 659, 14, 26, "Message",ExpressionUUID->"8b30aaaa-1530-d249-884f-813734de62ec"],
+Cell[75555, 1832, 837, 17, 26, "Message",ExpressionUUID->"9adbd11d-055c-c944-a530-f79108dc4dda"],
+Cell[76395, 1851, 467, 11, 26, "Message",ExpressionUUID->"e6f78fce-1645-fd46-9446-38185ec3286f"],
+Cell[76865, 1864, 482, 11, 26, "Message",ExpressionUUID->"1d118107-3016-1841-9dd0-f82e80675592"],
+Cell[77350, 1877, 659, 14, 26, "Message",ExpressionUUID->"2191b5bd-ecd1-f141-8af4-acacddfc6234"],
+Cell[78012, 1893, 828, 17, 26, "Message",ExpressionUUID->"2b3a1026-65c8-604e-a5a0-a42a8ffe7864"],
+Cell[78843, 1912, 467, 11, 26, "Message",ExpressionUUID->"4a576a69-9046-6248-9228-05b2eba2ea35"],
+Cell[79313, 1925, 480, 11, 26, "Message",ExpressionUUID->"b0c574c7-2ed3-6b4a-a9ad-78f1aa821751"],
+Cell[79796, 1938, 659, 14, 26, "Message",ExpressionUUID->"cb7bba19-1737-8146-b023-97cd34da959b"],
+Cell[80458, 1954, 832, 17, 26, "Message",ExpressionUUID->"1c1f5e88-640a-4441-9247-e53ac8cf8640"],
+Cell[81293, 1973, 465, 11, 26, "Message",ExpressionUUID->"e96b98af-3233-5742-a368-e153d9d45d91"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[81795, 1989, 4950, 110, 552, "Input",ExpressionUUID->"ad65987d-344c-ab4f-9a0e-bf5b8a6c84db"],
+Cell[86748, 2101, 482, 11, 26, "Message",ExpressionUUID->"c71fb94b-2636-e946-b67f-326efbcdc5a3"],
+Cell[87233, 2114, 657, 14, 26, "Message",ExpressionUUID->"e73df0dd-6756-724e-a618-44a864714a42"],
+Cell[87893, 2130, 835, 17, 26, "Message",ExpressionUUID->"2888c332-f257-c347-90bf-221dd509d63f"],
+Cell[88731, 2149, 467, 11, 26, "Message",ExpressionUUID->"fd8111c8-9ed1-0f43-832a-b951ca68f98d"],
+Cell[89201, 2162, 480, 11, 26, "Message",ExpressionUUID->"2fcdb507-724f-9947-85a7-fab74dce7aeb"],
+Cell[89684, 2175, 658, 14, 26, "Message",ExpressionUUID->"a57085d1-e503-e140-8cda-075645cedf5f"],
+Cell[90345, 2191, 834, 17, 26, "Message",ExpressionUUID->"d3cce237-b492-624e-9cce-671df98d4413"],
+Cell[91182, 2210, 467, 11, 26, "Message",ExpressionUUID->"2060aaeb-3d1f-ef4b-a8f1-37e5e6f6dd8c"],
+Cell[91652, 2223, 482, 11, 26, "Message",ExpressionUUID->"db30e4ed-8bd1-2147-8592-4100912ff50c"],
+Cell[92137, 2236, 659, 14, 26, "Message",ExpressionUUID->"86c53c79-2b89-ec42-b561-d2f2aa3f5344"],
+Cell[92799, 2252, 828, 17, 26, "Message",ExpressionUUID->"de544960-7c2b-f549-aeab-0e936f023e1c"],
+Cell[93630, 2271, 467, 11, 26, "Message",ExpressionUUID->"5dd70315-9256-e54f-a092-5c83568f3745"],
+Cell[94100, 2284, 482, 11, 26, "Message",ExpressionUUID->"b89652bf-7238-0c48-befc-f0ceb305d36a"],
+Cell[94585, 2297, 658, 14, 26, "Message",ExpressionUUID->"d1e3036b-0ae3-c848-9d41-5bf61f03bf31"],
+Cell[95246, 2313, 827, 17, 26, "Message",ExpressionUUID->"cdd5fe41-616c-b742-bea2-02524b97589a"],
+Cell[96076, 2332, 465, 11, 26, "Message",ExpressionUUID->"b85993b8-daee-a443-8cb1-c8d6c4b1549b"],
+Cell[96544, 2345, 480, 11, 26, "Message",ExpressionUUID->"c6e4f244-f16b-fd43-9257-462d5ff8a1b0"],
+Cell[97027, 2358, 657, 14, 26, "Message",ExpressionUUID->"e3952888-6c77-b14e-ad7a-9c67b96204a0"],
+Cell[97687, 2374, 835, 17, 26, "Message",ExpressionUUID->"816abfb1-763e-ec4b-8132-063411916c18"],
+Cell[98525, 2393, 466, 11, 26, "Message",ExpressionUUID->"de62390d-9419-ec41-8f71-a214371e099c"],
+Cell[98994, 2406, 481, 11, 26, "Message",ExpressionUUID->"8070050b-7fba-8a4a-a05a-30b0c3d3c115"],
+Cell[99478, 2419, 659, 14, 26, "Message",ExpressionUUID->"b12be87b-3f0e-c04f-89bc-0247ff673709"],
+Cell[100140, 2435, 834, 17, 26, "Message",ExpressionUUID->"364edcd7-c987-144a-a96b-45c290be4271"],
+Cell[100977, 2454, 468, 11, 26, "Message",ExpressionUUID->"3a1ea21d-916e-d84d-84bd-3c6d5db55ef6"],
+Cell[101448, 2467, 483, 11, 26, "Message",ExpressionUUID->"f9d8f0c6-0037-2444-84de-e9d47377e7fe"],
+Cell[101934, 2480, 660, 14, 26, "Message",ExpressionUUID->"84d46c37-38a2-b447-a01e-a827f53f80f6"],
+Cell[102597, 2496, 836, 17, 26, "Message",ExpressionUUID->"84324e8f-0a79-684b-873b-87860f7dfff4"],
+Cell[103436, 2515, 468, 11, 26, "Message",ExpressionUUID->"98ad7542-e8ec-b946-9108-8d2d6b26a190"],
+Cell[103907, 2528, 481, 11, 26, "Message",ExpressionUUID->"fcfef5ee-ec8e-134f-9d90-ca825cfe08c5"],
+Cell[104391, 2541, 658, 14, 26, "Message",ExpressionUUID->"7e3249be-f338-0447-98d8-f7da6f6eeea5"],
+Cell[105052, 2557, 829, 17, 26, "Message",ExpressionUUID->"f9c2e55b-f11b-5f46-8698-b5535b516248"],
+Cell[105884, 2576, 466, 11, 26, "Message",ExpressionUUID->"28d2cb9d-6ca1-444f-b69a-75a2e9ce27dd"],
+Cell[106353, 2589, 481, 11, 26, "Message",ExpressionUUID->"74f8b4c7-6ca6-1549-922a-0d635654cdb9"],
+Cell[106837, 2602, 658, 14, 26, "Message",ExpressionUUID->"363ec816-cad2-8947-95b5-4f711608d631"],
+Cell[107498, 2618, 835, 17, 26, "Message",ExpressionUUID->"9f456b7e-1b9c-1945-9733-5bf09c560035"],
+Cell[108336, 2637, 468, 11, 26, "Message",ExpressionUUID->"51e57cc0-8017-9c49-8278-994b35ad3a20"],
+Cell[108807, 2650, 481, 11, 26, "Message",ExpressionUUID->"d6ac5b37-49a6-064f-90dd-fffa5feff7bb"],
+Cell[109291, 2663, 658, 14, 26, "Message",ExpressionUUID->"e2724623-ea1c-764f-a1c4-9abba148165f"],
+Cell[109952, 2679, 838, 17, 26, "Message",ExpressionUUID->"0bc8b412-7e6d-fe4f-935b-cc84478394e5"],
+Cell[110793, 2698, 466, 11, 26, "Message",ExpressionUUID->"fb5338f9-18ad-0145-a371-b7fd62e9e554"],
+Cell[111262, 2711, 481, 11, 26, "Message",ExpressionUUID->"46abf53f-4393-8e4a-be2f-83e2a460f838"],
+Cell[111746, 2724, 658, 14, 26, "Message",ExpressionUUID->"da671ccf-0503-2849-9d3b-0986462ca5b3"],
+Cell[112407, 2740, 829, 17, 26, "Message",ExpressionUUID->"3bfe8073-da9e-8046-92c7-a67cc74feac1"],
+Cell[113239, 2759, 466, 11, 26, "Message",ExpressionUUID->"237f92ce-fec8-3940-a1e1-4650dc4d74a3"],
+Cell[113708, 2772, 483, 11, 26, "Message",ExpressionUUID->"14b410cc-787b-0e4f-831c-62f5e7059fc0"],
+Cell[114194, 2785, 660, 14, 26, "Message",ExpressionUUID->"857ddded-7880-8440-ba40-b1bf5b1658e5"],
+Cell[114857, 2801, 835, 17, 26, "Message",ExpressionUUID->"6f20b989-56ff-ec4c-8d8c-3329cb19f78a"],
+Cell[115695, 2820, 468, 11, 26, "Message",ExpressionUUID->"987b5035-4143-7145-abbb-e5b9ef794033"],
+Cell[116166, 2833, 481, 11, 26, "Message",ExpressionUUID->"ebef35e9-c274-9c45-9c23-d497a8f715c1"],
+Cell[116650, 2846, 659, 14, 26, "Message",ExpressionUUID->"59eed20b-f68b-cb48-8b24-21c970f466de"],
+Cell[117312, 2862, 835, 17, 26, "Message",ExpressionUUID->"2ce96d3f-92ed-4248-a99a-c09236be2875"],
+Cell[118150, 2881, 468, 11, 26, "Message",ExpressionUUID->"eb71415f-b0c5-4147-a98c-432c3056292c"],
+Cell[118621, 2894, 481, 11, 26, "Message",ExpressionUUID->"b39e3f6a-39db-2c4f-9380-c3fcd64b6274"],
+Cell[119105, 2907, 659, 14, 26, "Message",ExpressionUUID->"3f2954c6-ae34-0849-98be-061bf5838922"],
+Cell[119767, 2923, 830, 17, 26, "Message",ExpressionUUID->"2a956727-959f-304f-8c02-f2a7edb1310f"],
+Cell[120600, 2942, 466, 11, 26, "Message",ExpressionUUID->"fbd1fb05-dd8d-c442-9da8-f3f5a5d2fb77"],
+Cell[121069, 2955, 481, 11, 26, "Message",ExpressionUUID->"f0e82729-140f-d047-bfce-4b976944c385"],
+Cell[121553, 2968, 659, 14, 26, "Message",ExpressionUUID->"e4fbdb41-447f-3442-becb-b1e65280e28a"],
+Cell[122215, 2984, 834, 17, 26, "Message",ExpressionUUID->"344ad5d9-7710-a445-9461-d8080e3a9273"],
+Cell[123052, 3003, 466, 11, 26, "Message",ExpressionUUID->"2bb8ef91-c304-3c4a-a817-dbfcba1baec2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[123555, 3019, 5157, 117, 851, "Input",ExpressionUUID->"62abdff2-21ae-ba4e-b443-6771ce7df63b"],
+Cell[128715, 3138, 483, 11, 26, "Message",ExpressionUUID->"c8df34a9-ef6c-9646-998f-9d54cae39c27"],
+Cell[129201, 3151, 660, 14, 26, "Message",ExpressionUUID->"3b630905-a291-dd4a-9699-8fb18722aabc"],
+Cell[129864, 3167, 830, 17, 26, "Message",ExpressionUUID->"7bc0611b-727b-f841-87e9-5d2b112ac9fc"],
+Cell[130697, 3186, 468, 11, 26, "Message",ExpressionUUID->"f5ac9164-c43b-b94d-b0f4-8bd766c4f06e"],
+Cell[131168, 3199, 504, 12, 26, "Message",ExpressionUUID->"35e2baf2-c516-794a-a311-1a21925dcaab"],
+Cell[131675, 3213, 506, 12, 26, "Message",ExpressionUUID->"fe5b3e7e-6659-c44e-a84b-fdb8344dbfde"],
+Cell[132184, 3227, 506, 12, 26, "Message",ExpressionUUID->"7aae6603-167e-184b-8564-dbd35a137c91"],
+Cell[132693, 3241, 465, 11, 26, "Message",ExpressionUUID->"b89d9106-c948-f94c-baf8-925ca6c3bc85"],
+Cell[133161, 3254, 205, 4, 22, "Print",ExpressionUUID->"f96fdedc-2ec8-8a45-bcea-243cca50fef0"],
+Cell[133369, 3260, 5459, 101, 322, "Output",ExpressionUUID->"38fb5cf1-841c-9d4e-ac6b-bc041f3d42c9"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[138865, 3366, 4636, 93, 759, "Input",ExpressionUUID->"aaaa6f02-a02d-2f43-893b-2dceb4bfa357"],
+Cell[143504, 3461, 284, 5, 22, "Print",ExpressionUUID->"1925c3c1-e690-da41-b738-29015fbc7b7c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[143825, 3471, 976, 24, 137, "Input",ExpressionUUID->"1e1ade99-017a-d24f-88cb-3d9fb9ad591a"],
+Cell[144804, 3497, 424, 9, 22, "Print",ExpressionUUID->"e88a9569-daf7-7c47-b2db-277344f3b29d"]
+}, Open  ]]
+}
+]
+*)
+
