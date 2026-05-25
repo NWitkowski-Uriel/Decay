@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[     94877,       2408]
-NotebookOptionsPosition[     92410,       2365]
-NotebookOutlinePosition[     92842,       2382]
-CellTagsIndexPosition[     92799,       2379]
+NotebookDataLength[     47743,       1122]
+NotebookOptionsPosition[     46903,       1099]
+NotebookOutlinePosition[     47335,       1116]
+CellTagsIndexPosition[     47292,       1113]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -27,2340 +27,1074 @@ Cell[BoxData[
    "*)"}], "\n", 
   RowBox[{"(*", " ", 
    RowBox[{"COMPARISON", " ", 
-    RowBox[{"PLOTS", " ", "--"}], " ", "DUAL", " ", "MASS", " ", "VERSION"}], 
-   "                        ", "*)"}], "\n", 
+    RowBox[{"PLOTS", " ", "--"}], " ", "DIRECT", " ", "ACCESS", " ", 
+    "FIXED"}], "                      ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
    RowBox[{
    "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
      "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
    "*)"}], "\n", 
   RowBox[{"(*", " ", 
-   RowBox[{"Compares", " ", "experimental", " ", "spectra", " ", "with"}], 
-   "                            ", "*)"}], "\n", 
-  RowBox[{"(*", "   ", 
-   RowBox[{
-    RowBox[{"primordial", " ", "+", " ", "Delta", "-", 
-     RowBox[{"decay", " ", "correction"}]}], " ", "=", " ", 
-    RowBox[{"total", "."}]}], "                ", "*)"}], "\n", 
-  RowBox[{
-  "(*", "                                                              ", 
-   "*)"}], "\n", 
+   RowBox[{"Reads", " ", 
+    RowBox[{
+     RowBox[{"primordial", "/", "correction"}], "/", "corrected"}], " ", 
+    "tables", " ", "directly", " ", "from"}], "    ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
    RowBox[{
-   "Required", " ", "previous", " ", "notebooks", " ", "in", " ", "the", " ", 
-    "same", " ", 
-    RowBox[{"kernel", ":"}]}], "               ", "*)"}], "\n", 
-  RowBox[{"(*", "   ", 
-   RowBox[{"Intro_DualMass", "_VacuumFitted", "_Cugnon", "_v6", 
-    RowBox[{"_OriginalDirectKernels", ".", "wl"}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", "   ", 
-   RowBox[{"PairFit_DualMass", "_MeVFit", 
-    RowBox[{"_RegisterFitted", ".", "wl"}]}], "                  ", "*)"}], 
-  "\n", 
-  RowBox[{"(*", "   ", 
-   RowBox[{"Distributions_DualMass", "_VacuumFitted", "_Cugnon", "_v5", 
-    RowBox[{"_OriginalDirectKernels", ".", "wl"}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", "   ", 
-   RowBox[{"YieldTest_DualMass", "_VacuumFitted", "_Cugnon", 
-    RowBox[{"_v3", ".", "wl"}]}], "               ", "*)"}], "\n", 
-  RowBox[{"(*", "   ", 
-   RowBox[{"PrimordialPlots_DualMass", "_VacuumFitted", "_Cugnon", "_v2", 
-    RowBox[{"_LinearRapidity", ".", "wl"}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", "   ", 
-   RowBox[{"CorrectionPlots_DualMass", "_VacuumFitted", 
-    RowBox[{"_Cugnon", ".", "wl"}]}], "            ", "*)"}], "\n", 
-  RowBox[{
-  "(*", "                                                              ", 
-   "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "Axis", " ", "convention", " ", "follows", " ", "the", " ", "original", " ", 
-    RowBox[{"notebook", ":"}]}], "                ", "*)"}], "\n", 
-  RowBox[{"(*", "   ", 
-   RowBox[{
-    RowBox[{"mT", " ", "spectra"}], " ", "->", " ", "ListLogPlot"}], 
-   "                                   ", "*)"}], "\n", 
-  RowBox[{"(*", "   ", 
-   RowBox[{
-    RowBox[{"rapidity", "   ", "->", " ", "ListPlot"}], ",", " ", 
-    RowBox[{"linear", " ", "axes"}]}], "                         ", "*)"}], 
-  "\n", 
+    RowBox[{"AllDistributionTablesByMode", ".", " ", "No"}], " ", "fallback", 
+    " ", "aliases", " ", "are", " ", 
+    RowBox[{"used", "."}]}], "    ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
    RowBox[{
    "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
      "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
    "*)"}], "\n", "\n", 
   RowBox[{
-   RowBox[{
-    RowBox[{"If", "[", 
-     RowBox[{
-      RowBox[{"$InputFileName", " ", "=!=", " ", "\"\<\>\""}], ",", "\n", 
-      "  ", 
-      RowBox[{"SetDirectory", "[", 
-       RowBox[{"DirectoryName", "[", "$InputFileName", "]"}], "]"}], ",", 
-      "\n", "  ", 
-      RowBox[{"If", "[", 
-       RowBox[{
-        RowBox[{"ValueQ", "[", 
-         RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ",", " ", 
-        RowBox[{"SetDirectory", "[", 
-         RowBox[{"NotebookDirectory", "[", "]"}], "]"}]}], "]"}]}], "\n", 
-     "]"}], ";"}], "\n", "\n", 
-   RowBox[{"(*", " ", 
+   RowBox[{"If", "[", 
     RowBox[{
      RowBox[{
-     "Clear", " ", "all", " ", "names", " ", "defined", " ", "in", " ", 
-      "this", " ", 
-      RowBox[{"notebook", ".", "  ", "This"}], " ", "is", " ", "important", " ",
-       "when", " ", "the", "\n", "   ", "notebook", " ", "is", " ", "re"}], "-", 
+      RowBox[{"!", " ", 
+       RowBox[{"ValueQ", "[", "AllDistributionTablesByMode", "]"}]}], " ", "||",
+       " ", 
+      RowBox[{"!", " ", 
+       RowBox[{"AssociationQ", "[", "AllDistributionTablesByMode", "]"}]}]}], 
+     ",", "\n", "  ", 
      RowBox[{
-     "run", " ", "in", " ", "a", " ", "kernel", " ", "where", " ", "an", " ", 
-      "older", " ", "ComparisonPlots", " ", "version", " ", "has", "\n", 
-      "   ", "already", " ", "assigned", " ", "values", " ", "to", " ", 
-      "some", " ", "of", " ", "these", " ", 
-      RowBox[{"symbols", "."}]}]}], " ", "*)"}], "\n", 
-   RowBox[{
-    RowBox[{"ClearAll", "[", "\n", "  ", 
-     RowBox[{
-     "cmpFinitePointQ", ",", " ", "cmpDataLinear", ",", " ", "cmpDataLog", ",",
-       " ", "cmpNonEmptyQ", ",", " ", "cmpPretty", ",", " ", "cmpMakeGrid", ",",
-       "\n", "  ", "cmpGet", ",", " ", "cmpBlock", ",", " ", 
-      "cmpPrimordialMt", ",", " ", "cmpPrimordialY", ",", " ", 
-      "cmpCorrectionMt", ",", "\n", "  ", "cmpCorrectionY", ",", " ", 
-      "cmpTotalMt", ",", " ", "cmpTotalY", ",", " ", "cmpExperimentalMt", ",",
-       " ", "cmpExperimentalY", ",", "\n", "  ", "comparisonParticleLabel", ",",
-       " ", "comparisonDistributionLabel", ",", " ", "comparisonShortLabel", ",",
-       "\n", "  ", "comparisonPlotStyle", ",", " ", "comparisonSeriesPack", ",",
-       " ", "comparisonLegend", ",", "\n", "  ", "comparisonMtPlot", ",", " ",
-       "comparisonYPlot", ",", " ", "comparisonTotalOnlyMtPlot", ",", "\n", 
-      "  ", "comparisonTotalOnlyYPlot", ",", " ", "comparisonPlot", ",", " ", 
-      "comparisonCurveSummary", ",", "\n", "  ", "exportComparisonPlots"}], 
-     "\n", "]"}], ";"}], "\n"}]}]], "Input",
- CellLabel->"In[64]:=",ExpressionUUID->"1a6e3d16-2056-4244-93d0-91799844d5f5"],
+      RowBox[{"Print", "[", 
+       RowBox[{"Style", "[", 
+        RowBox[{"\"\<ERROR: AllDistributionTablesByMode is not available. Run \
+Distributions first.\>\"", ",", " ", "Red", ",", " ", "Bold"}], "]"}], "]"}], 
+      ";", "\n", "  ", 
+      RowBox[{"Abort", "[", "]"}], ";"}]}], "\n", "]"}], ";"}]}]], "Code",
+ CellLabel->
+  "In[1778]:=",ExpressionUUID->"f3340e80-bb82-4148-b4d9-fddd8ab28696"],
 
 Cell[BoxData[
  RowBox[{
   RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
   RowBox[{"(*", " ", 
-   RowBox[{"Basic", " ", "utilities"}], 
-   "                                               ", "*)"}], "\n", 
+   RowBox[{"DIRECT", " ", "PLOT", " ", "DATA", " ", "HELPERS"}], 
+   "                                     ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
   RowBox[{
    RowBox[{
+    RowBox[{"ClearAll", "[", "\n", "  ", 
+     RowBox[{
+     "plotFiniteNumberQ", ",", " ", "plotFinitePointQ", ",", " ", 
+      "plotCleanData", ",", " ", "plotNonEmptyQ", ",", "\n", "  ", "plotGet", 
+      ",", " ", "plotGetModelData", ",", " ", "plotMessagePlot", ",", " ", 
+      "plotSelectNonEmpty", ",", "\n", "  ", "plotExport", ",", " ", 
+      "plotStats", ",", " ", "plotAvailabilityRows", ",", " ", 
+      "plotAvailabilityTable"}], "\n", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
     RowBox[{
-     RowBox[{"cmpFinitePointQ", "[", "p_", "]"}], " ", ":=", " ", 
+     RowBox[{"plotFiniteNumberQ", "[", "x_", "]"}], " ", ":=", " ", 
+     RowBox[{
+      RowBox[{"NumericQ", "[", "x", "]"}], " ", "&&", " ", 
+      RowBox[{"FreeQ", "[", 
+       RowBox[{
+        RowBox[{"N", "[", "x", "]"}], ",", " ", 
+        RowBox[{
+        "Indeterminate", " ", "|", " ", "ComplexInfinity", " ", "|", " ", 
+         RowBox[{"DirectedInfinity", "[", "_", "]"}]}]}], "]"}]}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"plotFinitePointQ", "[", "p_", "]"}], " ", ":=", " ", 
      RowBox[{
       RowBox[{"MatchQ", "[", 
        RowBox[{"p", ",", " ", 
         RowBox[{"{", 
          RowBox[{
           RowBox[{"_", "?", "NumericQ"}], ",", " ", 
-          RowBox[{"_", "?", "NumericQ"}]}], "}"}]}], "]"}], " ", "&&", "\n", 
-      "  ", 
-      RowBox[{"FreeQ", "[", 
-       RowBox[{
-        RowBox[{"N", "[", "p", "]"}], ",", " ", 
-        RowBox[{
-        "Indeterminate", " ", "|", " ", "ComplexInfinity", " ", "|", " ", 
-         RowBox[{"DirectedInfinity", "[", "_", "]"}]}]}], "]"}]}]}], ";"}], 
-   "\n", "\n", 
+          RowBox[{"_", "?", "NumericQ"}]}], "}"}]}], "]"}], " ", "&&", " ", 
+      RowBox[{"plotFiniteNumberQ", "[", 
+       RowBox[{"p", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "]"}], " ", "&&", " ", 
+      RowBox[{"plotFiniteNumberQ", "[", 
+       RowBox[{"p", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], "]"}]}]}], ";"}], "\n", 
    RowBox[{
     RowBox[{
-     RowBox[{"cmpDataLinear", "[", "data_", "]"}], " ", ":=", " ", 
-     RowBox[{"Select", "[", 
+     RowBox[{"plotCleanData", "[", "data_", "]"}], " ", ":=", " ", 
+     RowBox[{"If", "[", 
       RowBox[{
-       RowBox[{"Cases", "[", 
-        RowBox[{"data", ",", " ", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"_", "?", "NumericQ"}], ",", " ", 
-           RowBox[{"_", "?", "NumericQ"}]}], "}"}], ",", " ", "Infinity"}], 
-        "]"}], ",", " ", "cmpFinitePointQ"}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{"(*", " ", 
-    RowBox[{
-    "ListLogPlot", " ", "requires", " ", "strictly", " ", "positive", " ", 
-     "y", " ", 
-     RowBox[{"values", ".", "  ", "We"}], " ", "filter", " ", "here", " ", 
-     "instead", "\n", "   ", "of", " ", "letting", " ", "Mathematica", " ", 
-     "generate", " ", "lpn", " ", "messages", " ", "or", " ", "plot", " ", 
-     "empty", " ", 
-     RowBox[{"placeholders", "."}]}], " ", "*)"}], "\n", 
+       RowBox[{"ListQ", "[", "data", "]"}], ",", " ", 
+       RowBox[{"Select", "[", 
+        RowBox[{"data", ",", " ", "plotFinitePointQ"}], "]"}], ",", " ", 
+       RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\n", 
    RowBox[{
     RowBox[{
-     RowBox[{"cmpDataLog", "[", "data_", "]"}], " ", ":=", " ", 
-     RowBox[{"Select", "[", 
-      RowBox[{
-       RowBox[{"cmpDataLinear", "[", "data", "]"}], ",", " ", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"#", "[", 
-          RowBox[{"[", "2", "]"}], "]"}], " ", ">", " ", "0"}], " ", "&"}]}], 
-      "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpNonEmptyQ", "[", "data_", "]"}], " ", ":=", " ", 
+     RowBox[{"plotNonEmptyQ", "[", "data_", "]"}], " ", ":=", " ", 
      RowBox[{
-      RowBox[{"ListQ", "[", "data", "]"}], " ", "&&", " ", 
+      RowBox[{"Length", "[", 
+       RowBox[{"plotCleanData", "[", "data", "]"}], "]"}], " ", ">", " ", 
+      "0"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"plotGet", "[", 
       RowBox[{
-       RowBox[{"Length", "[", "data", "]"}], " ", ">", " ", "0"}]}]}], ";"}], 
-   "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpPretty", "[", 
-      RowBox[{"x_", "?", "NumericQ"}], "]"}], " ", ":=", " ", 
-     RowBox[{"ScientificForm", "[", 
-      RowBox[{
-       RowBox[{"N", "[", "x", "]"}], ",", " ", 
-       RowBox[{"{", 
-        RowBox[{"10", ",", " ", "4"}], "}"}], ",", " ", 
-       RowBox[{"NumberFormat", " ", "->", " ", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"Row", "[", 
-           RowBox[{"{", 
-            RowBox[{"#1", ",", " ", "\"\<e\>\"", ",", " ", "#3"}], "}"}], 
-           "]"}], " ", "&"}], ")"}]}]}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpPretty", "[", "x_", "]"}], " ", ":=", " ", "x"}], ";"}], 
-   "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpMakeGrid", "[", "rows_", "]"}], " ", ":=", " ", 
-     RowBox[{"Grid", "[", 
-      RowBox[{
-       RowBox[{"rows", " ", "/.", " ", 
-        RowBox[{
-         RowBox[{"x_", "?", "NumericQ"}], " ", ":>", " ", 
-         RowBox[{"cmpPretty", "[", "x", "]"}]}]}], ",", " ", 
-       RowBox[{"Frame", " ", "->", " ", "All"}], ",", " ", 
-       RowBox[{"Background", " ", "->", " ", 
-        RowBox[{"{", 
-         RowBox[{"None", ",", " ", 
-          RowBox[{"{", 
-           RowBox[{"LightGray", ",", " ", "None"}], "}"}]}], "}"}]}]}], 
-      "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{"(*", " ", 
-    RowBox[{
-     RowBox[{"Robust", " ", "nested", " ", 
-      RowBox[{"lookup", ".", "  ", "Returns"}], " ", 
-      RowBox[{"{", "}"}], " ", "whenever", " ", "a", " ", "key", " ", "or", " ",
-       "a", " ", "sub"}], "-", 
-     RowBox[{"association", " ", "is", "\n", "   ", 
-      RowBox[{"missing", ".", "  ", "It"}], " ", "never", " ", "returns", " ", 
-      RowBox[{"Missing", "[", "...", "]"}], " ", "to", " ", "plotting", " ", 
-      "or", " ", "label", " ", 
-      RowBox[{"functions", "."}]}]}], " ", "*)"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpGet", "[", 
-      RowBox[{"assoc_", ",", " ", "keys_List"}], "]"}], " ", ":=", " ", 
+      "mode_String", ",", " ", "component_String", ",", " ", 
+       "keys___String"}], "]"}], " ", ":=", " ", 
      RowBox[{"Module", "[", 
       RowBox[{
-       RowBox[{"{", 
-        RowBox[{"x", " ", "=", " ", "assoc"}], "}"}], ",", "\n", "  ", 
+       RowBox[{"{", "value", "}"}], ",", "\n", "  ", 
        RowBox[{
-        RowBox[{"Do", "[", "\n", "    ", 
+        RowBox[{"If", "[", 
          RowBox[{
           RowBox[{
-           RowBox[{"If", "[", 
+           RowBox[{"!", " ", 
+            RowBox[{"ValueQ", "[", "AllDistributionTablesByMode", "]"}]}], 
+           " ", "||", " ", 
+           RowBox[{"!", " ", 
             RowBox[{
-             RowBox[{"!", 
-              RowBox[{"AssociationQ", "[", "x", "]"}]}], ",", " ", 
-             RowBox[{"Return", "[", 
-              RowBox[{"{", "}"}], "]"}]}], "]"}], ";", "\n", "    ", 
-           RowBox[{"x", " ", "=", " ", 
-            RowBox[{"Lookup", "[", 
-             RowBox[{"x", ",", " ", "key", ",", " ", 
-              RowBox[{"Missing", "[", 
-               RowBox[{"\"\<KeyAbsent\>\"", ",", " ", "key"}], "]"}]}], 
-             "]"}]}], ";", "\n", "    ", 
-           RowBox[{"If", "[", 
+            "AssociationQ", "[", "AllDistributionTablesByMode", "]"}]}], " ", 
+           "||", " ", 
+           RowBox[{"!", " ", 
+            RowBox[{"KeyExistsQ", "[", 
+             RowBox[{"AllDistributionTablesByMode", ",", " ", "mode"}], 
+             "]"}]}]}], ",", " ", 
+          RowBox[{"Return", "[", 
+           RowBox[{"{", "}"}], "]"}]}], "]"}], ";", "\n", "  ", 
+        RowBox[{"value", " ", "=", " ", 
+         RowBox[{"AllDistributionTablesByMode", "[", "mode", "]"}]}], ";", 
+        "\n", "  ", 
+        RowBox[{"Do", "[", "\n", "    ", 
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
             RowBox[{
-             RowBox[{
-              RowBox[{"Head", "[", "x", "]"}], " ", "===", " ", "Missing"}], ",",
-              " ", 
-             RowBox[{"Return", "[", 
-              RowBox[{"{", "}"}], "]"}]}], "]"}], ";"}], ",", "\n", "    ", 
+             RowBox[{"AssociationQ", "[", "value", "]"}], " ", "&&", " ", 
+             RowBox[{"KeyExistsQ", "[", 
+              RowBox[{"value", ",", " ", "key"}], "]"}]}], ",", " ", 
+            RowBox[{"value", " ", "=", " ", 
+             RowBox[{"value", "[", "key", "]"}]}], ",", " ", 
+            RowBox[{"Return", "[", 
+             RowBox[{"{", "}"}], "]"}]}], "]"}], ",", "\n", "    ", 
           RowBox[{"{", 
-           RowBox[{"key", ",", " ", "keys"}], "}"}]}], "\n", "  ", "]"}], ";",
-         "\n", "  ", "x"}]}], "\n", "]"}]}], ";"}], "\n"}]}]], "Input",
- CellLabel->"In[66]:=",ExpressionUUID->"ea60feaa-43ab-a94e-9c7a-882b3bcfcf0d"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Check", " ", "input", " ", "tables"}], 
-   "                                            ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{"If", "[", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"!", 
-        RowBox[{"ValueQ", "[", "AllDistributionTablesByMode", "]"}]}], " ", "||",
-        " ", 
-       RowBox[{"!", 
-        RowBox[{"AssociationQ", "[", "AllDistributionTablesByMode", "]"}]}]}],
-       ",", "\n", "  ", 
-      RowBox[{
-       RowBox[{"Print", "[", 
-        RowBox[{"Style", "[", 
-         RowBox[{"\"\<ERROR: AllDistributionTablesByMode is not available. \
-Run Distributions first.\>\"", ",", " ", "Red", ",", " ", "Bold"}], "]"}], 
-        "]"}], ";", "\n", "  ", 
-       RowBox[{"Abort", "[", "]"}], ";"}]}], "\n", "]"}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"comparisonModes", " ", "=", " ", 
-     RowBox[{"Select", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Fitted\>\""}], "}"}], ",", 
-       " ", 
-       RowBox[{
-        RowBox[{"KeyExistsQ", "[", 
-         RowBox[{"AllDistributionTablesByMode", ",", " ", "#"}], "]"}], " ", 
-        "&"}]}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"If", "[", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"Length", "[", "comparisonModes", "]"}], " ", "==", " ", "0"}],
-       ",", "\n", "  ", 
-      RowBox[{
-       RowBox[{"Print", "[", 
-        RowBox[{"Style", "[", 
-         RowBox[{"\"\<ERROR: neither Vacuum nor Fitted mode exists in \
-AllDistributionTablesByMode.\>\"", ",", " ", "Red", ",", " ", "Bold"}], "]"}],
-         "]"}], ";", "\n", "  ", 
-       RowBox[{"Abort", "[", "]"}], ";"}]}], "\n", "]"}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"comparisonParticles", " ", "=", " ", 
-     RowBox[{"{", 
-      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<PionPlus\>\"", ",", 
-       " ", "\"\<PionMinus\>\""}], "}"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"comparisonDistributionKeys", " ", "=", " ", 
-     RowBox[{"{", 
-      RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
-       " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}]}], 
-    ";"}]}]}]], "Input",
- CellLabel->"In[74]:=",ExpressionUUID->"0c085156-845c-4745-94b8-58aa8e08bbc2"],
-
-Cell[BoxData[
- StyleBox["\<\"ERROR: AllDistributionTablesByMode is not available. Run \
-Distributions first.\"\>",
-  StripOnInput->False,
-  LineColor->RGBColor[1, 0, 0],
-  FrontFaceColor->RGBColor[1, 0, 0],
-  BackFaceColor->RGBColor[1, 0, 0],
-  GraphicsColor->RGBColor[1, 0, 0],
-  FontWeight->Bold,
-  FontColor->RGBColor[1, 0, 0]]], "Print",
- CellChangeTimes->{3.9882497204573708`*^9},
- CellLabel->
-  "During evaluation of \
-In[74]:=",ExpressionUUID->"657a51d1-a9d4-1f41-91d6-383aa18a1589"],
-
-Cell[BoxData["$Aborted"], "Output",
- CellChangeTimes->{3.988249720461363*^9},
- CellLabel->"Out[74]=",ExpressionUUID->"70d89b3a-0f33-204e-a266-8415af450d54"],
-
-Cell[BoxData[
- TemplateBox[{
-  "KeyExistsQ", "invrl", 
-   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\"}]\\) \
-is not a valid Association or a list of rules.\"", 2, 75, 150, 
-   23940777322724031183, "Local"},
-  "MessageTemplate",
-  BaseStyle->"MSG"]], "Message",
- CellChangeTimes->{3.988249720462364*^9},
- CellLabel->
-  "During evaluation of \
-In[74]:=",ExpressionUUID->"4a5602c9-5e47-4c40-b10b-bb4cbaa7c601"],
-
-Cell[BoxData[
- TemplateBox[{
-  "KeyExistsQ", "invrl", 
-   "\"The argument \\!\\(\\*RowBox[{\\\"AllDistributionTablesByMode\\\"}]\\) \
-is not a valid Association or a list of rules.\"", 2, 75, 151, 
-   23940777322724031183, "Local"},
-  "MessageTemplate",
-  BaseStyle->"MSG"]], "Message",
- CellChangeTimes->{3.9882497204693794`*^9},
- CellLabel->
-  "During evaluation of \
-In[74]:=",ExpressionUUID->"5518587f-42af-764e-bdbc-807065b5cdc5"],
-
-Cell[BoxData[
- StyleBox["\<\"ERROR: neither Vacuum nor Fitted mode exists in \
-AllDistributionTablesByMode.\"\>",
-  StripOnInput->False,
-  LineColor->RGBColor[1, 0, 0],
-  FrontFaceColor->RGBColor[1, 0, 0],
-  BackFaceColor->RGBColor[1, 0, 0],
-  GraphicsColor->RGBColor[1, 0, 0],
-  FontWeight->Bold,
-  FontColor->RGBColor[1, 0, 0]]], "Print",
- CellChangeTimes->{3.9882497204723797`*^9},
- CellLabel->
-  "During evaluation of \
-In[74]:=",ExpressionUUID->"1b0d757d-7d5b-354b-adf7-8b548f8aeb09"],
-
-Cell[BoxData["$Aborted"], "Output",
- CellChangeTimes->{3.9882497204733753`*^9},
- CellLabel->"Out[76]=",ExpressionUUID->"10a0c8a2-9d47-af4d-a880-7f193f6b0ff1"]
-}, Open  ]],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Names", ",", " ", 
-    RowBox[{"labels", " ", "and", " ", "styles"}]}], 
-   "                                      ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonParticleLabel", "[", "\"\<Proton\>\"", "]"}], " ", ":=",
-      " ", "\"\<p\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonParticleLabel", "[", "\"\<PionPlus\>\"", "]"}], " ", ":=",
-      " ", "\"\<\[Pi]+\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonParticleLabel", "[", "\"\<PionMinus\>\"", "]"}], " ", 
-     ":=", " ", "\"\<\[Pi]-\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonParticleLabel", "[", "x_String", "]"}], " ", ":=", 
-     " ", "x"}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonDistributionLabel", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\""}], "]"}], " ", ":=",
-      " ", "\"\<Dirac\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonDistributionLabel", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\""}], "]"}], " ",
-      ":=", " ", "\"\<BW\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonDistributionLabel", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\""}], "]"}], " ", ":=",
-      " ", "\"\<Cugnon\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonDistributionLabel", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\""}], "]"}], " ", 
-     ":=", " ", "\"\<PS\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonDistributionLabel", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Dirac\>\""}], "]"}], " ", ":=",
-      " ", "\"\<Dirac\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonDistributionLabel", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BreitWigner\>\""}], "]"}], " ",
-      ":=", " ", "\"\<BW fitted\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonDistributionLabel", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\""}], "]"}], " ", ":=",
-      " ", "\"\<Cugnon fitted\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonDistributionLabel", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\""}], "]"}], " ", 
-     ":=", " ", "\"\<PS fitted\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonDistributionLabel", "[", 
-      RowBox[{"_", ",", " ", "d_String"}], "]"}], " ", ":=", " ", "d"}], 
+           RowBox[{"key", ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"component", ",", " ", "keys"}], "}"}]}], "}"}]}], "\n", 
+         "  ", "]"}], ";", "\n", "  ", 
+        RowBox[{"plotCleanData", "[", "value", "]"}]}]}], "\n", "]"}]}], 
     ";"}], "\n", "\n", 
    RowBox[{
     RowBox[{
-     RowBox[{"comparisonShortLabel", "[", 
-      RowBox[{"mode_String", ",", " ", "dist_String"}], "]"}], " ", ":=", " ", 
-     RowBox[{"comparisonDistributionLabel", "[", 
-      RowBox[{"mode", ",", " ", "dist"}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonPlotStyle", "[", 
-      RowBox[{"mode_String", ",", " ", "dist_String"}], "]"}], " ", ":=", " ", 
-     RowBox[{"Switch", "[", 
+     RowBox[{"plotGetModelData", "[", 
       RowBox[{
-       RowBox[{"{", 
-        RowBox[{"mode", ",", " ", "dist"}], "}"}], ",", "\n", "  ", 
-       RowBox[{"{", 
-        RowBox[{"_", ",", " ", "\"\<Dirac\>\""}], "}"}], ",", " ", "Black", ",",
-        "\n", "  ", 
-       RowBox[{"{", 
-        RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\""}], "}"}], ",",
-        " ", "Blue", ",", "\n", "  ", 
-       RowBox[{"{", 
-        RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\""}], "}"}], ",", 
-       " ", "Orange", ",", "\n", "  ", 
-       RowBox[{"{", 
-        RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}], ",",
-        " ", 
-       RowBox[{"Darker", "[", "Green", "]"}], ",", "\n", "  ", 
-       RowBox[{"{", 
-        RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BreitWigner\>\""}], "}"}], ",",
-        " ", 
-       RowBox[{"Directive", "[", 
-        RowBox[{"Blue", ",", " ", "Dashed"}], "]"}], ",", "\n", "  ", 
-       RowBox[{"{", 
-        RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\""}], "}"}], ",", 
-       " ", 
-       RowBox[{"Directive", "[", 
-        RowBox[{"Orange", ",", " ", "Dashed"}], "]"}], ",", "\n", "  ", 
-       RowBox[{"{", 
-        RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}], ",",
-        " ", 
-       RowBox[{"Directive", "[", 
-        RowBox[{
-         RowBox[{"Darker", "[", "Green", "]"}], ",", " ", "Dashed"}], "]"}], ",",
-        "\n", "  ", "_", ",", " ", "Automatic"}], "\n", "]"}]}], ";"}], "\n", 
-   "\n", 
-   RowBox[{
-    RowBox[{"comparisonComponentStyles", " ", "=", " ", 
-     RowBox[{"{", 
-      RowBox[{"Black", ",", " ", "Blue", ",", " ", "Red", ",", " ", 
-       RowBox[{"Darker", "[", "Green", "]"}]}], "}"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonLegend", "[", 
-      RowBox[{"styles_List", ",", " ", "labels_List"}], "]"}], " ", ":=", " ", 
-     RowBox[{"Placed", "[", "\n", "  ", 
+      "mode_String", ",", " ", "component_String", ",", " ", "model_String", ",",
+        " ", "object_String"}], "]"}], " ", ":=", " ", 
+     RowBox[{"plotGet", "[", 
       RowBox[{
-       RowBox[{"LineLegend", "[", 
-        RowBox[{"styles", ",", " ", "labels", ",", " ", 
-         RowBox[{"LegendMarkerSize", " ", "->", " ", "24"}]}], "]"}], ",", 
-       "\n", "  ", "Right"}], "\n", "]"}]}], ";"}]}]}]], "Input",
- CellLabel->"In[79]:=",ExpressionUUID->"609dd685-3313-dc43-a9cd-627132105bf1"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Data", " ", "accessors"}], 
-   "                                                ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpBlock", "[", "mode_String", "]"}], " ", ":=", " ", 
-     RowBox[{"Lookup", "[", 
-      RowBox[{"AllDistributionTablesByMode", ",", " ", "mode", ",", " ", 
-       RowBox[{"<|", "|>"}]}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpPrimordialMt", "[", 
-      RowBox[{"mode_String", ",", " ", "particle_String"}], "]"}], " ", ":=", 
-     " ", 
-     RowBox[{"cmpDataLog", " ", "@", " ", 
-      RowBox[{"cmpGet", "[", 
-       RowBox[{
-        RowBox[{"cmpBlock", "[", "mode", "]"}], ",", " ", 
-        RowBox[{"{", 
-         RowBox[{"\"\<PrimordialMt\>\"", ",", " ", "particle"}], "}"}]}], 
-       "]"}]}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpPrimordialY", "[", 
-      RowBox[{"mode_String", ",", " ", "particle_String"}], "]"}], " ", ":=", 
-     " ", 
-     RowBox[{"cmpDataLinear", " ", "@", " ", 
-      RowBox[{"cmpGet", "[", 
-       RowBox[{
-        RowBox[{"cmpBlock", "[", "mode", "]"}], ",", " ", 
-        RowBox[{"{", 
-         RowBox[{"\"\<PrimordialY\>\"", ",", " ", "particle"}], "}"}]}], 
-       "]"}]}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpCorrectionMt", "[", 
-      RowBox[{
-      "mode_String", ",", " ", "dist_String", ",", " ", "particle_String"}], 
-      "]"}], " ", ":=", " ", 
-     RowBox[{"cmpDataLog", " ", "@", " ", 
-      RowBox[{"cmpGet", "[", 
-       RowBox[{
-        RowBox[{"cmpBlock", "[", "mode", "]"}], ",", " ", 
-        RowBox[{"{", 
-         RowBox[{"\"\<CorrectionMt\>\"", ",", " ", "dist", ",", " ", 
-          "particle"}], "}"}]}], "]"}]}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpCorrectionY", "[", 
-      RowBox[{
-      "mode_String", ",", " ", "dist_String", ",", " ", "particle_String"}], 
-      "]"}], " ", ":=", " ", 
-     RowBox[{"cmpDataLinear", " ", "@", " ", 
-      RowBox[{"cmpGet", "[", 
-       RowBox[{
-        RowBox[{"cmpBlock", "[", "mode", "]"}], ",", " ", 
-        RowBox[{"{", 
-         RowBox[{"\"\<CorrectionY\>\"", ",", " ", "dist", ",", " ", 
-          "particle"}], "}"}]}], "]"}]}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpTotalMt", "[", 
-      RowBox[{
-      "mode_String", ",", " ", "dist_String", ",", " ", "particle_String"}], 
-      "]"}], " ", ":=", " ", 
-     RowBox[{"cmpDataLog", " ", "@", " ", 
-      RowBox[{"cmpGet", "[", 
-       RowBox[{
-        RowBox[{"cmpBlock", "[", "mode", "]"}], ",", " ", 
-        RowBox[{"{", 
-         RowBox[{"\"\<CorrectedMt\>\"", ",", " ", "dist", ",", " ", 
-          "particle"}], "}"}]}], "]"}]}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpTotalY", "[", 
-      RowBox[{
-      "mode_String", ",", " ", "dist_String", ",", " ", "particle_String"}], 
-      "]"}], " ", ":=", " ", 
-     RowBox[{"cmpDataLinear", " ", "@", " ", 
-      RowBox[{"cmpGet", "[", 
-       RowBox[{
-        RowBox[{"cmpBlock", "[", "mode", "]"}], ",", " ", 
-        RowBox[{"{", 
-         RowBox[{"\"\<CorrectedY\>\"", ",", " ", "dist", ",", " ", 
-          "particle"}], "}"}]}], "]"}]}]}], ";"}], "\n", "\n", 
-   RowBox[{"(*", " ", 
-    RowBox[{"Experimental", " ", 
-     RowBox[{"data", ".", "  ", "Variable"}], " ", "names", " ", "follow", " ",
-      "the", " ", "original", " ", "plotting", " ", 
-     RowBox[{"notebooks", "."}]}], " ", "*)"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpExperimentalMt", "[", "\"\<Proton\>\"", "]"}], " ", ":=", 
-     " ", 
-     RowBox[{"If", "[", 
-      RowBox[{
-       RowBox[{"ValueQ", "[", "Protons", "]"}], ",", " ", 
-       RowBox[{"cmpDataLog", "[", "Protons", "]"}], ",", " ", 
-       RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpExperimentalMt", "[", "\"\<PionPlus\>\"", "]"}], " ", ":=", 
-     " ", 
-     RowBox[{"Which", "[", "\n", "  ", 
-      RowBox[{
-       RowBox[{"ValueQ", "[", "Pionsp", "]"}], ",", " ", 
-       RowBox[{"cmpDataLog", "[", "Pionsp", "]"}], ",", "\n", "  ", 
-       RowBox[{"ValueQ", "[", "PionsP", "]"}], ",", " ", 
-       RowBox[{"cmpDataLog", "[", "PionsP", "]"}], ",", "\n", "  ", "True", ",",
-        " ", 
-       RowBox[{"{", "}"}]}], "\n", "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpExperimentalMt", "[", "\"\<PionMinus\>\"", "]"}], " ", ":=", 
-     " ", 
-     RowBox[{"Which", "[", "\n", "  ", 
-      RowBox[{
-       RowBox[{"ValueQ", "[", "Pionsm", "]"}], ",", " ", 
-       RowBox[{"cmpDataLog", "[", "Pionsm", "]"}], ",", "\n", "  ", 
-       RowBox[{"ValueQ", "[", "PionsM", "]"}], ",", " ", 
-       RowBox[{"cmpDataLog", "[", "PionsM", "]"}], ",", "\n", "  ", "True", ",",
-        " ", 
-       RowBox[{"{", "}"}]}], "\n", "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpExperimentalMt", "[", "_", "]"}], " ", ":=", " ", 
-     RowBox[{"{", "}"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpExperimentalY", "[", "\"\<Proton\>\"", "]"}], " ", ":=", " ", 
-     RowBox[{"If", "[", 
-      RowBox[{
-       RowBox[{"ValueQ", "[", "ProtonsY", "]"}], ",", " ", 
-       RowBox[{"cmpDataLinear", "[", "ProtonsY", "]"}], ",", " ", 
-       RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpExperimentalY", "[", "\"\<PionPlus\>\"", "]"}], " ", ":=", 
-     " ", 
-     RowBox[{"Which", "[", "\n", "  ", 
-      RowBox[{
-       RowBox[{"ValueQ", "[", "PionspY", "]"}], ",", " ", 
-       RowBox[{"cmpDataLinear", "[", "PionspY", "]"}], ",", "\n", "  ", 
-       RowBox[{"ValueQ", "[", "PionsPY", "]"}], ",", " ", 
-       RowBox[{"cmpDataLinear", "[", "PionsPY", "]"}], ",", "\n", "  ", 
-       "True", ",", " ", 
-       RowBox[{"{", "}"}]}], "\n", "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpExperimentalY", "[", "\"\<PionMinus\>\"", "]"}], " ", ":=", 
-     " ", 
-     RowBox[{"Which", "[", "\n", "  ", 
-      RowBox[{
-       RowBox[{"ValueQ", "[", "PionsmY", "]"}], ",", " ", 
-       RowBox[{"cmpDataLinear", "[", "PionsmY", "]"}], ",", "\n", "  ", 
-       RowBox[{"ValueQ", "[", "PionsMY", "]"}], ",", " ", 
-       RowBox[{"cmpDataLinear", "[", "PionsMY", "]"}], ",", "\n", "  ", 
-       "True", ",", " ", 
-       RowBox[{"{", "}"}]}], "\n", "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"cmpExperimentalY", "[", "_", "]"}], " ", ":=", " ", 
-     RowBox[{"{", "}"}]}], ";"}], "\n"}]}]], "Input",
- CellLabel->"In[96]:=",ExpressionUUID->"2137de77-5188-a248-b5d1-f27810551573"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Plot", " ", "constructors"}], 
-   "                                             ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonSeriesPack", "[", 
-      RowBox[{
-      "data_List", ",", " ", "labels_List", ",", " ", "styles_List", ",", " ",
-        "joined_List"}], "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", "triples", "}"}], ",", "\n", "  ", 
-       RowBox[{
-        RowBox[{"triples", " ", "=", " ", 
-         RowBox[{"Select", "[", 
-          RowBox[{
-           RowBox[{"Transpose", "[", 
-            RowBox[{"{", 
-             RowBox[{
-             "data", ",", " ", "labels", ",", " ", "styles", ",", " ", 
-              "joined"}], "}"}], "]"}], ",", " ", 
-           RowBox[{
-            RowBox[{"cmpNonEmptyQ", "[", 
-             RowBox[{"#", "[", 
-              RowBox[{"[", "1", "]"}], "]"}], "]"}], " ", "&"}]}], "]"}]}], ";",
-         "\n", "  ", 
-        RowBox[{"<|", "\n", "    ", 
-         RowBox[{
-          RowBox[{"\"\<Data\>\"", " ", "->", " ", 
-           RowBox[{"If", "[", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"Length", "[", "triples", "]"}], " ", ">", " ", "0"}], ",",
-              " ", 
-             RowBox[{"triples", "[", 
-              RowBox[{"[", 
-               RowBox[{"All", ",", " ", "1"}], "]"}], "]"}], ",", " ", 
-             RowBox[{"{", "}"}]}], "]"}]}], ",", "\n", "    ", 
-          RowBox[{"\"\<Labels\>\"", " ", "->", " ", 
-           RowBox[{"If", "[", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"Length", "[", "triples", "]"}], " ", ">", " ", "0"}], ",",
-              " ", 
-             RowBox[{"triples", "[", 
-              RowBox[{"[", 
-               RowBox[{"All", ",", " ", "2"}], "]"}], "]"}], ",", " ", 
-             RowBox[{"{", "}"}]}], "]"}]}], ",", "\n", "    ", 
-          RowBox[{"\"\<Styles\>\"", " ", "->", " ", 
-           RowBox[{"If", "[", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"Length", "[", "triples", "]"}], " ", ">", " ", "0"}], ",",
-              " ", 
-             RowBox[{"triples", "[", 
-              RowBox[{"[", 
-               RowBox[{"All", ",", " ", "3"}], "]"}], "]"}], ",", " ", 
-             RowBox[{"{", "}"}]}], "]"}]}], ",", "\n", "    ", 
-          RowBox[{"\"\<Joined\>\"", " ", "->", " ", 
-           RowBox[{"If", "[", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"Length", "[", "triples", "]"}], " ", ">", " ", "0"}], ",",
-              " ", 
-             RowBox[{"triples", "[", 
-              RowBox[{"[", 
-               RowBox[{"All", ",", " ", "4"}], "]"}], "]"}], ",", " ", 
-             RowBox[{"{", "}"}]}], "]"}]}]}], "\n", "  ", "|>"}]}]}], "\n", 
+      "mode", ",", " ", "component", ",", " ", "model", ",", " ", "object"}], 
       "]"}]}], ";"}], "\n", "\n", 
    RowBox[{
     RowBox[{
-     RowBox[{"comparisonMtPlot", "[", 
+     RowBox[{"plotMessagePlot", "[", "text_String", "]"}], " ", ":=", " ", 
+     RowBox[{"Graphics", "[", "\n", "  ", 
       RowBox[{
-      "mode_String", ",", " ", "dist_String", ",", " ", "particle_String"}], 
-      "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", "\n", "  ", 
-      RowBox[{
-       RowBox[{"{", 
+       RowBox[{"Text", "[", 
         RowBox[{
-        "exp", ",", " ", "prim", ",", " ", "corr", ",", " ", "total", ",", 
-         " ", "pack", ",", " ", "pLab", ",", " ", "dLab"}], "}"}], ",", "\n", 
-       "  ", 
-       RowBox[{
-        RowBox[{"exp", " ", "=", " ", 
-         RowBox[{"cmpExperimentalMt", "[", "particle", "]"}]}], ";", "\n", 
+         RowBox[{"Style", "[", 
+          RowBox[{"text", ",", " ", "14", ",", " ", 
+           RowBox[{"Darker", "[", "Red", "]"}]}], "]"}], ",", " ", 
+         RowBox[{"Scaled", "[", 
+          RowBox[{"{", 
+           RowBox[{"0.5", ",", " ", "0.5"}], "}"}], "]"}]}], "]"}], ",", "\n",
         "  ", 
-        RowBox[{"prim", " ", "=", " ", 
-         RowBox[{"cmpPrimordialMt", "[", 
-          RowBox[{"mode", ",", " ", "particle"}], "]"}]}], ";", "\n", "  ", 
-        RowBox[{"corr", " ", "=", " ", 
-         RowBox[{"cmpCorrectionMt", "[", 
-          RowBox[{"mode", ",", " ", "dist", ",", " ", "particle"}], "]"}]}], ";",
-         "\n", "  ", 
-        RowBox[{"total", " ", "=", " ", 
-         RowBox[{"cmpTotalMt", "[", 
-          RowBox[{"mode", ",", " ", "dist", ",", " ", "particle"}], "]"}]}], ";",
-         "\n", "  ", 
-        RowBox[{"pLab", " ", "=", " ", 
-         RowBox[{"comparisonParticleLabel", "[", "particle", "]"}]}], ";", 
-        "\n", "  ", 
-        RowBox[{"dLab", " ", "=", " ", 
-         RowBox[{"comparisonDistributionLabel", "[", 
-          RowBox[{"mode", ",", " ", "dist"}], "]"}]}], ";", "\n", "\n", "  ", 
-        RowBox[{"pack", " ", "=", " ", 
-         RowBox[{"comparisonSeriesPack", "[", "\n", "    ", 
-          RowBox[{
-           RowBox[{"{", 
-            RowBox[{
-            "exp", ",", " ", "prim", ",", " ", "corr", ",", " ", "total"}], 
-            "}"}], ",", "\n", "    ", 
-           RowBox[{"{", 
-            RowBox[{
-             RowBox[{"pLab", " ", "<>", " ", "\"\< data\>\""}], ",", " ", 
-             RowBox[{"pLab", " ", "<>", " ", "\"\< primordial\>\""}], ",", 
-             " ", 
-             RowBox[{"pLab", " ", "<>", " ", "\"\< correction\>\""}], ",", 
-             " ", 
-             RowBox[{"pLab", " ", "<>", " ", "\"\< total\>\""}]}], "}"}], ",",
-            "\n", "    ", "comparisonComponentStyles", ",", "\n", "    ", 
-           RowBox[{"{", 
-            RowBox[{
-            "False", ",", " ", "True", ",", " ", "True", ",", " ", "True"}], 
-            "}"}]}], "\n", "  ", "]"}]}], ";", "\n", "\n", "  ", 
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"Length", "[", 
-            RowBox[{"pack", "[", "\"\<Data\>\"", "]"}], "]"}], " ", "==", " ",
-            "0"}], ",", "\n", "    ", 
-          RowBox[{"Style", "[", 
-           RowBox[{
-            
-            RowBox[{"\"\<No mT data for \>\"", " ", "<>", " ", "pLab", " ", "<>",
-              " ", "\"\<, \>\"", " ", "<>", " ", "mode", " ", "<>", 
-             " ", "\"\<, \>\"", " ", "<>", " ", "dLab"}], ",", " ", "Red"}], 
-           "]"}], ",", "\n", "    ", 
-          RowBox[{"ListLogPlot", "[", "\n", "      ", 
-           RowBox[{
-            RowBox[{"pack", "[", "\"\<Data\>\"", "]"}], ",", "\n", "      ", 
-            RowBox[{"Joined", " ", "->", " ", 
-             RowBox[{"pack", "[", "\"\<Joined\>\"", "]"}]}], ",", "\n", 
-            "      ", 
-            RowBox[{"PlotStyle", " ", "->", " ", 
-             RowBox[{"pack", "[", "\"\<Styles\>\"", "]"}]}], ",", "\n", 
-            "      ", 
-            RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "      ", 
-            RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "      ", 
-            RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "      ", 
-            RowBox[{"FrameLabel", " ", "->", " ", 
-             RowBox[{"{", 
-              
-              RowBox[{"\"\<m_t - m_0 [MeV]\>\"", ",", 
-               " ", "\"\<(1/m_t^2) (dN/(dm_t dy))|_{y=0} [MeV^(-3)]\>\""}], 
-              "}"}]}], ",", "\n", "      ", 
-            RowBox[{"PlotLabel", " ", "->", " ", 
-             RowBox[{
-             "pLab", " ", "<>", " ", "\"\< mT spectrum vs data: \>\"", " ", "<>",
-               " ", "mode", " ", "<>", " ", "\"\<, \>\"", " ", "<>", " ", 
-              "dLab"}]}], ",", "\n", "      ", 
-            RowBox[{"PlotLegends", " ", "->", " ", 
-             RowBox[{"comparisonLegend", "[", 
-              RowBox[{
-               RowBox[{"pack", "[", "\"\<Styles\>\"", "]"}], ",", " ", 
-               RowBox[{"pack", "[", "\"\<Labels\>\"", "]"}]}], "]"}]}], ",", 
-            "\n", "      ", 
-            RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "    ", 
-           "]"}]}], "\n", "  ", "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+       RowBox[{"ImageSize", " ", "->", " ", "Large"}], ",", " ", 
+       RowBox[{"Frame", " ", "->", " ", "True"}]}], "\n", "]"}]}], ";"}], 
+   "\n", "\n", 
    RowBox[{
     RowBox[{
-     RowBox[{"comparisonYPlot", "[", 
-      RowBox[{
-      "mode_String", ",", " ", "dist_String", ",", " ", "particle_String"}], 
-      "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", "\n", "  ", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{
-        "exp", ",", " ", "prim", ",", " ", "corr", ",", " ", "total", ",", 
-         " ", "pack", ",", " ", "pLab", ",", " ", "dLab"}], "}"}], ",", "\n", 
-       "  ", 
-       RowBox[{
-        RowBox[{"exp", " ", "=", " ", 
-         RowBox[{"cmpExperimentalY", "[", "particle", "]"}]}], ";", "\n", 
-        "  ", 
-        RowBox[{"prim", " ", "=", " ", 
-         RowBox[{"cmpPrimordialY", "[", 
-          RowBox[{"mode", ",", " ", "particle"}], "]"}]}], ";", "\n", "  ", 
-        RowBox[{"corr", " ", "=", " ", 
-         RowBox[{"cmpCorrectionY", "[", 
-          RowBox[{"mode", ",", " ", "dist", ",", " ", "particle"}], "]"}]}], ";",
-         "\n", "  ", 
-        RowBox[{"total", " ", "=", " ", 
-         RowBox[{"cmpTotalY", "[", 
-          RowBox[{"mode", ",", " ", "dist", ",", " ", "particle"}], "]"}]}], ";",
-         "\n", "  ", 
-        RowBox[{"pLab", " ", "=", " ", 
-         RowBox[{"comparisonParticleLabel", "[", "particle", "]"}]}], ";", 
-        "\n", "  ", 
-        RowBox[{"dLab", " ", "=", " ", 
-         RowBox[{"comparisonDistributionLabel", "[", 
-          RowBox[{"mode", ",", " ", "dist"}], "]"}]}], ";", "\n", "\n", "  ", 
-        RowBox[{"pack", " ", "=", " ", 
-         RowBox[{"comparisonSeriesPack", "[", "\n", "    ", 
-          RowBox[{
-           RowBox[{"{", 
-            RowBox[{
-            "exp", ",", " ", "prim", ",", " ", "corr", ",", " ", "total"}], 
-            "}"}], ",", "\n", "    ", 
-           RowBox[{"{", 
-            RowBox[{
-             RowBox[{"pLab", " ", "<>", " ", "\"\< data\>\""}], ",", " ", 
-             RowBox[{"pLab", " ", "<>", " ", "\"\< primordial\>\""}], ",", 
-             " ", 
-             RowBox[{"pLab", " ", "<>", " ", "\"\< correction\>\""}], ",", 
-             " ", 
-             RowBox[{"pLab", " ", "<>", " ", "\"\< total\>\""}]}], "}"}], ",",
-            "\n", "    ", "comparisonComponentStyles", ",", "\n", "    ", 
-           RowBox[{"{", 
-            RowBox[{
-            "False", ",", " ", "True", ",", " ", "True", ",", " ", "True"}], 
-            "}"}]}], "\n", "  ", "]"}]}], ";", "\n", "\n", "  ", 
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"Length", "[", 
-            RowBox[{"pack", "[", "\"\<Data\>\"", "]"}], "]"}], " ", "==", " ",
-            "0"}], ",", "\n", "    ", 
-          RowBox[{"Style", "[", 
-           RowBox[{
-            
-            RowBox[{"\"\<No rapidity data for \>\"", " ", "<>", " ", "pLab", 
-             " ", "<>", " ", "\"\<, \>\"", " ", "<>", " ", "mode", " ", "<>", 
-             " ", "\"\<, \>\"", " ", "<>", " ", "dLab"}], ",", " ", "Red"}], 
-           "]"}], ",", "\n", "    ", 
-          RowBox[{"ListPlot", "[", "\n", "      ", 
-           RowBox[{
-            RowBox[{"pack", "[", "\"\<Data\>\"", "]"}], ",", "\n", "      ", 
-            RowBox[{"Joined", " ", "->", " ", 
-             RowBox[{"pack", "[", "\"\<Joined\>\"", "]"}]}], ",", "\n", 
-            "      ", 
-            RowBox[{"PlotStyle", " ", "->", " ", 
-             RowBox[{"pack", "[", "\"\<Styles\>\"", "]"}]}], ",", "\n", 
-            "      ", 
-            RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "      ", 
-            RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "      ", 
-            RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "      ", 
-            RowBox[{"FrameLabel", " ", "->", " ", 
-             RowBox[{"{", 
-              RowBox[{"\"\<y\>\"", ",", " ", "\"\<dN/dy\>\""}], "}"}]}], ",", 
-            "\n", "      ", 
-            RowBox[{"PlotLabel", " ", "->", " ", 
-             RowBox[{
-             "pLab", " ", "<>", " ", "\"\< rapidity spectrum vs data: \>\"", 
-              " ", "<>", " ", "mode", " ", "<>", " ", "\"\<, \>\"", " ", "<>",
-               " ", "dLab"}]}], ",", "\n", "      ", 
-            RowBox[{"PlotLegends", " ", "->", " ", 
-             RowBox[{"comparisonLegend", "[", 
-              RowBox[{
-               RowBox[{"pack", "[", "\"\<Styles\>\"", "]"}], ",", " ", 
-               RowBox[{"pack", "[", "\"\<Labels\>\"", "]"}]}], "]"}]}], ",", 
-            "\n", "      ", 
-            RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "    ", 
-           "]"}]}], "\n", "  ", "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonTotalOnlyMtPlot", "[", 
-      RowBox[{"mode_String", ",", " ", "particle_String"}], "]"}], " ", ":=", 
-     " ", 
-     RowBox[{"Module", "[", "\n", "  ", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{
-        "curves", ",", " ", "labels", ",", " ", "styles", ",", " ", "pLab", ",",
-          " ", "pack"}], "}"}], ",", "\n", "  ", 
-       RowBox[{
-        RowBox[{"curves", " ", "=", " ", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"cmpTotalMt", "[", 
-            RowBox[{"mode", ",", " ", "#", ",", " ", "particle"}], "]"}], " ",
-            "&"}], " ", "/@", " ", "comparisonDistributionKeys"}]}], ";", 
-        "\n", "  ", 
-        RowBox[{"labels", " ", "=", " ", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"comparisonShortLabel", "[", 
-            RowBox[{"mode", ",", " ", "#"}], "]"}], " ", "&"}], " ", "/@", 
-          " ", "comparisonDistributionKeys"}]}], ";", "\n", "  ", 
-        RowBox[{"styles", " ", "=", " ", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"comparisonPlotStyle", "[", 
-            RowBox[{"mode", ",", " ", "#"}], "]"}], " ", "&"}], " ", "/@", 
-          " ", "comparisonDistributionKeys"}]}], ";", "\n", "  ", 
-        RowBox[{"pLab", " ", "=", " ", 
-         RowBox[{"comparisonParticleLabel", "[", "particle", "]"}]}], ";", 
-        "\n", "  ", 
-        RowBox[{"pack", " ", "=", " ", 
-         RowBox[{"comparisonSeriesPack", "[", 
-          RowBox[{"curves", ",", " ", "labels", ",", " ", "styles", ",", " ", 
-           RowBox[{"ConstantArray", "[", 
-            RowBox[{"True", ",", " ", 
-             RowBox[{"Length", "[", "curves", "]"}]}], "]"}]}], "]"}]}], ";", 
-        "\n", "\n", "  ", 
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"Length", "[", 
-            RowBox[{"pack", "[", "\"\<Data\>\"", "]"}], "]"}], " ", "==", " ",
-            "0"}], ",", "\n", "    ", 
-          RowBox[{"Style", "[", 
-           RowBox[{
-            
-            RowBox[{"\"\<No total mT data for \>\"", " ", "<>", " ", "pLab", 
-             " ", "<>", " ", "\"\<, \>\"", " ", "<>", " ", "mode"}], ",", " ",
-             "Red"}], "]"}], ",", "\n", "    ", 
-          RowBox[{"ListLogPlot", "[", "\n", "      ", 
-           RowBox[{
-            RowBox[{"pack", "[", "\"\<Data\>\"", "]"}], ",", "\n", "      ", 
-            RowBox[{"Joined", " ", "->", " ", "True"}], ",", "\n", "      ", 
-            RowBox[{"PlotStyle", " ", "->", " ", 
-             RowBox[{"pack", "[", "\"\<Styles\>\"", "]"}]}], ",", "\n", 
-            "      ", 
-            RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "      ", 
-            RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "      ", 
-            RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "      ", 
-            RowBox[{"FrameLabel", " ", "->", " ", 
-             RowBox[{"{", 
-              
-              RowBox[{"\"\<m_t - m_0 [MeV]\>\"", ",", 
-               " ", "\"\<(1/m_t^2) (dN/(dm_t dy))|_{y=0} [MeV^(-3)]\>\""}], 
-              "}"}]}], ",", "\n", "      ", 
-            RowBox[{"PlotLabel", " ", "->", " ", 
-             RowBox[{
-             "pLab", " ", "<>", " ", "\"\< total mT comparison: \>\"", " ", "<>",
-               " ", "mode"}]}], ",", "\n", "      ", 
-            RowBox[{"PlotLegends", " ", "->", " ", 
-             RowBox[{"comparisonLegend", "[", 
-              RowBox[{
-               RowBox[{"pack", "[", "\"\<Styles\>\"", "]"}], ",", " ", 
-               RowBox[{"pack", "[", "\"\<Labels\>\"", "]"}]}], "]"}]}], ",", 
-            "\n", "      ", 
-            RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "    ", 
-           "]"}]}], "\n", "  ", "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonTotalOnlyYPlot", "[", 
-      RowBox[{"mode_String", ",", " ", "particle_String"}], "]"}], " ", ":=", 
-     " ", 
-     RowBox[{"Module", "[", "\n", "  ", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{
-        "curves", ",", " ", "labels", ",", " ", "styles", ",", " ", "pLab", ",",
-          " ", "pack"}], "}"}], ",", "\n", "  ", 
-       RowBox[{
-        RowBox[{"curves", " ", "=", " ", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"cmpTotalY", "[", 
-            RowBox[{"mode", ",", " ", "#", ",", " ", "particle"}], "]"}], " ",
-            "&"}], " ", "/@", " ", "comparisonDistributionKeys"}]}], ";", 
-        "\n", "  ", 
-        RowBox[{"labels", " ", "=", " ", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"comparisonShortLabel", "[", 
-            RowBox[{"mode", ",", " ", "#"}], "]"}], " ", "&"}], " ", "/@", 
-          " ", "comparisonDistributionKeys"}]}], ";", "\n", "  ", 
-        RowBox[{"styles", " ", "=", " ", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"comparisonPlotStyle", "[", 
-            RowBox[{"mode", ",", " ", "#"}], "]"}], " ", "&"}], " ", "/@", 
-          " ", "comparisonDistributionKeys"}]}], ";", "\n", "  ", 
-        RowBox[{"pLab", " ", "=", " ", 
-         RowBox[{"comparisonParticleLabel", "[", "particle", "]"}]}], ";", 
-        "\n", "  ", 
-        RowBox[{"pack", " ", "=", " ", 
-         RowBox[{"comparisonSeriesPack", "[", 
-          RowBox[{"curves", ",", " ", "labels", ",", " ", "styles", ",", " ", 
-           RowBox[{"ConstantArray", "[", 
-            RowBox[{"True", ",", " ", 
-             RowBox[{"Length", "[", "curves", "]"}]}], "]"}]}], "]"}]}], ";", 
-        "\n", "\n", "  ", 
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"Length", "[", 
-            RowBox[{"pack", "[", "\"\<Data\>\"", "]"}], "]"}], " ", "==", " ",
-            "0"}], ",", "\n", "    ", 
-          RowBox[{"Style", "[", 
-           RowBox[{
-            
-            RowBox[{"\"\<No total rapidity data for \>\"", " ", "<>", " ", 
-             "pLab", " ", "<>", " ", "\"\<, \>\"", " ", "<>", " ", "mode"}], ",",
-             " ", "Red"}], "]"}], ",", "\n", "    ", 
-          RowBox[{"ListPlot", "[", "\n", "      ", 
-           RowBox[{
-            RowBox[{"pack", "[", "\"\<Data\>\"", "]"}], ",", "\n", "      ", 
-            RowBox[{"Joined", " ", "->", " ", "True"}], ",", "\n", "      ", 
-            RowBox[{"PlotStyle", " ", "->", " ", 
-             RowBox[{"pack", "[", "\"\<Styles\>\"", "]"}]}], ",", "\n", 
-            "      ", 
-            RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "      ", 
-            RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "      ", 
-            RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "      ", 
-            RowBox[{"FrameLabel", " ", "->", " ", 
-             RowBox[{"{", 
-              RowBox[{"\"\<y\>\"", ",", " ", "\"\<dN/dy\>\""}], "}"}]}], ",", 
-            "\n", "      ", 
-            RowBox[{"PlotLabel", " ", "->", " ", 
-             RowBox[{
-             "pLab", " ", "<>", " ", "\"\< total rapidity comparison: \>\"", 
-              " ", "<>", " ", "mode"}]}], ",", "\n", "      ", 
-            RowBox[{"PlotLegends", " ", "->", " ", 
-             RowBox[{"comparisonLegend", "[", 
-              RowBox[{
-               RowBox[{"pack", "[", "\"\<Styles\>\"", "]"}], ",", " ", 
-               RowBox[{"pack", "[", "\"\<Labels\>\"", "]"}]}], "]"}]}], ",", 
-            "\n", "      ", 
-            RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "    ", 
-           "]"}]}], "\n", "  ", "]"}]}]}], "\n", "]"}]}], ";"}], 
-   "\n"}]}]], "Input",
- CellLabel->
-  "In[111]:=",ExpressionUUID->"6a02a541-c2e8-eb4b-9911-e0d2e0ded54d"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Generate", " ", "comparison", " ", "plots"}], 
-   "                                     ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{"AllComparisonPlots", " ", "=", " ", 
+     RowBox[{"plotSelectNonEmpty", "[", "assoc_Association", "]"}], " ", ":=",
+      " ", 
      RowBox[{"Association", " ", "@", " ", 
-      RowBox[{"Table", "[", "\n", "  ", 
+      RowBox[{"Select", "[", 
        RowBox[{
-        RowBox[{"mode", " ", "->", " ", 
-         RowBox[{"Association", " ", "@", " ", 
-          RowBox[{"Table", "[", "\n", "    ", 
-           RowBox[{
-            RowBox[{"dist", " ", "->", " ", 
-             RowBox[{"<|", "\n", "      ", 
-              RowBox[{
-               RowBox[{"\"\<Mt\>\"", " ", "->", " ", 
-                RowBox[{"Association", " ", "@", " ", 
-                 RowBox[{"Table", "[", 
-                  RowBox[{
-                   RowBox[{"p", " ", "->", " ", 
-                    RowBox[{"comparisonMtPlot", "[", 
-                    RowBox[{"mode", ",", " ", "dist", ",", " ", "p"}], 
-                    "]"}]}], ",", " ", 
-                   RowBox[{"{", 
-                    RowBox[{"p", ",", " ", "comparisonParticles"}], "}"}]}], 
-                  "]"}]}]}], ",", "\n", "      ", 
-               RowBox[{"\"\<Y\>\"", " ", "->", " ", 
-                RowBox[{"Association", " ", "@", " ", 
-                 RowBox[{"Table", "[", 
-                  RowBox[{
-                   RowBox[{"p", " ", "->", " ", 
-                    RowBox[{"comparisonYPlot", "[", 
-                    RowBox[{"mode", ",", " ", "dist", ",", " ", "p"}], 
-                    "]"}]}], ",", " ", 
-                   RowBox[{"{", 
-                    RowBox[{"p", ",", " ", "comparisonParticles"}], "}"}]}], 
-                  "]"}]}]}]}], "\n", "    ", "|>"}]}], ",", "\n", "    ", 
-            RowBox[{"{", 
-             RowBox[{"dist", ",", " ", "comparisonDistributionKeys"}], 
-             "}"}]}], "\n", "  ", "]"}]}]}], ",", "\n", "  ", 
-        RowBox[{"{", 
-         RowBox[{"mode", ",", " ", "comparisonModes"}], "}"}]}], "\n", 
-       "]"}]}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{
-      "mode_String", ",", " ", "dist_String", ",", " ", "variable_String", ",",
-        " ", "particle_String"}], "]"}], " ", ":=", " ", 
-     RowBox[{"cmpGet", "[", 
-      RowBox[{"AllComparisonPlots", ",", " ", 
-       RowBox[{"{", 
+        RowBox[{"Normal", "[", "assoc", "]"}], ",", " ", 
         RowBox[{
-        "mode", ",", " ", "dist", ",", " ", "variable", ",", " ", 
-         "particle"}], "}"}]}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"AllTotalComparisonPlots", " ", "=", " ", 
-     RowBox[{"Association", " ", "@", " ", 
-      RowBox[{"Table", "[", "\n", "  ", 
-       RowBox[{
-        RowBox[{"mode", " ", "->", " ", 
-         RowBox[{"<|", "\n", "    ", 
-          RowBox[{
-           RowBox[{"\"\<Mt\>\"", " ", "->", " ", 
-            RowBox[{"Association", " ", "@", " ", 
-             RowBox[{"Table", "[", 
-              RowBox[{
-               RowBox[{"p", " ", "->", " ", 
-                RowBox[{"comparisonTotalOnlyMtPlot", "[", 
-                 RowBox[{"mode", ",", " ", "p"}], "]"}]}], ",", " ", 
-               RowBox[{"{", 
-                RowBox[{"p", ",", " ", "comparisonParticles"}], "}"}]}], 
-              "]"}]}]}], ",", "\n", "    ", 
-           RowBox[{"\"\<Y\>\"", " ", "->", " ", 
-            RowBox[{"Association", " ", "@", " ", 
-             RowBox[{"Table", "[", 
-              RowBox[{
-               RowBox[{"p", " ", "->", " ", 
-                RowBox[{"comparisonTotalOnlyYPlot", "[", 
-                 RowBox[{"mode", ",", " ", "p"}], "]"}]}], ",", " ", 
-               RowBox[{"{", 
-                RowBox[{"p", ",", " ", "comparisonParticles"}], "}"}]}], 
-              "]"}]}]}]}], "\n", "  ", "|>"}]}], ",", "\n", "  ", 
-        RowBox[{"{", 
-         RowBox[{"mode", ",", " ", "comparisonModes"}], "}"}]}], "\n", 
-       "]"}]}]}], ";"}], "\n"}]}]], "Input",
- CellLabel->
-  "In[116]:=",ExpressionUUID->"df167cb1-6c3c-9140-bb42-422090a9651f"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Backward", "-", 
-    RowBox[{"compatible", " ", "aliases"}]}], 
-   "                                   ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{"ProtonComparisonPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"ProtonComparisonBWPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"ProtonComparisonCugnonPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"ProtonComparisonPSPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
-   "\n", 
-   RowBox[{
-    RowBox[{"PionPComparisonPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"PionPComparisonBWPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"PionPComparisonCugnonPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"PionPComparisonPSPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], 
-   "\n", "\n", 
-   RowBox[{
-    RowBox[{"PionMComparisonPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"PionMComparisonBWPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"PionMComparisonCugnonPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"PionMComparisonPSPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], 
-   "\n", "\n", 
-   RowBox[{
-    RowBox[{"ProtonComparisonBWFittedPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"ProtonComparisonCugnonFittedPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"ProtonComparisonPSFittedPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
-   "\n", 
-   RowBox[{
-    RowBox[{"PionPComparisonBWFittedPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"PionPComparisonCugnonFittedPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"PionPComparisonPSFittedPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], 
-   "\n", "\n", 
-   RowBox[{
-    RowBox[{"PionMComparisonBWFittedPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"PionMComparisonCugnonFittedPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"PionMComparisonPSFittedPlot", " ", "=", " ", 
-     RowBox[{"comparisonPlot", "[", 
-      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
-       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], 
-   "\n", "\n", 
-   RowBox[{
-    RowBox[{"ProtonTotalMassTypeComparisonMtVacuumPlot", " ", "=", " ", 
-     RowBox[{"cmpGet", "[", 
-      RowBox[{"AllTotalComparisonPlots", ",", " ", 
-       RowBox[{"{", 
-        RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Mt\>\"", ",", 
-         " ", "\"\<Proton\>\""}], "}"}]}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"ProtonTotalMassTypeComparisonMtFittedPlot", " ", "=", " ", 
-     RowBox[{"cmpGet", "[", 
-      RowBox[{"AllTotalComparisonPlots", ",", " ", 
-       RowBox[{"{", 
-        RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Mt\>\"", ",", 
-         " ", "\"\<Proton\>\""}], "}"}]}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"PionPTotalMassTypeComparisonMtVacuumPlot", " ", "=", " ", 
-     RowBox[{"cmpGet", "[", 
-      RowBox[{"AllTotalComparisonPlots", ",", " ", 
-       RowBox[{"{", 
-        RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Mt\>\"", ",", 
-         " ", "\"\<PionPlus\>\""}], "}"}]}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"PionPTotalMassTypeComparisonMtFittedPlot", " ", "=", " ", 
-     RowBox[{"cmpGet", "[", 
-      RowBox[{"AllTotalComparisonPlots", ",", " ", 
-       RowBox[{"{", 
-        RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Mt\>\"", ",", 
-         " ", "\"\<PionPlus\>\""}], "}"}]}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"PionMTotalMassTypeComparisonMtVacuumPlot", " ", "=", " ", 
-     RowBox[{"cmpGet", "[", 
-      RowBox[{"AllTotalComparisonPlots", ",", " ", 
-       RowBox[{"{", 
-        RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Mt\>\"", ",", 
-         " ", "\"\<PionMinus\>\""}], "}"}]}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{"PionMTotalMassTypeComparisonMtFittedPlot", " ", "=", " ", 
-     RowBox[{"cmpGet", "[", 
-      RowBox[{"AllTotalComparisonPlots", ",", " ", 
-       RowBox[{"{", 
-        RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Mt\>\"", ",", 
-         " ", "\"\<PionMinus\>\""}], "}"}]}], "]"}]}], ";"}], 
-   "\n"}]}]], "Input",
- CellLabel->
-  "In[119]:=",ExpressionUUID->"4384046d-fabb-4048-8c29-5d361e491d86"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Summary", " ", "tables"}], 
-   "                                                ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
+         RowBox[{"plotNonEmptyQ", "[", 
+          RowBox[{"Last", "[", "#", "]"}], "]"}], " ", "&"}]}], "]"}]}]}], 
+    ";"}], "\n", "\n", 
    RowBox[{
     RowBox[{
-     RowBox[{"comparisonCurveSummary", "[", 
-      RowBox[{
-      "mode_String", ",", " ", "dist_String", ",", " ", "particle_String", ",",
-        " ", "var_String"}], "]"}], " ", ":=", " ", 
+     RowBox[{"plotStats", "[", "data_", "]"}], " ", ":=", " ", 
      RowBox[{"Module", "[", 
       RowBox[{
-       RowBox[{"{", "data", "}"}], ",", "\n", "  ", 
-       RowBox[{
-        RowBox[{"data", " ", "=", " ", 
-         RowBox[{"If", "[", 
-          RowBox[{
-           RowBox[{"var", " ", "===", " ", "\"\<Mt\>\""}], ",", " ", 
-           RowBox[{"cmpTotalMt", "[", 
-            RowBox[{"mode", ",", " ", "dist", ",", " ", "particle"}], "]"}], ",",
-            " ", 
-           RowBox[{"cmpTotalY", "[", 
-            RowBox[{"mode", ",", " ", "dist", ",", " ", "particle"}], "]"}]}],
-           "]"}]}], ";", "\n", "  ", 
-        RowBox[{"{", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"clean", " ", "=", " ", 
+          RowBox[{"plotCleanData", "[", "data", "]"}]}], ",", " ", "xs", ",", 
+         " ", "ys"}], "}"}], ",", "\n", "  ", 
+       RowBox[{"If", "[", 
+        RowBox[{
          RowBox[{
-         "mode", ",", " ", "dist", ",", " ", "particle", ",", " ", "var", ",",
-           " ", 
-          RowBox[{"Length", "[", "data", "]"}], ",", "\n", "    ", 
-          RowBox[{"If", "[", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"Length", "[", "data", "]"}], " ", ">", " ", "0"}], ",", 
-            " ", 
-            RowBox[{"Min", "[", 
-             RowBox[{"data", "[", 
-              RowBox[{"[", 
-               RowBox[{"All", ",", " ", "1"}], "]"}], "]"}], "]"}], ",", " ", 
-            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}]}], "]"}], ",", 
-          "\n", "    ", 
-          RowBox[{"If", "[", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"Length", "[", "data", "]"}], " ", ">", " ", "0"}], ",", 
-            " ", 
-            RowBox[{"Max", "[", 
-             RowBox[{"data", "[", 
-              RowBox[{"[", 
-               RowBox[{"All", ",", " ", "1"}], "]"}], "]"}], "]"}], ",", " ", 
-            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}]}], "]"}], ",", 
-          "\n", "    ", 
-          RowBox[{"If", "[", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"Length", "[", "data", "]"}], " ", ">", " ", "0"}], ",", 
-            " ", 
-            RowBox[{"Min", "[", 
-             RowBox[{"data", "[", 
-              RowBox[{"[", 
-               RowBox[{"All", ",", " ", "2"}], "]"}], "]"}], "]"}], ",", " ", 
-            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}]}], "]"}], ",", 
-          "\n", "    ", 
-          RowBox[{"If", "[", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"Length", "[", "data", "]"}], " ", ">", " ", "0"}], ",", 
-            " ", 
-            RowBox[{"Max", "[", 
-             RowBox[{"data", "[", 
-              RowBox[{"[", 
-               RowBox[{"All", ",", " ", "2"}], "]"}], "]"}], "]"}], ",", " ", 
-            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}]}], "]"}]}], "\n", 
-         "  ", "}"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"comparisonPlotSummaryTable", " ", "=", " ", 
-     RowBox[{"cmpMakeGrid", " ", "@", " ", 
-      RowBox[{"Prepend", "[", "\n", "  ", 
-       RowBox[{
-        RowBox[{"Flatten", "[", "\n", "    ", 
-         RowBox[{
-          RowBox[{"Table", "[", 
-           RowBox[{
-            RowBox[{"comparisonCurveSummary", "[", 
-             RowBox[{
-             "mode", ",", " ", "dist", ",", " ", "particle", ",", " ", 
-              "var"}], "]"}], ",", "\n", "      ", 
-            RowBox[{"{", 
-             RowBox[{"mode", ",", " ", "comparisonModes"}], "}"}], ",", " ", 
-            RowBox[{"{", 
-             RowBox[{"dist", ",", " ", "comparisonDistributionKeys"}], "}"}], 
-            ",", "\n", "      ", 
-            RowBox[{"{", 
-             RowBox[{"particle", ",", " ", "comparisonParticles"}], "}"}], ",",
-             " ", 
-            RowBox[{"{", 
-             RowBox[{"var", ",", " ", 
-              RowBox[{"{", 
-               RowBox[{"\"\<Mt\>\"", ",", " ", "\"\<Y\>\""}], "}"}]}], 
-             "}"}]}], "\n", "    ", "]"}], ",", "\n", "    ", "3"}], "\n", 
-         "  ", "]"}], ",", "\n", "  ", 
-        RowBox[{"{", 
-         RowBox[{"\"\<Mode\>\"", ",", " ", "\"\<Distribution\>\"", ",", 
-          " ", "\"\<Particle\>\"", ",", " ", "\"\<Variable\>\"", ",", 
-          " ", "\"\<N\>\"", ",", " ", "\"\<x min\>\"", ",", 
-          " ", "\"\<x max\>\"", ",", " ", "\"\<y min\>\"", ",", 
-          " ", "\"\<y max\>\""}], "}"}]}], "\n", "]"}]}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"experimentalDataSummaryTable", " ", "=", " ", 
-     RowBox[{"cmpMakeGrid", " ", "@", " ", 
-      RowBox[{"Prepend", "[", "\n", "  ", 
-       RowBox[{
-        RowBox[{"Table", "[", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"particle", ",", " ", 
-            RowBox[{"Length", "[", 
-             RowBox[{"cmpExperimentalMt", "[", "particle", "]"}], "]"}], ",", 
-            " ", 
-            RowBox[{"Length", "[", 
-             RowBox[{"cmpExperimentalY", "[", "particle", "]"}], "]"}]}], 
-           "}"}], ",", " ", 
-          RowBox[{"{", 
-           RowBox[{"particle", ",", " ", "comparisonParticles"}], "}"}]}], 
-         "]"}], ",", "\n", "  ", 
-        RowBox[{"{", 
-         RowBox[{"\"\<Particle\>\"", ",", 
-          " ", "\"\<mT experimental points\>\"", ",", 
-          " ", "\"\<rapidity experimental points\>\""}], "}"}]}], "\n", 
-       "]"}]}]}], ";"}], "\n", "\n", "experimentalDataSummaryTable", "\n", 
-   "comparisonPlotSummaryTable", "\n"}]}]], "Input",
- CellLabel->
-  "In[146]:=",ExpressionUUID->"15a12883-42a5-5242-9833-b9eea733ecdc"],
-
-Cell[BoxData[
- TagBox[GridBox[{
-    {"\<\"Particle\"\>", "\<\"mT experimental points\"\>", "\<\"rapidity \
-experimental points\"\>"},
-    {"\<\"Proton\"\>", 
-     TagBox[
-      InterpretationBox[
-       StyleBox[
-        TemplateBox[{"\"0.\"", "\"e\"", "\"\""},
-         "RowDefault"],
-        ShowStringCharacters->False],
-       0.,
-       Editable->False],
-      ScientificForm[#, {10, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
-     TagBox[
-      InterpretationBox[
-       StyleBox[
-        TemplateBox[{"\"0.\"", "\"e\"", "\"\""},
-         "RowDefault"],
-        ShowStringCharacters->False],
-       0.,
-       Editable->False],
-      ScientificForm[#, {10, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
-    {"\<\"PionPlus\"\>", 
-     TagBox[
-      InterpretationBox[
-       StyleBox[
-        TemplateBox[{"\"0.\"", "\"e\"", "\"\""},
-         "RowDefault"],
-        ShowStringCharacters->False],
-       0.,
-       Editable->False],
-      ScientificForm[#, {10, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
-     TagBox[
-      InterpretationBox[
-       StyleBox[
-        TemplateBox[{"\"0.\"", "\"e\"", "\"\""},
-         "RowDefault"],
-        ShowStringCharacters->False],
-       0.,
-       Editable->False],
-      ScientificForm[#, {10, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]},
-    {"\<\"PionMinus\"\>", 
-     TagBox[
-      InterpretationBox[
-       StyleBox[
-        TemplateBox[{"\"0.\"", "\"e\"", "\"\""},
-         "RowDefault"],
-        ShowStringCharacters->False],
-       0.,
-       Editable->False],
-      ScientificForm[#, {10, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ], 
-     TagBox[
-      InterpretationBox[
-       StyleBox[
-        TemplateBox[{"\"0.\"", "\"e\"", "\"\""},
-         "RowDefault"],
-        ShowStringCharacters->False],
-       0.,
-       Editable->False],
-      ScientificForm[#, {10, 4}, NumberFormat -> (Row[{#, "e", #3}]& )]& ]}
-   },
-   AutoDelete->False,
-   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
-       GrayLevel[0.85], None}},
-   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
-   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
-  "Grid"]], "Output",
- CellChangeTimes->{3.988249779115864*^9},
- CellLabel->
-  "Out[149]=",ExpressionUUID->"1d7c108d-6da0-9e4d-b97f-25ffea4050c1"],
-
-Cell[BoxData[
- TagBox[GridBox[{
-    {"\<\"Mode\"\>", "\<\"Distribution\"\>", "\<\"Particle\"\>", \
-"\<\"Variable\"\>", "\<\"N\"\>", "\<\"x min\"\>", "\<\"x max\"\>", "\<\"y min\
-\"\>", "\<\"y max\"\>"}
-   },
-   AutoDelete->False,
-   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
-       GrayLevel[0.85], None}},
-   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
-   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
-  "Grid"]], "Output",
- CellChangeTimes->{3.988249779117861*^9},
- CellLabel->
-  "Out[150]=",ExpressionUUID->"307b1e55-f437-8642-82b9-0df815f18780"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
-  RowBox[{
-  "(*", " ", "Export", 
-   "                                                        ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{"comparisonPlotsToExport", " ", "=", " ", 
-     RowBox[{"<|", "\n", "  ", 
-      RowBox[{
-       RowBox[{"\"\<ProtonComparisonBWPlot.png\>\"", " ", "->", " ", 
-        "ProtonComparisonBWPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<ProtonComparisonCugnonPlot.png\>\"", " ", "->", " ", 
-        "ProtonComparisonCugnonPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<ProtonComparisonPSPlot.png\>\"", " ", "->", " ", 
-        "ProtonComparisonPSPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<ProtonComparisonBWFittedPlot.png\>\"", " ", "->", " ", 
-        "ProtonComparisonBWFittedPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<ProtonComparisonCugnonFittedPlot.png\>\"", " ", "->", " ",
-         "ProtonComparisonCugnonFittedPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<ProtonComparisonPSFittedPlot.png\>\"", " ", "->", " ", 
-        "ProtonComparisonPSFittedPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<ProtonTotalMassTypeComparisonMtVacuumPlot.png\>\"", " ", "->",
-         " ", "ProtonTotalMassTypeComparisonMtVacuumPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<ProtonTotalMassTypeComparisonMtFittedPlot.png\>\"", " ", "->",
-         " ", "ProtonTotalMassTypeComparisonMtFittedPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<PionPComparisonBWPlot.png\>\"", " ", "->", " ", 
-        "PionPComparisonBWPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<PionPComparisonCugnonPlot.png\>\"", " ", "->", " ", 
-        "PionPComparisonCugnonPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<PionPComparisonPSPlot.png\>\"", " ", "->", " ", 
-        "PionPComparisonPSPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<PionPComparisonBWFittedPlot.png\>\"", " ", "->", " ", 
-        "PionPComparisonBWFittedPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<PionPComparisonCugnonFittedPlot.png\>\"", " ", "->", " ", 
-        "PionPComparisonCugnonFittedPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<PionPComparisonPSFittedPlot.png\>\"", " ", "->", " ", 
-        "PionPComparisonPSFittedPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<PionMComparisonBWPlot.png\>\"", " ", "->", " ", 
-        "PionMComparisonBWPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<PionMComparisonCugnonPlot.png\>\"", " ", "->", " ", 
-        "PionMComparisonCugnonPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<PionMComparisonPSPlot.png\>\"", " ", "->", " ", 
-        "PionMComparisonPSPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<PionMComparisonBWFittedPlot.png\>\"", " ", "->", " ", 
-        "PionMComparisonBWFittedPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<PionMComparisonCugnonFittedPlot.png\>\"", " ", "->", " ", 
-        "PionMComparisonCugnonFittedPlot"}], ",", "\n", "  ", 
-       RowBox[{"\"\<PionMComparisonPSFittedPlot.png\>\"", " ", "->", " ", 
-        "PionMComparisonPSFittedPlot"}]}], "\n", "|>"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"exportComparisonPlots", "[", 
-      RowBox[{"dir_String", " ", ":", " ", "\"\<ComparisonPlotsExport\>\""}], 
-      "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", "}"}], ",", "\n", "  ", 
-       RowBox[{
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{"!", 
-           RowBox[{"DirectoryQ", "[", "dir", "]"}]}], ",", " ", 
-          RowBox[{"CreateDirectory", "[", "dir", "]"}]}], "]"}], ";", "\n", 
-        "  ", 
-        RowBox[{"KeyValueMap", "[", "\n", "    ", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"If", "[", 
-            RowBox[{
-             RowBox[{
-              RowBox[{
-               RowBox[{"Head", "[", "#2", "]"}], " ", "=!=", " ", "Missing"}],
-               " ", "&&", " ", 
-              RowBox[{"#2", " ", "=!=", " ", 
-               RowBox[{"{", "}"}]}]}], ",", " ", 
-             RowBox[{"Export", "[", 
-              RowBox[{
-               RowBox[{"FileNameJoin", "[", 
-                RowBox[{"{", 
-                 RowBox[{"dir", ",", " ", "#1"}], "}"}], "]"}], ",", " ", 
-               "#2"}], "]"}]}], "]"}], " ", "&"}], ",", "\n", "    ", 
-          "comparisonPlotsToExport"}], "\n", "  ", "]"}], ";", "\n", "  ", 
-        RowBox[{"FileNameJoin", "[", 
+          RowBox[{"Length", "[", "clean", "]"}], " ", "==", " ", "0"}], ",", 
+         " ", 
          RowBox[{"{", 
-          RowBox[{
-           RowBox[{"Directory", "[", "]"}], ",", " ", "dir"}], "}"}], 
-         "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+          RowBox[{"0", ",", " ", 
+           RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}], ",", " ", 
+           RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}], ",", " ", 
+           RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}], ",", " ", 
+           RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}]}], "}"}], ",", 
+         "\n", "    ", 
+         RowBox[{
+          RowBox[{"xs", " ", "=", " ", 
+           RowBox[{"clean", "[", 
+            RowBox[{"[", 
+             RowBox[{"All", ",", " ", "1"}], "]"}], "]"}]}], ";", " ", 
+          RowBox[{"ys", " ", "=", " ", 
+           RowBox[{"clean", "[", 
+            RowBox[{"[", 
+             RowBox[{"All", ",", " ", "2"}], "]"}], "]"}]}], ";", "\n", 
+          "    ", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Length", "[", "clean", "]"}], ",", " ", 
+            RowBox[{"Min", "[", "xs", "]"}], ",", " ", 
+            RowBox[{"Max", "[", "xs", "]"}], ",", " ", 
+            RowBox[{"Min", "[", "ys", "]"}], ",", " ", 
+            RowBox[{"Max", "[", "ys", "]"}]}], "}"}]}]}], "\n", "  ", "]"}]}],
+       "\n", "]"}]}], ";"}], "\n", "\n", 
    RowBox[{
-    RowBox[{"Print", "[", 
-     RowBox[{"Style", "[", 
-      RowBox[{"\"\<Comparison Plots finished: titles and legends fixed; mT \
-uses log scale and rapidity uses linear axes.\>\"", ",", " ", 
-       RowBox[{"Darker", "[", "Green", "]"}], ",", " ", "Bold"}], "]"}], 
-     "]"}], ";"}], "\n"}]}]], "Input",
+    RowBox[{
+     RowBox[{"plotExport", "[", 
+      RowBox[{"plots_Association", ",", " ", "dir_String"}], "]"}], " ", ":=",
+      " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"base", ",", " ", "target", ",", " ", "exported"}], "}"}], ",",
+        "\n", "  ", 
+       RowBox[{
+        RowBox[{"base", " ", "=", " ", 
+         RowBox[{"Quiet", " ", "@", " ", 
+          RowBox[{"Check", "[", 
+           RowBox[{
+            RowBox[{"NotebookDirectory", "[", "]"}], ",", " ", 
+            RowBox[{"Directory", "[", "]"}]}], "]"}]}]}], ";", "\n", "  ", 
+        RowBox[{"target", " ", "=", " ", 
+         RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", 
+           RowBox[{"base", ",", " ", "dir"}], "}"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"!", " ", 
+           RowBox[{"DirectoryQ", "[", "target", "]"}]}], ",", " ", 
+          RowBox[{"CreateDirectory", "[", 
+           RowBox[{"target", ",", " ", 
+            RowBox[{
+            "CreateIntermediateDirectories", " ", "->", " ", "True"}]}], 
+           "]"}]}], "]"}], ";", "\n", "  ", 
+        RowBox[{"exported", " ", "=", " ", 
+         RowBox[{"KeyValueMap", "[", "\n", "    ", 
+          RowBox[{
+           RowBox[{"Function", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"file", ",", " ", "plot"}], "}"}], ",", " ", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{"MatchQ", "[", 
+                RowBox[{
+                 RowBox[{"Head", "[", "plot", "]"}], ",", " ", 
+                 RowBox[{
+                 "Graphics", " ", "|", " ", "Graphics3D", " ", "|", " ", 
+                  "Legended"}]}], "]"}], ",", " ", 
+               RowBox[{
+                RowBox[{"Export", "[", 
+                 RowBox[{
+                  RowBox[{"FileNameJoin", "[", 
+                   RowBox[{"{", 
+                    RowBox[{"target", ",", " ", "file"}], "}"}], "]"}], ",", 
+                  " ", "plot"}], "]"}], ";", " ", 
+                RowBox[{"FileNameJoin", "[", 
+                 RowBox[{"{", 
+                  RowBox[{"target", ",", " ", "file"}], "}"}], "]"}]}], ",", 
+               " ", "Nothing"}], "]"}]}], "]"}], ",", "\n", "    ", "plots"}],
+           "\n", "  ", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<Exported \>\"", ",", " ", 
+          RowBox[{"Length", "[", "exported", "]"}], ",", 
+          " ", "\"\< plot files to: \>\"", ",", " ", "target"}], "]"}], ";", 
+        "\n", "  ", "exported"}]}], "\n", "]"}]}], ";"}]}]}]], "Code",
  CellLabel->
-  "In[151]:=",ExpressionUUID->"764b5cfa-f022-7a4a-9101-5478ac4428a6"],
-
-Cell[BoxData[
- StyleBox["\<\"Comparison Plots finished: titles and legends fixed; mT uses \
-log scale and rapidity uses linear axes.\"\>",
-  StripOnInput->False,
-  LineColor->RGBColor[0, 
-    Rational[2, 3], 0],
-  FrontFaceColor->RGBColor[0, 
-    Rational[2, 3], 0],
-  BackFaceColor->RGBColor[0, 
-    Rational[2, 3], 0],
-  GraphicsColor->RGBColor[0, 
-    Rational[2, 3], 0],
-  FontWeight->Bold,
-  FontColor->RGBColor[0, 
-    Rational[2, 3], 0]]], "Print",
- CellChangeTimes->{3.9882497886995564`*^9},
- CellLabel->
-  "During evaluation of \
-In[151]:=",ExpressionUUID->"df83d572-2c9f-fb4f-b90f-c259a10c65a5"]
-}, Open  ]],
+  "In[1779]:=",ExpressionUUID->"20a704a2-52a6-cd44-9068-28ee9f45bcc2"],
 
 Cell[CellGroupData[{
 
-Cell[BoxData[
+Cell[BoxData[{
  RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
-     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
-   "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"AUTOMATIC", " ", "EXPORT"}], 
-   "                                              ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
-     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
-   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{"ClearAll", "[", 
+    RowBox[{
+    "cmpLabel", ",", " ", "cmpShortLabel", ",", " ", "cmpStyle2", ",", " ", 
+     "cmpListLogPlot2", ",", " ", "cmpListPlot2", ",", " ", 
+     "cmpExperimentalMt2", ",", " ", "cmpExperimentalY2", ",", " ", 
+     "cmpSeriesPack2", ",", " ", "cmpModelPack2", ",", " ", 
+     "cmpComparisonPlot2", ",", " ", "cmpTotalPlot2"}], "]"}], ";"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cmpLabel", "[", "name_String", "]"}], " ", ":=", " ", 
+   RowBox[{"Switch", "[", 
+    RowBox[{
+    "name", ",", "\n", "  ", "\"\<Dirac\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+     " ", "\"\<BreitWigner\>\"", ",", " ", "\"\<Breit-Wigner\>\"", ",", 
+     " ", "\"\<Cugnon\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+     " ", "\"\<PhaseShift\>\"", ",", " ", "\"\<Phase Shift / Lo\>\"", ",", 
+     "\n", "  ", "\"\<Proton\>\"", ",", " ", "\"\<p\>\"", ",", 
+     " ", "\"\<PionPlus\>\"", ",", " ", "\"\<\[Pi]+\>\"", ",", 
+     " ", "\"\<PionMinus\>\"", ",", " ", "\"\<\[Pi]-\>\"", ",", " ", "_", ",",
+      " ", "name"}], "\n", "]"}]}], ";"}], "\n", 
+ RowBox[{
   RowBox[{
    RowBox[{
-    RowBox[{"comparisonExportDirectory", " ", "=", " ", 
-     RowBox[{"exportComparisonPlots", "[", "]"}]}], ";"}], "\n", 
+    RowBox[{"cmpShortLabel", "[", "name_String", "]"}], " ", ":=", " ", 
+    RowBox[{"Switch", "[", 
+     RowBox[{
+     "name", ",", " ", "\"\<BreitWigner\>\"", ",", " ", "\"\<BW\>\"", ",", 
+      " ", "\"\<PhaseShift\>\"", ",", " ", "\"\<PS\>\"", ",", " ", "_", ",", 
+      " ", 
+      RowBox[{"cmpLabel", "[", "name", "]"}]}], "]"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
    RowBox[{
-    RowBox[{"Print", "[", 
-     RowBox[{"\"\<Comparison plots exported to: \>\"", ",", " ", 
-      "comparisonExportDirectory"}], "]"}], ";"}]}]}]], "Input",
+    RowBox[{"cmpStyle2", "[", "name_String", "]"}], " ", ":=", " ", 
+    RowBox[{"Switch", "[", 
+     RowBox[{"name", ",", "\n", "  ", "\"\<data\>\"", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"Black", ",", " ", 
+        RowBox[{"PointSize", "[", "0.015", "]"}]}], "}"}], ",", 
+      " ", "\"\<primordial\>\"", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"Blue", ",", " ", "Dashed"}], "}"}], ",", 
+      " ", "\"\<correction\>\"", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Darker", "[", "Green", "]"}], ",", " ", "Dashed"}], "}"}], ",",
+       " ", "\"\<total\>\"", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"Red", ",", " ", "Thick"}], "}"}], ",", "\n", 
+      "  ", "\"\<Dirac\>\"", ",", " ", "Black", ",", " ", 
+      RowBox[{"\"\<BW\>\"", " ", "|", " ", "\"\<Breit-Wigner\>\"", " ", "|", 
+       " ", "\"\<BreitWigner\>\""}], ",", " ", "Blue", ",", 
+      " ", "\"\<Cugnon\>\"", ",", " ", "Orange", ",", " ", 
+      RowBox[{"\"\<PS\>\"", " ", "|", " ", "\"\<PhaseShift\>\"", " ", "|", 
+       " ", "\"\<Phase Shift / Lo\>\""}], ",", " ", 
+      RowBox[{"Darker", "[", "Green", "]"}], ",", " ", "_", ",", " ", 
+      "Automatic"}], "\n", "]"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cmpDataLog2", "[", "data_", "]"}], " ", ":=", " ", 
+   RowBox[{"Select", "[", 
+    RowBox[{
+     RowBox[{"plotCleanData", "[", "data", "]"}], ",", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], " ", ">", " ", "0"}], " ", "&"}]}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"cmpTry2", "[", 
+     RowBox[{"expr_", ",", " ", 
+      RowBox[{"logQ_", ":", " ", "False"}]}], "]"}], " ", ":=", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"v", " ", "=", " ", 
+        RowBox[{"Quiet", " ", "@", " ", 
+         RowBox[{"Check", "[", 
+          RowBox[{"expr", ",", " ", 
+           RowBox[{"{", "}"}]}], "]"}]}]}], "}"}], ",", " ", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"TrueQ", "[", "logQ", "]"}], ",", " ", 
+        RowBox[{"cmpDataLog2", "[", "v", "]"}], ",", " ", 
+        RowBox[{"plotCleanData", "[", "v", "]"}]}], "]"}]}], "]"}]}], ";"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"cmpListLogPlot2", "[", 
+     RowBox[{
+     "assoc_Association", ",", " ", "title_String", ",", " ", "xLabel_String",
+       ",", " ", "yLabel_String"}], "]"}], " ", ":=", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"clean", ",", " ", "labels", ",", " ", "joined"}], "}"}], ",", 
+      "\n", "  ", 
+      RowBox[{
+       RowBox[{"clean", " ", "=", " ", 
+        RowBox[{"Association", " ", "@", " ", 
+         RowBox[{"Select", "[", 
+          RowBox[{
+           RowBox[{"Normal", "[", "assoc", "]"}], ",", " ", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Length", "[", 
+              RowBox[{"cmpDataLog2", "[", 
+               RowBox[{"Last", "[", "#", "]"}], "]"}], "]"}], " ", ">", " ", 
+             "0"}], " ", "&"}]}], "]"}]}]}], ";", "\n", "  ", 
+       RowBox[{"clean", " ", "=", " ", 
+        RowBox[{"Association", " ", "@", " ", 
+         RowBox[{"KeyValueMap", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"#1", " ", "->", " ", 
+             RowBox[{"cmpDataLog2", "[", "#2", "]"}]}], " ", "&"}], ",", " ", 
+           "clean"}], "]"}]}]}], ";", "\n", "  ", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Length", "[", "clean", "]"}], " ", "==", " ", "0"}], ",", 
+         " ", 
+         RowBox[{"Return", "[", 
+          RowBox[{"plotMessagePlot", "[", 
+           
+           RowBox[{"\"\<No valid data available for: \>\"", " ", "<>", " ", 
+            "title"}], "]"}], "]"}]}], "]"}], ";", "\n", "  ", 
+       RowBox[{"labels", " ", "=", " ", 
+        RowBox[{"Keys", "[", "clean", "]"}]}], ";", " ", 
+       RowBox[{"joined", " ", "=", " ", 
+        RowBox[{
+         RowBox[{"labels", " ", "/.", " ", 
+          RowBox[{"\"\<data\>\"", " ", "->", " ", "False"}]}], " ", "/.", " ", 
+         RowBox[{"_String", " ", "->", " ", "True"}]}]}], ";", "\n", "  ", 
+       RowBox[{"ListLogPlot", "[", 
+        RowBox[{
+         RowBox[{"Values", "[", "clean", "]"}], ",", " ", 
+         RowBox[{"Joined", " ", "->", " ", "joined"}], ",", " ", 
+         RowBox[{"Frame", " ", "->", " ", "True"}], ",", " ", 
+         RowBox[{"Axes", " ", "->", " ", "False"}], ",", " ", 
+         RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", " ", 
+         RowBox[{"ImageSize", " ", "->", " ", "Large"}], ",", "\n", "    ", 
+         RowBox[{"PlotStyle", " ", "->", " ", 
+          RowBox[{"(", 
+           RowBox[{"cmpStyle2", " ", "/@", " ", "labels"}], ")"}]}], ",", " ", 
+         RowBox[{"FrameLabel", " ", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{"xLabel", ",", " ", "yLabel"}], "}"}]}], ",", " ", 
+         RowBox[{"PlotLabel", " ", "->", " ", "title"}], ",", " ", 
+         RowBox[{"PlotLegends", " ", "->", " ", 
+          RowBox[{"Placed", "[", 
+           RowBox[{"labels", ",", " ", "Right"}], "]"}]}]}], "]"}]}]}], "\n", 
+     "]"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"cmpListPlot2", "[", 
+     RowBox[{
+     "assoc_Association", ",", " ", "title_String", ",", " ", "xLabel_String",
+       ",", " ", "yLabel_String"}], "]"}], " ", ":=", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"clean", ",", " ", "labels", ",", " ", "joined"}], "}"}], ",", 
+      "\n", "  ", 
+      RowBox[{
+       RowBox[{"clean", " ", "=", " ", 
+        RowBox[{"plotSelectNonEmpty", "[", "assoc", "]"}]}], ";", "\n", "  ", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Length", "[", "clean", "]"}], " ", "==", " ", "0"}], ",", 
+         " ", 
+         RowBox[{"Return", "[", 
+          RowBox[{"plotMessagePlot", "[", 
+           
+           RowBox[{"\"\<No valid data available for: \>\"", " ", "<>", " ", 
+            "title"}], "]"}], "]"}]}], "]"}], ";", "\n", "  ", 
+       RowBox[{"labels", " ", "=", " ", 
+        RowBox[{"Keys", "[", "clean", "]"}]}], ";", " ", 
+       RowBox[{"joined", " ", "=", " ", 
+        RowBox[{
+         RowBox[{"labels", " ", "/.", " ", 
+          RowBox[{"\"\<data\>\"", " ", "->", " ", "False"}]}], " ", "/.", " ", 
+         RowBox[{"_String", " ", "->", " ", "True"}]}]}], ";", "\n", "  ", 
+       RowBox[{"ListPlot", "[", 
+        RowBox[{
+         RowBox[{"Values", "[", "clean", "]"}], ",", " ", 
+         RowBox[{"Joined", " ", "->", " ", "joined"}], ",", " ", 
+         RowBox[{"Frame", " ", "->", " ", "True"}], ",", " ", 
+         RowBox[{"Axes", " ", "->", " ", "False"}], ",", " ", 
+         RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", " ", 
+         RowBox[{"ImageSize", " ", "->", " ", "Large"}], ",", "\n", "    ", 
+         RowBox[{"PlotStyle", " ", "->", " ", 
+          RowBox[{"(", 
+           RowBox[{"cmpStyle2", " ", "/@", " ", "labels"}], ")"}]}], ",", " ", 
+         RowBox[{"FrameLabel", " ", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{"xLabel", ",", " ", "yLabel"}], "}"}]}], ",", " ", 
+         RowBox[{"PlotLabel", " ", "->", " ", "title"}], ",", " ", 
+         RowBox[{"PlotLegends", " ", "->", " ", 
+          RowBox[{"Placed", "[", 
+           RowBox[{"labels", ",", " ", "Right"}], "]"}]}]}], "]"}]}]}], "\n", 
+     "]"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cmpExperimentalMt2", "[", "\"\<Proton\>\"", "]"}], " ", ":=", " ", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"ValueQ", "[", "Protons", "]"}], ",", " ", 
+     RowBox[{"cmpTry2", "[", 
+      RowBox[{"Protons", ",", " ", "True"}], "]"}], ",", " ", 
+     RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cmpExperimentalMt2", "[", "\"\<PionPlus\>\"", "]"}], " ", ":=", 
+   " ", 
+   RowBox[{"Which", "[", 
+    RowBox[{
+     RowBox[{"ValueQ", "[", "Pionsp", "]"}], ",", " ", 
+     RowBox[{"cmpTry2", "[", 
+      RowBox[{"Pionsp", ",", " ", "True"}], "]"}], ",", " ", 
+     RowBox[{"ValueQ", "[", "PionsP", "]"}], ",", " ", 
+     RowBox[{"cmpTry2", "[", 
+      RowBox[{"PionsP", ",", " ", "True"}], "]"}], ",", " ", "True", ",", " ", 
+     RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cmpExperimentalMt2", "[", "\"\<PionMinus\>\"", "]"}], " ", ":=", 
+   " ", 
+   RowBox[{"Which", "[", 
+    RowBox[{
+     RowBox[{"ValueQ", "[", "Pionsm", "]"}], ",", " ", 
+     RowBox[{"cmpTry2", "[", 
+      RowBox[{"Pionsm", ",", " ", "True"}], "]"}], ",", " ", 
+     RowBox[{"ValueQ", "[", "PionsM", "]"}], ",", " ", 
+     RowBox[{"cmpTry2", "[", 
+      RowBox[{"PionsM", ",", " ", "True"}], "]"}], ",", " ", "True", ",", " ", 
+     RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cmpExperimentalMt2", "[", "_", "]"}], " ", ":=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cmpExperimentalY2", "[", "\"\<Proton\>\"", "]"}], " ", ":=", " ", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"ValueQ", "[", "ProtonsY", "]"}], ",", " ", 
+     RowBox[{"cmpTry2", "[", 
+      RowBox[{"ProtonsY", ",", " ", "False"}], "]"}], ",", " ", 
+     RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cmpExperimentalY2", "[", "\"\<PionPlus\>\"", "]"}], " ", ":=", 
+   " ", 
+   RowBox[{"Which", "[", 
+    RowBox[{
+     RowBox[{"ValueQ", "[", "PionspY", "]"}], ",", " ", 
+     RowBox[{"cmpTry2", "[", 
+      RowBox[{"PionspY", ",", " ", "False"}], "]"}], ",", " ", 
+     RowBox[{"ValueQ", "[", "PionsPY", "]"}], ",", " ", 
+     RowBox[{"cmpTry2", "[", 
+      RowBox[{"PionsPY", ",", " ", "False"}], "]"}], ",", " ", "True", ",", 
+     " ", 
+     RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cmpExperimentalY2", "[", "\"\<PionMinus\>\"", "]"}], " ", ":=", 
+   " ", 
+   RowBox[{"Which", "[", 
+    RowBox[{
+     RowBox[{"ValueQ", "[", "PionsmY", "]"}], ",", " ", 
+     RowBox[{"cmpTry2", "[", 
+      RowBox[{"PionsmY", ",", " ", "False"}], "]"}], ",", " ", 
+     RowBox[{"ValueQ", "[", "PionsMY", "]"}], ",", " ", 
+     RowBox[{"cmpTry2", "[", 
+      RowBox[{"PionsMY", ",", " ", "False"}], "]"}], ",", " ", "True", ",", 
+     " ", 
+     RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"cmpExperimentalY2", "[", "_", "]"}], " ", ":=", " ", 
+    RowBox[{"{", "}"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"cmpSeriesPack2", "[", 
+     RowBox[{
+     "mode_String", ",", " ", "model_String", ",", " ", "axis_String", ",", 
+      " ", "particle_String"}], "]"}], " ", ":=", " ", 
+    RowBox[{"<|", "\n", "  ", 
+     RowBox[{
+      RowBox[{"\"\<data\>\"", " ", "->", " ", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"axis", " ", "===", " ", "\"\<Mt\>\""}], ",", " ", 
+         RowBox[{"cmpExperimentalMt2", "[", "particle", "]"}], ",", " ", 
+         RowBox[{"cmpExperimentalY2", "[", "particle", "]"}]}], "]"}]}], ",", 
+      "\n", "  ", 
+      RowBox[{"\"\<primordial\>\"", " ", "->", " ", 
+       RowBox[{"plotGet", "[", 
+        RowBox[{"mode", ",", " ", 
+         RowBox[{"\"\<Primordial\>\"", " ", "<>", " ", "axis"}], ",", " ", 
+         "particle"}], "]"}]}], ",", "\n", "  ", 
+      RowBox[{"\"\<correction\>\"", " ", "->", " ", 
+       RowBox[{"plotGetModelData", "[", 
+        RowBox[{"mode", ",", " ", 
+         RowBox[{"\"\<Correction\>\"", " ", "<>", " ", "axis"}], ",", " ", 
+         "model", ",", " ", "particle"}], "]"}]}], ",", "\n", "  ", 
+      RowBox[{"\"\<total\>\"", " ", "->", " ", 
+       RowBox[{"plotGetModelData", "[", 
+        RowBox[{"mode", ",", " ", 
+         RowBox[{"\"\<Corrected\>\"", " ", "<>", " ", "axis"}], ",", " ", 
+         "model", ",", " ", "particle"}], "]"}]}]}], "\n", "|>"}]}], ";"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"cmpModelPack2", "[", 
+     RowBox[{
+     "mode_String", ",", " ", "axis_String", ",", " ", "particle_String"}], 
+     "]"}], " ", ":=", " ", 
+    RowBox[{"Join", "[", "\n", "  ", 
+     RowBox[{
+      RowBox[{"<|", 
+       RowBox[{"\"\<data\>\"", " ", "->", " ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"axis", " ", "===", " ", "\"\<Mt\>\""}], ",", " ", 
+          RowBox[{"cmpExperimentalMt2", "[", "particle", "]"}], ",", " ", 
+          RowBox[{"cmpExperimentalY2", "[", "particle", "]"}]}], "]"}]}], 
+       "|>"}], ",", "\n", "  ", 
+      RowBox[{"Association", " ", "@", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"cmpShortLabel", "[", "model", "]"}], " ", "->", " ", 
+          RowBox[{"plotGetModelData", "[", 
+           RowBox[{"mode", ",", " ", 
+            RowBox[{"\"\<Corrected\>\"", " ", "<>", " ", "axis"}], ",", " ", 
+            "model", ",", " ", "particle"}], "]"}]}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"model", ",", " ", 
+           RowBox[{"{", 
+            
+            RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+             " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}]}],
+           "}"}]}], "]"}]}]}], "\n", "]"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"cmpComparisonPlot2", "[", 
+     RowBox[{
+     "mode_String", ",", " ", "model_String", ",", " ", "axis_String", ",", 
+      " ", "particle_String"}], "]"}], " ", ":=", " ", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"axis", " ", "===", " ", "\"\<Mt\>\""}], ",", "\n", "  ", 
+      RowBox[{"cmpListLogPlot2", "[", 
+       RowBox[{
+        RowBox[{"cmpSeriesPack2", "[", 
+         RowBox[{
+         "mode", ",", " ", "model", ",", " ", "axis", ",", " ", "particle"}], 
+         "]"}], ",", " ", 
+        RowBox[{
+         RowBox[{"cmpLabel", "[", "particle", "]"}], " ", "<>", 
+         " ", "\"\< mT: \>\"", " ", "<>", " ", "mode", " ", "<>", 
+         " ", "\"\< \>\"", " ", "<>", " ", 
+         RowBox[{"cmpLabel", "[", "model", "]"}]}], ",", 
+        " ", "\"\<m_t - m_0 [MeV]\>\"", ",", 
+        " ", "\"\<(1/m_t^2) (dN/(dm_t dy))|_{y=0} [MeV^(-3)]\>\""}], "]"}], ",",
+       "\n", "  ", 
+      RowBox[{"cmpListPlot2", "[", 
+       RowBox[{
+        RowBox[{"cmpSeriesPack2", "[", 
+         RowBox[{
+         "mode", ",", " ", "model", ",", " ", "axis", ",", " ", "particle"}], 
+         "]"}], ",", " ", 
+        RowBox[{
+         RowBox[{"cmpLabel", "[", "particle", "]"}], " ", "<>", 
+         " ", "\"\< rapidity: \>\"", " ", "<>", " ", "mode", " ", "<>", 
+         " ", "\"\< \>\"", " ", "<>", " ", 
+         RowBox[{"cmpLabel", "[", "model", "]"}]}], ",", " ", "\"\<y\>\"", ",",
+         " ", "\"\<dN/dy\>\""}], "]"}]}], "\n", "]"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"cmpTotalPlot2", "[", 
+     RowBox[{
+     "mode_String", ",", " ", "axis_String", ",", " ", "particle_String"}], 
+     "]"}], " ", ":=", " ", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"axis", " ", "===", " ", "\"\<Mt\>\""}], ",", "\n", "  ", 
+      RowBox[{"cmpListLogPlot2", "[", 
+       RowBox[{
+        RowBox[{"cmpModelPack2", "[", 
+         RowBox[{"mode", ",", " ", "axis", ",", " ", "particle"}], "]"}], ",",
+         " ", 
+        RowBox[{
+         RowBox[{"cmpLabel", "[", "particle", "]"}], " ", "<>", 
+         " ", "\"\< total mT: \>\"", " ", "<>", " ", "mode", " ", "<>", 
+         " ", "\"\< mass models\>\""}], ",", " ", "\"\<m_t - m_0 [MeV]\>\"", ",",
+         " ", "\"\<(1/m_t^2) (dN/(dm_t dy))|_{y=0} [MeV^(-3)]\>\""}], "]"}], ",",
+       "\n", "  ", 
+      RowBox[{"cmpListPlot2", "[", 
+       RowBox[{
+        RowBox[{"cmpModelPack2", "[", 
+         RowBox[{"mode", ",", " ", "axis", ",", " ", "particle"}], "]"}], ",",
+         " ", 
+        RowBox[{
+         RowBox[{"cmpLabel", "[", "particle", "]"}], " ", "<>", 
+         " ", "\"\< total rapidity: \>\"", " ", "<>", " ", "mode", " ", "<>", 
+         " ", "\"\< mass models\>\""}], ",", " ", "\"\<y\>\"", ",", 
+        " ", "\"\<dN/dy\>\""}], "]"}]}], "\n", "]"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"ComparisonPlotAvailabilityRows", " ", "=", " ", 
+   RowBox[{"Flatten", "[", "\n", "  ", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "mode", ",", " ", "component", ",", " ", "model", ",", " ", 
+         "particle", ",", " ", 
+         RowBox[{"Sequence", " ", "@@", " ", 
+          RowBox[{"plotStats", "[", 
+           RowBox[{"plotGetModelData", "[", 
+            RowBox[{
+            "mode", ",", " ", "component", ",", " ", "model", ",", " ", 
+             "particle"}], "]"}], "]"}]}]}], "}"}], ",", "\n", "    ", 
+       RowBox[{"{", 
+        RowBox[{"mode", ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Fitted\>\""}], "}"}]}], 
+        "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"component", ",", " ", 
+         RowBox[{"{", 
+          
+          RowBox[{"\"\<CorrectionMt\>\"", ",", " ", "\"\<CorrectedMt\>\"", ",",
+            " ", "\"\<CorrectionY\>\"", ",", " ", "\"\<CorrectedY\>\""}], 
+          "}"}]}], "}"}], ",", "\n", "    ", 
+       RowBox[{"{", 
+        RowBox[{"model", ",", " ", 
+         RowBox[{"{", 
+          
+          RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+           " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}]}], 
+        "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"particle", ",", " ", 
+         RowBox[{"{", 
+          
+          RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<PionPlus\>\"", ",", 
+           " ", "\"\<PionMinus\>\""}], "}"}]}], "}"}]}], "]"}], ",", " ", 
+     "3"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ComparisonPlotAvailabilityTable", " ", "=", " ", 
+    RowBox[{"Grid", "[", 
+     RowBox[{
+      RowBox[{"Prepend", "[", 
+       RowBox[{"ComparisonPlotAvailabilityRows", ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Mode\>\"", ",", " ", "\"\<Component\>\"", ",", 
+          " ", "\"\<Model\>\"", ",", " ", "\"\<Particle\>\"", ",", 
+          " ", "\"\<N\>\"", ",", " ", "\"\<xmin\>\"", ",", " ", "\"\<xmax\>\"",
+           ",", " ", "\"\<ymin\>\"", ",", " ", "\"\<ymax\>\""}], "}"}]}], 
+       "]"}], ",", " ", 
+      RowBox[{"Frame", " ", "->", " ", "All"}], ",", " ", 
+      RowBox[{"Background", " ", "->", " ", 
+       RowBox[{"{", 
+        RowBox[{"None", ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"LightGray", ",", " ", "None"}], "}"}]}], "}"}]}]}], 
+     "]"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"ProtonComparisonPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ProtonComparisonBWPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ProtonComparisonCugnonPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ProtonComparisonPSPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionPComparisonPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionPComparisonBWPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionPComparisonCugnonPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionPComparisonPSPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionMComparisonPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionMComparisonBWPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionMComparisonCugnonPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionMComparisonPSPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ProtonComparisonBWFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ProtonComparisonCugnonFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ProtonComparisonPSFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionPComparisonBWFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionPComparisonCugnonFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionPComparisonPSFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionMComparisonBWFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionMComparisonCugnonFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpComparisonPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
+     " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PionMComparisonPSFittedPlot", " ", "=", " ", 
+    RowBox[{"cmpComparisonPlot2", "[", 
+     RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\"", ",", 
+      " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"ProtonTotalMassTypeComparisonMtVacuumPlot", " ", "=", " ", 
+   RowBox[{"cmpTotalPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+     " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ProtonTotalMassTypeComparisonMtFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpTotalPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+     " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionPTotalMassTypeComparisonMtVacuumPlot", " ", "=", " ", 
+   RowBox[{"cmpTotalPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+     " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionPTotalMassTypeComparisonMtFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpTotalPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+     " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionMTotalMassTypeComparisonMtVacuumPlot", " ", "=", " ", 
+   RowBox[{"cmpTotalPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+     " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionMTotalMassTypeComparisonMtFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpTotalPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+     " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ProtonTotalMassTypeComparisonYVacuumPlot", " ", "=", " ", 
+   RowBox[{"cmpTotalPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Y\>\"", ",", 
+     " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ProtonTotalMassTypeComparisonYFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpTotalPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Y\>\"", ",", 
+     " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionPTotalMassTypeComparisonYVacuumPlot", " ", "=", " ", 
+   RowBox[{"cmpTotalPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Y\>\"", ",", 
+     " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionPTotalMassTypeComparisonYFittedPlot", " ", "=", " ", 
+   RowBox[{"cmpTotalPlot2", "[", 
+    RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Y\>\"", ",", 
+     " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PionMTotalMassTypeComparisonYVacuumPlot", " ", "=", " ", 
+   RowBox[{"cmpTotalPlot2", "[", 
+    RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Y\>\"", ",", 
+     " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PionMTotalMassTypeComparisonYFittedPlot", " ", "=", " ", 
+    RowBox[{"cmpTotalPlot2", "[", 
+     RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Y\>\"", ",", 
+      " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"ComparisonPlotsToExport", " ", "=", " ", 
+   RowBox[{"<|", "\n", "  ", 
+    RowBox[{
+     RowBox[{"\"\<ProtonComparisonDiracVacuumMt.png\>\"", " ", "->", " ", 
+      "ProtonComparisonPlot"}], ",", " ", 
+     RowBox[{"\"\<ProtonComparisonBWVacuumMt.png\>\"", " ", "->", " ", 
+      "ProtonComparisonBWPlot"}], ",", " ", 
+     RowBox[{"\"\<ProtonComparisonCugnonVacuumMt.png\>\"", " ", "->", " ", 
+      "ProtonComparisonCugnonPlot"}], ",", " ", 
+     RowBox[{"\"\<ProtonComparisonPSVacuumMt.png\>\"", " ", "->", " ", 
+      "ProtonComparisonPSPlot"}], ",", "\n", "  ", 
+     RowBox[{"\"\<ProtonComparisonBWFittedMt.png\>\"", " ", "->", " ", 
+      "ProtonComparisonBWFittedPlot"}], ",", " ", 
+     RowBox[{"\"\<ProtonComparisonCugnonFittedMt.png\>\"", " ", "->", " ", 
+      "ProtonComparisonCugnonFittedPlot"}], ",", " ", 
+     RowBox[{"\"\<ProtonComparisonPSFittedMt.png\>\"", " ", "->", " ", 
+      "ProtonComparisonPSFittedPlot"}], ",", "\n", "  ", 
+     RowBox[{"\"\<PionPComparisonDiracVacuumMt.png\>\"", " ", "->", " ", 
+      "PionPComparisonPlot"}], ",", " ", 
+     RowBox[{"\"\<PionPComparisonBWVacuumMt.png\>\"", " ", "->", " ", 
+      "PionPComparisonBWPlot"}], ",", " ", 
+     RowBox[{"\"\<PionPComparisonCugnonVacuumMt.png\>\"", " ", "->", " ", 
+      "PionPComparisonCugnonPlot"}], ",", " ", 
+     RowBox[{"\"\<PionPComparisonPSVacuumMt.png\>\"", " ", "->", " ", 
+      "PionPComparisonPSPlot"}], ",", "\n", "  ", 
+     RowBox[{"\"\<PionPComparisonBWFittedMt.png\>\"", " ", "->", " ", 
+      "PionPComparisonBWFittedPlot"}], ",", " ", 
+     RowBox[{"\"\<PionPComparisonCugnonFittedMt.png\>\"", " ", "->", " ", 
+      "PionPComparisonCugnonFittedPlot"}], ",", " ", 
+     RowBox[{"\"\<PionPComparisonPSFittedMt.png\>\"", " ", "->", " ", 
+      "PionPComparisonPSFittedPlot"}], ",", "\n", "  ", 
+     RowBox[{"\"\<PionMComparisonDiracVacuumMt.png\>\"", " ", "->", " ", 
+      "PionMComparisonPlot"}], ",", " ", 
+     RowBox[{"\"\<PionMComparisonBWVacuumMt.png\>\"", " ", "->", " ", 
+      "PionMComparisonBWPlot"}], ",", " ", 
+     RowBox[{"\"\<PionMComparisonCugnonVacuumMt.png\>\"", " ", "->", " ", 
+      "PionMComparisonCugnonPlot"}], ",", " ", 
+     RowBox[{"\"\<PionMComparisonPSVacuumMt.png\>\"", " ", "->", " ", 
+      "PionMComparisonPSPlot"}], ",", "\n", "  ", 
+     RowBox[{"\"\<PionMComparisonBWFittedMt.png\>\"", " ", "->", " ", 
+      "PionMComparisonBWFittedPlot"}], ",", " ", 
+     RowBox[{"\"\<PionMComparisonCugnonFittedMt.png\>\"", " ", "->", " ", 
+      "PionMComparisonCugnonFittedPlot"}], ",", " ", 
+     RowBox[{"\"\<PionMComparisonPSFittedMt.png\>\"", " ", "->", " ", 
+      "PionMComparisonPSFittedPlot"}], ",", "\n", "  ", 
+     RowBox[{"\"\<ProtonTotalMassTypeComparisonMtVacuum.png\>\"", " ", "->", 
+      " ", "ProtonTotalMassTypeComparisonMtVacuumPlot"}], ",", " ", 
+     RowBox[{"\"\<ProtonTotalMassTypeComparisonMtFitted.png\>\"", " ", "->", 
+      " ", "ProtonTotalMassTypeComparisonMtFittedPlot"}], ",", "\n", "  ", 
+     RowBox[{"\"\<PionPTotalMassTypeComparisonMtVacuum.png\>\"", " ", "->", 
+      " ", "PionPTotalMassTypeComparisonMtVacuumPlot"}], ",", " ", 
+     RowBox[{"\"\<PionPTotalMassTypeComparisonMtFitted.png\>\"", " ", "->", 
+      " ", "PionPTotalMassTypeComparisonMtFittedPlot"}], ",", "\n", "  ", 
+     RowBox[{"\"\<PionMTotalMassTypeComparisonMtVacuum.png\>\"", " ", "->", 
+      " ", "PionMTotalMassTypeComparisonMtVacuumPlot"}], ",", " ", 
+     RowBox[{"\"\<PionMTotalMassTypeComparisonMtFitted.png\>\"", " ", "->", 
+      " ", "PionMTotalMassTypeComparisonMtFittedPlot"}], ",", "\n", "  ", 
+     RowBox[{"\"\<ProtonTotalMassTypeComparisonYVacuum.png\>\"", " ", "->", 
+      " ", "ProtonTotalMassTypeComparisonYVacuumPlot"}], ",", " ", 
+     RowBox[{"\"\<ProtonTotalMassTypeComparisonYFitted.png\>\"", " ", "->", 
+      " ", "ProtonTotalMassTypeComparisonYFittedPlot"}], ",", "\n", "  ", 
+     RowBox[{"\"\<PionPTotalMassTypeComparisonYVacuum.png\>\"", " ", "->", 
+      " ", "PionPTotalMassTypeComparisonYVacuumPlot"}], ",", " ", 
+     RowBox[{"\"\<PionPTotalMassTypeComparisonYFitted.png\>\"", " ", "->", 
+      " ", "PionPTotalMassTypeComparisonYFittedPlot"}], ",", "\n", "  ", 
+     RowBox[{"\"\<PionMTotalMassTypeComparisonYVacuum.png\>\"", " ", "->", 
+      " ", "PionMTotalMassTypeComparisonYVacuumPlot"}], ",", " ", 
+     RowBox[{"\"\<PionMTotalMassTypeComparisonYFitted.png\>\"", " ", "->", 
+      " ", "PionMTotalMassTypeComparisonYFittedPlot"}]}], "|>"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ExportedComparisonPlots", " ", "=", " ", 
+   RowBox[{"plotExport", "[", 
+    RowBox[{
+    "ComparisonPlotsToExport", ",", " ", "\"\<ComparisonPlotsExport\>\""}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+  "Print", "[", "\"\<Comparison Plots finished. Check \
+ComparisonPlotAvailabilityTable if any comparison plot is empty.\>\"", "]"}], 
+  ";"}]}], "Code",
  CellLabel->
-  "In[154]:=",ExpressionUUID->"ca720458-d90a-2441-9c4a-f2430ef2df7b"],
+  "In[1790]:=",ExpressionUUID->"2d01f374-28b9-7c46-b6be-da06509a797e"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  InterpretationBox[
-  RowBox[{"\<\"Comparison plots exported to: \"\>", 
+  RowBox[{"\<\"Exported \"\>", "\[InvisibleSpace]", "33", 
+   "\[InvisibleSpace]", "\<\" plot files to: \"\>", 
    "\[InvisibleSpace]", "\<\"C:\\\\Users\\\\nikko\\\\Desktop\\\\Coalescence\\\
 \\Delta With Fit\\\\ComparisonPlotsExport\"\>"}],
   SequenceForm[
-  "Comparison plots exported to: ", 
+  "Exported ", 33, " plot files to: ", 
    "C:\\Users\\nikko\\Desktop\\Coalescence\\Delta With \
 Fit\\ComparisonPlotsExport"],
   Editable->False]], "Print",
- CellChangeTimes->{3.988249796921053*^9},
+ CellChangeTimes->{3.9887042963010616`*^9},
  CellLabel->
   "During evaluation of \
-In[154]:=",ExpressionUUID->"43547a02-b8b2-f643-9944-17593dfc2edd"]
+In[1790]:=",ExpressionUUID->"b100414b-c136-2a4f-8e80-bbdc7b1fdc7f"],
+
+Cell[BoxData["\<\"Comparison Plots finished. Check \
+ComparisonPlotAvailabilityTable if any comparison plot is empty.\"\>"], \
+"Print",
+ CellChangeTimes->{3.9887042963035793`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1790]:=",ExpressionUUID->"ba6d6514-5576-ed46-be34-0dee42172fa4"]
+}, Open  ]]
 }, Open  ]]
 },
 WindowSize->{1280, 732},
@@ -2381,34 +1115,14 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[554, 20, 5488, 118, 689, "Input",ExpressionUUID->"1a6e3d16-2056-4244-93d0-91799844d5f5"],
-Cell[6045, 140, 7608, 209, 650, "Input",ExpressionUUID->"ea60feaa-43ab-a94e-9c7a-882b3bcfcf0d"],
+Cell[554, 20, 1961, 49, 180, "Code",ExpressionUUID->"f3340e80-bb82-4148-b4d9-fddd8ab28696"],
+Cell[2518, 71, 10432, 258, 742, "Code",ExpressionUUID->"20a704a2-52a6-cd44-9068-28ee9f45bcc2"],
 Cell[CellGroupData[{
-Cell[13678, 353, 4244, 122, 357, "Input",ExpressionUUID->"0c085156-845c-4745-94b8-58aa8e08bbc2"],
-Cell[17925, 477, 490, 13, 18, "Print",ExpressionUUID->"657a51d1-a9d4-1f41-91d6-383aa18a1589"],
-Cell[18418, 492, 156, 2, 25, "Output",ExpressionUUID->"70d89b3a-0f33-204e-a266-8415af450d54"],
-Cell[18577, 496, 433, 11, 20, "Message",ExpressionUUID->"4a5602c9-5e47-4c40-b10b-bb4cbaa7c601"],
-Cell[19013, 509, 435, 11, 20, "Message",ExpressionUUID->"5518587f-42af-764e-bdbc-807065b5cdc5"],
-Cell[19451, 522, 489, 13, 18, "Print",ExpressionUUID->"1b0d757d-7d5b-354b-adf7-8b548f8aeb09"],
-Cell[19943, 537, 158, 2, 47, "Output",ExpressionUUID->"10a0c8a2-9d47-af4d-a880-7f193f6b0ff1"]
-}, Open  ]],
-Cell[20116, 542, 7224, 192, 821, "Input",ExpressionUUID->"609dd685-3313-dc43-a9cd-627132105bf1"],
-Cell[27343, 736, 8522, 230, 999, "Input",ExpressionUUID->"2137de77-5188-a248-b5d1-f27810551573"],
-Cell[35868, 968, 21468, 492, 2794, "Input",ExpressionUUID->"6a02a541-c2e8-eb4b-9911-e0d2e0ded54d"],
-Cell[57339, 1462, 5941, 154, 544, "Input",ExpressionUUID->"df167cb1-6c3c-9140-bb42-422090a9651f"],
-Cell[63283, 1618, 9607, 226, 643, "Input",ExpressionUUID->"4384046d-fabb-4048-8c29-5d361e491d86"],
+Cell[12975, 333, 32988, 736, 1723, "Code",ExpressionUUID->"2d01f374-28b9-7c46-b6be-da06509a797e"],
 Cell[CellGroupData[{
-Cell[72915, 1848, 7566, 197, 666, "Input",ExpressionUUID->"15a12883-42a5-5242-9833-b9eea733ecdc"],
-Cell[80484, 2047, 2286, 70, 71, "Output",ExpressionUUID->"1d7c108d-6da0-9e4d-b97f-25ffea4050c1"],
-Cell[82773, 2119, 604, 14, 75, "Output",ExpressionUUID->"307b1e55-f437-8642-82b9-0df815f18780"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[83414, 2138, 6823, 160, 663, "Input",ExpressionUUID->"764b5cfa-f022-7a4a-9101-5478ac4428a6"],
-Cell[90240, 2300, 605, 18, 18, "Print",ExpressionUUID->"df83d572-2c9f-fb4f-b90f-c259a10c65a5"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[90882, 2323, 976, 24, 110, "Input",ExpressionUUID->"ca720458-d90a-2441-9c4a-f2430ef2df7b"],
-Cell[91861, 2349, 533, 13, 18, "Print",ExpressionUUID->"43547a02-b8b2-f643-9944-17593dfc2edd"]
+Cell[45988, 1073, 598, 14, 18, "Print",ExpressionUUID->"b100414b-c136-2a4f-8e80-bbdc7b1fdc7f"],
+Cell[46589, 1089, 286, 6, 18, "Print",ExpressionUUID->"ba6d6514-5576-ed46-be34-0dee42172fa4"]
+}, Open  ]]
 }, Open  ]]
 }
 ]

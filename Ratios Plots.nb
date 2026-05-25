@@ -10,16 +10,14 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[     69835,       1790]
-NotebookOptionsPosition[     67978,       1754]
-NotebookOutlinePosition[     68380,       1770]
-CellTagsIndexPosition[     68337,       1767]
+NotebookDataLength[     77091,       1940]
+NotebookOptionsPosition[     75718,       1910]
+NotebookOutlinePosition[     76150,       1927]
+CellTagsIndexPosition[     76107,       1924]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
-
-Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"(*", " ", 
@@ -28,82 +26,698 @@ Cell[BoxData[
      "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
    "*)"}], "\n", 
   RowBox[{"(*", " ", 
-   RowBox[{"RATIOS", " ", 
-    RowBox[{"PLOTS", " ", "--"}], " ", "DualMass", " ", "architecture"}], 
-   "                         ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"RATIOS", " ", "PLOTS"}], " ", "-", " ", 
+    RowBox[{"STABLE", " ", "SLIM", " ", "FIXED", " ", "2"}]}], 
+   "                          ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
    RowBox[{
-   "All", " ", "model", " ", "ratios", " ", "are", " ", "computed", " ", "as",
-     " ", 
-    RowBox[{"model", "/", 
-     RowBox[{"Dirac", "."}]}]}], "                 ", "*)"}], "\n", 
-  RowBox[{
-  "(*", "                                                               ", 
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
    "*)"}], "\n", 
   RowBox[{"(*", " ", 
-   RowBox[{"v6", " ", 
-    RowBox[{"fixes", ":"}]}], 
-   "                                                     ", "*)"}], "\n", 
+   RowBox[{"This", " ", 
+    RowBox[{"notebook", "/", "file"}], " ", "does", " ", "not", " ", 
+    "recompute", " ", 
+    RowBox[{"spectra", ".", " ", "It"}], " ", "reads", " ", "the"}], "  ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "already", " ", "generated", " ", "tables", " ", "from", " ", 
+    "AllDistributionTablesByMode", " ", "and"}], " ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"constructs", " ", 
+    RowBox[{"ratios", ".", " ", "The"}], " ", "data", " ", "access", " ", 
+    "is", " ", "deliberately", " ", "direct", " ", "and"}], " ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"conservative", ",", " ", 
+    RowBox[{
+    "because", " ", "the", " ", "stable", " ", "Distributions", " ", 
+     "notebook", " ", "uses"}]}], "  ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Associations", " ", "nested", " ", 
+    RowBox[{"as", ":"}]}], "                                      ", "*)"}], 
+  "\n", 
   RowBox[{"(*", "   ", 
    RowBox[{
     RowBox[{
      RowBox[{
-      RowBox[{"-", " ", "legends"}], " ", "use", " ", "plain", " ", 
-      "PlotLegends"}], " ", "->", " ", 
-     RowBox[{"Placed", "[", 
-      RowBox[{"labels", ",", " ", "Right"}], "]"}]}], ","}], "    ", "*)"}], 
-  "\n", 
-  RowBox[{"(*", "     ", 
-   RowBox[{
-    RowBox[{
-    "so", " ", "Mathematica", " ", "does", " ", "not", " ", "print", " ", "a",
-      " ", "raw", " ", "LineLegend", " ", "expression"}], ";"}], " ", "*)"}], 
-  "\n", 
-  RowBox[{"(*", "   ", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"-", " ", "summary"}], " ", "table", " ", "accepts", " ", "both",
-      " ", "Graphics", " ", "and", " ", "Legended", " ", "outputs"}], ";"}], 
-   "  ", "*)"}], "\n", 
-  RowBox[{"(*", "   ", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"-", " ", "plot"}], " ", "storage", " ", "still", " ", "uses", " ",
-      "string", " ", "keys"}], ",", " ", 
-    RowBox[{"not", " ", "list", " ", 
-     RowBox[{"keys", "."}]}]}], "        ", "*)"}], "\n", 
+      RowBox[{"AllDistributionTablesByMode", "[", "mode", "]"}], "[", 
+      "component", "]"}], "[", "model", "]"}], "[", "particle", "]"}], " ", 
+   "*)"}], "\n", 
   RowBox[{"(*", " ", 
    RowBox[{
    "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
      "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
    "*)"}], "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"--", 
+    RowBox[{"--", 
+     RowBox[{"--", 
+      RowBox[{"--", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
+}]}]}]}]}], " ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"0.", " ", "Basic", " ", "helpers"}], 
+   "                                             ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"--", 
+    RowBox[{"--", 
+     RowBox[{"--", 
+      RowBox[{"--", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
+}]}]}]}]}], " ", "*)"}], "\n", "\n", 
   RowBox[{
-   RowBox[{
-    RowBox[{
-    "Print", "[", "\"\<Loading Ratios Plots: all mass-distribution ratios are \
-computed as model/Dirac.\>\"", "]"}], ";"}], "\n", "\n", 
    RowBox[{
     RowBox[{"ClearAll", "[", "\n", "  ", 
      RowBox[{
-     "ratioPretty", ",", "\n", "  ", "ratioMakeGrid", ",", "\n", "  ", 
-      "ratioModelColor", ",", "\n", "  ", "ratioModelStyle", ",", "\n", "  ", 
-      "ratioAxisLabel", ",", "\n", "  ", "ratioComponentKey", ",", "\n", "  ",
-       "ratioKey", ",", "\n", "  ", "ratioPlotObjectQ", ",", "\n", "  ", 
-      "ratioGetNested", ",", "\n", "  ", "ratioValidSeriesQ", ",", "\n", "  ",
-       "ratioCleanSeries", ",", "\n", "  ", "ratioSeries", ",", "\n", "  ", 
-      "ratioDataOverDirac", ",", "\n", "  ", "ratioPlot", ",", "\n", "  ", 
-      "ratioVacuumFittedData", ",", "\n", "  ", "ratioVacuumFittedPlot", ",", 
-      "\n", "  ", "ratioFetch", ",", "\n", "  ", "exportRatioPlots"}], "\n", 
-     "]"}], ";"}]}]}]], "Input",
+     "ratioFiniteNumberQ", ",", "\n", "  ", "ratioFinitePointQ", ",", "\n", 
+      "  ", "ratioCleanSeries", ",", "\n", "  ", "ratioValidSeriesQ", ",", 
+      "\n", "  ", "ratioSafeGet", ",", "\n", "  ", 
+      "ratioModelKeyForStoredTables", ",", "\n", "  ", "ratioComponentKey", ",",
+       "\n", "  ", "ratioParticleLabel", ",", "\n", "  ", 
+      "ratioDistributionLabel", ",", "\n", "  ", 
+      "ratioShortDistributionLabel", ",", "\n", "  ", "ratioModelStyle", ",", 
+      "\n", "  ", "ratioAxisLabel", ",", "\n", "  ", "ratioMessagePlot", ",", 
+      "\n", "  ", "ratioListPlot", ",", "\n", "  ", "ratioDivideSeries", ",", 
+      "\n", "  ", "ratioSeries", ",", "\n", "  ", "ratioDataOverDirac", ",", 
+      "\n", "  ", "ratioVacuumFittedData", ",", "\n", "  ", "ratioPlot", ",", 
+      "\n", "  ", "ratioVacuumFittedPlot", ",", "\n", "  ", "ratioKey", ",", 
+      "\n", "  ", "ratioFetch", ",", "\n", "  ", "ratioExportPlots", ",", 
+      "\n", "  ", "ratioSeriesStats", ",", "\n", "  ", "ratioDiagnosticRows", 
+      ",", "\n", "  ", "ratioModeDifferenceRows", ",", "\n", "  ", 
+      "RatioDataAvailabilityTable", ",", "\n", "  ", 
+      "RatioVacuumFittedDifferenceTable"}], "\n", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioFiniteNumberQ", "[", "x_", "]"}], " ", ":=", "\n", "  ", 
+     RowBox[{
+      RowBox[{"NumericQ", "[", "x", "]"}], " ", "&&", " ", 
+      RowBox[{"FreeQ", "[", 
+       RowBox[{
+        RowBox[{"N", "[", "x", "]"}], ",", " ", 
+        RowBox[{
+        "Indeterminate", " ", "|", " ", "ComplexInfinity", " ", "|", " ", 
+         RowBox[{"DirectedInfinity", "[", "_", "]"}]}]}], "]"}]}]}], ";"}], 
+   "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioFinitePointQ", "[", "p_", "]"}], " ", ":=", "\n", "  ", 
+     RowBox[{
+      RowBox[{"MatchQ", "[", 
+       RowBox[{"p", ",", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"_", "?", "NumericQ"}], ",", " ", 
+          RowBox[{"_", "?", "NumericQ"}]}], "}"}]}], "]"}], " ", "&&", "\n", 
+      "    ", 
+      RowBox[{"ratioFiniteNumberQ", "[", 
+       RowBox[{"p", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "]"}], " ", "&&", " ", 
+      RowBox[{"ratioFiniteNumberQ", "[", 
+       RowBox[{"p", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], "]"}]}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioCleanSeries", "[", "data_", "]"}], " ", ":=", "\n", "  ", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"ListQ", "[", "data", "]"}], ",", " ", 
+       RowBox[{"Select", "[", 
+        RowBox[{"data", ",", " ", "ratioFinitePointQ"}], "]"}], ",", " ", 
+       RowBox[{"{", "}"}]}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioValidSeriesQ", "[", "data_", "]"}], " ", ":=", " ", 
+     RowBox[{
+      RowBox[{"Length", "[", 
+       RowBox[{"ratioCleanSeries", "[", "data", "]"}], "]"}], " ", ">", " ", 
+      "0"}]}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Direct", ",", " ", 
+     RowBox[{
+      RowBox[{"quiet", " ", "Association", " ", 
+       RowBox[{"access", ".", " ", "Do"}], " ", "not", " ", "use", " ", "a", " ",
+        "generic", " ", "nested", " ", "walker", " ", "here"}], ";"}]}], "  ",
+     "*)"}], "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "the", " ", "stable", " ", "Distributions", " ", "output", " ", "is", " ",
+      "already", " ", "an", " ", "Association", " ", "chain", " ", "and", " ",
+      "this"}], "   ", "*)"}], "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "form", " ", "is", " ", "the", " ", "least", " ", "intrusive", " ", "way",
+      " ", "to", " ", "read", " ", 
+     RowBox[{"it", "."}]}], "                                ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioModelKeyForStoredTables", "[", 
+      RowBox[{
+      "mode_String", ",", " ", "component_String", ",", " ", "model_String"}],
+       "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"block", ",", " ", "fittedKey"}], "}"}], ",", "\n", "\n", 
+       "  ", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"model", " ", "===", " ", "\"\<Dirac\>\""}], ",", " ", 
+          RowBox[{"Return", "[", "\"\<Dirac\>\"", "]"}]}], "]"}], ";", "\n", 
+        "\n", "  ", 
+        RowBox[{"block", " ", "=", " ", 
+         RowBox[{"Quiet", " ", "@", " ", 
+          RowBox[{"Check", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"AllDistributionTablesByMode", "[", "mode", "]"}], "[", 
+             "component", "]"}], ",", " ", 
+            RowBox[{"<|", "|>"}]}], "]"}]}]}], ";", "\n", "  ", 
+        RowBox[{"fittedKey", " ", "=", " ", 
+         RowBox[{"model", " ", "<>", " ", "\"\<Fitted\>\""}]}], ";", "\n", 
+        "\n", "  ", 
+        RowBox[{"(*", " ", 
+         RowBox[{"Some", " ", 
+          RowBox[{"intermediate", "/", "refactored"}], " ", "distribution", " ",
+           "notebooks", " ", "store", " ", "fitted"}], "    ", "*)"}], "\n", 
+        "  ", 
+        RowBox[{"(*", " ", 
+         RowBox[{
+          RowBox[{"spectra", " ", "under", " ", 
+           RowBox[{
+            RowBox[{"BreitWignerFitted", "/", "CugnonFitted"}], "/", 
+            "PhaseShiftFitted"}]}], ","}], "       ", "*)"}], "\n", "  ", 
+        RowBox[{"(*", " ", 
+         RowBox[{
+         "while", " ", "the", " ", "stable", " ", "notebook", " ", "stores", " ",
+           "them", " ", "under", " ", "the", " ", "base", " ", "labels", " ", 
+          "inside"}], "   ", "*)"}], "\n", "  ", 
+        RowBox[{"(*", " ", 
+         RowBox[{"the", " ", "Fitted", " ", 
+          RowBox[{"mode", ".", " ", "Prefer"}], " ", "the", " ", "explicit", " ",
+           "fitted", " ", "key", " ", "whenever", " ", "it", " ", 
+          RowBox[{"exists", "."}]}], "  ", "*)"}], "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"mode", " ", "===", " ", "\"\<Fitted\>\""}], " ", "&&", 
+           " ", 
+           RowBox[{"AssociationQ", "[", "block", "]"}], " ", "&&", " ", 
+           RowBox[{"KeyExistsQ", "[", 
+            RowBox[{"block", ",", " ", "fittedKey"}], "]"}]}], ",", "\n", 
+          "    ", "fittedKey", ",", "\n", "    ", "model"}], "\n", "  ", 
+         "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioSafeGet", "[", 
+      RowBox[{
+      "mode_String", ",", " ", "component_String", ",", " ", "model_String", ",",
+        " ", "particle_String"}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"storedModel", ",", " ", "value"}], "}"}], ",", "\n", "\n", 
+       "  ", 
+       RowBox[{
+        RowBox[{"storedModel", " ", "=", " ", 
+         RowBox[{"ratioModelKeyForStoredTables", "[", 
+          RowBox[{"mode", ",", " ", "component", ",", " ", "model"}], "]"}]}],
+         ";", "\n", "\n", "  ", 
+        RowBox[{"value", " ", "=", " ", 
+         RowBox[{"Quiet", " ", "@", " ", 
+          RowBox[{"Check", "[", "\n", "    ", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"AllDistributionTablesByMode", "[", "mode", "]"}], "[",
+                "component", "]"}], "[", "storedModel", "]"}], "[", 
+             "particle", "]"}], ",", "\n", "    ", 
+            RowBox[{"{", "}"}]}], "\n", "  ", "]"}]}]}], ";", "\n", "\n", 
+        "  ", 
+        RowBox[{"ratioCleanSeries", "[", "value", "]"}]}]}], "\n", "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioComponentKey", "[", 
+      RowBox[{"\"\<Correction\>\"", ",", " ", "\"\<Mt\>\""}], "]"}], " ", ":=",
+      " ", "\"\<CorrectionMt\>\""}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioComponentKey", "[", 
+      RowBox[{"\"\<Correction\>\"", ",", " ", "\"\<Y\>\""}], "]"}], " ", ":=",
+      " ", "\"\<CorrectionY\>\""}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioComponentKey", "[", 
+      RowBox[{"\"\<Total\>\"", ",", " ", "\"\<Mt\>\""}], "]"}], " ", ":=", 
+     " ", "\"\<CorrectedMt\>\""}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioComponentKey", "[", 
+      RowBox[{"\"\<Total\>\"", ",", " ", "\"\<Y\>\""}], "]"}], " ", ":=", 
+     " ", "\"\<CorrectedY\>\""}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioComponentKey", "[", 
+      RowBox[{"component_", ",", " ", "axis_"}], "]"}], " ", ":=", " ", 
+     RowBox[{
+      RowBox[{"ToString", "[", "component", "]"}], " ", "<>", " ", 
+      RowBox[{"ToString", "[", "axis", "]"}]}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioSeries", "[", 
+      RowBox[{
+      "mode_String", ",", " ", "component_String", ",", " ", "axis_String", ",",
+        " ", "model_String", ",", " ", "particle_String"}], "]"}], " ", ":=", 
+     "\n", "  ", 
+     RowBox[{"ratioSafeGet", "[", 
+      RowBox[{"mode", ",", " ", 
+       RowBox[{"ratioComponentKey", "[", 
+        RowBox[{"component", ",", " ", "axis"}], "]"}], ",", " ", "model", ",",
+        " ", "particle"}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioParticleLabel", "[", "name_String", "]"}], " ", ":=", " ", 
+     RowBox[{"Switch", "[", 
+      RowBox[{
+      "name", ",", "\n", "  ", "\"\<Proton\>\"", ",", " ", "\"\<p\>\"", ",", 
+       "\n", "  ", "\"\<PionPlus\>\"", ",", " ", "\"\<\[Pi]+\>\"", ",", "\n", 
+       "  ", "\"\<PionMinus\>\"", ",", " ", "\"\<\[Pi]-\>\"", ",", "\n", "  ",
+        "_", ",", " ", "name"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioDistributionLabel", "[", "name_String", "]"}], " ", ":=", 
+     " ", 
+     RowBox[{"Switch", "[", 
+      RowBox[{
+      "name", ",", "\n", "  ", "\"\<Dirac\>\"", ",", " ", "\"\<Dirac\>\"", ",",
+        "\n", "  ", "\"\<BreitWigner\>\"", ",", " ", "\"\<Breit-Wigner\>\"", ",",
+        "\n", "  ", "\"\<Cugnon\>\"", ",", " ", "\"\<Cugnon\>\"", ",", "\n", 
+       "  ", "\"\<PhaseShift\>\"", ",", " ", "\"\<Phase Shift / Lo\>\"", ",", 
+       "\n", "  ", "_", ",", " ", "name"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioShortDistributionLabel", "[", "name_String", "]"}], " ", ":=",
+      " ", 
+     RowBox[{"Switch", "[", 
+      RowBox[{
+      "name", ",", "\n", "  ", "\"\<Dirac\>\"", ",", " ", "\"\<Dirac\>\"", ",",
+        "\n", "  ", "\"\<BreitWigner\>\"", ",", " ", "\"\<BW\>\"", ",", "\n", 
+       "  ", "\"\<Cugnon\>\"", ",", " ", "\"\<Cugnon\>\"", ",", "\n", 
+       "  ", "\"\<PhaseShift\>\"", ",", " ", "\"\<PS\>\"", ",", "\n", "  ", 
+       "_", ",", " ", "name"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioModelStyle", "[", "name_String", "]"}], " ", ":=", " ", 
+     RowBox[{"Switch", "[", 
+      RowBox[{"name", ",", "\n", "  ", 
+       RowBox[{"\"\<Dirac\>\"", " ", "|", 
+        " ", "\"\<Dirac Fitted/Vacuum\>\""}], ",", " ", "Black", ",", "\n", 
+       "  ", 
+       RowBox[{"\"\<BW\>\"", " ", "|", " ", "\"\<BreitWigner\>\"", " ", "|", 
+        " ", "\"\<BW / Dirac\>\"", " ", "|", 
+        " ", "\"\<BW Fitted/Vacuum\>\""}], ",", " ", "Blue", ",", "\n", "  ", 
+       RowBox[{"\"\<Cugnon\>\"", " ", "|", " ", "\"\<Cugnon / Dirac\>\"", " ",
+         "|", " ", "\"\<Cugnon Fitted/Vacuum\>\""}], ",", " ", "Orange", ",", 
+       "\n", "  ", 
+       RowBox[{"\"\<PS\>\"", " ", "|", " ", "\"\<PhaseShift\>\"", " ", "|", 
+        " ", "\"\<PS / Dirac\>\"", " ", "|", 
+        " ", "\"\<PS Fitted/Vacuum\>\""}], ",", " ", 
+       RowBox[{"Darker", "[", "Green", "]"}], ",", "\n", "  ", "_", ",", " ", 
+       "Automatic"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioAxisLabel", "[", "\"\<Mt\>\"", "]"}], " ", ":=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<m_t - m_0 [MeV]\>\"", ",", " ", "\"\<ratio\>\""}], "}"}]}],
+     ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioAxisLabel", "[", "\"\<Y\>\"", "]"}], " ", ":=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<y\>\"", ",", " ", "\"\<ratio\>\""}], "}"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioAxisLabel", "[", "_", "]"}], " ", ":=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<x\>\"", ",", " ", "\"\<ratio\>\""}], "}"}]}], ";"}], "\n", 
+   "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioMessagePlot", "[", "text_String", "]"}], " ", ":=", "\n", 
+     "  ", 
+     RowBox[{"Graphics", "[", "\n", "    ", 
+      RowBox[{
+       RowBox[{"Text", "[", 
+        RowBox[{
+         RowBox[{"Style", "[", 
+          RowBox[{"text", ",", " ", "14", ",", " ", 
+           RowBox[{"Darker", "[", "Red", "]"}]}], "]"}], ",", " ", 
+         RowBox[{"Scaled", "[", 
+          RowBox[{"{", 
+           RowBox[{"0.5", ",", " ", "0.5"}], "}"}], "]"}]}], "]"}], ",", "\n",
+        "    ", 
+       RowBox[{"ImageSize", " ", "->", " ", "Large"}], ",", "\n", "    ", 
+       RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "    ", 
+       RowBox[{"PlotRange", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "1"}], ",", " ", "1"}], "}"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "1"}], ",", " ", "1"}], "}"}]}], "}"}]}]}], "\n", 
+      "  ", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioListPlot", "[", 
+      RowBox[{
+      "assoc_Association", ",", " ", "title_String", ",", " ", 
+       "axis_String"}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "clean", ",", " ", "labels", ",", " ", "data", ",", " ", "styles"}], 
+        "}"}], ",", "\n", "\n", "  ", 
+       RowBox[{
+        RowBox[{"clean", " ", "=", " ", 
+         RowBox[{"Association", " ", "@", " ", 
+          RowBox[{"Select", "[", 
+           RowBox[{
+            RowBox[{"Normal", "[", "assoc", "]"}], ",", " ", 
+            RowBox[{
+             RowBox[{"ratioValidSeriesQ", "[", 
+              RowBox[{"Last", "[", "#", "]"}], "]"}], " ", "&"}]}], "]"}]}]}],
+         ";", "\n", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Length", "[", "clean", "]"}], " ", "==", " ", "0"}], ",", 
+          "\n", "    ", 
+          RowBox[{"Return", "[", 
+           RowBox[{"ratioMessagePlot", "[", 
+            
+            RowBox[{"\"\<No valid ratio data available for: \>\"", " ", "<>", 
+             " ", "title"}], "]"}], "]"}]}], "\n", "  ", "]"}], ";", "\n", 
+        "\n", "  ", 
+        RowBox[{"labels", " ", "=", " ", 
+         RowBox[{"Keys", "[", "clean", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"data", " ", "=", " ", 
+         RowBox[{"Values", "[", "clean", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"styles", " ", "=", " ", 
+         RowBox[{"ratioModelStyle", " ", "/@", " ", "labels"}]}], ";", "\n", 
+        "\n", "  ", 
+        RowBox[{"ListPlot", "[", "\n", "    ", 
+         RowBox[{"data", ",", "\n", "    ", 
+          RowBox[{"Joined", " ", "->", " ", "True"}], ",", "\n", "    ", 
+          RowBox[{"PlotStyle", " ", "->", " ", "styles"}], ",", "\n", "    ", 
+          RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "    ", 
+          RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "    ", 
+          RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "    ", 
+          RowBox[{"FrameLabel", " ", "->", " ", 
+           RowBox[{"ratioAxisLabel", "[", "axis", "]"}]}], ",", "\n", "    ", 
+          RowBox[{"PlotLabel", " ", "->", " ", "title"}], ",", "\n", "    ", 
+          RowBox[{"PlotLegends", " ", "->", " ", 
+           RowBox[{"Placed", "[", 
+            RowBox[{"labels", ",", " ", "Right"}], "]"}]}], ",", "\n", "    ", 
+          RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "  ", 
+         "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioExportPlots", "[", 
+      RowBox[{"plots_Association", ",", " ", 
+       RowBox[{"dir_String", " ", ":", " ", "\"\<RatiosPlotsExport\>\""}]}], 
+      "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"base", ",", " ", "target", ",", " ", "exported"}], "}"}], ",",
+        "\n", "\n", "  ", 
+       RowBox[{
+        RowBox[{"base", " ", "=", " ", 
+         RowBox[{"Quiet", " ", "@", " ", 
+          RowBox[{"Check", "[", 
+           RowBox[{
+            RowBox[{"NotebookDirectory", "[", "]"}], ",", " ", 
+            RowBox[{"Directory", "[", "]"}]}], "]"}]}]}], ";", "\n", "  ", 
+        RowBox[{"target", " ", "=", " ", 
+         RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", 
+           RowBox[{"base", ",", " ", "dir"}], "}"}], "]"}]}], ";", "\n", "\n",
+         "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"!", " ", 
+           RowBox[{"DirectoryQ", "[", "target", "]"}]}], ",", "\n", "    ", 
+          RowBox[{"CreateDirectory", "[", 
+           RowBox[{"target", ",", " ", 
+            RowBox[{
+            "CreateIntermediateDirectories", " ", "->", " ", "True"}]}], 
+           "]"}]}], "\n", "  ", "]"}], ";", "\n", "\n", "  ", 
+        RowBox[{"exported", " ", "=", " ", 
+         RowBox[{"KeyValueMap", "[", "\n", "    ", 
+          RowBox[{
+           RowBox[{"Function", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"file", ",", " ", "plot"}], "}"}], ",", "\n", "      ", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{"MatchQ", "[", 
+                RowBox[{
+                 RowBox[{"Head", "[", "plot", "]"}], ",", " ", 
+                 RowBox[{
+                 "Graphics", " ", "|", " ", "Graphics3D", " ", "|", " ", 
+                  "Legended"}]}], "]"}], ",", "\n", "        ", 
+               RowBox[{
+                RowBox[{"Export", "[", 
+                 RowBox[{
+                  RowBox[{"FileNameJoin", "[", 
+                   RowBox[{"{", 
+                    RowBox[{"target", ",", " ", "file"}], "}"}], "]"}], ",", 
+                  " ", "plot"}], "]"}], ";", "\n", "        ", 
+                RowBox[{"FileNameJoin", "[", 
+                 RowBox[{"{", 
+                  RowBox[{"target", ",", " ", "file"}], "}"}], "]"}]}], ",", 
+               "\n", "        ", "Nothing"}], "\n", "      ", "]"}]}], "\n", 
+            "    ", "]"}], ",", "\n", "    ", "plots"}], "\n", "  ", "]"}]}], 
+        ";", "\n", "\n", "  ", 
+        RowBox[{"Print", "[", 
+         RowBox[{"\"\<Exported \>\"", ",", " ", 
+          RowBox[{"Length", "[", "exported", "]"}], ",", 
+          " ", "\"\< ratio plot files to: \>\"", ",", " ", "target"}], "]"}], 
+        ";", "\n", "  ", "exported"}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"NameQ", "[", "\"\<analysisExportPlots\>\"", "]"}], ",", "\n", 
+      "  ", 
+      RowBox[{
+       RowBox[{"ratioExportPlots", "[", 
+        RowBox[{"plots_Association", ",", " ", 
+         RowBox[{"dir_String", " ", ":", " ", "\"\<RatiosPlotsExport\>\""}]}],
+         "]"}], " ", ":=", " ", 
+       RowBox[{"analysisExportPlots", "[", 
+        RowBox[{"plots", ",", " ", "dir"}], "]"}]}]}], "\n", "]"}], ";"}], 
+   "\n"}]}]], "Input",
  CellLabel->
-  "In[161]:=",ExpressionUUID->"491d73ae-cefc-3c44-9291-40a3700fac76"],
+  "In[1537]:=",ExpressionUUID->"e9420269-dc36-4d4d-8105-14a8bbffc681"],
 
-Cell[BoxData["\<\"Loading Ratios Plots: all mass-distribution ratios are \
-computed as model/Dirac.\"\>"], "Print",
- CellChangeTimes->{3.988249917851494*^9},
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"--", 
+    RowBox[{"--", 
+     RowBox[{"--", 
+      RowBox[{"--", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
+}]}]}]}]}], " ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"1.", " ", "Preconditions"}], 
+   "                                             ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"--", 
+    RowBox[{"--", 
+     RowBox[{"--", 
+      RowBox[{"--", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
+}]}]}]}]}], " ", "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"!", " ", 
+        RowBox[{"ValueQ", "[", "AllDistributionTablesByMode", "]"}]}], " ", "||",
+        " ", 
+       RowBox[{"!", " ", 
+        RowBox[{"AssociationQ", "[", "AllDistributionTablesByMode", "]"}]}]}],
+       ",", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Print", "[", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<ERROR: AllDistributionTablesByMode is not available. \
+Run Distributions first.\>\"", ",", " ", "Red", ",", " ", "Bold"}], "]"}], 
+        "]"}], ";", "\n", "  ", 
+       RowBox[{"Abort", "[", "]"}], ";"}]}], "\n", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ClearAll", "[", 
+     RowBox[{
+     "ratioModes", ",", " ", "ratioComponents", ",", " ", "ratioAxes", ",", 
+      " ", "ratioParticles", ",", " ", "ratioModels"}], "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ratioModes", " ", "=", " ", 
+     RowBox[{"Select", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Fitted\>\""}], "}"}], ",", 
+       " ", 
+       RowBox[{
+        RowBox[{"KeyExistsQ", "[", 
+         RowBox[{"AllDistributionTablesByMode", ",", " ", "#"}], "]"}], " ", 
+        "&"}]}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ratioComponents", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Correction\>\"", ",", " ", "\"\<Total\>\""}], "}"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ratioAxes", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Mt\>\"", ",", " ", "\"\<Y\>\""}], "}"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ratioParticles", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<PionPlus\>\"", ",", 
+       " ", "\"\<PionMinus\>\""}], "}"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ratioModels", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
+       " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+    "Print", "[", "\"\<Loading Ratios Plots: ratios are built from \
+AllDistributionTablesByMode without recomputing spectra.\>\"", "]"}], ";"}], 
+   "\n"}]}]], "Input",
+ CellLabel->
+  "In[1561]:=",ExpressionUUID->"2d584855-fe11-9b4e-8e86-a13a886d17d2"],
+
+Cell[BoxData["\<\"Loading Ratios Plots: ratios are built from \
+AllDistributionTablesByMode without recomputing spectra.\"\>"], "Print",
+ CellChangeTimes->{3.9886873291109123`*^9, 3.988691071397789*^9, 
+  3.988703564987507*^9},
  CellLabel->
   "During evaluation of \
-In[161]:=",ExpressionUUID->"1e94ba13-c695-f74f-98f9-21c77aeed640"]
+In[1561]:=",ExpressionUUID->"5c3ef1fc-8c1a-644a-b31b-b17cf65ca5ab"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -141,7 +755,7 @@ Cell[BoxData[
                     "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
 }]}]}]}]}], " ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
-   RowBox[{"Formatting", " ", "helpers"}], 
+   RowBox[{"2.", " ", "Ratio", " ", "builders"}], 
    "                                            ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
    RowBox[{"--", 
@@ -178,449 +792,30 @@ Cell[BoxData[
   RowBox[{
    RowBox[{
     RowBox[{
-     RowBox[{"ratioPretty", "[", 
-      RowBox[{"x_", "?", "NumericQ"}], "]"}], " ", ":=", " ", 
-     RowBox[{"ScientificForm", "[", 
-      RowBox[{
-       RowBox[{"N", "[", "x", "]"}], ",", " ", 
-       RowBox[{"{", 
-        RowBox[{"10", ",", " ", "4"}], "}"}]}], "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioPretty", "[", "x_", "]"}], " ", ":=", " ", "x"}], ";"}], 
-   "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioMakeGrid", "[", "rows_", "]"}], " ", ":=", " ", 
-     RowBox[{"Grid", "[", "\n", "  ", 
-      RowBox[{
-       RowBox[{"rows", " ", "/.", " ", 
-        RowBox[{
-         RowBox[{"x_", "?", "NumericQ"}], " ", ":>", " ", 
-         RowBox[{"ratioPretty", "[", "x", "]"}]}]}], ",", "\n", "  ", 
-       RowBox[{"Frame", " ", "->", " ", "All"}], ",", "\n", "  ", 
-       RowBox[{"Background", " ", "->", " ", 
-        RowBox[{"{", 
-         RowBox[{"None", ",", " ", 
-          RowBox[{"{", 
-           RowBox[{"LightGray", ",", " ", "None"}], "}"}]}], "}"}]}], ",", 
-       "\n", "  ", 
-       RowBox[{"Alignment", " ", "->", " ", "Center"}]}], "\n", "]"}]}], 
-    ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioPlotObjectQ", "[", "obj_", "]"}], " ", ":=", " ", 
-     RowBox[{"MatchQ", "[", 
-      RowBox[{
-       RowBox[{"Head", "[", "obj", "]"}], ",", " ", 
-       RowBox[{"Graphics", " ", "|", " ", "Legended"}]}], "]"}]}], ";"}], 
-   "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioModelColor", "[", "\"\<Dirac\>\"", "]"}], " ", ":=", " ", 
-     "Black"}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioModelColor", "[", "\"\<BreitWigner\>\"", "]"}], " ", ":=", 
-     " ", "Blue"}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioModelColor", "[", "\"\<Cugnon\>\"", "]"}], " ", ":=", " ", 
-     "Orange"}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioModelColor", "[", "\"\<PhaseShift\>\"", "]"}], " ", ":=", 
-     " ", 
-     RowBox[{"Darker", "[", "Green", "]"}]}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioModelColor", "[", "_", "]"}], " ", ":=", " ", 
-     "Automatic"}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioModelStyle", "[", "dist_String", "]"}], " ", ":=", " ", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"ratioModelColor", "[", "dist", "]"}], ",", " ", "Thick"}], 
-      "}"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioAxisLabel", "[", "\"\<Mt\>\"", "]"}], " ", ":=", " ", 
-     RowBox[{"{", "\n", "  ", 
-      RowBox[{"\"\<m_t - m_0 [MeV]\>\"", ",", "\n", "  ", "\"\<ratio\>\""}], 
-      "\n", "}"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioAxisLabel", "[", "\"\<Y\>\"", "]"}], " ", ":=", " ", 
-     RowBox[{"{", "\n", "  ", 
-      RowBox[{"\"\<y\>\"", ",", "\n", "  ", "\"\<ratio\>\""}], "\n", "}"}]}], 
-    ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioComponentKey", "[", 
-      RowBox[{"\"\<Correction\>\"", ",", " ", "\"\<Mt\>\""}], "]"}], " ", ":=",
-      " ", "\"\<CorrectionMt\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioComponentKey", "[", 
-      RowBox[{"\"\<Correction\>\"", ",", " ", "\"\<Y\>\""}], "]"}], " ", ":=",
-      " ", "\"\<CorrectionY\>\""}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioComponentKey", "[", 
-      RowBox[{"\"\<Total\>\"", ",", " ", "\"\<Mt\>\""}], "]"}], " ", ":=", 
-     " ", "\"\<CorrectedMt\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioComponentKey", "[", 
-      RowBox[{"\"\<Total\>\"", ",", " ", "\"\<Y\>\""}], "]"}], " ", ":=", 
-     " ", "\"\<CorrectedY\>\""}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioComponentKey", "[", 
-      RowBox[{"\"\<Corrected\>\"", ",", " ", "\"\<Mt\>\""}], "]"}], " ", ":=",
-      " ", "\"\<CorrectedMt\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioComponentKey", "[", 
-      RowBox[{"\"\<Corrected\>\"", ",", " ", "\"\<Y\>\""}], "]"}], " ", ":=", 
-     " ", "\"\<CorrectedY\>\""}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioComponentKey", "[", 
-      RowBox[{"\"\<Delta\>\"", ",", " ", "\"\<Mt\>\""}], "]"}], " ", ":=", 
-     " ", "\"\<DeltaMt\>\""}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioComponentKey", "[", 
-      RowBox[{"\"\<Delta\>\"", ",", " ", "\"\<Y\>\""}], "]"}], " ", ":=", 
-     " ", "\"\<DeltaY\>\""}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioComponentKey", "[", 
-      RowBox[{"component_", ",", " ", "axis_"}], "]"}], " ", ":=", " ", 
-     RowBox[{
-      RowBox[{"ToString", "[", "component", "]"}], " ", "<>", " ", 
-      RowBox[{"ToString", "[", "axis", "]"}]}]}], ";"}], "\n", "\n", 
-   RowBox[{"(*", " ", 
-    RowBox[{
-     RowBox[{"String", " ", "key", " ", "for", " ", "plot", " ", 
-      RowBox[{"stores", ".", "\n", "   ", "Do"}], " ", "not", " ", "use", " ",
-       "raw", " ", "list", " ", "keys", " ", "with", " ", "Lookup"}], ",", 
-     " ", 
-     RowBox[{"because", " ", 
-      RowBox[{"Lookup", "[", 
-       RowBox[{"assoc", ",", " ", "list"}], "]"}], " ", "means", "\n", "   ", 
-      "lookup", " ", "many", " ", "independent", " ", 
-      RowBox[{"keys", "."}]}]}], " ", "*)"}], "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioKey", "[", "parts__", "]"}], " ", ":=", " ", 
-     RowBox[{"StringRiffle", "[", 
-      RowBox[{
-       RowBox[{"ToString", " ", "/@", " ", 
-        RowBox[{"{", "parts", "}"}]}], ",", " ", "\"\<||\>\""}], "]"}]}], 
-    ";"}], "\n"}]}]], "Input",
- CellLabel->
-  "In[163]:=",ExpressionUUID->"07e7c5eb-3ad1-d64b-b8d2-51588f976e7b"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{
-   "Safe", " ", "nested", " ", "lookup", " ", "for", " ", 
-    "AllDistributionTablesByMode"}], "             ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioGetNested", "[", 
-      RowBox[{"assoc_", ",", " ", "keys_List"}], "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{"obj", " ", "=", " ", "assoc"}], "}"}], ",", "\n", "  ", 
-       RowBox[{
-        RowBox[{"Do", "[", "\n", "    ", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"If", "[", 
-            RowBox[{
-             RowBox[{"!", 
-              RowBox[{"AssociationQ", "[", "obj", "]"}]}], ",", "\n", 
-             "      ", 
-             RowBox[{"Return", "[", 
-              RowBox[{"Missing", "[", 
-               RowBox[{"\"\<NotAssociation\>\"", ",", " ", "key"}], "]"}], 
-              "]"}]}], "\n", "    ", "]"}], ";", "\n", "    ", 
-           RowBox[{"If", "[", 
-            RowBox[{
-             RowBox[{"!", 
-              RowBox[{"KeyExistsQ", "[", 
-               RowBox[{"obj", ",", " ", "key"}], "]"}]}], ",", "\n", "      ", 
-             RowBox[{"Return", "[", 
-              RowBox[{"Missing", "[", 
-               RowBox[{"\"\<KeyAbsent\>\"", ",", " ", "key"}], "]"}], "]"}]}],
-             "\n", "    ", "]"}], ";", "\n", "    ", 
-           RowBox[{"obj", " ", "=", " ", 
-            RowBox[{"obj", "[", "key", "]"}]}]}], ",", "\n", "    ", 
-          RowBox[{"{", 
-           RowBox[{"key", ",", " ", "keys"}], "}"}]}], "\n", "  ", "]"}], ";",
-         "\n", "  ", "obj"}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioValidSeriesQ", "[", "data_", "]"}], " ", ":=", "\n", "  ", 
-     RowBox[{
-      RowBox[{"ListQ", "[", "data", "]"}], " ", "&&", "\n", "  ", 
-      RowBox[{
-       RowBox[{"Length", "[", "data", "]"}], " ", ">", " ", "0"}], " ", "&&", 
-      "\n", "  ", 
-      RowBox[{"AllTrue", "[", 
-       RowBox[{"data", ",", " ", 
-        RowBox[{
-         RowBox[{"MatchQ", "[", 
-          RowBox[{"#", ",", " ", 
-           RowBox[{"{", 
-            RowBox[{
-             RowBox[{"_", "?", "NumericQ"}], ",", " ", 
-             RowBox[{"_", "?", "NumericQ"}]}], "}"}]}], "]"}], " ", "&"}]}], 
-       "]"}]}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioCleanSeries", "[", "data_", "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", 
-      RowBox[{
-       RowBox[{"{", "clean", "}"}], ",", "\n", "  ", 
-       RowBox[{
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{"!", 
-           RowBox[{"ListQ", "[", "data", "]"}]}], ",", " ", 
-          RowBox[{"Return", "[", 
-           RowBox[{"{", "}"}], "]"}]}], "]"}], ";", "\n", "\n", "  ", 
-        RowBox[{"clean", " ", "=", " ", 
-         RowBox[{"Select", "[", "\n", "    ", 
-          RowBox[{"data", ",", "\n", "    ", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"MatchQ", "[", 
-              RowBox[{"#", ",", " ", 
-               RowBox[{"{", 
-                RowBox[{
-                 RowBox[{"_", "?", "NumericQ"}], ",", " ", 
-                 RowBox[{"_", "?", "NumericQ"}]}], "}"}]}], "]"}], " ", "&&", 
-             "\n", "      ", 
-             RowBox[{"NumericQ", "[", 
-              RowBox[{"#", "[", 
-               RowBox[{"[", "2", "]"}], "]"}], "]"}], " ", "&&", "\n", 
-             "      ", 
-             RowBox[{"FreeQ", "[", 
-              RowBox[{"#", ",", " ", 
-               RowBox[{
-               "Indeterminate", " ", "|", " ", "ComplexInfinity", " ", "|", 
-                " ", 
-                RowBox[{"DirectedInfinity", "[", "_", "]"}]}]}], "]"}]}], " ",
-             "&"}]}], "\n", "  ", "]"}]}], ";", "\n", "\n", "  ", "clean"}]}],
-       "\n", "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioSeries", "[", "\n", "  ", 
-      RowBox[{
-      "mode_String", ",", "\n", "  ", "component_String", ",", "\n", "  ", 
-       "axis_String", ",", "\n", "  ", "dist_String", ",", "\n", "  ", 
-       "particle_String"}], "\n", "]"}], " ", ":=", " ", 
-     RowBox[{"ratioGetNested", "[", "\n", "  ", 
-      RowBox[{"AllDistributionTablesByMode", ",", "\n", "  ", 
-       RowBox[{"{", 
-        RowBox[{"mode", ",", " ", 
-         RowBox[{"ratioComponentKey", "[", 
-          RowBox[{"component", ",", " ", "axis"}], "]"}], ",", " ", "dist", ",",
-          " ", "particle"}], "}"}]}], "\n", "]"}]}], ";"}], "\n"}]}]], "Input",
- CellLabel->
-  "In[185]:=",ExpressionUUID->"239fe94c-ea74-e740-917b-f5d5e85fbe1f"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"Ratio", " ", 
-    RowBox[{"model", "/", "Dirac"}]}], 
-   "                                             ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioDataOverDirac", "[", "\n", "  ", 
-      RowBox[{
-      "mode_String", ",", "\n", "  ", "component_String", ",", "\n", "  ", 
-       "axis_String", ",", "\n", "  ", "particle_String", ",", "\n", "  ", 
-       "dist_String"}], "\n", "]"}], " ", ":=", " ", 
+     RowBox[{"ratioDivideSeries", "[", 
+      RowBox[{"numIn_", ",", " ", "denIn_"}], "]"}], " ", ":=", " ", 
      RowBox[{"Module", "[", "\n", "  ", 
       RowBox[{
        RowBox[{"{", 
         RowBox[{
-        "num", ",", " ", "den", ",", " ", "denInterp", ",", " ", "ratio"}], 
-        "}"}], ",", "\n", "\n", "  ", 
+        "num", ",", " ", "den", ",", " ", "denInterp", ",", " ", "xMin", ",", 
+         " ", "xMax", ",", " ", "ratio", ",", " ", 
+         RowBox[{"eps", " ", "=", " ", 
+          RowBox[{"10", "^", 
+           RowBox[{"-", "300"}]}]}]}], "}"}], ",", "\n", "\n", "  ", 
        RowBox[{
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{"dist", " ", "===", " ", "\"\<Dirac\>\""}], ",", " ", 
-          RowBox[{"Return", "[", 
-           RowBox[{"{", "}"}], "]"}]}], "]"}], ";", "\n", "\n", "  ", 
         RowBox[{"num", " ", "=", " ", 
-         RowBox[{"ratioCleanSeries", " ", "@", " ", 
-          RowBox[{"ratioSeries", "[", 
-           RowBox[{
-           "mode", ",", " ", "component", ",", " ", "axis", ",", " ", "dist", 
-            ",", " ", "particle"}], "]"}]}]}], ";", "\n", "  ", 
-        RowBox[{"den", " ", "=", " ", 
-         RowBox[{"ratioCleanSeries", " ", "@", " ", 
-          RowBox[{"ratioSeries", "[", 
-           RowBox[{
-           "mode", ",", " ", "component", ",", " ", "axis", ",", 
-            " ", "\"\<Dirac\>\"", ",", " ", "particle"}], "]"}]}]}], ";", 
-        "\n", "\n", "  ", 
-        RowBox[{"num", " ", "=", " ", 
-         RowBox[{"Select", "[", 
-          RowBox[{"num", ",", " ", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"#", "[", 
-              RowBox[{"[", "2", "]"}], "]"}], " ", ">=", " ", "0"}], " ", 
-            "&"}]}], "]"}]}], ";", "\n", "  ", 
+         RowBox[{"ratioCleanSeries", "[", "numIn", "]"}]}], ";", "\n", "  ", 
         RowBox[{"den", " ", "=", " ", 
          RowBox[{"Select", "[", 
-          RowBox[{"den", ",", " ", 
+          RowBox[{
+           RowBox[{"ratioCleanSeries", "[", "denIn", "]"}], ",", " ", 
            RowBox[{
             RowBox[{
-             RowBox[{"#", "[", 
-              RowBox[{"[", "2", "]"}], "]"}], " ", ">", " ", "0"}], " ", 
-            "&"}]}], "]"}]}], ";", "\n", "\n", "  ", 
+             RowBox[{"Abs", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "]"}], " ", ">", " ", "eps"}], 
+            " ", "&"}]}], "]"}]}], ";", "\n", "\n", "  ", 
         RowBox[{"If", "[", 
          RowBox[{
           RowBox[{
@@ -629,10 +824,21 @@ Cell[BoxData[
             " ", 
            RowBox[{
             RowBox[{"Length", "[", "den", "]"}], " ", "<", " ", "2"}]}], ",", 
-          "\n", "    ", 
+          " ", 
           RowBox[{"Return", "[", 
-           RowBox[{"{", "}"}], "]"}]}], "\n", "  ", "]"}], ";", "\n", "\n", 
+           RowBox[{"{", "}"}], "]"}]}], "]"}], ";", "\n", "\n", "  ", 
+        RowBox[{"xMin", " ", "=", " ", 
+         RowBox[{"Min", "[", 
+          RowBox[{"den", "[", 
+           RowBox[{"[", 
+            RowBox[{"All", ",", " ", "1"}], "]"}], "]"}], "]"}]}], ";", "\n", 
         "  ", 
+        RowBox[{"xMax", " ", "=", " ", 
+         RowBox[{"Max", "[", 
+          RowBox[{"den", "[", 
+           RowBox[{"[", 
+            RowBox[{"All", ",", " ", "1"}], "]"}], "]"}], "]"}]}], ";", "\n", 
+        "\n", "  ", 
         RowBox[{"denInterp", " ", "=", " ", 
          RowBox[{"Quiet", " ", "@", " ", 
           RowBox[{"Check", "[", "\n", "    ", 
@@ -644,11 +850,9 @@ Cell[BoxData[
         "\n", "  ", 
         RowBox[{"If", "[", 
          RowBox[{
-          RowBox[{"denInterp", " ", "===", " ", "$Failed"}], ",", "\n", 
-          "    ", 
+          RowBox[{"denInterp", " ", "===", " ", "$Failed"}], ",", " ", 
           RowBox[{"Return", "[", 
-           RowBox[{"{", "}"}], "]"}]}], "\n", "  ", "]"}], ";", "\n", "\n", 
-        "  ", 
+           RowBox[{"{", "}"}], "]"}]}], "]"}], ";", "\n", "\n", "  ", 
         RowBox[{"ratio", " ", "=", " ", 
          RowBox[{"Table", "[", "\n", "    ", 
           RowBox[{
@@ -664,6 +868,13 @@ Cell[BoxData[
                  RowBox[{"[", "2", "]"}], "]"}]}], ",", " ", "yd"}], "}"}], ",",
               "\n", "      ", 
              RowBox[{
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"x", " ", "<", " ", "xMin"}], " ", "||", " ", 
+                 RowBox[{"x", " ", ">", " ", "xMax"}]}], ",", " ", 
+                RowBox[{"Return", "[", "Nothing", "]"}]}], "]"}], ";", "\n", 
+              "      ", 
               RowBox[{"yd", " ", "=", " ", 
                RowBox[{"Quiet", " ", "@", " ", 
                 RowBox[{"Check", "[", 
@@ -673,423 +884,155 @@ Cell[BoxData[
               RowBox[{"If", "[", 
                RowBox[{
                 RowBox[{
-                 RowBox[{"NumericQ", "[", "yd", "]"}], " ", "&&", " ", 
-                 RowBox[{"yd", " ", ">", " ", "0"}]}], ",", "\n", "        ", 
+                 RowBox[{"ratioFiniteNumberQ", "[", "yd", "]"}], " ", "&&", 
+                 " ", 
+                 RowBox[{
+                  RowBox[{"Abs", "[", "yd", "]"}], " ", ">", " ", "eps"}]}], ",",
+                 "\n", "        ", 
                 RowBox[{"{", 
-                 RowBox[{"x", ",", " ", 
-                  RowBox[{"y", "/", "yd"}]}], "}"}], ",", "\n", "        ", 
-                "Nothing"}], "\n", "      ", "]"}]}]}], "\n", "    ", "]"}], ",",
-            "\n", "    ", 
+                 RowBox[{
+                  RowBox[{"N", "[", "x", "]"}], ",", " ", 
+                  RowBox[{"N", "[", 
+                   RowBox[{"y", "/", "yd"}], "]"}]}], "}"}], ",", "\n", 
+                "        ", "Nothing"}], "\n", "      ", "]"}]}]}], "\n", 
+            "    ", "]"}], ",", "\n", "    ", 
            RowBox[{"{", 
             RowBox[{"pt", ",", " ", "num"}], "}"}]}], "\n", "  ", "]"}]}], ";",
          "\n", "\n", "  ", 
-        RowBox[{"Select", "[", "\n", "    ", 
-         RowBox[{"ratio", ",", "\n", "    ", 
-          RowBox[{
-           RowBox[{
-            RowBox[{"MatchQ", "[", 
-             RowBox[{"#", ",", " ", 
-              RowBox[{"{", 
-               RowBox[{
-                RowBox[{"_", "?", "NumericQ"}], ",", " ", 
-                RowBox[{"_", "?", "NumericQ"}]}], "}"}]}], "]"}], " ", "&&", 
-            "\n", "      ", 
-            RowBox[{"FreeQ", "[", 
-             RowBox[{"#", ",", " ", 
-              RowBox[{
-              "Indeterminate", " ", "|", " ", "ComplexInfinity", " ", "|", 
-               " ", 
-               RowBox[{"DirectedInfinity", "[", "_", "]"}]}]}], "]"}]}], " ", 
-           "&"}]}], "\n", "  ", "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+        RowBox[{"ratioCleanSeries", "[", "ratio", "]"}]}]}], "\n", "]"}]}], 
+    ";"}], "\n", "\n", 
    RowBox[{
     RowBox[{
-     RowBox[{"ratioPlot", "[", "\n", "  ", 
+     RowBox[{"ratioDataOverDirac", "[", 
       RowBox[{
-      "mode_String", ",", "\n", "  ", "component_String", ",", "\n", "  ", 
-       "axis_String", ",", "\n", "  ", "particle_String"}], "\n", "]"}], " ", 
-     ":=", " ", 
+      "mode_String", ",", " ", "component_String", ",", " ", "axis_String", ",",
+        " ", "particle_String", ",", " ", "model_String"}], "]"}], " ", ":=", 
+     "\n", "  ", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"model", " ", "===", " ", "\"\<Dirac\>\""}], ",", "\n", "    ", 
+       RowBox[{"{", "}"}], ",", "\n", "    ", 
+       RowBox[{"ratioDivideSeries", "[", "\n", "      ", 
+        RowBox[{
+         RowBox[{"ratioSeries", "[", 
+          RowBox[{
+          "mode", ",", " ", "component", ",", " ", "axis", ",", " ", "model", 
+           ",", " ", "particle"}], "]"}], ",", "\n", "      ", 
+         RowBox[{"ratioSeries", "[", 
+          RowBox[{
+          "mode", ",", " ", "component", ",", " ", "axis", ",", 
+           " ", "\"\<Dirac\>\"", ",", " ", "particle"}], "]"}]}], "\n", 
+        "    ", "]"}]}], "\n", "  ", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioVacuumFittedData", "[", 
+      RowBox[{
+      "component_String", ",", " ", "axis_String", ",", " ", 
+       "particle_String", ",", " ", "model_String"}], "]"}], " ", ":=", "\n", 
+     "  ", 
+     RowBox[{"ratioDivideSeries", "[", "\n", "    ", 
+      RowBox[{
+       RowBox[{"ratioSeries", "[", 
+        RowBox[{"\"\<Fitted\>\"", ",", " ", "component", ",", " ", "axis", ",",
+          " ", "model", ",", " ", "particle"}], "]"}], ",", "\n", "    ", 
+       RowBox[{"ratioSeries", "[", 
+        RowBox[{"\"\<Vacuum\>\"", ",", " ", "component", ",", " ", "axis", ",",
+          " ", "model", ",", " ", "particle"}], "]"}]}], "\n", "  ", "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioPlot", "[", 
+      RowBox[{
+      "mode_String", ",", " ", "component_String", ",", " ", "axis_String", ",",
+        " ", "particle_String"}], "]"}], " ", ":=", " ", 
      RowBox[{"Module", "[", "\n", "  ", 
       RowBox[{
        RowBox[{"{", 
         RowBox[{
-        "dists", ",", " ", "dataAssoc", ",", " ", "data", ",", " ", "legends",
-          ",", " ", "styles", ",", " ", "title"}], "}"}], ",", "\n", "\n", 
-       "  ", 
+        "models", ",", " ", "dataAssoc", ",", " ", "title", ",", " ", 
+         "axisText"}], "}"}], ",", "\n", "\n", "  ", 
        RowBox[{
-        RowBox[{"dists", " ", "=", " ", 
+        RowBox[{"models", " ", "=", " ", 
          RowBox[{"{", 
           
           RowBox[{"\"\<BreitWigner\>\"", ",", " ", "\"\<Cugnon\>\"", ",", 
            " ", "\"\<PhaseShift\>\""}], "}"}]}], ";", "\n", "\n", "  ", 
         RowBox[{"dataAssoc", " ", "=", " ", 
-         RowBox[{"AssociationThread", "[", "\n", "    ", 
-          RowBox[{"dists", ",", "\n", "    ", 
+         RowBox[{"Association", " ", "@", " ", 
+          RowBox[{"Table", "[", "\n", "    ", 
            RowBox[{
             RowBox[{
+             RowBox[{
+              RowBox[{"ratioShortDistributionLabel", "[", "model", "]"}], " ",
+               "<>", " ", "\"\< / Dirac\>\""}], " ", "->", "\n", "      ", 
              RowBox[{"ratioDataOverDirac", "[", 
               RowBox[{
               "mode", ",", " ", "component", ",", " ", "axis", ",", " ", 
-               "particle", ",", " ", "#"}], "]"}], " ", "&"}], " ", "/@", " ",
-             "dists"}]}], "\n", "  ", "]"}]}], ";", "\n", "\n", "  ", 
-        RowBox[{"dataAssoc", " ", "=", " ", 
-         RowBox[{"Select", "[", 
-          RowBox[{"dataAssoc", ",", " ", "ratioValidSeriesQ"}], "]"}]}], ";", 
-        "\n", "\n", "  ", 
-        RowBox[{"If", "[", 
-         RowBox[{
+               "particle", ",", " ", "model"}], "]"}]}], ",", "\n", "    ", 
+            RowBox[{"{", 
+             RowBox[{"model", ",", " ", "models"}], "}"}]}], "\n", "  ", 
+           "]"}]}]}], ";", "\n", "\n", "  ", 
+        RowBox[{"axisText", " ", "=", " ", 
+         RowBox[{"If", "[", 
           RowBox[{
-           RowBox[{"Length", "[", "dataAssoc", "]"}], " ", "==", " ", "0"}], ",",
-           "\n", "    ", 
-          RowBox[{"Return", "[", "\n", "      ", 
-           RowBox[{"Style", "[", "\n", "        ", 
-            RowBox[{
-             RowBox[{"\"\<No ratio data for \>\"", " ", "<>", " ", 
-              RowBox[{"StringRiffle", "[", 
-               RowBox[{
-                RowBox[{"{", 
-                 RowBox[{
-                 "mode", ",", " ", "component", ",", " ", "axis", ",", " ", 
-                  "particle"}], "}"}], ",", " ", "\"\<, \>\""}], "]"}]}], ",",
-              "\n", "        ", "Red"}], "\n", "      ", "]"}], "\n", "    ", 
-           "]"}]}], "\n", "  ", "]"}], ";", "\n", "\n", "  ", 
-        RowBox[{"data", " ", "=", " ", 
-         RowBox[{"Values", "[", "dataAssoc", "]"}]}], ";", "\n", "  ", 
-        RowBox[{"legends", " ", "=", " ", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"ToString", "[", "#", "]"}], " ", "<>", 
-             " ", "\"\< / Dirac\>\""}], ")"}], " ", "&"}], " ", "/@", " ", 
-          RowBox[{"Keys", "[", "dataAssoc", "]"}]}]}], ";", "\n", "  ", 
-        RowBox[{"styles", " ", "=", " ", 
-         RowBox[{"ratioModelStyle", " ", "/@", " ", 
-          RowBox[{"Keys", "[", "dataAssoc", "]"}]}]}], ";", "\n", "\n", "  ", 
+           RowBox[{"axis", " ", "===", " ", "\"\<Y\>\""}], ",", 
+           " ", "\"\<rapidity\>\"", ",", " ", "\"\<mT\>\""}], "]"}]}], ";", 
+        "\n", "  ", 
         RowBox[{"title", " ", "=", " ", 
-         RowBox[{"StringRiffle", "[", "\n", "    ", 
-          RowBox[{
-           RowBox[{"{", "\n", "      ", 
-            RowBox[{
-            "particle", ",", "\n", "      ", "component", ",", "\n", "      ", 
-             RowBox[{"If", "[", 
-              RowBox[{
-               RowBox[{"axis", " ", "===", " ", "\"\<Mt\>\""}], ",", 
-               " ", "\"\<mT\>\"", ",", " ", "\"\<rapidity\>\""}], "]"}], ",", 
-             "\n", "      ", "\"\<ratios to Dirac\>\"", ",", "\n", "      ", 
-             "mode"}], "\n", "    ", "}"}], ",", "\n", "    ", "\"\< \>\""}], 
-          "\n", "  ", "]"}]}], ";", "\n", "\n", "  ", 
-        RowBox[{"ListPlot", "[", "\n", "    ", 
-         RowBox[{"data", ",", "\n", "    ", 
-          RowBox[{"Joined", " ", "->", " ", "True"}], ",", "\n", "    ", 
-          RowBox[{"PlotStyle", " ", "->", " ", "styles"}], ",", "\n", "    ", 
-          RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "    ", 
-          RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "    ", 
-          RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "    ", 
-          RowBox[{"FrameLabel", " ", "->", " ", 
-           RowBox[{"ratioAxisLabel", "[", "axis", "]"}]}], ",", "\n", "    ", 
-          RowBox[{"PlotLabel", " ", "->", " ", "title"}], ",", "\n", "    ", 
-          RowBox[{"PlotLegends", " ", "->", " ", 
-           RowBox[{"Placed", "[", 
-            RowBox[{"legends", ",", " ", "Right"}], "]"}]}], ",", "\n", 
-          "    ", 
-          RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "  ", 
-         "]"}]}]}], "\n", "]"}]}], ";"}], "\n"}]}]], "Input",
- CellLabel->
-  "In[189]:=",ExpressionUUID->"0d03669f-6ef6-5043-a602-cee2c08565c3"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{
-    RowBox[{"Fitted", "/", "Vacuum"}], " ", "diagnostic", " ", "ratios"}], 
-   "                               ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
+         RowBox[{
+          RowBox[{"ratioParticleLabel", "[", "particle", "]"}], " ", "<>", 
+          " ", "\"\< \>\"", " ", "<>", " ", "component", " ", "<>", 
+          " ", "\"\< \>\"", " ", "<>", " ", "axisText", " ", "<>", "\n", 
+          "    ", "\"\<: \>\"", " ", "<>", " ", "mode", " ", "<>", 
+          " ", "\"\< model/Dirac ratios\>\""}]}], ";", "\n", "\n", "  ", 
+        RowBox[{"ratioListPlot", "[", 
+         RowBox[{"dataAssoc", ",", " ", "title", ",", " ", "axis"}], 
+         "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
    RowBox[{
     RowBox[{
-     RowBox[{"ratioVacuumFittedData", "[", "\n", "  ", 
+     RowBox[{"ratioVacuumFittedPlot", "[", 
       RowBox[{
-      "component_String", ",", "\n", "  ", "axis_String", ",", "\n", "  ", 
-       "particle_String", ",", "\n", "  ", "dist_String"}], "\n", "]"}], " ", 
-     ":=", " ", 
+      "component_String", ",", " ", "axis_String", ",", " ", 
+       "particle_String"}], "]"}], " ", ":=", " ", 
      RowBox[{"Module", "[", "\n", "  ", 
       RowBox[{
        RowBox[{"{", 
-        RowBox[{
-        "vac", ",", " ", "fit", ",", " ", "vacInterp", ",", " ", "ratio"}], 
-        "}"}], ",", "\n", "\n", "  ", 
+        RowBox[{"dataAssoc", ",", " ", "title", ",", " ", "axisText"}], "}"}],
+        ",", "\n", "\n", "  ", 
        RowBox[{
-        RowBox[{"vac", " ", "=", " ", 
-         RowBox[{"ratioCleanSeries", " ", "@", " ", 
-          RowBox[{"ratioSeries", "[", 
-           
-           RowBox[{"\"\<Vacuum\>\"", ",", " ", "component", ",", " ", "axis", 
-            ",", " ", "dist", ",", " ", "particle"}], "]"}]}]}], ";", "\n", 
-        "  ", 
-        RowBox[{"fit", " ", "=", " ", 
-         RowBox[{"ratioCleanSeries", " ", "@", " ", 
-          RowBox[{"ratioSeries", "[", 
-           
-           RowBox[{"\"\<Fitted\>\"", ",", " ", "component", ",", " ", "axis", 
-            ",", " ", "dist", ",", " ", "particle"}], "]"}]}]}], ";", "\n", 
-        "\n", "  ", 
-        RowBox[{"vac", " ", "=", " ", 
-         RowBox[{"Select", "[", 
-          RowBox[{"vac", ",", " ", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"#", "[", 
-              RowBox[{"[", "2", "]"}], "]"}], " ", ">", " ", "0"}], " ", 
-            "&"}]}], "]"}]}], ";", "\n", "  ", 
-        RowBox[{"fit", " ", "=", " ", 
-         RowBox[{"Select", "[", 
-          RowBox[{"fit", ",", " ", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"#", "[", 
-              RowBox[{"[", "2", "]"}], "]"}], " ", ">=", " ", "0"}], " ", 
-            "&"}]}], "]"}]}], ";", "\n", "\n", "  ", 
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{
-           RowBox[{
-            RowBox[{"Length", "[", "fit", "]"}], " ", "==", " ", "0"}], " ", "||",
-            " ", 
-           RowBox[{
-            RowBox[{"Length", "[", "vac", "]"}], " ", "<", " ", "2"}]}], ",", 
-          "\n", "    ", 
-          RowBox[{"Return", "[", 
-           RowBox[{"{", "}"}], "]"}]}], "\n", "  ", "]"}], ";", "\n", "\n", 
-        "  ", 
-        RowBox[{"vacInterp", " ", "=", " ", 
-         RowBox[{"Quiet", " ", "@", " ", 
-          RowBox[{"Check", "[", "\n", "    ", 
-           RowBox[{
-            RowBox[{"Interpolation", "[", 
-             RowBox[{"vac", ",", " ", 
-              RowBox[{"InterpolationOrder", " ", "->", " ", "1"}]}], "]"}], ",",
-             "\n", "    ", "$Failed"}], "\n", "  ", "]"}]}]}], ";", "\n", 
-        "\n", "  ", 
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{"vacInterp", " ", "===", " ", "$Failed"}], ",", "\n", 
-          "    ", 
-          RowBox[{"Return", "[", 
-           RowBox[{"{", "}"}], "]"}]}], "\n", "  ", "]"}], ";", "\n", "\n", 
-        "  ", 
-        RowBox[{"ratio", " ", "=", " ", 
-         RowBox[{"Table", "[", "\n", "    ", 
-          RowBox[{
-           RowBox[{"Module", "[", 
-            RowBox[{
-             RowBox[{"{", 
-              RowBox[{
-               RowBox[{"x", " ", "=", " ", 
-                RowBox[{"pt", "[", 
-                 RowBox[{"[", "1", "]"}], "]"}]}], ",", " ", 
-               RowBox[{"y", " ", "=", " ", 
-                RowBox[{"pt", "[", 
-                 RowBox[{"[", "2", "]"}], "]"}]}], ",", " ", "yv"}], "}"}], ",",
-              "\n", "      ", 
-             RowBox[{
-              RowBox[{"yv", " ", "=", " ", 
-               RowBox[{"Quiet", " ", "@", " ", 
-                RowBox[{"Check", "[", 
-                 RowBox[{
-                  RowBox[{"vacInterp", "[", "x", "]"}], ",", " ", 
-                  "Indeterminate"}], "]"}]}]}], ";", "\n", "      ", 
-              RowBox[{"If", "[", 
-               RowBox[{
-                RowBox[{
-                 RowBox[{"NumericQ", "[", "yv", "]"}], " ", "&&", " ", 
-                 RowBox[{"yv", " ", ">", " ", "0"}]}], ",", "\n", "        ", 
-                RowBox[{"{", 
-                 RowBox[{"x", ",", " ", 
-                  RowBox[{"y", "/", "yv"}]}], "}"}], ",", "\n", "        ", 
-                "Nothing"}], "\n", "      ", "]"}]}]}], "\n", "    ", "]"}], ",",
-            "\n", "    ", 
-           RowBox[{"{", 
-            RowBox[{"pt", ",", " ", "fit"}], "}"}]}], "\n", "  ", "]"}]}], ";",
-         "\n", "\n", "  ", 
-        RowBox[{"Select", "[", "\n", "    ", 
-         RowBox[{"ratio", ",", "\n", "    ", 
-          RowBox[{
-           RowBox[{
-            RowBox[{"MatchQ", "[", 
-             RowBox[{"#", ",", " ", 
-              RowBox[{"{", 
-               RowBox[{
-                RowBox[{"_", "?", "NumericQ"}], ",", " ", 
-                RowBox[{"_", "?", "NumericQ"}]}], "}"}]}], "]"}], " ", "&&", 
-            "\n", "      ", 
-            RowBox[{"FreeQ", "[", 
-             RowBox[{"#", ",", " ", 
-              RowBox[{
-              "Indeterminate", " ", "|", " ", "ComplexInfinity", " ", "|", 
-               " ", 
-               RowBox[{"DirectedInfinity", "[", "_", "]"}]}]}], "]"}]}], " ", 
-           "&"}]}], "\n", "  ", "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"ratioVacuumFittedPlot", "[", "\n", "  ", 
-      RowBox[{
-      "component_String", ",", "\n", "  ", "axis_String", ",", "\n", "  ", 
-       "particle_String"}], "\n", "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", "\n", "  ", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{
-        "dists", ",", " ", "dataAssoc", ",", " ", "data", ",", " ", "legends",
-          ",", " ", "styles", ",", " ", "title"}], "}"}], ",", "\n", "\n", 
-       "  ", 
-       RowBox[{
-        RowBox[{"dists", " ", "=", " ", 
-         RowBox[{"{", 
-          
-          RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BreitWigner\>\"", ",", 
-           " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}]}], ";",
-         "\n", "\n", "  ", 
         RowBox[{"dataAssoc", " ", "=", " ", 
-         RowBox[{"AssociationThread", "[", "\n", "    ", 
-          RowBox[{"dists", ",", "\n", "    ", 
+         RowBox[{"Association", " ", "@", " ", 
+          RowBox[{"Table", "[", "\n", "    ", 
            RowBox[{
             RowBox[{
+             RowBox[{
+              RowBox[{"ratioShortDistributionLabel", "[", "model", "]"}], " ",
+               "<>", " ", "\"\< Fitted/Vacuum\>\""}], " ", "->", "\n", 
+             "      ", 
              RowBox[{"ratioVacuumFittedData", "[", 
               RowBox[{
               "component", ",", " ", "axis", ",", " ", "particle", ",", " ", 
-               "#"}], "]"}], " ", "&"}], " ", "/@", " ", "dists"}]}], "\n", 
-          "  ", "]"}]}], ";", "\n", "\n", "  ", 
-        RowBox[{"dataAssoc", " ", "=", " ", 
-         RowBox[{"Select", "[", 
-          RowBox[{"dataAssoc", ",", " ", "ratioValidSeriesQ"}], "]"}]}], ";", 
-        "\n", "\n", "  ", 
-        RowBox[{"If", "[", 
-         RowBox[{
+               "model"}], "]"}]}], ",", "\n", "    ", 
+            RowBox[{"{", 
+             RowBox[{"model", ",", " ", "ratioModels"}], "}"}]}], "\n", "  ", 
+           "]"}]}]}], ";", "\n", "\n", "  ", 
+        RowBox[{"axisText", " ", "=", " ", 
+         RowBox[{"If", "[", 
           RowBox[{
-           RowBox[{"Length", "[", "dataAssoc", "]"}], " ", "==", " ", "0"}], ",",
-           "\n", "    ", 
-          RowBox[{"Return", "[", "\n", "      ", 
-           RowBox[{"Style", "[", "\n", "        ", 
-            RowBox[{
-             
-             RowBox[{"\"\<No Fitted/Vacuum ratio data for \>\"", " ", "<>", 
-              "\n", "          ", 
-              RowBox[{"StringRiffle", "[", 
-               RowBox[{
-                RowBox[{"{", 
-                 RowBox[{
-                 "component", ",", " ", "axis", ",", " ", "particle"}], "}"}],
-                 ",", " ", "\"\<, \>\""}], "]"}]}], ",", "\n", "        ", 
-             "Red"}], "\n", "      ", "]"}], "\n", "    ", "]"}]}], "\n", 
-         "  ", "]"}], ";", "\n", "\n", "  ", 
-        RowBox[{"data", " ", "=", " ", 
-         RowBox[{"Values", "[", "dataAssoc", "]"}]}], ";", "\n", "  ", 
-        RowBox[{"legends", " ", "=", " ", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"ToString", "[", "#", "]"}], " ", "<>", 
-             " ", "\"\< Fitted/Vacuum\>\""}], ")"}], " ", "&"}], " ", "/@", 
-          " ", 
-          RowBox[{"Keys", "[", "dataAssoc", "]"}]}]}], ";", "\n", "  ", 
-        RowBox[{"styles", " ", "=", " ", 
-         RowBox[{"ratioModelStyle", " ", "/@", " ", 
-          RowBox[{"Keys", "[", "dataAssoc", "]"}]}]}], ";", "\n", "\n", "  ", 
+           RowBox[{"axis", " ", "===", " ", "\"\<Y\>\""}], ",", 
+           " ", "\"\<rapidity\>\"", ",", " ", "\"\<mT\>\""}], "]"}]}], ";", 
+        "\n", "  ", 
         RowBox[{"title", " ", "=", " ", 
-         RowBox[{"StringRiffle", "[", "\n", "    ", 
-          RowBox[{
-           RowBox[{"{", "\n", "      ", 
-            RowBox[{
-            "particle", ",", "\n", "      ", "component", ",", "\n", "      ", 
-             RowBox[{"If", "[", 
-              RowBox[{
-               RowBox[{"axis", " ", "===", " ", "\"\<Mt\>\""}], ",", 
-               " ", "\"\<mT\>\"", ",", " ", "\"\<rapidity\>\""}], "]"}], ",", 
-             "\n", "      ", "\"\<Fitted/Vacuum ratios\>\""}], "\n", "    ", 
-            "}"}], ",", "\n", "    ", "\"\< \>\""}], "\n", "  ", "]"}]}], ";",
-         "\n", "\n", "  ", 
-        RowBox[{"ListPlot", "[", "\n", "    ", 
-         RowBox[{"data", ",", "\n", "    ", 
-          RowBox[{"Joined", " ", "->", " ", "True"}], ",", "\n", "    ", 
-          RowBox[{"PlotStyle", " ", "->", " ", "styles"}], ",", "\n", "    ", 
-          RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", "    ", 
-          RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "    ", 
-          RowBox[{"Axes", " ", "->", " ", "False"}], ",", "\n", "    ", 
-          RowBox[{"FrameLabel", " ", "->", " ", 
-           RowBox[{"ratioAxisLabel", "[", "axis", "]"}]}], ",", "\n", "    ", 
-          RowBox[{"PlotLabel", " ", "->", " ", "title"}], ",", "\n", "    ", 
-          RowBox[{"PlotLegends", " ", "->", " ", 
-           RowBox[{"Placed", "[", 
-            RowBox[{"legends", ",", " ", "Right"}], "]"}]}], ",", "\n", 
-          "    ", 
-          RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "  ", 
+         RowBox[{
+          RowBox[{"ratioParticleLabel", "[", "particle", "]"}], " ", "<>", 
+          " ", "\"\< \>\"", " ", "<>", " ", "component", " ", "<>", 
+          " ", "\"\< \>\"", " ", "<>", " ", "axisText", " ", "<>", "\n", 
+          "    ", "\"\<: Fitted/Vacuum ratios\>\""}]}], ";", "\n", "\n", "  ", 
+        RowBox[{"ratioListPlot", "[", 
+         RowBox[{"dataAssoc", ",", " ", "title", ",", " ", "axis"}], 
          "]"}]}]}], "\n", "]"}]}], ";"}], "\n"}]}]], "Input",
  CellLabel->
-  "In[191]:=",ExpressionUUID->"87a96b76-128a-104a-b172-33f986fcda46"],
+  "In[1569]:=",ExpressionUUID->"1978077b-de81-904c-9694-c2701da58998"],
 
 Cell[BoxData[
  RowBox[{
@@ -1127,8 +1070,8 @@ Cell[BoxData[
 }]}]}]}]}], " ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
    RowBox[{
-   "Store", " ", "plots", " ", "in", " ", "Associations", " ", "with", " ", 
-    "string", " ", "keys"}], "                   ", "*)"}], "\n", 
+   "3.", " ", "Lightweight", " ", "data", " ", "availability", " ", 
+    "diagnostic"}], "                  ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
    RowBox[{"--", 
     RowBox[{"--", 
@@ -1163,24 +1106,270 @@ Cell[BoxData[
 }]}]}]}]}], " ", "*)"}], "\n", "\n", 
   RowBox[{
    RowBox[{
-    RowBox[{"ratioModes", " ", "=", " ", 
-     RowBox[{"{", 
-      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Fitted\>\""}], "}"}]}], ";"}], 
-   "\n", 
+    RowBox[{
+     RowBox[{"ratioSeriesStats", "[", "data_", "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"clean", ",", " ", "xs", ",", " ", "ys"}], "}"}], ",", "\n", 
+       "  ", 
+       RowBox[{
+        RowBox[{"clean", " ", "=", " ", 
+         RowBox[{"ratioCleanSeries", "[", "data", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Length", "[", "clean", "]"}], " ", "==", " ", "0"}], ",", 
+          "\n", "    ", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", " ", 
+            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}], ",", " ", 
+            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}], ",", " ", 
+            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}], ",", " ", 
+            RowBox[{"Missing", "[", "\"\<NoData\>\"", "]"}]}], "}"}], ",", 
+          "\n", "    ", 
+          RowBox[{
+           RowBox[{"xs", " ", "=", " ", 
+            RowBox[{"clean", "[", 
+             RowBox[{"[", 
+              RowBox[{"All", ",", " ", "1"}], "]"}], "]"}]}], ";", "\n", 
+           "    ", 
+           RowBox[{"ys", " ", "=", " ", 
+            RowBox[{"clean", "[", 
+             RowBox[{"[", 
+              RowBox[{"All", ",", " ", "2"}], "]"}], "]"}]}], ";", "\n", 
+           "    ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Length", "[", "clean", "]"}], ",", " ", 
+             RowBox[{"Min", "[", "xs", "]"}], ",", " ", 
+             RowBox[{"Max", "[", "xs", "]"}], ",", " ", 
+             RowBox[{"Min", "[", "ys", "]"}], ",", " ", 
+             RowBox[{"Max", "[", "ys", "]"}]}], "}"}]}]}], "\n", "  ", 
+         "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
    RowBox[{
-    RowBox[{"ratioComponents", " ", "=", " ", 
-     RowBox[{"{", 
-      RowBox[{"\"\<Correction\>\"", ",", " ", "\"\<Total\>\""}], "}"}]}], 
-    ";"}], "\n", 
+    RowBox[{"ratioDiagnosticRows", " ", "=", " ", 
+     RowBox[{"Flatten", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Table", "[", "\n", "    ", 
+        RowBox[{
+         RowBox[{"With", "[", "\n", "      ", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"s", " ", "=", " ", 
+             RowBox[{"ratioSeriesStats", "[", 
+              RowBox[{"ratioSeries", "[", 
+               RowBox[{
+               "mode", ",", " ", "component", ",", " ", "axis", ",", " ", 
+                "model", ",", " ", "particle"}], "]"}], "]"}]}], "}"}], ",", 
+           "\n", "      ", 
+           RowBox[{"{", 
+            RowBox[{
+            "mode", ",", " ", "component", ",", " ", "axis", ",", " ", 
+             "model", ",", " ", "particle", ",", " ", 
+             RowBox[{"Sequence", " ", "@@", " ", "s"}]}], "}"}]}], "\n", 
+          "    ", "]"}], ",", "\n", "    ", 
+         RowBox[{"{", 
+          RowBox[{"mode", ",", " ", "ratioModes"}], "}"}], ",", "\n", "    ", 
+         RowBox[{"{", 
+          RowBox[{"component", ",", " ", "ratioComponents"}], "}"}], ",", 
+         "\n", "    ", 
+         RowBox[{"{", 
+          RowBox[{"axis", ",", " ", "ratioAxes"}], "}"}], ",", "\n", "    ", 
+         RowBox[{"{", 
+          RowBox[{"model", ",", " ", "ratioModels"}], "}"}], ",", "\n", 
+         "    ", 
+         RowBox[{"{", 
+          RowBox[{"particle", ",", " ", "ratioParticles"}], "}"}]}], "\n", 
+        "  ", "]"}], ",", "\n", "  ", "4"}], "\n", "]"}]}], ";"}], "\n", "\n", 
    RowBox[{
-    RowBox[{"ratioAxes", " ", "=", " ", 
-     RowBox[{"{", 
-      RowBox[{"\"\<Mt\>\"", ",", " ", "\"\<Y\>\""}], "}"}]}], ";"}], "\n", 
+    RowBox[{"RatioDataAvailabilityTable", " ", "=", " ", 
+     RowBox[{"Grid", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Prepend", "[", "\n", "    ", 
+        RowBox[{"ratioDiagnosticRows", ",", "\n", "    ", 
+         RowBox[{"{", 
+          
+          RowBox[{"\"\<Mode\>\"", ",", " ", "\"\<Component\>\"", ",", 
+           " ", "\"\<Axis\>\"", ",", " ", "\"\<Model\>\"", ",", 
+           " ", "\"\<Particle\>\"", ",", " ", "\"\<N\>\"", ",", 
+           " ", "\"\<xmin\>\"", ",", " ", "\"\<xmax\>\"", ",", 
+           " ", "\"\<ymin\>\"", ",", " ", "\"\<ymax\>\""}], "}"}]}], "\n", 
+        "  ", "]"}], ",", "\n", "  ", 
+       RowBox[{"Frame", " ", "->", " ", "All"}], ",", "\n", "  ", 
+       RowBox[{"Alignment", " ", "->", " ", "Center"}], ",", "\n", "  ", 
+       RowBox[{"Background", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"None", ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"LightGray", ",", " ", "None"}], "}"}]}], "}"}]}]}], "\n", 
+      "]"}]}], ";"}], "\n", "\n", 
    RowBox[{
-    RowBox[{"ratioParticles", " ", "=", " ", 
-     RowBox[{"{", 
-      RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<PionPlus\>\"", ",", 
-       " ", "\"\<PionMinus\>\""}], "}"}]}], ";"}], "\n", "\n", 
+    RowBox[{
+     RowBox[{"ratioMaxAbsDifference", "[", 
+      RowBox[{"a_", ",", " ", "b_"}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "ra", "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"ra", " ", "=", " ", 
+         RowBox[{"ratioDivideSeries", "[", 
+          RowBox[{"a", ",", " ", "b"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Length", "[", "ra", "]"}], " ", "==", " ", "0"}], ",", 
+          "\n", "    ", 
+          RowBox[{"Missing", "[", "\"\<NoComparableData\>\"", "]"}], ",", 
+          "\n", "    ", 
+          RowBox[{"Max", "[", 
+           RowBox[{"Abs", "[", 
+            RowBox[{
+             RowBox[{"ra", "[", 
+              RowBox[{"[", 
+               RowBox[{"All", ",", " ", "2"}], "]"}], "]"}], " ", "-", " ", 
+             "1."}], "]"}], "]"}]}], "\n", "  ", "]"}]}]}], "\n", "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ratioModeDifferenceRows", " ", "=", " ", 
+     RowBox[{"Flatten", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Table", "[", "\n", "    ", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "component", ",", " ", "axis", ",", " ", "model", ",", " ", 
+           "particle", ",", "\n", "      ", 
+           RowBox[{"ratioMaxAbsDifference", "[", "\n", "        ", 
+            RowBox[{
+             RowBox[{"ratioSeries", "[", 
+              
+              RowBox[{"\"\<Fitted\>\"", ",", " ", "component", ",", " ", 
+               "axis", ",", " ", "model", ",", " ", "particle"}], "]"}], ",", 
+             "\n", "        ", 
+             RowBox[{"ratioSeries", "[", 
+              
+              RowBox[{"\"\<Vacuum\>\"", ",", " ", "component", ",", " ", 
+               "axis", ",", " ", "model", ",", " ", "particle"}], "]"}]}], 
+            "\n", "      ", "]"}]}], "}"}], ",", "\n", "    ", 
+         RowBox[{"{", 
+          RowBox[{"component", ",", " ", "ratioComponents"}], "}"}], ",", 
+         "\n", "    ", 
+         RowBox[{"{", 
+          RowBox[{"axis", ",", " ", "ratioAxes"}], "}"}], ",", "\n", "    ", 
+         RowBox[{"{", 
+          RowBox[{"model", ",", " ", "ratioModels"}], "}"}], ",", "\n", 
+         "    ", 
+         RowBox[{"{", 
+          RowBox[{"particle", ",", " ", "ratioParticles"}], "}"}]}], "\n", 
+        "  ", "]"}], ",", "\n", "  ", "3"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"RatioVacuumFittedDifferenceTable", " ", "=", " ", 
+     RowBox[{"Grid", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Prepend", "[", "\n", "    ", 
+        RowBox[{"ratioModeDifferenceRows", ",", "\n", "    ", 
+         RowBox[{"{", 
+          
+          RowBox[{"\"\<Component\>\"", ",", " ", "\"\<Axis\>\"", ",", 
+           " ", "\"\<Model\>\"", ",", " ", "\"\<Particle\>\"", ",", 
+           " ", "\"\<max |Fitted/Vacuum - 1|\>\""}], "}"}]}], "\n", "  ", 
+        "]"}], ",", "\n", "  ", 
+       RowBox[{"Frame", " ", "->", " ", "All"}], ",", "\n", "  ", 
+       RowBox[{"Alignment", " ", "->", " ", "Center"}], ",", "\n", "  ", 
+       RowBox[{"Background", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"None", ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"LightGray", ",", " ", "None"}], "}"}]}], "}"}]}]}], "\n", 
+      "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[1574]:=",ExpressionUUID->"14d3fc1f-cd40-5c49-8442-c380447b977b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"--", 
+    RowBox[{"--", 
+     RowBox[{"--", 
+      RowBox[{"--", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
+}]}]}]}]}], " ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"4.", " ", "Build", " ", "plot", " ", "associations"}], 
+   "                                   ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"--", 
+    RowBox[{"--", 
+     RowBox[{"--", 
+      RowBox[{"--", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
+}]}]}]}]}], " ", "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "\n", "  ", 
+     RowBox[{
+     "AllMassTypeRatioPlots", ",", "\n", "  ", "AllVacuumFittedRatioPlots", ",",
+       "\n", "  ", "AllMassTypeRatioPlotList", ",", "\n", "  ", 
+      "AllVacuumFittedRatioPlotList"}], "\n", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ratioKey", "[", "parts__", "]"}], " ", ":=", " ", 
+     RowBox[{"StringRiffle", "[", 
+      RowBox[{
+       RowBox[{"ToString", " ", "/@", " ", 
+        RowBox[{"{", "parts", "}"}]}], ",", " ", "\"\<||\>\""}], "]"}]}], 
+    ";"}], "\n", "\n", 
    RowBox[{
     RowBox[{"AllMassTypeRatioPlots", " ", "=", " ", 
      RowBox[{"<|", "|>"}]}], ";"}], "\n", "\n", 
@@ -1235,7 +1424,7 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"ratioFetch", "[", 
       RowBox[{"assoc_Association", ",", " ", "parts__"}], "]"}], " ", ":=", 
-     "\n", "  ", 
+     " ", 
      RowBox[{"Lookup", "[", 
       RowBox[{"assoc", ",", " ", 
        RowBox[{"ratioKey", "[", "parts", "]"}], ",", " ", 
@@ -1243,65 +1432,6 @@ Cell[BoxData[
         RowBox[{"\"\<KeyAbsent\>\"", ",", " ", 
          RowBox[{"ratioKey", "[", "parts", "]"}]}], "]"}]}], "]"}]}], ";"}], 
    "\n", "\n", 
-   RowBox[{"(*", " ", 
-    RowBox[{"Common", " ", 
-     RowBox[{"aliases", "."}]}], " ", "*)"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"ProtonCorrectionMtRatiosVacuumPlot", " ", "=", "\n", "  ", 
-     RowBox[{"ratioFetch", "[", 
-      RowBox[{
-      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
-       " ", "\"\<Correction\>\"", ",", " ", "\"\<Mt\>\"", ",", 
-       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"ProtonCorrectionYRatiosVacuumPlot", " ", "=", "\n", "  ", 
-     RowBox[{"ratioFetch", "[", 
-      RowBox[{
-      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
-       " ", "\"\<Correction\>\"", ",", " ", "\"\<Y\>\"", ",", 
-       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"ProtonCorrectionMtRatiosFittedPlot", " ", "=", "\n", "  ", 
-     RowBox[{"ratioFetch", "[", 
-      RowBox[{
-      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
-       " ", "\"\<Correction\>\"", ",", " ", "\"\<Mt\>\"", ",", 
-       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"ProtonCorrectionYRatiosFittedPlot", " ", "=", "\n", "  ", 
-     RowBox[{"ratioFetch", "[", 
-      RowBox[{
-      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
-       " ", "\"\<Correction\>\"", ",", " ", "\"\<Y\>\"", ",", 
-       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"ProtonTotalMtRatiosVacuumPlot", " ", "=", "\n", "  ", 
-     RowBox[{"ratioFetch", "[", 
-      RowBox[{
-      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
-       " ", "\"\<Total\>\"", ",", " ", "\"\<Mt\>\"", ",", 
-       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"ProtonTotalYRatiosVacuumPlot", " ", "=", "\n", "  ", 
-     RowBox[{"ratioFetch", "[", 
-      RowBox[{
-      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
-       " ", "\"\<Total\>\"", ",", " ", "\"\<Y\>\"", ",", 
-       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"ProtonTotalMtRatiosFittedPlot", " ", "=", "\n", "  ", 
-     RowBox[{"ratioFetch", "[", 
-      RowBox[{
-      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
-       " ", "\"\<Total\>\"", ",", " ", "\"\<Mt\>\"", ",", 
-       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", "\n", 
-   RowBox[{
-    RowBox[{"ProtonTotalYRatiosFittedPlot", " ", "=", "\n", "  ", 
-     RowBox[{"ratioFetch", "[", 
-      RowBox[{
-      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
-       " ", "\"\<Total\>\"", ",", " ", "\"\<Y\>\"", ",", 
-       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", "\n", 
    RowBox[{
     RowBox[{"AllMassTypeRatioPlotList", " ", "=", " ", 
      RowBox[{"Values", "[", "AllMassTypeRatioPlots", "]"}]}], ";"}], "\n", 
@@ -1310,9 +1440,7 @@ Cell[BoxData[
      RowBox[{"Values", "[", "AllVacuumFittedRatioPlots", "]"}]}], ";"}], 
    "\n"}]}]], "Input",
  CellLabel->
-  "In[193]:=",ExpressionUUID->"44c503e7-4b85-5244-8eb3-85951cf34913"],
-
-Cell[CellGroupData[{
+  "In[1580]:=",ExpressionUUID->"a9b8281c-b160-7841-ac81-2a8792d77574"],
 
 Cell[BoxData[
  RowBox[{
@@ -1349,8 +1477,8 @@ Cell[BoxData[
                     "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
 }]}]}]}]}], " ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
-   RowBox[{"Summary", " ", "table"}], 
-   "                                                 ", "*)"}], "\n", 
+   RowBox[{"5.", " ", "Named", " ", "aliases"}], 
+   "                                             ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
    RowBox[{"--", 
     RowBox[{"--", 
@@ -1385,375 +1513,404 @@ Cell[BoxData[
 }]}]}]}]}], " ", "*)"}], "\n", "\n", 
   RowBox[{
    RowBox[{
-    RowBox[{"RatiosPlotSummaryTable", " ", "=", " ", 
-     RowBox[{"ratioMakeGrid", "[", "\n", "  ", 
-      RowBox[{"Prepend", "[", "\n", "    ", 
-       RowBox[{
-        RowBox[{"Flatten", "[", "\n", "      ", 
-         RowBox[{
-          RowBox[{"Table", "[", "\n", "        ", 
-           RowBox[{
-            RowBox[{"With", "[", "\n", "          ", 
-             RowBox[{
-              RowBox[{"{", "\n", "            ", 
-               RowBox[{"plot", " ", "=", " ", 
-                RowBox[{"ratioFetch", "[", 
-                 RowBox[{
-                 "AllMassTypeRatioPlots", ",", " ", "mode", ",", " ", 
-                  "component", ",", " ", "axis", ",", " ", "particle"}], 
-                 "]"}]}], "\n", "          ", "}"}], ",", "\n", "          ", 
-              RowBox[{"{", "\n", "            ", 
-               RowBox[{
-               "mode", ",", "\n", "            ", "component", ",", "\n", 
-                "            ", "axis", ",", "\n", "            ", "particle",
-                 ",", "\n", "            ", 
-                RowBox[{"If", "[", 
-                 RowBox[{
-                  RowBox[{"ratioPlotObjectQ", "[", "plot", "]"}], ",", 
-                  " ", "\"\<OK\>\"", ",", " ", "\"\<Missing\>\""}], "]"}]}], 
-               "\n", "          ", "}"}]}], "\n", "        ", "]"}], ",", 
-            "\n", "        ", 
-            RowBox[{"{", 
-             RowBox[{"mode", ",", " ", "ratioModes"}], "}"}], ",", "\n", 
-            "        ", 
-            RowBox[{"{", 
-             RowBox[{"component", ",", " ", "ratioComponents"}], "}"}], ",", 
-            "\n", "        ", 
-            RowBox[{"{", 
-             RowBox[{"axis", ",", " ", "ratioAxes"}], "}"}], ",", "\n", 
-            "        ", 
-            RowBox[{"{", 
-             RowBox[{"particle", ",", " ", "ratioParticles"}], "}"}]}], "\n", 
-           "      ", "]"}], ",", "\n", "      ", "3"}], "\n", "    ", "]"}], ",",
-         "\n", "    ", 
-        RowBox[{"{", 
-         RowBox[{"\"\<Mode\>\"", ",", " ", "\"\<Component\>\"", ",", 
-          " ", "\"\<Axis\>\"", ",", " ", "\"\<Particle\>\"", ",", 
-          " ", "\"\<Status\>\""}], "}"}]}], "\n", "  ", "]"}], "\n", "]"}]}], 
-    ";"}], "\n", "\n", 
+    RowBox[{"ClearAll", "[", "\n", "  ", 
+     RowBox[{
+     "ProtonCorrectionMtRatiosVacuumPlot", ",", "\n", "  ", 
+      "ProtonCorrectionYRatiosVacuumPlot", ",", "\n", "  ", 
+      "ProtonCorrectionMtRatiosFittedPlot", ",", "\n", "  ", 
+      "ProtonCorrectionYRatiosFittedPlot", ",", "\n", "  ", 
+      "ProtonTotalMtRatiosVacuumPlot", ",", "\n", "  ", 
+      "ProtonTotalYRatiosVacuumPlot", ",", "\n", "  ", 
+      "ProtonTotalMtRatiosFittedPlot", ",", "\n", "  ", 
+      "ProtonTotalYRatiosFittedPlot", ",", "\n", "\n", "  ", 
+      "PionPCorrectionMtRatiosVacuumPlot", ",", "\n", "  ", 
+      "PionPCorrectionYRatiosVacuumPlot", ",", "\n", "  ", 
+      "PionPCorrectionMtRatiosFittedPlot", ",", "\n", "  ", 
+      "PionPCorrectionYRatiosFittedPlot", ",", "\n", "  ", 
+      "PionPTotalMtRatiosVacuumPlot", ",", "\n", "  ", 
+      "PionPTotalYRatiosVacuumPlot", ",", "\n", "  ", 
+      "PionPTotalMtRatiosFittedPlot", ",", "\n", "  ", 
+      "PionPTotalYRatiosFittedPlot", ",", "\n", "\n", "  ", 
+      "PionMCorrectionMtRatiosVacuumPlot", ",", "\n", "  ", 
+      "PionMCorrectionYRatiosVacuumPlot", ",", "\n", "  ", 
+      "PionMCorrectionMtRatiosFittedPlot", ",", "\n", "  ", 
+      "PionMCorrectionYRatiosFittedPlot", ",", "\n", "  ", 
+      "PionMTotalMtRatiosVacuumPlot", ",", "\n", "  ", 
+      "PionMTotalYRatiosVacuumPlot", ",", "\n", "  ", 
+      "PionMTotalMtRatiosFittedPlot", ",", "\n", "  ", 
+      "PionMTotalYRatiosFittedPlot", ",", "\n", "\n", "  ", 
+      "ProtonCorrectionMtVacuumFittedRatiosPlot", ",", "\n", "  ", 
+      "PionPCorrectionMtVacuumFittedRatiosPlot", ",", "\n", "  ", 
+      "PionMCorrectionMtVacuumFittedRatiosPlot", ",", "\n", "  ", 
+      "ProtonTotalMtVacuumFittedRatiosPlot", ",", "\n", "  ", 
+      "PionPTotalMtVacuumFittedRatiosPlot", ",", "\n", "  ", 
+      "PionMTotalMtVacuumFittedRatiosPlot"}], "\n", "]"}], ";"}], "\n", "\n", 
    RowBox[{
-    RowBox[{"Print", "[", "\"\<Ratio plots summary:\>\"", "]"}], ";"}], "\n", 
-   "RatiosPlotSummaryTable", "\n", "\n", 
-   RowBox[{
-    RowBox[{
-    "Print", "[", "\"\<Main model/Dirac ratio plots are stored in \
-AllMassTypeRatioPlots.\>\"", "]"}], ";"}], "\n", 
-   RowBox[{
-    RowBox[{
-    "Print", "[", "\"\<Fitted/Vacuum diagnostic ratio plots are stored in \
-AllVacuumFittedRatioPlots.\>\"", "]"}], ";"}], "\n"}]}]], "Input",
- CellLabel->
-  "In[212]:=",ExpressionUUID->"0c8634cd-9879-3e44-9470-709cd1f6b1ee"],
-
-Cell[BoxData["\<\"Ratio plots summary:\"\>"], "Print",
- CellChangeTimes->{3.988249978601433*^9},
- CellLabel->
-  "During evaluation of \
-In[212]:=",ExpressionUUID->"83a6cc9b-5983-7d42-9cc2-e6f11524b488"],
-
-Cell[BoxData[
- TagBox[GridBox[{
-    {"\<\"Mode\"\>", "\<\"Component\"\>", "\<\"Axis\"\>", "\<\"Particle\"\>", \
-"\<\"Status\"\>"},
-    {"\<\"Vacuum\"\>", "\<\"Correction\"\>", "\<\"Mt\"\>", "\<\"Proton\"\>", \
-"\<\"Missing\"\>"},
-    {"\<\"Vacuum\"\>", "\<\"Correction\"\>", "\<\"Mt\"\>", \
-"\<\"PionPlus\"\>", "\<\"Missing\"\>"},
-    {"\<\"Vacuum\"\>", "\<\"Correction\"\>", "\<\"Mt\"\>", \
-"\<\"PionMinus\"\>", "\<\"Missing\"\>"},
-    {"\<\"Vacuum\"\>", "\<\"Correction\"\>", "\<\"Y\"\>", "\<\"Proton\"\>", "\
-\<\"Missing\"\>"},
-    {"\<\"Vacuum\"\>", "\<\"Correction\"\>", "\<\"Y\"\>", "\<\"PionPlus\"\>", \
-"\<\"Missing\"\>"},
-    {"\<\"Vacuum\"\>", "\<\"Correction\"\>", "\<\"Y\"\>", \
-"\<\"PionMinus\"\>", "\<\"Missing\"\>"},
-    {"\<\"Vacuum\"\>", "\<\"Total\"\>", "\<\"Mt\"\>", "\<\"Proton\"\>", \
-"\<\"Missing\"\>"},
-    {"\<\"Vacuum\"\>", "\<\"Total\"\>", "\<\"Mt\"\>", "\<\"PionPlus\"\>", "\<\
-\"Missing\"\>"},
-    {"\<\"Vacuum\"\>", "\<\"Total\"\>", "\<\"Mt\"\>", "\<\"PionMinus\"\>", \
-"\<\"Missing\"\>"},
-    {"\<\"Vacuum\"\>", "\<\"Total\"\>", "\<\"Y\"\>", "\<\"Proton\"\>", \
-"\<\"Missing\"\>"},
-    {"\<\"Vacuum\"\>", "\<\"Total\"\>", "\<\"Y\"\>", "\<\"PionPlus\"\>", \
-"\<\"Missing\"\>"},
-    {"\<\"Vacuum\"\>", "\<\"Total\"\>", "\<\"Y\"\>", "\<\"PionMinus\"\>", "\<\
-\"Missing\"\>"},
-    {"\<\"Fitted\"\>", "\<\"Correction\"\>", "\<\"Mt\"\>", "\<\"Proton\"\>", \
-"\<\"Missing\"\>"},
-    {"\<\"Fitted\"\>", "\<\"Correction\"\>", "\<\"Mt\"\>", \
-"\<\"PionPlus\"\>", "\<\"Missing\"\>"},
-    {"\<\"Fitted\"\>", "\<\"Correction\"\>", "\<\"Mt\"\>", \
-"\<\"PionMinus\"\>", "\<\"Missing\"\>"},
-    {"\<\"Fitted\"\>", "\<\"Correction\"\>", "\<\"Y\"\>", "\<\"Proton\"\>", "\
-\<\"Missing\"\>"},
-    {"\<\"Fitted\"\>", "\<\"Correction\"\>", "\<\"Y\"\>", "\<\"PionPlus\"\>", \
-"\<\"Missing\"\>"},
-    {"\<\"Fitted\"\>", "\<\"Correction\"\>", "\<\"Y\"\>", \
-"\<\"PionMinus\"\>", "\<\"Missing\"\>"},
-    {"\<\"Fitted\"\>", "\<\"Total\"\>", "\<\"Mt\"\>", "\<\"Proton\"\>", \
-"\<\"Missing\"\>"},
-    {"\<\"Fitted\"\>", "\<\"Total\"\>", "\<\"Mt\"\>", "\<\"PionPlus\"\>", "\<\
-\"Missing\"\>"},
-    {"\<\"Fitted\"\>", "\<\"Total\"\>", "\<\"Mt\"\>", "\<\"PionMinus\"\>", \
-"\<\"Missing\"\>"},
-    {"\<\"Fitted\"\>", "\<\"Total\"\>", "\<\"Y\"\>", "\<\"Proton\"\>", \
-"\<\"Missing\"\>"},
-    {"\<\"Fitted\"\>", "\<\"Total\"\>", "\<\"Y\"\>", "\<\"PionPlus\"\>", \
-"\<\"Missing\"\>"},
-    {"\<\"Fitted\"\>", "\<\"Total\"\>", "\<\"Y\"\>", "\<\"PionMinus\"\>", "\<\
-\"Missing\"\>"}
-   },
-   AutoDelete->False,
-   GridBoxAlignment->{"Columns" -> {{Center}}},
-   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
-       GrayLevel[0.85], None}},
-   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
-   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
-  "Grid"]], "Output",
- CellChangeTimes->{3.9882499786024303`*^9},
- CellLabel->
-  "Out[214]=",ExpressionUUID->"598a81d6-96e3-9a47-b2ce-7268e7d4be49"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData["\<\"Main model/Dirac ratio plots are stored in \
-AllMassTypeRatioPlots.\"\>"], "Print",
- CellChangeTimes->{3.9882499786044292`*^9},
- CellLabel->
-  "During evaluation of \
-In[212]:=",ExpressionUUID->"fa955e63-fac4-b14f-a5cc-eebb555364c6"],
-
-Cell[BoxData["\<\"Fitted/Vacuum diagnostic ratio plots are stored in \
-AllVacuumFittedRatioPlots.\"\>"], "Print",
- CellChangeTimes->{3.9882499786044292`*^9},
- CellLabel->
-  "During evaluation of \
-In[212]:=",ExpressionUUID->"8184b14b-e862-6540-9de1-c0dbeacfa9bf"]
-}, Open  ]]
-}, Open  ]],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", 
-  RowBox[{
-  "(*", " ", "Export", 
-   "                                                        ", "*)"}], "\n", 
-  RowBox[{"(*", " ", 
-   RowBox[{"--", 
-    RowBox[{"--", 
-     RowBox[{"--", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"--", 
-          RowBox[{"--", 
-           RowBox[{"--", 
-            RowBox[{"--", 
-             RowBox[{"--", 
-              RowBox[{"--", 
-               RowBox[{"--", 
-                RowBox[{"--", 
-                 RowBox[{"--", 
-                  RowBox[{"--", 
-                   RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{"--", 
-                    RowBox[{
-                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
-}]}]}]}]}], " ", "*)"}], "\n", "\n", 
-  RowBox[{
-   RowBox[{
-    RowBox[{
-     RowBox[{"exportRatioPlots", "[", "]"}], " ", ":=", " ", 
-     RowBox[{"Module", "[", 
+    RowBox[{"ProtonCorrectionMtRatiosVacuumPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
       RowBox[{
-       RowBox[{"{", 
-        RowBox[{
-        "dir", ",", " ", "safeName", ",", " ", "files1", ",", " ", "files2"}],
-         "}"}], ",", "\n", "\n", "  ", 
-       RowBox[{
-        RowBox[{"dir", " ", "=", " ", 
-         RowBox[{"FileNameJoin", "[", 
-          RowBox[{"{", 
-           RowBox[{
-            RowBox[{"NotebookDirectory", "[", "]"}], ",", 
-            " ", "\"\<RatiosPlotsExport\>\""}], "}"}], "]"}]}], ";", "\n", 
-        "\n", "  ", 
-        RowBox[{"If", "[", 
-         RowBox[{
-          RowBox[{"!", 
-           RowBox[{"DirectoryQ", "[", "dir", "]"}]}], ",", "\n", "    ", 
-          RowBox[{"CreateDirectory", "[", "dir", "]"}]}], "\n", "  ", "]"}], ";",
-         "\n", "\n", "  ", 
-        RowBox[{
-         RowBox[{"safeName", "[", "s_", "]"}], " ", ":=", " ", 
-         RowBox[{"StringReplace", "[", "\n", "    ", 
-          RowBox[{
-           RowBox[{"ToString", "[", "s", "]"}], ",", "\n", "    ", 
-           RowBox[{"{", "\n", "      ", 
-            RowBox[{
-             RowBox[{"\"\< \>\"", " ", "->", " ", "\"\<\>\""}], ",", "\n", 
-             "      ", 
-             RowBox[{"\"\</\>\"", " ", "->", " ", "\"\<Over\>\""}], ",", "\n",
-              "      ", 
-             RowBox[{"\"\<[\>\"", " ", "->", " ", "\"\<\>\""}], ",", "\n", 
-             "      ", 
-             RowBox[{"\"\<]\>\"", " ", "->", " ", "\"\<\>\""}], ",", "\n", 
-             "      ", 
-             RowBox[{"\"\<,\>\"", " ", "->", " ", "\"\<_\>\""}], ",", "\n", 
-             "      ", 
-             RowBox[{"\"\<|\>\"", " ", "->", " ", "\"\<_\>\""}]}], "\n", 
-            "    ", "}"}]}], "\n", "  ", "]"}]}], ";", "\n", "\n", "  ", 
-        RowBox[{"files1", " ", "=", " ", 
-         RowBox[{"KeyValueMap", "[", "\n", "    ", 
-          RowBox[{
-           RowBox[{"Function", "[", 
-            RowBox[{
-             RowBox[{"{", 
-              RowBox[{"key", ",", " ", "plot"}], "}"}], ",", "\n", "      ", 
-             RowBox[{"If", "[", 
-              RowBox[{
-               RowBox[{"ratioPlotObjectQ", "[", "plot", "]"}], ",", "\n", 
-               "        ", 
-               RowBox[{"With", "[", "\n", "          ", 
-                RowBox[{
-                 RowBox[{"{", "\n", "            ", 
-                  RowBox[{"file", " ", "=", " ", 
-                   RowBox[{"FileNameJoin", "[", "\n", "              ", 
-                    RowBox[{"{", 
-                    RowBox[{"dir", ",", " ", 
-                    RowBox[{"\"\<Ratio_\>\"", " ", "<>", " ", 
-                    RowBox[{"safeName", "[", "key", "]"}], " ", "<>", 
-                    " ", "\"\<.png\>\""}]}], "}"}], "\n", "            ", 
-                    "]"}]}], "\n", "          ", "}"}], ",", "\n", 
-                 "          ", 
-                 RowBox[{
-                  RowBox[{"Export", "[", 
-                   RowBox[{"file", ",", " ", "plot"}], "]"}], ";", "\n", 
-                  "          ", "file"}]}], "\n", "        ", "]"}], ",", 
-               "\n", "        ", "Nothing"}], "\n", "      ", "]"}]}], "\n", 
-            "    ", "]"}], ",", "\n", "    ", "AllMassTypeRatioPlots"}], "\n",
-           "  ", "]"}]}], ";", "\n", "\n", "  ", 
-        RowBox[{"files2", " ", "=", " ", 
-         RowBox[{"KeyValueMap", "[", "\n", "    ", 
-          RowBox[{
-           RowBox[{"Function", "[", 
-            RowBox[{
-             RowBox[{"{", 
-              RowBox[{"key", ",", " ", "plot"}], "}"}], ",", "\n", "      ", 
-             RowBox[{"If", "[", 
-              RowBox[{
-               RowBox[{"ratioPlotObjectQ", "[", "plot", "]"}], ",", "\n", 
-               "        ", 
-               RowBox[{"With", "[", "\n", "          ", 
-                RowBox[{
-                 RowBox[{"{", "\n", "            ", 
-                  RowBox[{"file", " ", "=", " ", 
-                   RowBox[{"FileNameJoin", "[", "\n", "              ", 
-                    RowBox[{"{", 
-                    RowBox[{"dir", ",", " ", 
-                    RowBox[{"\"\<FittedOverVacuum_\>\"", " ", "<>", " ", 
-                    RowBox[{"safeName", "[", "key", "]"}], " ", "<>", 
-                    " ", "\"\<.png\>\""}]}], "}"}], "\n", "            ", 
-                    "]"}]}], "\n", "          ", "}"}], ",", "\n", 
-                 "          ", 
-                 RowBox[{
-                  RowBox[{"Export", "[", 
-                   RowBox[{"file", ",", " ", "plot"}], "]"}], ";", "\n", 
-                  "          ", "file"}]}], "\n", "        ", "]"}], ",", 
-               "\n", "        ", "Nothing"}], "\n", "      ", "]"}]}], "\n", 
-            "    ", "]"}], ",", "\n", "    ", "AllVacuumFittedRatioPlots"}], 
-          "\n", "  ", "]"}]}], ";", "\n", "\n", "  ", 
-        RowBox[{"Join", "[", 
-         RowBox[{"files1", ",", " ", "files2"}], "]"}]}]}], "\n", "]"}]}], 
-    ";"}], "\n"}]}]], "Input",
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
+       " ", "\"\<Correction\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectionYRatiosVacuumPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
+       " ", "\"\<Correction\>\"", ",", " ", "\"\<Y\>\"", ",", 
+       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectionMtRatiosFittedPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
+       " ", "\"\<Correction\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectionYRatiosFittedPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
+       " ", "\"\<Correction\>\"", ",", " ", "\"\<Y\>\"", ",", 
+       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonTotalMtRatiosVacuumPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
+       " ", "\"\<Total\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonTotalYRatiosVacuumPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
+       " ", "\"\<Total\>\"", ",", " ", "\"\<Y\>\"", ",", 
+       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonTotalMtRatiosFittedPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
+       " ", "\"\<Total\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonTotalYRatiosFittedPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
+       " ", "\"\<Total\>\"", ",", " ", "\"\<Y\>\"", ",", 
+       " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrectionMtRatiosVacuumPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
+       " ", "\"\<Correction\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+       " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrectionYRatiosVacuumPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
+       " ", "\"\<Correction\>\"", ",", " ", "\"\<Y\>\"", ",", 
+       " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrectionMtRatiosFittedPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
+       " ", "\"\<Correction\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+       " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrectionYRatiosFittedPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
+       " ", "\"\<Correction\>\"", ",", " ", "\"\<Y\>\"", ",", 
+       " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPTotalMtRatiosVacuumPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
+       " ", "\"\<Total\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+       " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPTotalYRatiosVacuumPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
+       " ", "\"\<Total\>\"", ",", " ", "\"\<Y\>\"", ",", 
+       " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPTotalMtRatiosFittedPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
+       " ", "\"\<Total\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+       " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPTotalYRatiosFittedPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
+       " ", "\"\<Total\>\"", ",", " ", "\"\<Y\>\"", ",", 
+       " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrectionMtRatiosVacuumPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
+       " ", "\"\<Correction\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+       " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrectionYRatiosVacuumPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
+       " ", "\"\<Correction\>\"", ",", " ", "\"\<Y\>\"", ",", 
+       " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrectionMtRatiosFittedPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
+       " ", "\"\<Correction\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+       " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrectionYRatiosFittedPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
+       " ", "\"\<Correction\>\"", ",", " ", "\"\<Y\>\"", ",", 
+       " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMTotalMtRatiosVacuumPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
+       " ", "\"\<Total\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+       " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMTotalYRatiosVacuumPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Vacuum\>\"", ",", 
+       " ", "\"\<Total\>\"", ",", " ", "\"\<Y\>\"", ",", 
+       " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMTotalMtRatiosFittedPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
+       " ", "\"\<Total\>\"", ",", " ", "\"\<Mt\>\"", ",", 
+       " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMTotalYRatiosFittedPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllMassTypeRatioPlots", ",", " ", "\"\<Fitted\>\"", ",", 
+       " ", "\"\<Total\>\"", ",", " ", "\"\<Y\>\"", ",", 
+       " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ProtonCorrectionMtVacuumFittedRatiosPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllVacuumFittedRatioPlots", ",", " ", "\"\<Correction\>\"", ",", 
+       " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPCorrectionMtVacuumFittedRatiosPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllVacuumFittedRatioPlots", ",", " ", "\"\<Correction\>\"", ",", 
+       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMCorrectionMtVacuumFittedRatiosPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllVacuumFittedRatioPlots", ",", " ", "\"\<Correction\>\"", ",", 
+       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ProtonTotalMtVacuumFittedRatiosPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllVacuumFittedRatioPlots", ",", " ", "\"\<Total\>\"", ",", 
+       " ", "\"\<Mt\>\"", ",", " ", "\"\<Proton\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPTotalMtVacuumFittedRatiosPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllVacuumFittedRatioPlots", ",", " ", "\"\<Total\>\"", ",", 
+       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionPlus\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMTotalMtVacuumFittedRatiosPlot", " ", "=", " ", 
+     RowBox[{"ratioFetch", "[", 
+      RowBox[{
+      "AllVacuumFittedRatioPlots", ",", " ", "\"\<Total\>\"", ",", 
+       " ", "\"\<Mt\>\"", ",", " ", "\"\<PionMinus\>\""}], "]"}]}], ";"}], 
+   "\n"}]}]], "Input",
  CellLabel->
-  "In[217]:=",ExpressionUUID->"0888f390-bd0c-b84c-a3b8-0c5a93c5aaad"],
+  "In[1589]:=",ExpressionUUID->"f188f9ee-0e80-cc4c-8c25-84fb6038fd13"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
   RowBox[{"(*", " ", 
-   RowBox[{
-   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
-     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
-   "*)"}], "\n", 
+   RowBox[{"--", 
+    RowBox[{"--", 
+     RowBox[{"--", 
+      RowBox[{"--", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
+}]}]}]}]}], " ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
-   RowBox[{"AUTOMATIC", " ", "EXPORT"}], 
-   "                                              ", "*)"}], "\n", 
+   RowBox[{"6.", " ", "Export"}], 
+   "                                                    ", "*)"}], "\n", 
   RowBox[{"(*", " ", 
-   RowBox[{
-   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
-     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
-   "*)"}], "\n", "\n", 
+   RowBox[{"--", 
+    RowBox[{"--", 
+     RowBox[{"--", 
+      RowBox[{"--", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]\
+}]}]}]}]}], " ", "*)"}], "\n", "\n", 
   RowBox[{
    RowBox[{
-    RowBox[{"ratioExportFiles", " ", "=", " ", 
-     RowBox[{"exportRatioPlots", "[", "]"}]}], ";"}], "\n", 
+    RowBox[{"ClearAll", "[", 
+     RowBox[{
+     "RatioPlotsToExport", ",", " ", "ExportedRatioPlots", ",", " ", 
+      "ratioSafeFileName"}], "]"}], ";"}], "\n", "\n", 
    RowBox[{
-    RowBox[{"Print", "[", 
-     RowBox[{"\"\<Ratio plots exported: \>\"", ",", " ", 
-      RowBox[{"Length", "[", "ratioExportFiles", "]"}], ",", 
-      " ", "\"\< files.\>\""}], "]"}], ";"}]}]}]], "Input",
+    RowBox[{
+     RowBox[{"ratioSafeFileName", "[", 
+      RowBox[{"key_String", ",", " ", "prefix_String"}], "]"}], " ", ":=", 
+     "\n", "  ", 
+     RowBox[{"prefix", " ", "<>", " ", "\"\<_\>\"", " ", "<>", " ", 
+      RowBox[{"StringReplace", "[", 
+       RowBox[{"key", ",", " ", 
+        RowBox[{"\"\<||\>\"", " ", "->", " ", "\"\<_\>\""}]}], "]"}], " ", "<>",
+       " ", "\"\<.png\>\""}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"RatioPlotsToExport", " ", "=", " ", 
+     RowBox[{"Join", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Association", " ", "@", " ", 
+        RowBox[{"KeyValueMap", "[", "\n", "    ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"ratioSafeFileName", "[", 
+             RowBox[{"#1", ",", " ", "\"\<MassTypeRatio\>\""}], "]"}], " ", "->",
+             " ", "#2"}], " ", "&"}], ",", "\n", "    ", 
+          "AllMassTypeRatioPlots"}], "\n", "  ", "]"}]}], ",", "\n", "  ", 
+       RowBox[{"Association", " ", "@", " ", 
+        RowBox[{"KeyValueMap", "[", "\n", "    ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"ratioSafeFileName", "[", 
+             RowBox[{"#1", ",", " ", "\"\<VacuumFittedRatio\>\""}], "]"}], 
+            " ", "->", " ", "#2"}], " ", "&"}], ",", "\n", "    ", 
+          "AllVacuumFittedRatioPlots"}], "\n", "  ", "]"}]}]}], "\n", "]"}]}],
+     ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ExportedRatioPlots", " ", "=", " ", 
+     RowBox[{"ratioExportPlots", "[", 
+      RowBox[{"RatioPlotsToExport", ",", " ", "\"\<RatiosPlotsExport\>\""}], 
+      "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+    "Print", "[", "\"\<Ratios Plots finished. Check \
+RatioDataAvailabilityTable and RatioVacuumFittedDifferenceTable if a curve is \
+suspicious.\>\"", "]"}], ";"}]}]}]], "Input",
  CellLabel->
-  "In[218]:=",ExpressionUUID->"6b068755-840f-2943-8a79-c571f672bc9c"],
+  "In[1620]:=",ExpressionUUID->"0b20f778-e493-fe4d-9b93-930e0d4be51b"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  InterpretationBox[
-  RowBox[{"\<\"Ratio plots exported: \"\>", "\[InvisibleSpace]", "0", 
-   "\[InvisibleSpace]", "\<\" files.\"\>"}],
-  SequenceForm["Ratio plots exported: ", 0, " files."],
+  RowBox[{"\<\"Exported \"\>", "\[InvisibleSpace]", "36", 
+   "\[InvisibleSpace]", "\<\" plot files to: \"\>", 
+   "\[InvisibleSpace]", "\<\"C:\\\\Users\\\\nikko\\\\Desktop\\\\Coalescence\\\
+\\Delta With Fit\\\\RatiosPlotsExport\"\>"}],
+  SequenceForm[
+  "Exported ", 36, " plot files to: ", 
+   "C:\\Users\\nikko\\Desktop\\Coalescence\\Delta With \
+Fit\\RatiosPlotsExport"],
   Editable->False]], "Print",
- CellChangeTimes->{3.9882499936352024`*^9},
+ CellChangeTimes->{3.9886873866061554`*^9, 3.9886910760013123`*^9, 
+  3.9887035707344646`*^9},
  CellLabel->
   "During evaluation of \
-In[218]:=",ExpressionUUID->"18a036a4-b598-124a-a082-66f971561c06"]
+In[1620]:=",ExpressionUUID->"44de5378-5b6e-9844-837b-ca2d6a372185"],
+
+Cell[BoxData[
+ RowBox[{"\<\"Ratios Plots finished. Check RatioDataAvailabilityTable and \
+RatioVacuumFittedDifferenceTable if a curve is suspicious.\"\>", 
+  "\[LineSeparator]"}]], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{3.9886873866061554`*^9, 3.9886910760013123`*^9, 
+  3.9887035707354603`*^9, 
+  3.9887041082688465`*^9},ExpressionUUID->"663fe716-71c3-8542-842b-\
+22b828f0c02f"]
+}, Open  ]]
 }, Open  ]]
 },
 WindowSize->{1280, 732},
 WindowMargins->{{-5.5, Automatic}, {Automatic, -5.5}},
+Magnification:>0.9 Inherited,
 FrontEndVersion->"14.3 for Microsoft Windows (64-bit) (July 8, 2025)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"c4efb98e-6158-4944-b9e7-b0432827593e"
@@ -1769,28 +1926,21 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
+Cell[554, 20, 23504, 558, 4296, "Input",ExpressionUUID->"e9420269-dc36-4d4d-8105-14a8bbffc681"],
 Cell[CellGroupData[{
-Cell[576, 22, 3148, 76, 669, "Input",ExpressionUUID->"491d73ae-cefc-3c44-9291-40a3700fac76"],
-Cell[3727, 100, 263, 5, 22, "Print",ExpressionUUID->"1e94ba13-c695-f74f-98f9-21c77aeed640"]
+Cell[24083, 582, 4446, 129, 434, "Input",ExpressionUUID->"2d584855-fe11-9b4e-8e86-a13a886d17d2"],
+Cell[28532, 713, 334, 6, 19, "Print",ExpressionUUID->"5c3ef1fc-8c1a-644a-b31b-b17cf65ca5ab"]
 }, Open  ]],
-Cell[4005, 108, 7754, 216, 1287, "Input",ExpressionUUID->"07e7c5eb-3ad1-d64b-b8d2-51588f976e7b"],
-Cell[11762, 326, 6530, 176, 1255, "Input",ExpressionUUID->"239fe94c-ea74-e740-917b-f5d5e85fbe1f"],
-Cell[18295, 504, 12100, 293, 2901, "Input",ExpressionUUID->"0d03669f-6ef6-5043-a602-cee2c08565c3"],
-Cell[30398, 799, 11892, 292, 2776, "Input",ExpressionUUID->"87a96b76-128a-104a-b172-33f986fcda46"],
-Cell[42293, 1093, 8457, 219, 1484, "Input",ExpressionUUID->"44c503e7-4b85-5244-8eb3-85951cf34913"],
+Cell[28881, 722, 12705, 312, 1886, "Input",ExpressionUUID->"1978077b-de81-904c-9694-c2701da58998"],
+Cell[41589, 1036, 9911, 250, 1661, "Input",ExpressionUUID->"14d3fc1f-cd40-5c49-8442-c380447b977b"],
+Cell[51503, 1288, 5654, 154, 949, "Input",ExpressionUUID->"a9b8281c-b160-7841-ac81-2a8792d77574"],
+Cell[57160, 1444, 13169, 309, 1302, "Input",ExpressionUUID->"f188f9ee-0e80-cc4c-8c25-84fb6038fd13"],
 Cell[CellGroupData[{
-Cell[50775, 1316, 4907, 129, 843, "Input",ExpressionUUID->"0c8634cd-9879-3e44-9470-709cd1f6b1ee"],
-Cell[55685, 1447, 202, 4, 22, "Print",ExpressionUUID->"83a6cc9b-5983-7d42-9cc2-e6f11524b488"],
-Cell[55890, 1453, 2926, 62, 465, "Output",ExpressionUUID->"598a81d6-96e3-9a47-b2ce-7268e7d4be49"],
+Cell[70354, 1757, 4249, 119, 515, "Input",ExpressionUUID->"0b20f778-e493-fe4d-9b93-930e0d4be51b"],
 Cell[CellGroupData[{
-Cell[58841, 1519, 251, 5, 22, "Print",ExpressionUUID->"fa955e63-fac4-b14f-a5cc-eebb555364c6"],
-Cell[59095, 1526, 263, 5, 22, "Print",ExpressionUUID->"8184b14b-e862-6540-9de1-c0dbeacfa9bf"]
+Cell[74628, 1880, 641, 15, 19, "Print",ExpressionUUID->"44de5378-5b6e-9844-837b-ca2d6a372185"],
+Cell[75272, 1897, 418, 9, 35, "Print",ExpressionUUID->"663fe716-71c3-8542-842b-22b828f0c02f"]
 }, Open  ]]
-}, Open  ]],
-Cell[59385, 1535, 7153, 176, 1549, "Input",ExpressionUUID->"0888f390-bd0c-b84c-a3b8-0c5a93c5aaad"],
-Cell[CellGroupData[{
-Cell[66563, 1715, 1011, 25, 137, "Input",ExpressionUUID->"6b068755-840f-2943-8a79-c571f672bc9c"],
-Cell[67577, 1742, 385, 9, 22, "Print",ExpressionUUID->"18a036a4-b598-124a-a082-66f971561c06"]
 }, Open  ]]
 }
 ]
