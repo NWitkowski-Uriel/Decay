@@ -1,0 +1,3476 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[    127608,       3466]
+NotebookOptionsPosition[    124313,       3416]
+NotebookOutlinePosition[    124744,       3433]
+CellTagsIndexPosition[    124701,       3430]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+Clean refactor copy: comments/helper organization only; mathematical \
+definitions, integration ranges, model formulas, and public result names are \
+intended to remain unchanged.\
+\>", "Text",ExpressionUUID->"ecc83e07-19ea-4e58-b88b-9a5b0a22b0cf"],
+
+Cell["\<\
+Step 3B note: table and number formatting should remain consistent with \
+Intro_step3B.nb; yield-specific yt* wrappers are kept for compatibility with \
+the existing test-table code.\
+\>", "Text",ExpressionUUID->"a229fd9b-7db8-49b7-82a8-847d74cbbe49"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"YIELD", " ", 
+     RowBox[{"TEST", " ", "--"}], " ", "STABLE"}], ",", " ", "SLIM", ",", " ", 
+    RowBox[{
+     RowBox[{"MODEL", "/", "VACUUM"}], "-", 
+     RowBox[{"FITTED", " ", "COLUMNS"}]}]}], "      ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Run", " ", 
+      RowBox[{"order", ":", "\n", "     ", 
+       RowBox[{
+        RowBox[{"1.", " ", "Intro_stable", "_plus", "_plot", 
+         RowBox[{"_helpers", ".", "nb"}], "\n", "     ", "2.", " ", 
+         "FittedMassParameters_separate", 
+         RowBox[{"_patch", ".", "wl"}], "       ", "if", " ", "used", "\n", 
+         "     ", "3.", " ", "PairFit_refactored", "_fixed4", "_separate", 
+         RowBox[{"_params", ".", "wl"}], " ", "if", " ", "used", "\n", 
+         "        ", "or", " ", "the", " ", "previously", " ", "validated", " ",
+          "PairFit", " ", "notebook", "\n", "     ", "4.", " ", 
+         "Distributions_stable", "_fast", "_symmetric", 
+         RowBox[{"_fixedMt", ".", "wl"}], "\n", "     ", "5.", " ", "This", " ",
+          "file", "\n", "\n", "   ", "This", " ", "file", " ", "does", " ", 
+         "not", " ", "redefine", " ", "numerical", " ", 
+         RowBox[{"kernels", ".", " ", "It"}], " ", "only", " ", "evaluates", "\n",
+          "   ", "yield"}], "-", 
+        RowBox[{"ratio", " ", "diagnostics", " ", "and", " ", "stable"}], "-", 
+        RowBox[{"particle", " ", "multiplicity", " ", 
+         RowBox[{"summaries", ".", "\n", "\n", "   ", "Table"}], " ", 
+         "layout"}]}], ":", "\n", "     ", 
+       RowBox[{
+        RowBox[{"-", " ", "one"}], " ", "table", " ", "per", " ", "Delta", " ",
+         "decay", " ", "channel"}]}]}], ";", "\n", "     ", 
+     RowBox[{
+      RowBox[{"-", " ", "rows"}], " ", "are", " ", "tests"}], ";", "\n", 
+     "     ", 
+     RowBox[{
+      RowBox[{"-", " ", "columns"}], " ", "are", " ", "paired", " ", "by", " ",
+       "mass", " ", 
+      RowBox[{"model", ":", " ", "Vacuum"}]}]}], ",", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Fitted", ".", "\n", "\n", "   ", "Multiplicity"}], " ", 
+      RowBox[{"layout", ":", "\n", "     ", 
+       RowBox[{
+        RowBox[{"-", " ", "one"}], " ", "table", " ", "per", " ", "stable", " ",
+         "particle"}]}]}], ";", "\n", "     ", 
+     RowBox[{
+      RowBox[{"-", " ", "rows"}], " ", "are", " ", "Primordial"}]}], ",", " ",
+     "Correction", ",", " ", 
+    RowBox[{"Total", ";", "\n", "     ", 
+     RowBox[{
+      RowBox[{"-", " ", "columns"}], " ", "are", " ", "again", " ", "paired", 
+      " ", "by", " ", "mass", " ", 
+      RowBox[{"model", ":", " ", "Vacuum"}]}]}], ",", " ", 
+    RowBox[{"Fitted", "."}]}], "\n", "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+   "Print", "[", "\"\<======== Yield Test: paired Vacuum/Fitted diagnostics \
+========\>\"", "]"}], ";"}]}]], "Input",
+ CellLabel->
+  "In[571]:=",ExpressionUUID->"b23cf406-d9c8-d040-b495-4e96ffe7c6f2"],
+
+Cell[BoxData["\<\"======== Yield Test: paired Vacuum/Fitted diagnostics \
+========\"\>"], "Print",
+ CellChangeTimes->{3.9887048349107513`*^9, 3.9888552960268707`*^9},
+ CellLabel->
+  "During evaluation of \
+In[571]:=",ExpressionUUID->"9b529ce3-8ee6-cd4c-9581-a298407560f8"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"0.", " ", "PRECHECKS"}], 
+   "                                                 ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"Length", "[", 
+         RowBox[{"DownValues", "[", "thermalYieldGeneric", "]"}], "]"}], " ", 
+        "==", " ", "0"}], " ", "||", "\n", "   ", 
+       RowBox[{
+        RowBox[{"Length", "[", 
+         RowBox[{"DownValues", "[", "decayYieldGeneric", "]"}], "]"}], " ", "==",
+         " ", "0"}], " ", "||", "\n", "   ", 
+       RowBox[{
+        RowBox[{"Length", "[", 
+         RowBox[{"DownValues", "[", "NDPP", "]"}], "]"}], " ", "==", " ", 
+        "0"}]}], ",", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Print", "[", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<ERROR: Intro has not been evaluated. Run Intro first.\>\
+\"", ",", " ", "Red"}], "]"}], "]"}], ";", "\n", "  ", 
+       RowBox[{"Abort", "[", "]"}], ";"}]}], "\n", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ClearAll", "[", 
+     RowBox[{
+     "yieldTypesByMode", ",", " ", "ytModelLabels", ",", " ", "ytModes", ",", 
+      " ", "ytColumnPairs", ",", " ", "yieldTypeFor"}], "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ytModelLabels", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Dirac\>\"", ",", " ", "\"\<BW\>\"", ",", 
+       " ", "\"\<Cugnon\>\"", ",", " ", "\"\<PhaseShift\>\""}], "}"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ytModes", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Fitted\>\""}], "}"}]}], ";"}], 
+   "\n", "\n", 
+   RowBox[{
+    RowBox[{"ytColumnPairs", " ", "=", " ", 
+     RowBox[{"Flatten", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"label", ",", " ", "mode"}], "}"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"label", ",", " ", "ytModelLabels"}], "}"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"mode", ",", " ", "ytModes"}], "}"}]}], "]"}], ",", "\n", 
+       "  ", "1"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"yieldTypesByMode", " ", "=", " ", 
+     RowBox[{"<|", "\n", "  ", 
+      RowBox[{
+       RowBox[{"\"\<Vacuum\>\"", " ", "->", " ", 
+        RowBox[{"<|", "\n", "    ", 
+         RowBox[{
+          RowBox[{"\"\<Dirac\>\"", " ", "->", " ", "\"\<Dirac\>\""}], ",", 
+          "\n", "    ", 
+          RowBox[{"\"\<BW\>\"", " ", "->", " ", "\"\<BreitWigner\>\""}], ",", 
+          "\n", "    ", 
+          RowBox[{"\"\<Cugnon\>\"", " ", "->", " ", "\"\<Cugnon\>\""}], ",", 
+          "\n", "    ", 
+          
+          RowBox[{"\"\<PhaseShift\>\"", " ", "->", 
+           " ", "\"\<PhaseShift\>\""}]}], "\n", "  ", "|>"}]}], ",", "\n", 
+       "  ", 
+       RowBox[{"\"\<Fitted\>\"", " ", "->", " ", 
+        RowBox[{"<|", "\n", "    ", 
+         RowBox[{
+          RowBox[{"\"\<Dirac\>\"", " ", "->", " ", "\"\<Dirac\>\""}], ",", 
+          "\n", "    ", 
+          RowBox[{"\"\<BW\>\"", " ", "->", " ", "\"\<BreitWignerFitted\>\""}],
+           ",", "\n", "    ", 
+          RowBox[{"\"\<Cugnon\>\"", " ", "->", " ", "\"\<CugnonFitted\>\""}], 
+          ",", "\n", "    ", 
+          
+          RowBox[{"\"\<PhaseShift\>\"", " ", "->", 
+           " ", "\"\<PhaseShiftFitted\>\""}]}], "\n", "  ", "|>"}]}]}], "\n", 
+      "|>"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"yieldTypeFor", "[", 
+      RowBox[{"mode_String", ",", " ", "label_String"}], "]"}], " ", ":=", 
+     " ", 
+     RowBox[{
+      RowBox[{"yieldTypesByMode", "[", "mode", "]"}], "[", "label", "]"}]}], 
+    ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[572]:=",ExpressionUUID->"a9236311-0062-a846-b6be-0e8d3c3703ef"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"1.", " ", 
+    RowBox[{"YIELD", "-", "SPECIFIC"}], " ", "SAFE", " ", "NUMERIC", " ", 
+    "HELPERS", " ", "AND", " ", "CENTRAL", " ", "FORMATTER", " ", 
+    "WRAPPERS"}], "                 ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "\n", "  ", 
+     RowBox[{
+     "ytFiniteNumberQ", ",", " ", "ytSafeN", ",", " ", "ytRatio", ",", " ", 
+      "ytPretty", ",", " ", "ytExpectedLabel", ",", "\n", "  ", 
+      "ytExpectedValue", ",", " ", "ytStatus", ",", " ", "ytGrid", ",", " ", 
+      "ytModelModeHeader"}], "\n", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytFiniteNumberQ", "[", "x_", "]"}], " ", ":=", "\n", "  ", 
+     RowBox[{
+      RowBox[{"NumericQ", "[", "x", "]"}], " ", "&&", " ", 
+      RowBox[{"FreeQ", "[", 
+       RowBox[{
+        RowBox[{"N", "[", "x", "]"}], ",", " ", 
+        RowBox[{
+        "Indeterminate", " ", "|", " ", "ComplexInfinity", " ", "|", " ", 
+         RowBox[{"DirectedInfinity", "[", "_", "]"}]}]}], "]"}]}]}], ";"}], 
+   "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytSafeN", "[", "expr_", "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "res", "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"res", " ", "=", " ", 
+         RowBox[{"Quiet", " ", "@", " ", 
+          RowBox[{"Check", "[", 
+           RowBox[{
+            RowBox[{"N", "[", "expr", "]"}], ",", " ", 
+            RowBox[{"Missing", "[", "\"\<Failed\>\"", "]"}]}], "]"}]}]}], ";",
+         "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"ytFiniteNumberQ", "[", "res", "]"}], ",", " ", 
+          RowBox[{"N", "[", "res", "]"}], ",", " ", 
+          RowBox[{"Missing", "[", "\"\<NonNumeric\>\"", "]"}]}], "]"}]}]}], 
+      "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytRatio", "[", 
+      RowBox[{"num_", ",", " ", "den_"}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"n", ",", " ", "d"}], "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"n", " ", "=", " ", 
+         RowBox[{"ytSafeN", "[", "num", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"d", " ", "=", " ", 
+         RowBox[{"ytSafeN", "[", "den", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"ytFiniteNumberQ", "[", "n", "]"}], " ", "&&", " ", 
+           RowBox[{"ytFiniteNumberQ", "[", "d", "]"}], " ", "&&", " ", 
+           RowBox[{"d", " ", "!=", " ", "0"}]}], ",", "\n", "    ", 
+          RowBox[{"N", "[", 
+           RowBox[{"n", "/", "d"}], "]"}], ",", "\n", "    ", 
+          RowBox[{"Missing", "[", "\"\<BadRatio\>\"", "]"}]}], "\n", "  ", 
+         "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytPretty", "[", 
+      RowBox[{"x_", "?", "NumericQ"}], "]"}], " ", ":=", " ", 
+     RowBox[{"NumberForm", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"N", "[", "x", "]"}], ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"Infinity", ",", " ", "3"}], "}"}], ",", "\n", "  ", 
+       RowBox[{"ExponentFunction", " ", "->", " ", 
+        RowBox[{"(", 
+         RowBox[{"Null", " ", "&"}], ")"}]}], ",", "\n", "  ", 
+       RowBox[{"NumberPadding", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<\>\"", ",", " ", "\"\<0\>\""}], "}"}]}]}], "\n", 
+      "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytPretty", "[", "x_", "]"}], " ", ":=", " ", "x"}], ";"}], "\n",
+    "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytExpectedLabel", "[", "1", "]"}], " ", ":=", 
+     " ", "\"\<1\>\""}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytExpectedLabel", "[", "1.", "]"}], " ", ":=", 
+     " ", "\"\<1\>\""}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytExpectedLabel", "[", 
+      RowBox[{"2", "/", "3"}], "]"}], " ", ":=", " ", "\"\<2/3\>\""}], ";"}], 
+   "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytExpectedLabel", "[", 
+      RowBox[{"1", "/", "3"}], "]"}], " ", ":=", " ", "\"\<1/3\>\""}], ";"}], 
+   "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytExpectedLabel", "[", "x_", "]"}], " ", ":=", " ", "x"}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytExpectedValue", "[", "\"\<1\>\"", "]"}], " ", ":=", " ", 
+     "1."}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytExpectedValue", "[", "\"\<2/3\>\"", "]"}], " ", ":=", " ", 
+     RowBox[{"2.", "/", "3."}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytExpectedValue", "[", "\"\<1/3\>\"", "]"}], " ", ":=", " ", 
+     RowBox[{"1.", "/", "3."}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytExpectedValue", "[", 
+      RowBox[{"x_", "?", "NumericQ"}], "]"}], " ", ":=", " ", 
+     RowBox[{"N", "[", "x", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytExpectedValue", "[", "_", "]"}], " ", ":=", " ", 
+     RowBox[{"Missing", "[", "\"\<UnknownExpectedValue\>\"", "]"}]}], ";"}], 
+   "\n", "\n", 
+   RowBox[{
+    RowBox[{"ytTolerance", " ", "=", " ", "0.05"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytStatus", "[", 
+      RowBox[{"value_", ",", " ", "expected_"}], "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"v", ",", " ", "e"}], "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"v", " ", "=", " ", 
+         RowBox[{"ytSafeN", "[", "value", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"e", " ", "=", " ", 
+         RowBox[{"ytSafeN", "[", "expected", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"ytFiniteNumberQ", "[", "v", "]"}], " ", "&&", " ", 
+           RowBox[{"ytFiniteNumberQ", "[", "e", "]"}]}], ",", "\n", "    ", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Abs", "[", 
+              RowBox[{"v", " ", "-", " ", "e"}], "]"}], " ", "<=", " ", 
+             "ytTolerance"}], ",", " ", "\"\<OK\>\"", ",", 
+            " ", "\"\<WARN\>\""}], "]"}], ",", "\n", 
+          "    ", "\"\<NONNUMERIC\>\""}], "\n", "  ", "]"}]}]}], "\n", 
+      "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytGrid", "[", "rows_", "]"}], " ", ":=", " ", 
+     RowBox[{"Grid", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Map", "[", "\n", "    ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Which", "[", "\n", "      ", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"#", " ", "===", " ", "1"}], " ", "||", " ", 
+             RowBox[{"#", " ", "===", " ", "1."}], " ", "||", " ", 
+             RowBox[{"#", " ", "===", " ", 
+              RowBox[{"2", "/", "3"}]}], " ", "||", " ", 
+             RowBox[{"#", " ", "===", " ", 
+              RowBox[{"1", "/", "3"}]}]}], ",", "\n", "        ", 
+            RowBox[{"ytExpectedLabel", "[", "#", "]"}], ",", "\n", "      ", 
+            RowBox[{"NumericQ", "[", "#", "]"}], ",", "\n", "        ", 
+            RowBox[{"ytPretty", "[", "#", "]"}], ",", "\n", "      ", "True", 
+            ",", "\n", "        ", "#"}], "\n", "    ", "]"}], " ", "&"}], ",",
+          "\n", "    ", "rows", ",", "\n", "    ", 
+         RowBox[{"{", "2", "}"}]}], "\n", "  ", "]"}], ",", "\n", "  ", 
+       RowBox[{"Frame", " ", "->", " ", "All"}], ",", "\n", "  ", 
+       RowBox[{"Alignment", " ", "->", " ", "Center"}], ",", "\n", "  ", 
+       RowBox[{"Background", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"None", ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"LightGray", ",", " ", "None"}], "}"}]}], "}"}]}]}], "\n", 
+      "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytModelModeHeader", "[", "prefix_List", "]"}], " ", ":=", " ", 
+     RowBox[{"Join", "[", "\n", "  ", 
+      RowBox[{"prefix", ",", "\n", "  ", 
+       RowBox[{"Flatten", "[", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"label", " ", "<>", " ", "\"\< Vacuum\>\""}], ",", " ", 
+            RowBox[{"label", " ", "<>", " ", "\"\< Fitted\>\""}]}], "}"}], ",",
+           " ", 
+          RowBox[{"{", 
+           RowBox[{"label", ",", " ", "ytModelLabels"}], "}"}]}], "]"}], 
+        "]"}]}], "\n", "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[579]:=",ExpressionUUID->"f09a13fc-9b58-5a4a-9428-042fb822ca7d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "2.", " ", "STABLE", " ", "PARENT", " ", "AND", " ", "DAUGHTER", " ", 
+    "YIELD", " ", "ACCESSORS"}], "                ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", 
+     RowBox[{"parentYield", ",", " ", "daughterYield"}], "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"parentYield", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<Dpp\>\""}], "]"}], " ", ":=", " ", 
+     RowBox[{"NDPP", "[", "type", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"parentYield", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<Dp\>\""}], "]"}], "  ", ":=", " ", 
+     RowBox[{"NDP", "[", "type", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"parentYield", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<D0\>\""}], "]"}], "  ", ":=", " ", 
+     RowBox[{"ND0", "[", "type", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"parentYield", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<Dm\>\""}], "]"}], "  ", ":=", " ", 
+     RowBox[{"NDM", "[", "type", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"daughterYield", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<Dpp\>\"", ",", " ", "\"\<p\>\""}],
+       "]"}], " ", ":=", " ", 
+     RowBox[{"NPDPP", "[", "type", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"daughterYield", "[", 
+      RowBox[{
+      "type_String", ",", " ", "\"\<Dpp\>\"", ",", " ", "\"\<pi+\>\""}], 
+      "]"}], " ", ":=", " ", 
+     RowBox[{"NPiDPP", "[", "type", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"daughterYield", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<Dp\>\"", ",", " ", "\"\<p\>\""}], 
+      "]"}], " ", ":=", " ", 
+     RowBox[{"NPDP", "[", "type", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"daughterYield", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<Dp\>\"", ",", " ", "\"\<n\>\""}], 
+      "]"}], " ", ":=", " ", 
+     RowBox[{"NNDP", "[", "type", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"daughterYield", "[", 
+      RowBox[{
+      "type_String", ",", " ", "\"\<Dp\>\"", ",", " ", "\"\<pi total\>\""}], 
+      "]"}], " ", ":=", " ", 
+     RowBox[{"NPiDP", "[", "type", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"daughterYield", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<D0\>\"", ",", " ", "\"\<p\>\""}], 
+      "]"}], " ", ":=", " ", 
+     RowBox[{"NPD0", "[", "type", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"daughterYield", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<D0\>\"", ",", " ", "\"\<n\>\""}], 
+      "]"}], " ", ":=", " ", 
+     RowBox[{"NND0", "[", "type", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"daughterYield", "[", 
+      RowBox[{
+      "type_String", ",", " ", "\"\<D0\>\"", ",", " ", "\"\<pi total\>\""}], 
+      "]"}], " ", ":=", " ", 
+     RowBox[{"NPiD0", "[", "type", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"daughterYield", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<Dm\>\"", ",", " ", "\"\<n\>\""}], 
+      "]"}], " ", ":=", " ", 
+     RowBox[{"NNDM", "[", "type", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"daughterYield", "[", 
+      RowBox[{
+      "type_String", ",", " ", "\"\<Dm\>\"", ",", " ", "\"\<pi-\>\""}], "]"}],
+      " ", ":=", " ", 
+     RowBox[{"NPiDM", "[", "type", "]"}]}], ";"}]}]}]], "Input",
+ CellLabel->
+  "In[599]:=",ExpressionUUID->"ef0369f9-db78-b940-b3df-5ebf8e2b9390"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"3.", " ", "TEST", " ", "DEFINITIONS"}], 
+   "                                          ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "channelSpecs", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"channelSpecs", "[", "\"\<D++\>\"", "]"}], " ", ":=", " ", 
+     RowBox[{"{", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\"\<gN N_p / N_D\>\"", ",", " ", "\"\<1\>\"", ",", "\n", 
+         "    ", 
+         RowBox[{"Function", "[", 
+          RowBox[{"type", ",", " ", 
+           RowBox[{"ytRatio", "[", 
+            RowBox[{
+             RowBox[{"gN", "*", 
+              RowBox[{"daughterYield", "[", 
+               RowBox[{
+               "type", ",", " ", "\"\<Dpp\>\"", ",", " ", "\"\<p\>\""}], 
+               "]"}]}], ",", " ", 
+             RowBox[{"parentYield", "[", 
+              RowBox[{"type", ",", " ", "\"\<Dpp\>\""}], "]"}]}], "]"}]}], 
+          "]"}]}], "}"}], ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<gPi N_pi / N_D\>\"", ",", " ", "\"\<1\>\"", ",", "\n", 
+         "    ", 
+         RowBox[{"Function", "[", 
+          RowBox[{"type", ",", " ", 
+           RowBox[{"ytRatio", "[", 
+            RowBox[{
+             RowBox[{"gPi", "*", 
+              RowBox[{"daughterYield", "[", 
+               RowBox[{
+               "type", ",", " ", "\"\<Dpp\>\"", ",", " ", "\"\<pi+\>\""}], 
+               "]"}]}], ",", " ", 
+             RowBox[{"parentYield", "[", 
+              RowBox[{"type", ",", " ", "\"\<Dpp\>\""}], "]"}]}], "]"}]}], 
+          "]"}]}], "}"}]}], "\n", "}"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"channelSpecs", "[", "\"\<D+\>\"", "]"}], " ", ":=", " ", 
+     RowBox[{"{", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\"\<gN (N_p+N_n) / N_D\>\"", ",", " ", "\"\<1\>\"", ",", 
+         "\n", "    ", 
+         RowBox[{"Function", "[", 
+          RowBox[{"type", ",", " ", 
+           RowBox[{"ytRatio", "[", 
+            RowBox[{
+             RowBox[{"gN", "*", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"daughterYield", "[", 
+                 RowBox[{
+                 "type", ",", " ", "\"\<Dp\>\"", ",", " ", "\"\<p\>\""}], 
+                 "]"}], " ", "+", " ", 
+                RowBox[{"daughterYield", "[", 
+                 RowBox[{
+                 "type", ",", " ", "\"\<Dp\>\"", ",", " ", "\"\<n\>\""}], 
+                 "]"}]}], ")"}]}], ",", " ", 
+             RowBox[{"parentYield", "[", 
+              RowBox[{"type", ",", " ", "\"\<Dp\>\""}], "]"}]}], "]"}]}], 
+          "]"}]}], "}"}], ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<gN N_p / N_D\>\"", ",", " ", "\"\<2/3\>\"", ",", "\n", 
+         "    ", 
+         RowBox[{"Function", "[", 
+          RowBox[{"type", ",", " ", 
+           RowBox[{"ytRatio", "[", 
+            RowBox[{
+             RowBox[{"gN", "*", 
+              RowBox[{"daughterYield", "[", 
+               RowBox[{
+               "type", ",", " ", "\"\<Dp\>\"", ",", " ", "\"\<p\>\""}], 
+               "]"}]}], ",", " ", 
+             RowBox[{"parentYield", "[", 
+              RowBox[{"type", ",", " ", "\"\<Dp\>\""}], "]"}]}], "]"}]}], 
+          "]"}]}], "}"}], ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<gN N_n / N_D\>\"", ",", " ", "\"\<1/3\>\"", ",", "\n", 
+         "    ", 
+         RowBox[{"Function", "[", 
+          RowBox[{"type", ",", " ", 
+           RowBox[{"ytRatio", "[", 
+            RowBox[{
+             RowBox[{"gN", "*", 
+              RowBox[{"daughterYield", "[", 
+               RowBox[{
+               "type", ",", " ", "\"\<Dp\>\"", ",", " ", "\"\<n\>\""}], 
+               "]"}]}], ",", " ", 
+             RowBox[{"parentYield", "[", 
+              RowBox[{"type", ",", " ", "\"\<Dp\>\""}], "]"}]}], "]"}]}], 
+          "]"}]}], "}"}], ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<gPi N_pi / N_D\>\"", ",", " ", "\"\<1\>\"", ",", "\n", 
+         "    ", 
+         RowBox[{"Function", "[", 
+          RowBox[{"type", ",", " ", 
+           RowBox[{"ytRatio", "[", 
+            RowBox[{
+             RowBox[{"gPi", "*", 
+              RowBox[{"daughterYield", "[", 
+               RowBox[{
+               "type", ",", " ", "\"\<Dp\>\"", ",", " ", "\"\<pi total\>\""}],
+                "]"}]}], ",", " ", 
+             RowBox[{"parentYield", "[", 
+              RowBox[{"type", ",", " ", "\"\<Dp\>\""}], "]"}]}], "]"}]}], 
+          "]"}]}], "}"}]}], "\n", "}"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"channelSpecs", "[", "\"\<D0\>\"", "]"}], " ", ":=", " ", 
+     RowBox[{"{", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\"\<gN (N_n+N_p) / N_D\>\"", ",", " ", "\"\<1\>\"", ",", 
+         "\n", "    ", 
+         RowBox[{"Function", "[", 
+          RowBox[{"type", ",", " ", 
+           RowBox[{"ytRatio", "[", 
+            RowBox[{
+             RowBox[{"gN", "*", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"daughterYield", "[", 
+                 RowBox[{
+                 "type", ",", " ", "\"\<D0\>\"", ",", " ", "\"\<n\>\""}], 
+                 "]"}], " ", "+", " ", 
+                RowBox[{"daughterYield", "[", 
+                 RowBox[{
+                 "type", ",", " ", "\"\<D0\>\"", ",", " ", "\"\<p\>\""}], 
+                 "]"}]}], ")"}]}], ",", " ", 
+             RowBox[{"parentYield", "[", 
+              RowBox[{"type", ",", " ", "\"\<D0\>\""}], "]"}]}], "]"}]}], 
+          "]"}]}], "}"}], ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<gN N_n / N_D\>\"", ",", " ", "\"\<2/3\>\"", ",", "\n", 
+         "    ", 
+         RowBox[{"Function", "[", 
+          RowBox[{"type", ",", " ", 
+           RowBox[{"ytRatio", "[", 
+            RowBox[{
+             RowBox[{"gN", "*", 
+              RowBox[{"daughterYield", "[", 
+               RowBox[{
+               "type", ",", " ", "\"\<D0\>\"", ",", " ", "\"\<n\>\""}], 
+               "]"}]}], ",", " ", 
+             RowBox[{"parentYield", "[", 
+              RowBox[{"type", ",", " ", "\"\<D0\>\""}], "]"}]}], "]"}]}], 
+          "]"}]}], "}"}], ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<gN N_p / N_D\>\"", ",", " ", "\"\<1/3\>\"", ",", "\n", 
+         "    ", 
+         RowBox[{"Function", "[", 
+          RowBox[{"type", ",", " ", 
+           RowBox[{"ytRatio", "[", 
+            RowBox[{
+             RowBox[{"gN", "*", 
+              RowBox[{"daughterYield", "[", 
+               RowBox[{
+               "type", ",", " ", "\"\<D0\>\"", ",", " ", "\"\<p\>\""}], 
+               "]"}]}], ",", " ", 
+             RowBox[{"parentYield", "[", 
+              RowBox[{"type", ",", " ", "\"\<D0\>\""}], "]"}]}], "]"}]}], 
+          "]"}]}], "}"}], ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<gPi N_pi / N_D\>\"", ",", " ", "\"\<1\>\"", ",", "\n", 
+         "    ", 
+         RowBox[{"Function", "[", 
+          RowBox[{"type", ",", " ", 
+           RowBox[{"ytRatio", "[", 
+            RowBox[{
+             RowBox[{"gPi", "*", 
+              RowBox[{"daughterYield", "[", 
+               RowBox[{
+               "type", ",", " ", "\"\<D0\>\"", ",", " ", "\"\<pi total\>\""}],
+                "]"}]}], ",", " ", 
+             RowBox[{"parentYield", "[", 
+              RowBox[{"type", ",", " ", "\"\<D0\>\""}], "]"}]}], "]"}]}], 
+          "]"}]}], "}"}]}], "\n", "}"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"channelSpecs", "[", "\"\<D-\>\"", "]"}], " ", ":=", " ", 
+     RowBox[{"{", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\"\<gN N_n / N_D\>\"", ",", " ", "\"\<1\>\"", ",", "\n", 
+         "    ", 
+         RowBox[{"Function", "[", 
+          RowBox[{"type", ",", " ", 
+           RowBox[{"ytRatio", "[", 
+            RowBox[{
+             RowBox[{"gN", "*", 
+              RowBox[{"daughterYield", "[", 
+               RowBox[{
+               "type", ",", " ", "\"\<Dm\>\"", ",", " ", "\"\<n\>\""}], 
+               "]"}]}], ",", " ", 
+             RowBox[{"parentYield", "[", 
+              RowBox[{"type", ",", " ", "\"\<Dm\>\""}], "]"}]}], "]"}]}], 
+          "]"}]}], "}"}], ",", "\n", "  ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<gPi N_pi / N_D\>\"", ",", " ", "\"\<1\>\"", ",", "\n", 
+         "    ", 
+         RowBox[{"Function", "[", 
+          RowBox[{"type", ",", " ", 
+           RowBox[{"ytRatio", "[", 
+            RowBox[{
+             RowBox[{"gPi", "*", 
+              RowBox[{"daughterYield", "[", 
+               RowBox[{
+               "type", ",", " ", "\"\<Dm\>\"", ",", " ", "\"\<pi-\>\""}], 
+               "]"}]}], ",", " ", 
+             RowBox[{"parentYield", "[", 
+              RowBox[{"type", ",", " ", "\"\<Dm\>\""}], "]"}]}], "]"}]}], 
+          "]"}]}], "}"}]}], "\n", "}"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[614]:=",ExpressionUUID->"e8142b02-70f9-5f47-9f86-68b81c059648"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"4.", " ", "CHANNEL", " ", "TEST", " ", 
+    RowBox[{"TABLES", ":", " ", 
+     RowBox[{
+      RowBox[{"VACUUM", "/", "FITTED"}], " ", "AS", " ", "COLUMNS"}]}]}], 
+   "             ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "\n", "  ", 
+     RowBox[{
+     "channelPairedRow", ",", " ", "channelPairedRows", ",", " ", 
+      "channelPairedTable", ",", "\n", "  ", "YieldTestDppRows", ",", " ", 
+      "YieldTestDpRows", ",", " ", "YieldTestD0Rows", ",", " ", 
+      "YieldTestDmRows", ",", "\n", "  ", "YieldTestDppTable", ",", " ", 
+      "YieldTestDpTable", ",", " ", "YieldTestD0Table", ",", " ", 
+      "YieldTestDmTable", ",", "\n", "  ", "YieldTestTablesByDecayChannel", ",",
+       "\n", "  ", "YieldTestStatusRowsByDecayChannel", ",", "\n", "  ", 
+      "FailedYieldTestStatusRowsByDecayChannel", ",", "\n", "  ", 
+      "FailedYieldTestTablesByDecayChannel"}], "\n", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ytestPairedHeader", " ", "=", " ", 
+     RowBox[{"ytModelModeHeader", "[", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Test\>\"", ",", " ", "\"\<Expected\>\""}], "}"}], "]"}]}],
+     ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ytestStatusHeader", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Channel\>\"", ",", " ", "\"\<Test\>\"", ",", 
+       " ", "\"\<Model\>\"", ",", " ", "\"\<Mode\>\"", ",", 
+       " ", "\"\<Expected\>\"", ",", " ", "\"\<Value\>\"", ",", 
+       " ", "\"\<Status\>\""}], "}"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"channelPairedRow", "[", 
+      RowBox[{"channel_String", ",", " ", "spec_List"}], "]"}], " ", ":=", 
+     " ", 
+     RowBox[{"Module", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "test", ",", " ", "expected", ",", " ", "valueFunction", ",", " ", 
+         "values"}], "}"}], ",", "\n", "\n", "  ", 
+       RowBox[{
+        RowBox[{"test", " ", "=", " ", 
+         RowBox[{"spec", "[", 
+          RowBox[{"[", "1", "]"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"expected", " ", "=", " ", 
+         RowBox[{"spec", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"valueFunction", " ", "=", " ", 
+         RowBox[{"spec", "[", 
+          RowBox[{"[", "3", "]"}], "]"}]}], ";", "\n", "\n", "  ", 
+        RowBox[{"values", " ", "=", " ", 
+         RowBox[{"Map", "[", "\n", "    ", 
+          RowBox[{
+           RowBox[{"Function", "[", 
+            RowBox[{"pair", ",", " ", 
+             RowBox[{"valueFunction", "[", 
+              RowBox[{"yieldTypeFor", "[", 
+               RowBox[{
+                RowBox[{"pair", "[", 
+                 RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+                RowBox[{"pair", "[", 
+                 RowBox[{"[", "1", "]"}], "]"}]}], "]"}], "]"}]}], "]"}], ",",
+            "\n", "    ", "ytColumnPairs"}], "\n", "  ", "]"}]}], ";", "\n", 
+        "\n", "  ", 
+        RowBox[{"{", 
+         RowBox[{"test", ",", " ", "expected", ",", " ", 
+          RowBox[{"Sequence", " ", "@@", " ", "values"}]}], "}"}]}]}], "\n", 
+      "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"channelPairedRows", "[", "channel_String", "]"}], " ", ":=", 
+     "\n", "  ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"channelPairedRow", "[", 
+        RowBox[{"channel", ",", " ", "#"}], "]"}], " ", "&"}], " ", "/@", " ", 
+      RowBox[{"channelSpecs", "[", "channel", "]"}]}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"channelPairedTable", "[", "channel_String", "]"}], " ", ":=", 
+     " ", 
+     RowBox[{"ytGrid", " ", "@", " ", 
+      RowBox[{"Prepend", "[", "\n", "  ", 
+       RowBox[{
+        RowBox[{"channelPairedRows", "[", "channel", "]"}], ",", "\n", "  ", 
+        "ytestPairedHeader"}], "\n", "]"}]}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"YieldTestDppRows", " ", "=", " ", 
+     RowBox[{"channelPairedRows", "[", "\"\<D++\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"YieldTestDpRows", "  ", "=", " ", 
+     RowBox[{"channelPairedRows", "[", "\"\<D+\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"YieldTestD0Rows", "  ", "=", " ", 
+     RowBox[{"channelPairedRows", "[", "\"\<D0\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"YieldTestDmRows", "  ", "=", " ", 
+     RowBox[{"channelPairedRows", "[", "\"\<D-\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"YieldTestDppTable", " ", "=", " ", 
+     RowBox[{"ytGrid", " ", "@", " ", 
+      RowBox[{"Prepend", "[", 
+       RowBox[{"YieldTestDppRows", ",", " ", "ytestPairedHeader"}], "]"}]}]}],
+     ";"}], "\n", 
+   RowBox[{
+    RowBox[{"YieldTestDpTable", "  ", "=", " ", 
+     RowBox[{"ytGrid", " ", "@", " ", 
+      RowBox[{"Prepend", "[", 
+       RowBox[{"YieldTestDpRows", ",", " ", "ytestPairedHeader"}], "]"}]}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"YieldTestD0Table", "  ", "=", " ", 
+     RowBox[{"ytGrid", " ", "@", " ", 
+      RowBox[{"Prepend", "[", 
+       RowBox[{"YieldTestD0Rows", ",", " ", "ytestPairedHeader"}], "]"}]}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"YieldTestDmTable", "  ", "=", " ", 
+     RowBox[{"ytGrid", " ", "@", " ", 
+      RowBox[{"Prepend", "[", 
+       RowBox[{"YieldTestDmRows", ",", " ", "ytestPairedHeader"}], "]"}]}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"YieldTestTablesByDecayChannel", " ", "=", " ", 
+     RowBox[{"<|", "\n", "  ", 
+      RowBox[{
+       RowBox[{"\"\<D++ -> p pi+\>\"", " ", "->", " ", "YieldTestDppTable"}], 
+       ",", "\n", "  ", 
+       RowBox[{"\"\<D+ -> p pi0 / n pi+\>\"", " ", "->", " ", 
+        "YieldTestDpTable"}], ",", "\n", "  ", 
+       RowBox[{"\"\<D0 -> n pi0 / p pi-\>\"", " ", "->", " ", 
+        "YieldTestD0Table"}], ",", "\n", "  ", 
+       RowBox[{"\"\<D- -> n pi-\>\"", " ", "->", " ", "YieldTestDmTable"}]}], 
+      "\n", "|>"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"YieldTestStatusRowsByDecayChannel", " ", "=", " ", 
+     RowBox[{"Association", " ", "@", " ", 
+      RowBox[{"Table", "[", "\n", "  ", 
+       RowBox[{
+        RowBox[{"channel", " ", "->", " ", 
+         RowBox[{"Flatten", "[", "\n", "    ", 
+          RowBox[{
+           RowBox[{"Table", "[", "\n", "      ", 
+            RowBox[{
+             RowBox[{"Module", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"test", " ", "=", " ", 
+                  RowBox[{"spec", "[", 
+                   RowBox[{"[", "1", "]"}], "]"}]}], ",", " ", 
+                 RowBox[{"expectedLabel", " ", "=", " ", 
+                  RowBox[{"spec", "[", 
+                   RowBox[{"[", "2", "]"}], "]"}]}], ",", " ", "expected", ",",
+                  " ", "val"}], "}"}], ",", "\n", "        ", 
+               RowBox[{
+                RowBox[{"expected", " ", "=", " ", 
+                 RowBox[{"ytExpectedValue", "[", "expectedLabel", "]"}]}], ";",
+                 "\n", "        ", 
+                RowBox[{"Table", "[", "\n", "          ", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"val", " ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"spec", "[", 
+                    RowBox[{"[", "3", "]"}], "]"}], "[", 
+                    RowBox[{"yieldTypeFor", "[", 
+                    RowBox[{"mode", ",", " ", "label"}], "]"}], "]"}]}], ";", 
+                   "\n", "          ", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    "channel", ",", " ", "test", ",", " ", "label", ",", " ", 
+                    "mode", ",", " ", "expectedLabel", ",", " ", "val", ",", 
+                    " ", 
+                    RowBox[{"ytStatus", "[", 
+                    RowBox[{"val", ",", " ", "expected"}], "]"}]}], "}"}]}], ",",
+                   "\n", "          ", 
+                  RowBox[{"{", 
+                   RowBox[{"label", ",", " ", "ytModelLabels"}], "}"}], ",", 
+                  "\n", "          ", 
+                  RowBox[{"{", 
+                   RowBox[{"mode", ",", " ", "ytModes"}], "}"}]}], "\n", 
+                 "        ", "]"}]}]}], "\n", "      ", "]"}], ",", "\n", 
+             "      ", 
+             RowBox[{"{", 
+              RowBox[{"spec", ",", " ", 
+               RowBox[{"channelSpecs", "[", "channel", "]"}]}], "}"}]}], "\n",
+             "    ", "]"}], ",", "\n", "    ", "2"}], "\n", "  ", "]"}]}], ",",
+         "\n", "  ", 
+        RowBox[{"{", 
+         RowBox[{"channel", ",", " ", 
+          RowBox[{"{", 
+           
+           RowBox[{"\"\<D++\>\"", ",", " ", "\"\<D+\>\"", ",", 
+            " ", "\"\<D0\>\"", ",", " ", "\"\<D-\>\""}], "}"}]}], "}"}]}], 
+       "\n", "]"}]}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"FailedYieldTestStatusRowsByDecayChannel", " ", "=", " ", 
+     RowBox[{"Map", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Select", "[", 
+         RowBox[{"#", ",", " ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Last", "[", "#", "]"}], " ", "=!=", " ", "\"\<OK\>\""}], 
+           " ", "&"}]}], "]"}], " ", "&"}], ",", "\n", "  ", 
+       "YieldTestStatusRowsByDecayChannel"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"FailedYieldTestTablesByDecayChannel", " ", "=", " ", 
+     RowBox[{"Map", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ytGrid", " ", "@", " ", 
+         RowBox[{"Prepend", "[", 
+          RowBox[{"#", ",", " ", "ytestStatusHeader"}], "]"}]}], " ", "&"}], ",",
+        "\n", "  ", "FailedYieldTestStatusRowsByDecayChannel"}], "\n", 
+      "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"BranchingYieldTestRows", " ", "=", " ", 
+     RowBox[{"Join", "[", 
+      RowBox[{
+      "YieldTestDppRows", ",", " ", "YieldTestDpRows", ",", " ", 
+       "YieldTestD0Rows", ",", " ", "YieldTestDmRows"}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"FailedYieldTestRows", " ", "=", " ", 
+     RowBox[{"Flatten", "[", 
+      RowBox[{
+       RowBox[{
+       "Values", "[", "FailedYieldTestStatusRowsByDecayChannel", "]"}], ",", 
+       " ", "1"}], "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[619]:=",ExpressionUUID->"0c2f0708-1a1a-354d-9b61-ea1e2fb03a38"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"5.", " ", "STABLE"}], "-", 
+    RowBox[{"PARTICLE", " ", "MULTIPLICITY", " ", "TABLES"}]}], 
+   "                       ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Multiplicities", " ", "here", " ", "are", " ", "physical", " ", "yields", 
+    " ", "without", " ", "acceptance"}], "    ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"factors", ".", " ", "Correction"}], " ", "bookkeeping", " ", 
+     "follows", " ", "the", " ", "same", " ", "Delta"}], "-", "decay"}], "  ",
+    "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "branches", " ", "used", " ", "by", " ", "the", " ", "differential", " ", 
+    "correction", " ", 
+    RowBox[{"functions", "."}]}], "       ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "\n", "  ", 
+     RowBox[{
+     "primordialMultiplicity", ",", " ", "correctionMultiplicity", ",", " ", 
+      "totalMultiplicity", ",", "\n", "  ", "multiplicityComponentValue", ",",
+       " ", "multiplicityPairedRow", ",", "\n", "  ", 
+      "stableMultiplicityRowsForParticle", ",", " ", 
+      "stableMultiplicityTableForParticle", ",", "\n", "  ", 
+      "StableParticleMultiplicityRowsByParticle", ",", "\n", "  ", 
+      "StableParticleMultiplicityTablesByParticle", ",", "\n", "  ", 
+      "StableParticleMultiplicityTable", ",", "\n", "  ", 
+      "StableParticleMultiplicityRows"}], "\n", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"primordialMultiplicity", "[", "\"\<Proton\>\"", "]"}], " ", ":=",
+      "\n", "  ", 
+     RowBox[{"ytSafeN", "[", 
+      RowBox[{"primordialYield", "[", 
+       RowBox[{"\[Mu]P", ",", " ", "mp", ",", " ", "gN"}], "]"}], "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"primordialMultiplicity", "[", "\"\<PionPlus\>\"", "]"}], " ", ":=",
+      "\n", "  ", 
+     RowBox[{"ytSafeN", "[", 
+      RowBox[{"primordialYield", "[", 
+       RowBox[{"\[Mu]Pip", ",", " ", "mpi", ",", " ", "gPi"}], "]"}], "]"}]}],
+     ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"primordialMultiplicity", "[", "\"\<PionMinus\>\"", "]"}], " ", ":=",
+      "\n", "  ", 
+     RowBox[{"ytSafeN", "[", 
+      RowBox[{"primordialYield", "[", 
+       RowBox[{"\[Mu]Pim", ",", " ", "mpi", ",", " ", "gPi"}], "]"}], "]"}]}],
+     ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionMultiplicity", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<Proton\>\""}], "]"}], " ", ":=", 
+     "\n", "  ", 
+     RowBox[{"ytSafeN", "[", 
+      RowBox[{
+       RowBox[{"NPDPP", "[", "type", "]"}], " ", "+", " ", 
+       RowBox[{"NPDP", "[", "type", "]"}], " ", "+", " ", 
+       RowBox[{"NPD0", "[", "type", "]"}]}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionMultiplicity", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<PionPlus\>\""}], "]"}], " ", ":=",
+      "\n", "  ", 
+     RowBox[{"ytSafeN", "[", 
+      RowBox[{
+       RowBox[{"NPiDPP", "[", "type", "]"}], " ", "+", " ", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"1", "/", "3"}], ")"}], " ", 
+        RowBox[{"decayYieldGeneric", "[", 
+         RowBox[{
+         "type", ",", " ", "\[Mu]Dp", ",", " ", "mpi", ",", " ", "mn", ",", 
+          " ", "gPi"}], "]"}]}]}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"correctionMultiplicity", "[", 
+      RowBox[{"type_String", ",", " ", "\"\<PionMinus\>\""}], "]"}], " ", ":=",
+      "\n", "  ", 
+     RowBox[{"ytSafeN", "[", 
+      RowBox[{
+       RowBox[{"NPiDM", "[", "type", "]"}], " ", "+", " ", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"1", "/", "3"}], ")"}], " ", 
+        RowBox[{"decayYieldGeneric", "[", 
+         RowBox[{
+         "type", ",", " ", "\[Mu]D0", ",", " ", "mpi", ",", " ", "mp", ",", 
+          " ", "gPi"}], "]"}]}]}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"totalMultiplicity", "[", 
+      RowBox[{"type_String", ",", " ", "particle_String"}], "]"}], " ", ":=", 
+     " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"prim", ",", " ", "corr"}], "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"prim", " ", "=", " ", 
+         RowBox[{"primordialMultiplicity", "[", "particle", "]"}]}], ";", 
+        "\n", "  ", 
+        RowBox[{"corr", " ", "=", " ", 
+         RowBox[{"correctionMultiplicity", "[", 
+          RowBox[{"type", ",", " ", "particle"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"ytFiniteNumberQ", "[", "prim", "]"}], " ", "&&", " ", 
+           RowBox[{"ytFiniteNumberQ", "[", "corr", "]"}]}], ",", "\n", "    ", 
+          RowBox[{"N", "[", 
+           RowBox[{"prim", " ", "+", " ", "corr"}], "]"}], ",", "\n", "    ", 
+          
+          RowBox[{"Missing", "[", "\"\<BadTotal\>\"", "]"}]}], "\n", "  ", 
+         "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"multiplicityComponentValue", "[", 
+      RowBox[{"\"\<Primordial\>\"", ",", " ", "particle_String", ",", " ", 
+       "mode_String", ",", " ", "label_String"}], "]"}], " ", ":=", "\n", 
+     "  ", 
+     RowBox[{"primordialMultiplicity", "[", "particle", "]"}]}], ";"}], "\n", 
+   "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"multiplicityComponentValue", "[", 
+      RowBox[{"\"\<Correction\>\"", ",", " ", "particle_String", ",", " ", 
+       "mode_String", ",", " ", "label_String"}], "]"}], " ", ":=", "\n", 
+     "  ", 
+     RowBox[{"correctionMultiplicity", "[", 
+      RowBox[{
+       RowBox[{"yieldTypeFor", "[", 
+        RowBox[{"mode", ",", " ", "label"}], "]"}], ",", " ", "particle"}], 
+      "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"multiplicityComponentValue", "[", 
+      RowBox[{"\"\<Total\>\"", ",", " ", "particle_String", ",", " ", 
+       "mode_String", ",", " ", "label_String"}], "]"}], " ", ":=", "\n", 
+     "  ", 
+     RowBox[{"totalMultiplicity", "[", 
+      RowBox[{
+       RowBox[{"yieldTypeFor", "[", 
+        RowBox[{"mode", ",", " ", "label"}], "]"}], ",", " ", "particle"}], 
+      "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"multiplicityHeader", " ", "=", " ", 
+     RowBox[{"ytModelModeHeader", "[", 
+      RowBox[{"{", "\"\<Contribution\>\"", "}"}], "]"}]}], ";"}], "\n", "\n", 
+   
+   RowBox[{
+    RowBox[{
+     RowBox[{"multiplicityPairedRow", "[", 
+      RowBox[{"particle_String", ",", " ", "contribution_String"}], "]"}], 
+     " ", ":=", " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "values", "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"values", " ", "=", " ", 
+         RowBox[{"Map", "[", "\n", "    ", 
+          RowBox[{
+           RowBox[{"Function", "[", 
+            RowBox[{"pair", ",", " ", 
+             RowBox[{"multiplicityComponentValue", "[", 
+              RowBox[{"contribution", ",", " ", "particle", ",", " ", 
+               RowBox[{"pair", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+               RowBox[{"pair", "[", 
+                RowBox[{"[", "1", "]"}], "]"}]}], "]"}]}], "]"}], ",", "\n", 
+           "    ", "ytColumnPairs"}], "\n", "  ", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"{", 
+         RowBox[{"contribution", ",", " ", 
+          RowBox[{"Sequence", " ", "@@", " ", "values"}]}], "}"}]}]}], "\n", 
+      "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "stableMultiplicityRowsForParticle", "[", "particle_String", "]"}], " ", 
+     ":=", "\n", "  ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"multiplicityPairedRow", "[", 
+        RowBox[{"particle", ",", " ", "#"}], "]"}], " ", "&"}], " ", "/@", 
+      " ", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Primordial\>\"", ",", " ", "\"\<Correction\>\"", ",", 
+        " ", "\"\<Total\>\""}], "}"}]}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "stableMultiplicityTableForParticle", "[", "particle_String", "]"}], " ",
+      ":=", " ", 
+     RowBox[{"ytGrid", " ", "@", " ", 
+      RowBox[{"Prepend", "[", "\n", "  ", 
+       RowBox[{
+        RowBox[{"stableMultiplicityRowsForParticle", "[", "particle", "]"}], ",",
+         "\n", "  ", "multiplicityHeader"}], "\n", "]"}]}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"StableParticleMultiplicityRowsByParticle", " ", "=", " ", 
+     RowBox[{"Association", " ", "@", " ", 
+      RowBox[{"Table", "[", "\n", "  ", 
+       RowBox[{
+        RowBox[{"particle", " ", "->", " ", 
+         RowBox[{
+         "stableMultiplicityRowsForParticle", "[", "particle", "]"}]}], ",", 
+        "\n", "  ", 
+        RowBox[{"{", 
+         RowBox[{"particle", ",", " ", 
+          RowBox[{"{", 
+           
+           RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<PionPlus\>\"", ",", 
+            " ", "\"\<PionMinus\>\""}], "}"}]}], "}"}]}], "\n", "]"}]}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"StableParticleMultiplicityTablesByParticle", " ", "=", " ", 
+     RowBox[{"Association", " ", "@", " ", 
+      RowBox[{"Table", "[", "\n", "  ", 
+       RowBox[{
+        RowBox[{"particle", " ", "->", " ", 
+         RowBox[{
+         "stableMultiplicityTableForParticle", "[", "particle", "]"}]}], ",", 
+        "\n", "  ", 
+        RowBox[{"{", 
+         RowBox[{"particle", ",", " ", 
+          RowBox[{"{", 
+           
+           RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<PionPlus\>\"", ",", 
+            " ", "\"\<PionMinus\>\""}], "}"}]}], "}"}]}], "\n", "]"}]}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"StableParticleMultiplicityRows", " ", "=", " ", 
+     RowBox[{"Flatten", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Table", "[", "\n", "    ", 
+        RowBox[{
+         RowBox[{"With", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"particle", " ", "=", " ", "particle"}], ",", " ", 
+             RowBox[{"contribution", " ", "=", " ", "contribution"}]}], "}"}],
+            ",", "\n", "      ", 
+           RowBox[{"Join", "[", 
+            RowBox[{
+             RowBox[{"{", "particle", "}"}], ",", " ", 
+             RowBox[{"multiplicityPairedRow", "[", 
+              RowBox[{"particle", ",", " ", "contribution"}], "]"}]}], 
+            "]"}]}], "\n", "    ", "]"}], ",", "\n", "    ", 
+         RowBox[{"{", 
+          RowBox[{"particle", ",", " ", 
+           RowBox[{"{", 
+            
+            RowBox[{"\"\<Proton\>\"", ",", " ", "\"\<PionPlus\>\"", ",", 
+             " ", "\"\<PionMinus\>\""}], "}"}]}], "}"}], ",", "\n", "    ", 
+         RowBox[{"{", 
+          RowBox[{"contribution", ",", " ", 
+           RowBox[{"{", 
+            
+            RowBox[{"\"\<Primordial\>\"", ",", " ", "\"\<Correction\>\"", ",",
+              " ", "\"\<Total\>\""}], "}"}]}], "}"}]}], "\n", "  ", "]"}], ",",
+        "\n", "  ", "1"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"StableParticleMultiplicityTable", " ", "=", " ", 
+     RowBox[{"ytGrid", " ", "@", " ", 
+      RowBox[{"Prepend", "[", "\n", "  ", 
+       RowBox[{"StableParticleMultiplicityRows", ",", "\n", "  ", 
+        RowBox[{"Join", "[", 
+         RowBox[{
+          RowBox[{"{", "\"\<Particle\>\"", "}"}], ",", " ", 
+          "multiplicityHeader"}], "]"}]}], "\n", "]"}]}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"ProtonMultiplicityTable", " ", "=", " ", 
+     RowBox[{
+     "StableParticleMultiplicityTablesByParticle", "[", "\"\<Proton\>\"", 
+      "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionPlusMultiplicityTable", " ", "=", " ", 
+     RowBox[{
+     "StableParticleMultiplicityTablesByParticle", "[", "\"\<PionPlus\>\"", 
+      "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"PionMinusMultiplicityTable", " ", "=", " ", 
+     RowBox[{
+     "StableParticleMultiplicityTablesByParticle", "[", "\"\<PionMinus\>\"", 
+      "]"}]}], ";"}], "\n"}]}]], "Input",
+ CellLabel->
+  "In[639]:=",ExpressionUUID->"fb3a289f-294c-e04c-999f-d898669114c3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"6.", " ", "MASS"}], "-", 
+    RowBox[{"DISTRIBUTION", " ", "NORMALIZATION", " ", "CHECK"}]}], 
+   "                     ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", 
+     RowBox[{
+     "ytDensityFunction", ",", " ", "ytMassNormIntegral", ",", " ", 
+      "MassNormalizationTable", ",", " ", "FailedMassNormalizationTable"}], 
+     "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytDensityFunction", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Dirac\>\""}], "]"}], " ", ":=",
+      " ", "None"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytDensityFunction", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Dirac\>\""}], "]"}], " ", ":=",
+      " ", "None"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytDensityFunction", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<BW\>\""}], "]"}], " ", ":=", 
+     " ", "rhoBWVacuum"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytDensityFunction", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<BW\>\""}], "]"}], " ", ":=", 
+     " ", "rhoBWFitted"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytDensityFunction", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<Cugnon\>\""}], "]"}], " ", ":=",
+      " ", "rhoCugnonVacuum"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytDensityFunction", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<Cugnon\>\""}], "]"}], " ", ":=",
+      " ", "rhoCugnonFitted"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytDensityFunction", "[", 
+      RowBox[{"\"\<Vacuum\>\"", ",", " ", "\"\<PhaseShift\>\""}], "]"}], " ", 
+     ":=", " ", "rhoPhaseShiftVacuum"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytDensityFunction", "[", 
+      RowBox[{"\"\<Fitted\>\"", ",", " ", "\"\<PhaseShift\>\""}], "]"}], " ", 
+     ":=", " ", "rhoPhaseShiftFitted"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ytMassNormIntegral", "[", 
+      RowBox[{"mode_String", ",", " ", "label_String"}], "]"}], " ", ":=", 
+     " ", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"rho", ",", " ", "res"}], "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"label", " ", "===", " ", "\"\<Dirac\>\""}], ",", " ", 
+          RowBox[{"Return", "[", "1.", "]"}]}], "]"}], ";", "\n", "\n", "  ", 
+        
+        RowBox[{"rho", " ", "=", " ", 
+         RowBox[{"ytDensityFunction", "[", 
+          RowBox[{"mode", ",", " ", "label"}], "]"}]}], ";", "\n", "\n", "  ", 
+        RowBox[{"res", " ", "=", " ", 
+         RowBox[{"Quiet", " ", "@", " ", 
+          RowBox[{"Check", "[", "\n", "    ", 
+           RowBox[{
+            RowBox[{"NIntegrate", "[", "\n", "      ", 
+             RowBox[{
+              RowBox[{"rho", "[", 
+               RowBox[{"M", ",", " ", "mp", ",", " ", "mpi"}], "]"}], ",", 
+              "\n", "      ", 
+              RowBox[{"{", 
+               RowBox[{"M", ",", " ", 
+                RowBox[{"mp", " ", "+", " ", "mpi"}], ",", " ", "bwMassMax"}],
+                "}"}], ",", "\n", "      ", 
+              RowBox[{"Method", " ", "->", " ", "nIntegrateMethod"}], ",", 
+              "\n", "      ", 
+              RowBox[{"WorkingPrecision", " ", "->", " ", "wpInt"}], ",", 
+              "\n", "      ", 
+              RowBox[{"MaxRecursion", " ", "->", " ", "maxRecInt"}]}], "\n", 
+             "    ", "]"}], ",", "\n", "    ", 
+            RowBox[{"Missing", "[", "\"\<Failed\>\"", "]"}]}], "\n", "  ", 
+           "]"}]}]}], ";", "\n", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"ytFiniteNumberQ", "[", "res", "]"}], ",", " ", 
+          RowBox[{"N", "[", "res", "]"}], ",", " ", 
+          RowBox[{"Missing", "[", "\"\<NonNumeric\>\"", "]"}]}], "]"}]}]}], 
+      "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"MassNormalizationRows", " ", "=", " ", 
+     RowBox[{"{", "\n", "  ", 
+      RowBox[{"Join", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<Integral over [mp+mpi,bwMassMax]\>\"", ",", 
+          " ", "\"\<1\>\""}], "}"}], ",", "\n", "    ", 
+        RowBox[{"Map", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"ytMassNormIntegral", "[", 
+            RowBox[{
+             RowBox[{"#", "[", 
+              RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}]}], "]"}], " ", "&"}], ",", " ", 
+          "ytColumnPairs"}], "]"}]}], "\n", "  ", "]"}], "\n", "}"}]}], ";"}],
+    "\n", "\n", 
+   RowBox[{
+    RowBox[{"MassNormalizationTable", " ", "=", " ", 
+     RowBox[{"ytGrid", " ", "@", " ", 
+      RowBox[{"Prepend", "[", "\n", "  ", 
+       RowBox[{"MassNormalizationRows", ",", "\n", "  ", 
+        RowBox[{"ytModelModeHeader", "[", 
+         RowBox[{"{", 
+          RowBox[{"\"\<Test\>\"", ",", " ", "\"\<Expected\>\""}], "}"}], 
+         "]"}]}], "\n", "]"}]}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"MassNormalizationStatusRows", " ", "=", " ", 
+     RowBox[{"Flatten", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Table", "[", "\n", "    ", 
+        RowBox[{
+         RowBox[{"Module", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"val", " ", "=", " ", 
+             RowBox[{"ytMassNormIntegral", "[", 
+              RowBox[{"mode", ",", " ", "label"}], "]"}]}], "}"}], ",", "\n", 
+           "      ", 
+           RowBox[{"{", 
+            RowBox[{
+            "label", ",", " ", "mode", ",", " ", "\"\<1\>\"", ",", " ", "val",
+              ",", " ", 
+             RowBox[{"ytStatus", "[", 
+              RowBox[{"val", ",", " ", "1."}], "]"}]}], "}"}]}], "\n", "    ",
+           "]"}], ",", "\n", "    ", 
+         RowBox[{"{", 
+          RowBox[{"label", ",", " ", "ytModelLabels"}], "}"}], ",", "\n", 
+         "    ", 
+         RowBox[{"{", 
+          RowBox[{"mode", ",", " ", "ytModes"}], "}"}]}], "\n", "  ", "]"}], ",",
+        "\n", "  ", "1"}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"FailedMassNormalizationRows", " ", "=", " ", 
+     RowBox[{"Select", "[", 
+      RowBox[{"MassNormalizationStatusRows", ",", " ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Last", "[", "#", "]"}], " ", "=!=", " ", "\"\<OK\>\""}], 
+        " ", "&"}]}], "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"FailedMassNormalizationTable", " ", "=", " ", 
+     RowBox[{"ytGrid", " ", "@", " ", 
+      RowBox[{"Prepend", "[", "\n", "  ", 
+       RowBox[{"FailedMassNormalizationRows", ",", "\n", "  ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Mass distribution\>\"", ",", " ", "\"\<Mode\>\"", ",", 
+          " ", "\"\<Expected\>\"", ",", 
+          " ", "\"\<Integral over [mp+mpi,bwMassMax]\>\"", ",", 
+          " ", "\"\<Status\>\""}], "}"}]}], "\n", "]"}]}]}], ";"}], 
+   "\n"}]}]], "Input",
+ CellLabel->
+  "In[661]:=",ExpressionUUID->"9eb7de7c-1bf9-2d41-8270-62c44dd8910f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"7.", " ", "PRINT", " ", "SUMMARY", " ", "OUTPUTS"}], 
+   "                                     ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "===", "===", "===", "===", "===", "===", "===", "===", "===", "===", "===",
+     "===", "===", "===", "===", "===", "===", "===", "===", "==="}], " ", 
+   "*)"}], "\n", "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Print", "[", "\"\<Yield tests: D++ -> p pi+\>\"", "]"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "YieldTestDppTable", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "\"\<Yield tests: D+ -> p pi0 / n pi+\>\"", "]"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "YieldTestDpTable", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "\"\<Yield tests: D0 -> n pi0 / p pi-\>\"", "]"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "YieldTestD0Table", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "\"\<Yield tests: D- -> n pi-\>\"", "]"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "YieldTestDmTable", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+    "Print", "[", "\"\<Stable-particle multiplicities: proton\>\"", "]"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "ProtonMultiplicityTable", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+    "Print", "[", "\"\<Stable-particle multiplicities: pi+\>\"", "]"}], ";"}],
+    "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "PionPlusMultiplicityTable", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{
+    "Print", "[", "\"\<Stable-particle multiplicities: pi-\>\"", "]"}], ";"}],
+    "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "PionMinusMultiplicityTable", "]"}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "\"\<Mass-distribution normalization:\>\"", "]"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "MassNormalizationTable", "]"}], ";"}], "\n", "\n", 
+   
+   RowBox[{
+    RowBox[{"Print", "[", "\"\<Yield Test finished.\>\"", "]"}], ";"}], "\n", 
+   
+   RowBox[{
+    RowBox[{
+    "Print", "[", "\"\<Main outputs: YieldTestTablesByDecayChannel, \
+StableParticleMultiplicityTablesByParticle, StableParticleMultiplicityTable, \
+FailedYieldTestTablesByDecayChannel, MassNormalizationTable.\>\"", "]"}], 
+    ";"}]}]}]], "Input",
+ CellLabel->
+  "In[676]:=",ExpressionUUID->"3c38017d-f984-3440-b335-bb546e565761"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"Yield tests: D++ -> p pi+\"\>"], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.9888560708469563`*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"873d5cca-01b6-384d-9b21-b403cd69be72"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Test\"\>", "\<\"Expected\"\>", "\<\"Dirac Vacuum\"\>", "\<\"Dirac \
+Fitted\"\>", "\<\"BW Vacuum\"\>", "\<\"BW Fitted\"\>", "\<\"Cugnon \
+Vacuum\"\>", "\<\"Cugnon Fitted\"\>", "\<\"PhaseShift Vacuum\"\>", \
+"\<\"PhaseShift Fitted\"\>"},
+    {"\<\"gN N_p / N_D\"\>", "\<\"1\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.422\"\>",
+        ShowStringCharacters->False],
+       1.4222073044005412`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.422\"\>",
+        ShowStringCharacters->False],
+       1.4222073044005412`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.211\"\>",
+        ShowStringCharacters->False],
+       1.211173662913738,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.117\"\>",
+        ShowStringCharacters->False],
+       1.1170889981105707`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.406\"\>",
+        ShowStringCharacters->False],
+       1.406212165493381,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.382\"\>",
+        ShowStringCharacters->False],
+       1.3815125323765438`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.395\"\>",
+        ShowStringCharacters->False],
+       1.3952229044173103`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.381\"\>",
+        ShowStringCharacters->False],
+       1.381335249847666,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"gPi N_pi / N_D\"\>", "\<\"1\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.445\"\>",
+        ShowStringCharacters->False],
+       1.445467751128515,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.445\"\>",
+        ShowStringCharacters->False],
+       1.445467751128515,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.222\"\>",
+        ShowStringCharacters->False],
+       1.221964141527146,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.119\"\>",
+        ShowStringCharacters->False],
+       1.1193629451256373`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.434\"\>",
+        ShowStringCharacters->False],
+       1.4344841181651662`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.395\"\>",
+        ShowStringCharacters->False],
+       1.395103480129076,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.420\"\>",
+        ShowStringCharacters->False],
+       1.4199806977699425`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.413\"\>",
+        ShowStringCharacters->False],
+       1.4131894119303636`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Center}}},
+   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.9888560708519974`*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"e2df4cc2-6d05-6b4c-b1be-f269668fd93e"],
+
+Cell[BoxData["\<\"Yield tests: D+ -> p pi0 / n pi+\"\>"], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.9888560708549976`*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"f5e578c5-6444-5f47-877c-8676880fba77"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Test\"\>", "\<\"Expected\"\>", "\<\"Dirac Vacuum\"\>", "\<\"Dirac \
+Fitted\"\>", "\<\"BW Vacuum\"\>", "\<\"BW Fitted\"\>", "\<\"Cugnon \
+Vacuum\"\>", "\<\"Cugnon Fitted\"\>", "\<\"PhaseShift Vacuum\"\>", \
+"\<\"PhaseShift Fitted\"\>"},
+    {"\<\"gN (N_p+N_n) / N_D\"\>", "\<\"1\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.422\"\>",
+        ShowStringCharacters->False],
+       1.421719589213054,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.422\"\>",
+        ShowStringCharacters->False],
+       1.421719589213054,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.191\"\>",
+        ShowStringCharacters->False],
+       1.1911713225066323`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.097\"\>",
+        ShowStringCharacters->False],
+       1.0971353190205404`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.386\"\>",
+        ShowStringCharacters->False],
+       1.3858380809230062`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.355\"\>",
+        ShowStringCharacters->False],
+       1.354722673351113,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.374\"\>",
+        ShowStringCharacters->False],
+       1.3736138428514697`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.359\"\>",
+        ShowStringCharacters->False],
+       1.3589807168374366`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"gN N_p / N_D\"\>", "\<\"2/3\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.948\"\>",
+        ShowStringCharacters->False],
+       0.9476666984508804,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.948\"\>",
+        ShowStringCharacters->False],
+       0.9476666984508804,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.805\"\>",
+        ShowStringCharacters->False],
+       0.8054457438494504,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.746\"\>",
+        ShowStringCharacters->False],
+       0.7462995642925786,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.934\"\>",
+        ShowStringCharacters->False],
+       0.9343226099191634,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.920\"\>",
+        ShowStringCharacters->False],
+       0.919563326367325,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.928\"\>",
+        ShowStringCharacters->False],
+       0.9280547053251994,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.919\"\>",
+        ShowStringCharacters->False],
+       0.9194721765650432,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"gN N_n / N_D\"\>", "\<\"1/3\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.474\"\>",
+        ShowStringCharacters->False],
+       0.47405289076217383`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.474\"\>",
+        ShowStringCharacters->False],
+       0.47405289076217383`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.386\"\>",
+        ShowStringCharacters->False],
+       0.3857255786571818,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.351\"\>",
+        ShowStringCharacters->False],
+       0.35083575472796175`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.452\"\>",
+        ShowStringCharacters->False],
+       0.4515154710038429,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.435\"\>",
+        ShowStringCharacters->False],
+       0.43515934698378816`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.446\"\>",
+        ShowStringCharacters->False],
+       0.44555913752627035`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.440\"\>",
+        ShowStringCharacters->False],
+       0.43950854027239333`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"gPi N_pi / N_D\"\>", "\<\"1\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.417\"\>",
+        ShowStringCharacters->False],
+       1.4173105579822496`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.417\"\>",
+        ShowStringCharacters->False],
+       1.4173105579822496`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.014\"\>",
+        ShowStringCharacters->False],
+       1.0141096378057557`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.815\"\>",
+        ShowStringCharacters->False],
+       0.8148337454337389,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.364\"\>",
+        ShowStringCharacters->False],
+       1.363911570324887,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.020\"\>",
+        ShowStringCharacters->False],
+       1.0199850461809428`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.287\"\>",
+        ShowStringCharacters->False],
+       1.2866027046783663`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.039\"\>",
+        ShowStringCharacters->False],
+       1.0385489885585315`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Center}}},
+   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.9888560708615055`*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"14e2c1c3-1629-a443-a01b-2e4bc5c400e0"],
+
+Cell[BoxData["\<\"Yield tests: D0 -> n pi0 / p pi-\"\>"], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.988856070864506*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"bc50f8a4-c3e4-a14e-86b6-531241221943"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Test\"\>", "\<\"Expected\"\>", "\<\"Dirac Vacuum\"\>", "\<\"Dirac \
+Fitted\"\>", "\<\"BW Vacuum\"\>", "\<\"BW Fitted\"\>", "\<\"Cugnon \
+Vacuum\"\>", "\<\"Cugnon Fitted\"\>", "\<\"PhaseShift Vacuum\"\>", \
+"\<\"PhaseShift Fitted\"\>"},
+    {"\<\"gN (N_n+N_p) / N_D\"\>", "\<\"1\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.422\"\>",
+        ShowStringCharacters->False],
+       1.4216960206994766`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.422\"\>",
+        ShowStringCharacters->False],
+       1.4216960206994766`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.199\"\>",
+        ShowStringCharacters->False],
+       1.199469762262698,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.106\"\>",
+        ShowStringCharacters->False],
+       1.1062087240381953`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.395\"\>",
+        ShowStringCharacters->False],
+       1.3948488422604226`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.366\"\>",
+        ShowStringCharacters->False],
+       1.366388132322615,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.384\"\>",
+        ShowStringCharacters->False],
+       1.3839198898860172`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.370\"\>",
+        ShowStringCharacters->False],
+       1.3698785614207964`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"gN N_n / N_D\"\>", "\<\"2/3\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.948\"\>",
+        ShowStringCharacters->False],
+       0.9476269192326298,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.948\"\>",
+        ShowStringCharacters->False],
+       0.9476269192326298,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.806\"\>",
+        ShowStringCharacters->False],
+       0.8061211353889117,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.746\"\>",
+        ShowStringCharacters->False],
+       0.7459474672755478,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.935\"\>",
+        ShowStringCharacters->False],
+       0.9346979583876397,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.920\"\>",
+        ShowStringCharacters->False],
+       0.9200421361096301,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.929\"\>",
+        ShowStringCharacters->False],
+       0.9285131340156013,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.920\"\>",
+        ShowStringCharacters->False],
+       0.9199681861470852,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"gN N_p / N_D\"\>", "\<\"1/3\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.474\"\>",
+        ShowStringCharacters->False],
+       0.47406910146684705`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.474\"\>",
+        ShowStringCharacters->False],
+       0.47406910146684705`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.393\"\>",
+        ShowStringCharacters->False],
+       0.3933486268737863,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.360\"\>",
+        ShowStringCharacters->False],
+       0.36026125676264753`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.460\"\>",
+        ShowStringCharacters->False],
+       0.46015088387278275`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.446\"\>",
+        ShowStringCharacters->False],
+       0.44634599621298493`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.455\"\>",
+        ShowStringCharacters->False],
+       0.45540675587041596`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.450\"\>",
+        ShowStringCharacters->False],
+       0.44991037527371114`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"gPi N_pi / N_D\"\>", "\<\"1\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.419\"\>",
+        ShowStringCharacters->False],
+       1.4187087386393562`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.419\"\>",
+        ShowStringCharacters->False],
+       1.4187087386393562`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.024\"\>",
+        ShowStringCharacters->False],
+       1.0239640707518054`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.823\"\>",
+        ShowStringCharacters->False],
+       0.8230556328039901,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.374\"\>",
+        ShowStringCharacters->False],
+       1.373518920643657,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.030\"\>",
+        ShowStringCharacters->False],
+       1.0304529067867882`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.298\"\>",
+        ShowStringCharacters->False],
+       1.2976142027053852`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.049\"\>",
+        ShowStringCharacters->False],
+       1.049188197095344,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Center}}},
+   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.9888560708710136`*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"ee9c9490-a84f-1d49-836f-6fda5d781a4c"],
+
+Cell[BoxData["\<\"Yield tests: D- -> n pi-\"\>"], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.988856070874012*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"18b47188-0112-c345-88e3-7c339ac05cd9"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Test\"\>", "\<\"Expected\"\>", "\<\"Dirac Vacuum\"\>", "\<\"Dirac \
+Fitted\"\>", "\<\"BW Vacuum\"\>", "\<\"BW Fitted\"\>", "\<\"Cugnon \
+Vacuum\"\>", "\<\"Cugnon Fitted\"\>", "\<\"PhaseShift Vacuum\"\>", \
+"\<\"PhaseShift Fitted\"\>"},
+    {"\<\"gN N_n / N_D\"\>", "\<\"1\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.422\"\>",
+        ShowStringCharacters->False],
+       1.4221586722865216`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.422\"\>",
+        ShowStringCharacters->False],
+       1.4221586722865216`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.212\"\>",
+        ShowStringCharacters->False],
+       1.2121862987667458`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.116\"\>",
+        ShowStringCharacters->False],
+       1.1164073045241785`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.407\"\>",
+        ShowStringCharacters->False],
+       1.4067038127142293`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.382\"\>",
+        ShowStringCharacters->False],
+       1.3822348296287719`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.396\"\>",
+        ShowStringCharacters->False],
+       1.39587456553708,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.382\"\>",
+        ShowStringCharacters->False],
+       1.3820768497497682`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"gPi N_pi / N_D\"\>", "\<\"1\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.436\"\>",
+        ShowStringCharacters->False],
+       1.4355386369739336`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.436\"\>",
+        ShowStringCharacters->False],
+       1.4355386369739336`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.216\"\>",
+        ShowStringCharacters->False],
+       1.216084191752671,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.115\"\>",
+        ShowStringCharacters->False],
+       1.1150039393534368`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.433\"\>",
+        ShowStringCharacters->False],
+       1.4330345541905536`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.391\"\>",
+        ShowStringCharacters->False],
+       1.3912189088492186`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.418\"\>",
+        ShowStringCharacters->False],
+       1.4184253167422838`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.411\"\>",
+        ShowStringCharacters->False],
+       1.4110046238267921`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Center}}},
+   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.9888560708770103`*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"82ded8fd-a475-5e46-b778-7afddc110979"],
+
+Cell[BoxData["\<\"Stable-particle multiplicities: proton\"\>"], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.9888560708795147`*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"afff62b5-47bf-e14b-a955-82a538ec01c5"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Contribution\"\>", "\<\"Dirac Vacuum\"\>", "\<\"Dirac Fitted\"\>", \
+"\<\"BW Vacuum\"\>", "\<\"BW Fitted\"\>", "\<\"Cugnon Vacuum\"\>", \
+"\<\"Cugnon Fitted\"\>", "\<\"PhaseShift Vacuum\"\>", "\<\"PhaseShift \
+Fitted\"\>"},
+    {"\<\"Primordial\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"117.079\"\>",
+        ShowStringCharacters->False],
+       117.07866637153545`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"117.079\"\>",
+        ShowStringCharacters->False],
+       117.07866637153545`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"117.079\"\>",
+        ShowStringCharacters->False],
+       117.07866637153545`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"117.079\"\>",
+        ShowStringCharacters->False],
+       117.07866637153545`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"117.079\"\>",
+        ShowStringCharacters->False],
+       117.07866637153545`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"117.079\"\>",
+        ShowStringCharacters->False],
+       117.07866637153545`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"117.079\"\>",
+        ShowStringCharacters->False],
+       117.07866637153545`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"117.079\"\>",
+        ShowStringCharacters->False],
+       117.07866637153545`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"Correction\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.840\"\>",
+        ShowStringCharacters->False],
+       0.8401414828007124,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.840\"\>",
+        ShowStringCharacters->False],
+       0.8401414828007124,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.423\"\>",
+        ShowStringCharacters->False],
+       1.4231698316941177`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"2.755\"\>",
+        ShowStringCharacters->False],
+       2.755389272348247,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.901\"\>",
+        ShowStringCharacters->False],
+       0.9006990145830532,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"3.018\"\>",
+        ShowStringCharacters->False],
+       3.0177958964711498`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.477\"\>",
+        ShowStringCharacters->False],
+       1.4773842719810268`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"3.003\"\>",
+        ShowStringCharacters->False],
+       3.0025922704171557`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"Total\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"117.919\"\>",
+        ShowStringCharacters->False],
+       117.91880785433617`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"117.919\"\>",
+        ShowStringCharacters->False],
+       117.91880785433617`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"118.502\"\>",
+        ShowStringCharacters->False],
+       118.50183620322957`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"119.834\"\>",
+        ShowStringCharacters->False],
+       119.8340556438837,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"117.979\"\>",
+        ShowStringCharacters->False],
+       117.9793653861185,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"120.096\"\>",
+        ShowStringCharacters->False],
+       120.0964622680066,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"118.556\"\>",
+        ShowStringCharacters->False],
+       118.55605064351647`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"120.081\"\>",
+        ShowStringCharacters->False],
+       120.0812586419526,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Center}}},
+   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.9888560708845234`*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"a7245bc3-ea1d-6741-b0e7-4c0e0439a8d5"],
+
+Cell[BoxData["\<\"Stable-particle multiplicities: pi+\"\>"], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.9888560708875217`*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"da6c5d59-2b0b-d546-9521-dc191ace70ec"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Contribution\"\>", "\<\"Dirac Vacuum\"\>", "\<\"Dirac Fitted\"\>", \
+"\<\"BW Vacuum\"\>", "\<\"BW Fitted\"\>", "\<\"Cugnon Vacuum\"\>", \
+"\<\"Cugnon Fitted\"\>", "\<\"PhaseShift Vacuum\"\>", "\<\"PhaseShift \
+Fitted\"\>"},
+    {"\<\"Primordial\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"7.407\"\>",
+        ShowStringCharacters->False],
+       7.407117407317466,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"7.407\"\>",
+        ShowStringCharacters->False],
+       7.407117407317466,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"7.407\"\>",
+        ShowStringCharacters->False],
+       7.407117407317466,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"7.407\"\>",
+        ShowStringCharacters->False],
+       7.407117407317466,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"7.407\"\>",
+        ShowStringCharacters->False],
+       7.407117407317466,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"7.407\"\>",
+        ShowStringCharacters->False],
+       7.407117407317466,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"7.407\"\>",
+        ShowStringCharacters->False],
+       7.407117407317466,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"7.407\"\>",
+        ShowStringCharacters->False],
+       7.407117407317466,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"Correction\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.994\"\>",
+        ShowStringCharacters->False],
+       0.9939372522841958,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"0.994\"\>",
+        ShowStringCharacters->False],
+       0.9939372522841958,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.647\"\>",
+        ShowStringCharacters->False],
+       1.646680866299663,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"3.148\"\>",
+        ShowStringCharacters->False],
+       3.1480452804264143`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.059\"\>",
+        ShowStringCharacters->False],
+       1.0585920897892511`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"3.483\"\>",
+        ShowStringCharacters->False],
+       3.4829101984283612`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.728\"\>",
+        ShowStringCharacters->False],
+       1.7282430993198556`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"3.525\"\>",
+        ShowStringCharacters->False],
+       3.5247258936697055`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"Total\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"8.401\"\>",
+        ShowStringCharacters->False],
+       8.401054659601662,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"8.401\"\>",
+        ShowStringCharacters->False],
+       8.401054659601662,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"9.054\"\>",
+        ShowStringCharacters->False],
+       9.05379827361713,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"10.555\"\>",
+        ShowStringCharacters->False],
+       10.55516268774388,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"8.466\"\>",
+        ShowStringCharacters->False],
+       8.465709497106717,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"10.890\"\>",
+        ShowStringCharacters->False],
+       10.890027605745829`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"9.135\"\>",
+        ShowStringCharacters->False],
+       9.135360506637323,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"10.932\"\>",
+        ShowStringCharacters->False],
+       10.931843300987172`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Center}}},
+   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.9888560708920326`*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"12916786-1452-e741-960d-b0a48b6c7944"],
+
+Cell[BoxData["\<\"Stable-particle multiplicities: pi-\"\>"], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.98885607089554*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"ddf6ee3e-636f-7c42-9a8e-ae1adb0d3089"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Contribution\"\>", "\<\"Dirac Vacuum\"\>", "\<\"Dirac Fitted\"\>", \
+"\<\"BW Vacuum\"\>", "\<\"BW Fitted\"\>", "\<\"Cugnon Vacuum\"\>", \
+"\<\"Cugnon Fitted\"\>", "\<\"PhaseShift Vacuum\"\>", "\<\"PhaseShift \
+Fitted\"\>"},
+    {"\<\"Primordial\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"13.079\"\>",
+        ShowStringCharacters->False],
+       13.078762570631403`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"13.079\"\>",
+        ShowStringCharacters->False],
+       13.078762570631403`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"13.079\"\>",
+        ShowStringCharacters->False],
+       13.078762570631403`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"13.079\"\>",
+        ShowStringCharacters->False],
+       13.078762570631403`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"13.079\"\>",
+        ShowStringCharacters->False],
+       13.078762570631403`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"13.079\"\>",
+        ShowStringCharacters->False],
+       13.078762570631403`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"13.079\"\>",
+        ShowStringCharacters->False],
+       13.078762570631403`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"13.079\"\>",
+        ShowStringCharacters->False],
+       13.078762570631403`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"Correction\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"2.015\"\>",
+        ShowStringCharacters->False],
+       2.014748005108532,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"2.015\"\>",
+        ShowStringCharacters->False],
+       2.014748005108532,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"3.325\"\>",
+        ShowStringCharacters->False],
+       3.324622214165564,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"6.350\"\>",
+        ShowStringCharacters->False],
+       6.349646962790192,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"2.142\"\>",
+        ShowStringCharacters->False],
+       2.1417932605531895`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"7.029\"\>",
+        ShowStringCharacters->False],
+       7.028835111200863,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"3.494\"\>",
+        ShowStringCharacters->False],
+       3.494231581829822,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"7.122\"\>",
+        ShowStringCharacters->False],
+       7.122039589280956,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]},
+    {"\<\"Total\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"15.094\"\>",
+        ShowStringCharacters->False],
+       15.093510575739934`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"15.094\"\>",
+        ShowStringCharacters->False],
+       15.093510575739934`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"16.403\"\>",
+        ShowStringCharacters->False],
+       16.403384784796966`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"19.428\"\>",
+        ShowStringCharacters->False],
+       19.428409533421593`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"15.221\"\>",
+        ShowStringCharacters->False],
+       15.220555831184592`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"20.108\"\>",
+        ShowStringCharacters->False],
+       20.107597681832267`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"16.573\"\>",
+        ShowStringCharacters->False],
+       16.572994152461224`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"20.201\"\>",
+        ShowStringCharacters->False],
+       20.200802159912357`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Center}}},
+   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.9888560709010487`*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"ce6d21a1-41ed-5949-ba07-6903d4428688"],
+
+Cell[BoxData["\<\"Mass-distribution normalization:\"\>"], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.988856070904049*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"df523b49-df7d-b647-bc61-74b3ee22f72b"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Test\"\>", "\<\"Expected\"\>", "\<\"Dirac Vacuum\"\>", "\<\"Dirac \
+Fitted\"\>", "\<\"BW Vacuum\"\>", "\<\"BW Fitted\"\>", "\<\"Cugnon \
+Vacuum\"\>", "\<\"Cugnon Fitted\"\>", "\<\"PhaseShift Vacuum\"\>", \
+"\<\"PhaseShift Fitted\"\>"},
+    {"\<\"Integral over [mp+mpi,bwMassMax]\"\>", "\<\"1\"\>", "\<\"1\"\>", \
+"\<\"1\"\>", 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.000\"\>",
+        ShowStringCharacters->False],
+       1.0000000007432126`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.000\"\>",
+        ShowStringCharacters->False],
+       1.000000002709817,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.000\"\>",
+        ShowStringCharacters->False],
+       1.0000000000191334`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.000\"\>",
+        ShowStringCharacters->False],
+       1.0000000041065837`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.000\"\>",
+        ShowStringCharacters->False],
+       1.000000001569416,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ], 
+     TagBox[
+      InterpretationBox[
+       StyleBox["\<\"1.000\"\>",
+        ShowStringCharacters->False],
+       1.0000000040489634`,
+       AutoDelete->True],
+      NumberForm[#, {
+        DirectedInfinity[1], 3}, ExponentFunction -> (Null& ), 
+       NumberPadding -> {"", "0"}]& ]}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Center}}},
+   GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.988856070906555*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"356e8162-92b9-de43-9d85-ebfd0fe64fea"],
+
+Cell[BoxData["\<\"Yield Test finished.\"\>"], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.988856070908556*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"c546a42e-760d-7d4f-a3fa-841150787881"],
+
+Cell[BoxData["\<\"Main outputs: YieldTestTablesByDecayChannel, \
+StableParticleMultiplicityTablesByParticle, StableParticleMultiplicityTable, \
+FailedYieldTestTablesByDecayChannel, MassNormalizationTable.\"\>"], "Print",
+ CellChangeTimes->{3.988705515001503*^9, 3.988856070911064*^9},
+ CellLabel->
+  "During evaluation of \
+In[676]:=",ExpressionUUID->"7a6ed6c0-9683-764f-8090-ceecaf603646"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1280, 732},
+WindowMargins->{{-5.5, Automatic}, {Automatic, -5.5}},
+Magnification:>1. Inherited,
+FrontEndVersion->"14.3 for Microsoft Windows (64-bit) (July 8, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"f23b543d-4b9d-3047-86b7-804fab0e351a"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[554, 20, 258, 4, 33, "Text",ExpressionUUID->"ecc83e07-19ea-4e58-b88b-9a5b0a22b0cf"],
+Cell[815, 26, 261, 4, 33, "Text",ExpressionUUID->"a229fd9b-7db8-49b7-82a8-847d74cbbe49"],
+Cell[CellGroupData[{
+Cell[1101, 34, 3386, 74, 518, "Input",ExpressionUUID->"b23cf406-d9c8-d040-b495-4e96ffe7c6f2"],
+Cell[4490, 110, 272, 5, 22, "Print",ExpressionUUID->"9b529ce3-8ee6-cd4c-9581-a298407560f8"]
+}, Open  ]],
+Cell[4777, 118, 4195, 106, 878, "Input",ExpressionUUID->"a9236311-0062-a846-b6be-0e8d3c3703ef"],
+Cell[8975, 226, 8848, 221, 2022, "Input",ExpressionUUID->"f09a13fc-9b58-5a4a-9428-042fb822ca7d"],
+Cell[17826, 449, 3976, 105, 708, "Input",ExpressionUUID->"ef0369f9-db78-b940-b3df-5ebf8e2b9390"],
+Cell[21805, 556, 9354, 231, 1020, "Input",ExpressionUUID->"e8142b02-70f9-5f47-9f86-68b81c059648"],
+Cell[31162, 789, 10606, 247, 2060, "Input",ExpressionUUID->"0c2f0708-1a1a-354d-9b61-ea1e2fb03a38"],
+Cell[41771, 1038, 12581, 312, 2357, "Input",ExpressionUUID->"fb3a289f-294c-e04c-999f-d898669114c3"],
+Cell[54355, 1352, 7440, 183, 1533, "Input",ExpressionUUID->"9eb7de7c-1bf9-2d41-8270-62c44dd8910f"],
+Cell[CellGroupData[{
+Cell[61820, 1539, 2636, 68, 911, "Input",ExpressionUUID->"3c38017d-f984-3440-b335-bb546e565761"],
+Cell[CellGroupData[{
+Cell[64481, 1611, 231, 4, 22, "Print",ExpressionUUID->"873d5cca-01b6-384d-9b21-b403cd69be72"],
+Cell[64715, 1617, 5471, 163, 58, "Print",ExpressionUUID->"e2df4cc2-6d05-6b4c-b1be-f269668fd93e"],
+Cell[70189, 1782, 238, 4, 22, "Print",ExpressionUUID->"f5e578c5-6444-5f47-877c-8676880fba77"],
+Cell[70430, 1788, 10191, 309, 91, "Print",ExpressionUUID->"14e2c1c3-1629-a443-a01b-2e4bc5c400e0"],
+Cell[80624, 2099, 236, 4, 22, "Print",ExpressionUUID->"bc50f8a4-c3e4-a14e-86b6-531241221943"],
+Cell[80863, 2105, 10194, 309, 91, "Print",ExpressionUUID->"ee9c9490-a84f-1d49-836f-6fda5d781a4c"],
+Cell[91060, 2416, 228, 4, 22, "Print",ExpressionUUID->"18b47188-0112-c345-88e3-7c339ac05cd9"],
+Cell[91291, 2422, 5480, 163, 58, "Print",ExpressionUUID->"82ded8fd-a475-5e46-b778-7afddc110979"],
+Cell[96774, 2587, 244, 4, 22, "Print",ExpressionUUID->"afff62b5-47bf-e14b-a955-82a538ec01c5"],
+Cell[97021, 2593, 7795, 236, 75, "Print",ExpressionUUID->"a7245bc3-ea1d-6741-b0e7-4c0e0439a8d5"],
+Cell[104819, 2831, 241, 4, 22, "Print",ExpressionUUID->"da6c5d59-2b0b-d546-9521-dc191ace70ec"],
+Cell[105063, 2837, 7746, 236, 75, "Print",ExpressionUUID->"12916786-1452-e741-960d-b0a48b6c7944"],
+Cell[112812, 3075, 238, 4, 22, "Print",ExpressionUUID->"ddf6ee3e-636f-7c42-9a8e-ae1adb0d3089"],
+Cell[113053, 3081, 7778, 236, 75, "Print",ExpressionUUID->"ce6d21a1-41ed-5949-ba07-6903d4428688"],
+Cell[120834, 3319, 236, 4, 22, "Print",ExpressionUUID->"df523b49-df7d-b647-bc61-74b3ee22f72b"],
+Cell[121073, 3325, 2592, 73, 42, "Print",ExpressionUUID->"356e8162-92b9-de43-9d85-ebfd0fe64fea"],
+Cell[123668, 3400, 224, 4, 22, "Print",ExpressionUUID->"c546a42e-760d-7d4f-a3fa-841150787881"],
+Cell[123895, 3406, 390, 6, 39, "Print",ExpressionUUID->"7a6ed6c0-9683-764f-8090-ceecaf603646"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
