@@ -1,0 +1,6 @@
+build*/
+output/
+*.root
+*.pcm
+*.d
+.DS_Store
