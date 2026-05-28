@@ -5,7 +5,7 @@
 
 namespace delta3d {
 
-enum class MassModel { Dirac, BreitWigner, PhaseShift };
+enum class MassModel { Dirac, BreitWigner, Cugnon, PhaseShift };
 
 enum class ParticleKind { Proton, Neutron, PiPlus, PiZero, PiMinus, DeltaPP, DeltaP, Delta0, DeltaM };
 
@@ -26,9 +26,17 @@ struct ModelConfig {
   double gamma_delta = 117.0;     // MeV
   double mass_min = 938.2720813 + 139.57039;
   double mass_max = 1500.0;
-  double alpha0_ps = 0.2010;      // Pok Man Lo phase-shift parameter placeholder; set to notebook value
-  double c1_ps = 0.5320;          // placeholder; set to notebook value
-  double c2_ps = 0.0000;          // placeholder; set to notebook value
+
+  // Cugnon-inspired p-wave line-shape parameters.  cugnon_radius is a Blatt-Weisskopf
+  // range parameter in 1/MeV units.  0 disables the barrier factor and reproduces a
+  // simple q^3 energy-dependent width.
+  double cugnon_radius = 0.0;
+
+  // Pok-Man-Lo phase-shift parameters.  Keep synchronized with the Wolfram PairFit notebook.
+  double alpha0_ps = 0.2010;
+  double c1_ps = 0.5320;
+  double c2_ps = 0.0000;
+
   int mass_grid = 240;
   int p_grid = 180;
   int r_grid = 120;
@@ -42,7 +50,7 @@ struct ModelConfig {
 
 struct RunConfig {
   std::string output_dir = "output/root3d";
-  std::vector<MassModel> mass_models{MassModel::Dirac, MassModel::BreitWigner, MassModel::PhaseShift};
+  std::vector<MassModel> mass_models{MassModel::Dirac, MassModel::BreitWigner, MassModel::Cugnon, MassModel::PhaseShift};
   std::vector<ModelConfig> parameter_sets{};
 };
 
@@ -50,6 +58,7 @@ inline const char* ToString(MassModel m) {
   switch (m) {
     case MassModel::Dirac: return "Dirac";
     case MassModel::BreitWigner: return "BW";
+    case MassModel::Cugnon: return "Cugnon";
     case MassModel::PhaseShift: return "PS";
   }
   return "Unknown";
