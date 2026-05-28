@@ -5,11 +5,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(ROOT REQUIRED COMPONENTS Core RIO Hist Tree Graf Gpad MathCore)
+find_package(ROOT REQUIRED COMPONENTS Core RIO Hist Tree Graf Gpad MathCore Minuit Graf3d)
 find_package(OpenMP)
 
 add_library(delta3d STATIC
   src/Physics.cpp
+  src/PairFit.cpp
 )
 
 target_include_directories(delta3d PUBLIC
@@ -28,4 +29,7 @@ target_link_libraries(delta3d PUBLIC ${ROOT_LIBRARIES})
 add_executable(delta3d_run apps/delta3d_run.cpp)
 target_link_libraries(delta3d_run PRIVATE delta3d)
 
-install(TARGETS delta3d_run RUNTIME DESTINATION bin)
+add_executable(pairfit_run apps/pairfit_run.cpp)
+target_link_libraries(pairfit_run PRIVATE delta3d)
+
+install(TARGETS delta3d_run pairfit_run RUNTIME DESTINATION bin)
