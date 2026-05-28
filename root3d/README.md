@@ -12,7 +12,8 @@ Implemented now:
 - stable particles: `p`, `n`, `pi+`, `pi0`, `pi-`,
 - Delta parents: `Delta++`, `Delta+`, `Delta0`, `Delta-`,
 - decay channel bookkeeping with branch factors `1`, `2/3`, `1/3`,
-- mass models: `Dirac`, relativistic `BW`, and Pok-Man-Lo-style `PS`,
+- mass models in the 3D propagation stage: `Dirac`, relativistic `BW`, and Pok-Man-Lo-style `PS`,
+- pair-spectrum fitting stage: `BW`, `Cugnon`, and `PS`,
 - normalized mass distributions on `[mN + mpi, 1500 MeV]`,
 - multiplicity tables: primordial, correction, total,
 - branch normalization tests analogous to Wolfram Yield Tests,
@@ -22,7 +23,8 @@ Implemented now:
 
 Important current limitation:
 
-- The daughter correction spectrum shape is normalized correctly to the decay correction yield, but its shape currently uses a controlled thermal proxy.  The exact Wolfram q-k-r daughter convolution must be copied into `correction_shape_mt` / `correction_shape_y` in `src/Physics.cpp` once the final current notebook cell is available.  The bookkeeping and normalization layer are already prepared for that replacement.
+- The daughter correction spectrum shape is normalized correctly to the decay correction yield, but its shape currently uses a controlled thermal proxy. The exact Wolfram q-k-r daughter convolution must be copied into `correction_shape_mt` / `correction_shape_y` in `src/Physics.cpp` once the final current notebook cell is available.
+- Cugnon is implemented in the PairFit stage and produces fitted Delta parameters. It is deliberately not enabled in the main 3D propagation list until the exact q-k-r correction kernel is ported, because otherwise the program would mix a fitted pair-mass model with an approximate daughter correction shape.
 
 ## Build
 
@@ -45,7 +47,43 @@ For the user's known FairSoft-style installation this may be similar to:
 source ~/fairsoft_nov22p4_root6/installation/bin/thisroot.sh
 ```
 
-## Run
+## PairFit: fit the p-pi+ pair mass spectrum
+
+This replaces the old assumption that fitted Delta parameters come only from the Wolfram notebook.
+
+Example for a two-column file with mass in GeV and yield in column 2:
+
+```bash
+./build-root3d/pairfit_run \
+  --input data/DeltaMass_piPlus_p_0_10_Fig2_dNdM.txt \
+  --fit-min 1100 \
+  --fit-max 1400
+```
+
+If the mass column is already in MeV:
+
+```bash
+./build-root3d/pairfit_run --input data/pair_spectrum.txt --mass-mev
+```
+
+If the file contains statistical errors:
+
+```bash
+./build-root3d/pairfit_run \
+  --input data/pair_spectrum.txt \
+  --has-errors \
+  --mass-col 0 \
+  --yield-col 1 \
+  --error-col 2
+```
+
+PairFit outputs:
+
+- `output/root3d/pairfit/pairfit_results.csv` — fitted BW, Cugnon and PS parameters with chi2/ndf,
+- `output/root3d/pairfit/fitted_config.txt` — best-fit `m_delta` and `gamma_delta` values to paste or load into the 3D stage,
+- `output/root3d/pairfit/pairfit_models.png` — data with BW/Cugnon/PS curves.
+
+## Run the 3D spectra/multiplicity pipeline
 
 Smoke test:
 
@@ -91,30 +129,28 @@ Files:
   - graphs `mt_primordial`, `mt_correction`, `mt_total`, `y_primordial`, `y_correction`, `y_total`,
 - `plots/*.png` — quick-look plots.
 
-## Where to paste fitted notebook values
+## Where to use fitted pair-spectrum values
 
-Edit `DefaultRunConfig()` in `src/Physics.cpp`:
+The pair-fit stage writes a ready summary to:
+
+```text
+output/root3d/pairfit/fitted_config.txt
+```
+
+For now, paste the chosen fit values into `DefaultRunConfig()` in `src/Physics.cpp`:
 
 ```cpp
 ModelConfig fitted = vacuum;
 fitted.tag = "fitted";
-fitted.m_delta = 1232.0;
-fitted.gamma_delta = 117.0;
+fitted.m_delta = ...;
+fitted.gamma_delta = ...;
 ```
 
-Edit phase-shift parameters in `include/Delta3D/Config.h` or assign them per parameter set in `DefaultRunConfig()`:
-
-```cpp
-double alpha0_ps = ...;
-double c1_ps = ...;
-double c2_ps = ...;
-```
-
-These are deliberately explicit because the final values should be synchronized with the Wolfram PairFit and Distributions notebooks.
+The next planned improvement is a small config reader so that `delta3d_run` can ingest `fitted_config.txt` automatically.
 
 ## Numerical strategy
 
-The old attempt parallelized too deeply and could split single expensive spectra across kernels in ways that made debugging difficult.  This rewrite parallelizes outer grid loops only:
+The old attempt parallelized too deeply and could split single expensive spectra across kernels in ways that made debugging difficult. This rewrite parallelizes outer grid loops only:
 
 - each `mT` point is independent,
 - each rapidity point is independent,
@@ -128,6 +164,7 @@ The next scientifically important step is to replace the current proxy correctio
 
 - Dirac daughter kernel with q-k-r integration,
 - BW/PS daughter kernel with outer M integration,
+- Cugnon daughter kernel using the fitted Cugnon line shape,
 - same limits `km`, `kp`, `PStar`, and branch factors as in the notebooks.
 
 The functions already exposed for this are:
