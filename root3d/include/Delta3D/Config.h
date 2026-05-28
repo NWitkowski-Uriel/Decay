@@ -27,12 +27,12 @@ struct ModelConfig {
   double mass_min = 938.2720813 + 139.57039;
   double mass_max = 1500.0;
 
-  // Cugnon-inspired p-wave line-shape parameters.  cugnon_radius is a Blatt-Weisskopf
-  // range parameter in 1/MeV units.  0 disables the barrier factor and reproduces a
-  // simple q^3 energy-dependent width.
+  // Cugnon-inspired p-wave line-shape parameter used by PairFit.
+  // The full 3D daughter-kernel propagation of the Cugnon model should be wired
+  // together with the exact q-k-r correction kernel.
   double cugnon_radius = 0.0;
 
-  // Pok-Man-Lo phase-shift parameters.  Keep synchronized with the Wolfram PairFit notebook.
+  // Pok-Man-Lo phase-shift parameters. Keep synchronized with the Wolfram PairFit notebook.
   double alpha0_ps = 0.2010;
   double c1_ps = 0.5320;
   double c2_ps = 0.0000;
@@ -50,7 +50,10 @@ struct ModelConfig {
 
 struct RunConfig {
   std::string output_dir = "output/root3d";
-  std::vector<MassModel> mass_models{MassModel::Dirac, MassModel::BreitWigner, MassModel::Cugnon, MassModel::PhaseShift};
+  // The main 3D pipeline currently runs models with implemented propagation in Physics.cpp.
+  // Cugnon is implemented in PairFit and will be enabled here after the exact q-k-r
+  // daughter kernel is ported into the 3D correction spectrum.
+  std::vector<MassModel> mass_models{MassModel::Dirac, MassModel::BreitWigner, MassModel::PhaseShift};
   std::vector<ModelConfig> parameter_sets{};
 };
 
