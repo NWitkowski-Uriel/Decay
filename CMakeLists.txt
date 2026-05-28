@@ -12,12 +12,14 @@ set(CMAKE_AUTOUIC ON)
 
 find_package(ROOT REQUIRED COMPONENTS Core RIO Hist Tree Graf Gpad)
 find_package(OpenMP REQUIRED)
-find_package(Qt5 REQUIRED COMPONENTS Widgets)
+option(BUILD_GUI "Build Qt GUI" OFF)
+if(BUILD_GUI)
+  find_package(Qt5 REQUIRED COMPONENTS Widgets)
+endif()
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
     ${ROOT_INCLUDE_DIRS}
-    ${Qt5Widgets_INCLUDE_DIRS}
 )
 
 set(LIB_SOURCES
@@ -51,16 +53,18 @@ target_link_libraries(test_decay_multiplicities DeltaLib)
 add_executable(benchmark_performance apps/benchmark_performance.cpp)
 target_link_libraries(benchmark_performance DeltaLib)
 
-# GUI
-add_executable(gui_analysis
-    gui/main.cpp
-    gui/mainwindow.cpp
-)
-target_link_libraries(gui_analysis
-    DeltaLib
-    ${ROOT_LIBRARIES}
-    OpenMP::OpenMP_CXX
-    Qt5::Widgets
-)
+if(BUILD_GUI)
+  include_directories(${Qt5Widgets_INCLUDE_DIRS})
+  add_executable(gui_analysis
+      gui/main.cpp
+      gui/mainwindow.cpp
+  )
+  target_link_libraries(gui_analysis
+      DeltaLib
+      ${ROOT_LIBRARIES}
+      OpenMP::OpenMP_CXX
+      Qt5::Widgets
+  )
+endif()
 
 message(STATUS "DeltaAnalysis project configured.")

@@ -1,11 +1,6 @@
-# DeltaAnalysis (ROOT + Qt GUI)
+# DeltaAnalysis (CERN ROOT, bez GUI)
 
-Aplikacja odtwarza fizykę z notatników Wolfram i umożliwia uruchamianie obliczeń z poziomu GUI:
-
-1. **widma pierwotne** (`compute_primordial`),
-2. **wkłady z rozpadów Δ** (`compute_delta_decays`, modele Dirac/Breit–Wigner/Phase Shift),
-3. **sumy i normalizacja** (`compute_total`),
-4. **wykresy mT i y** (`plot_mt`, `plot_rapidity`).
+Repozytorium zawiera implementację analizy z notatników Wolfram (`step3D` stabilny i `step4C` parallel) w postaci programów C++/ROOT.
 
 ## Build
 
@@ -14,43 +9,22 @@ cmake -S . -B build
 cmake --build build -j
 ```
 
-## Uruchomienie GUI
+## Główny pipeline (obliczenia + tabele + wykresy)
 
 ```bash
-cd build
-./gui_analysis
+./build/compute_spectra
 ```
 
-GUI uruchamia etapy obliczeń i zapisuje wyniki do plików ROOT (`primordial.root`, `delta.root`, `total.root`) oraz wykresy do katalogu `output/`.
+Wyniki:
+- `output/step4c_analysis.root` – drzewo `multiplicity` z tabelą wyników,
+- `output/multiplicity_table.csv` – tabela CSV,
+- `output/step4c_*_mt.pdf/png` – wykresy mT dla wszystkich stabilnych cząstek.
 
-## Uruchomienia CLI
+## Opcjonalnie GUI
 
-### 1) Widma pierwotne
+GUI jest domyślnie wyłączone. Aby je budować:
 
 ```bash
-./compute_primordial
+cmake -S . -B build -DBUILD_GUI=ON
+cmake --build build -j
 ```
-
-### 2) Rozpady Δ
-
-```bash
-./compute_delta_decays --particles=proton,piplus --model=dirac
-# --model: dirac | bw | ps | all
-```
-
-### 3) Suma + skala
-
-```bash
-./compute_total
-```
-
-### 4) Wykresy
-
-```bash
-./plot_mt --distributions=mt,ratio --particles=proton,piplus
-./plot_rapidity --distributions=rapidity,ratio --particles=proton,piplus
-```
-
-## Uwaga o zgodności z notatnikami
-
-Kod `compute_delta_decays` korzysta z pełnego zestawu funkcji dla wszystkich cząstek (`p, n, pi+, pi-, pi0`) oraz trzech modeli masy rezonansu, zgodnie z implementacją w bibliotece `DecayFunctions`.
